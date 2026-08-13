@@ -1,0 +1,18 @@
+
+> sanskarmag@0.1.0 dev
+> next dev -p 3000
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.231.143.237:3000
+✓ Ready in 2.8s
+✓ Running next.config.ts took 243ms
+Creating turbopack project {
+  dir: 'C:\\Users\\aksha\\OneDrive\\Desktop\\sanskarmag',
+  testMode: true
+}
+
+ GET / 200 in 3.5s (next.js: 1253ms, application-code: 2.2s)
+ GET / 200 in 1524ms (next.js: 373ms, application-code: 1151ms)
+ GET / 200 in 634ms (next.js: 27ms, application-code: 607ms)
+ GET / 200 in 952ms (next.js: 201ms, application-code: 751ms)

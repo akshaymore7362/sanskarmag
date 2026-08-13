@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 720">
+  <rect width="500" height="720" fill="#090d0f"/>
+  <rect x="28" y="28" width="444" height="664" fill="#141b1f" stroke="#d7a145" stroke-width="3"/>
+  <text x="250" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="46" fill="#f4f1ea">Momentum</text>
+  <text x="250" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#d7a145" letter-spacing="4">MAGAZINE</text>
+  <circle cx="250" cy="310" r="120" fill="#d7a145"/>
+  <path d="M120 510c75-120 160-178 254-174 0 0 46 76 6 174z" fill="#efe8db"/>
+  <text x="250" y="590" text-anchor="middle" font-family="Georgia, serif" font-size="38" fill="#f4f1ea">The Next</text>
+  <text x="250" y="636" text-anchor="middle" font-family="Georgia, serif" font-size="38" fill="#f4f1ea">Big Shift</text>
+</svg>

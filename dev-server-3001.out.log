@@ -1,0 +1,10 @@
+
+> sanskarmag@0.1.0 dev
+> next dev -p 3001
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.1.28:3001
+✓ Ready in 2.1s
+✓ Running next.config.ts took 287ms
+[?25h

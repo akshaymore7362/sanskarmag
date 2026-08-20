@@ -1,43 +1,116 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArticleCard } from "@/components/editorial/ArticleCard";
-import { FilterPills } from "@/components/editorial/FilterPills";
+import { Clock, Search as SearchIcon } from "lucide-react";
 import { PageIntro } from "@/components/editorial/PageIntro";
-import { searchService } from "@/services/searchService";
+import { articleService } from "@/services/articleService";
+import type { Article } from "@/types";
 
 type Props = {
   searchParams: Promise<{ q?: string }>;
 };
 
 export const metadata: Metadata = {
-  title: "Search | Momentum Magazine",
-  description: "Search Momentum Magazine stories, leaders, industries, startups, events and issues.",
+  title: "Search Results | The Success World",
+  description: "Search The Success World stories, leaders, industries, startups, events and issues.",
 };
 
+function highlightText(text: string, query: string) {
+  if (!query.trim()) return text;
+  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
+  const parts = text.split(regex);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.toLowerCase() === query.toLowerCase() ? (
+          <mark key={i} style={{ background: "#D49A24", color: "#080A10", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
+            {part}
+          </mark>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
+
 export default async function SearchPage({ searchParams }: Props) {
-  const query = (await searchParams).q ?? "";
-  const results = searchService.results(query);
+  const resolved = await searchParams;
+  const query = resolved.q ?? "";
+  const allArticles = await articleService.fetchSanityArticles();
+
+  const results = query.trim()
+    ? allArticles.filter(
+        (art) =>
+          art.title?.toLowerCase().includes(query.toLowerCase()) ||
+          art.description?.toLowerCase().includes(query.toLowerCase()) ||
+          art.category?.toLowerCase().includes(query.toLowerCase()) ||
+          art.author?.toLowerCase().includes(query.toLowerCase())
+      )
+    : allArticles;
 
   return (
-    <main className="site-shell inner-shell">
-      <PageIntro title="Search" intro="Find stories, leaders, industries, startups, events and magazine issues." eyebrow="Discovery" />
-      <form className="search-strip">
-        <input name="q" defaultValue={query} placeholder="Search Momentum Magazine" />
-        <button>Search</button>
-      </form>
-      <FilterPills items={["Articles", "Leaders", "Industries", "Startups", "Events", "Magazine"]} />
-      <section className="related-section">
-        <h2>Article Results</h2>
-        <div className="article-grid article-grid-four">
-          {results.articles.map((article) => <ArticleCard article={article} compact key={article.slug} />)}
-        </div>
-      </section>
-      <section className="search-results-grid">
-        <div><h2>Leaders</h2>{results.leaders.map((item) => <Link href={`/leaders/${item.slug}`} key={item.slug}>{item.name}<span>{item.role}, {item.company}</span></Link>)}</div>
-        <div><h2>Industries</h2>{results.industries.map((item) => <Link href={`/industries/${item.slug}`} key={item.slug}>{item.name}<span>{item.descriptor}</span></Link>)}</div>
-        <div><h2>Startups</h2>{results.startups.map((item) => <Link href="/startups" key={item.slug}>{item.name}<span>{item.sector}, {item.stage}</span></Link>)}</div>
-        <div><h2>Events</h2>{results.events.map((item) => <Link href={`/events/${item.slug}`} key={item.slug}>{item.title}<span>{item.date}</span></Link>)}</div>
-      </section>
+    <main className="site-shell inner-shell" style={{ background: "#F7F5F0", minHeight: "100vh", paddingBottom: "60px" }}>
+      <PageIntro
+        title="Search Results"
+        intro={`Found ${results.length} result(s) for "${query || "all content"}"`}
+        eyebrow="Search Engine"
+      />
+
+      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+        {/* Search Form */}
+        <form action="/search" style={{ marginBottom: "32px" }}>
+          <div style={{ display: "flex", gap: "12px", background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "12px", padding: "10px 16px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+            <SearchIcon size={20} style={{ color: "#D49A24", alignSelf: "center" }} />
+            <input
+              name="q"
+              defaultValue={query}
+              placeholder="Search stories, topics, executives..."
+              style={{ flex: 1, border: "none", outline: "none", fontSize: "16px", background: "none" }}
+            />
+            <button type="submit" className="btn btn-gold-gradient btn-sm">
+              Search
+            </button>
+          </div>
+        </form>
+
+        {/* Results Grid */}
+        <section style={{ marginBottom: "48px" }}>
+          {results.length > 0 ? (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
+              {results.map((article, idx) => (
+                <article key={article.slug || String(idx)} style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "14px", padding: "18px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+                  {article.image && (
+                    <div style={{ position: "relative", height: "160px", borderRadius: "8px", overflow: "hidden", marginBottom: "12px" }}>
+                      <Image src={article.image} alt={article.title} fill className="object-cover" unoptimized />
+                    </div>
+                  )}
+                  <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#D49A24" }}>
+                    {highlightText(article.category || "Article", query)}
+                  </span>
+                  <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#17151C", margin: "6px 0 8px", lineHeight: 1.3 }}>
+                    <Link href={`/blogs/${article.slug}`}>
+                      {highlightText(article.title, query)}
+                    </Link>
+                  </h3>
+                  <p style={{ fontSize: "13px", color: "#77727D", lineHeight: 1.5, marginBottom: "12px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                    {highlightText(article.description || "", query)}
+                  </p>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#77727D" }}>
+                    <Clock size={12} />
+                    <span>{article.readTime}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: "center", padding: "60px 20px", background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "16px" }}>
+              <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#17151C" }}>No Matching Stories Found</h3>
+              <p style={{ color: "#77727D", marginTop: "8px" }}>Try searching for generic terms like "AI", "Technology", "Economy", or "Leadership".</p>
+            </div>
+          )}
+        </section>
+      </div>
     </main>
   );
 }

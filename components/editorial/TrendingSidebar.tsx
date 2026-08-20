@@ -8,7 +8,7 @@ export function TrendingSidebar() {
       <h2>Trending Now</h2>
       {articleService.trending().map((article, index) => (
         <Link href={`/articles/${article.slug}`} key={article.slug} className="sidebar-story">
-          <Image src={article.image} alt={article.imageAlt} width={82} height={58} style={{ width: 82, height: 58 }} />
+          <Image src={article.image} alt={article.imageAlt || article.title} width={82} height={58} style={{ width: 82, height: 58 }} />
           <span>{String(index + 1).padStart(2, "0")}</span>
           <div>
             <h3>{article.title}</h3>

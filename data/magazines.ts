@@ -15,7 +15,7 @@ const storyTitles = [
 ];
 
 const issueSeeds = [
-  ["Issue 24", "may-2026-next-big-shift", "May 2026", "The Next Big Shift", "Leadership, technology, strategy and the future of business.", magazinePhotos[0]],
+  ["Issue 24", "may-2026-next-big-shift", "May 2026", "The Next Big Shift", "Leadership, technology, strategy and the future of business.", "/images/magazine/current-cover.jpg"],
   ["Issue 23", "april-2026-resilient-growth", "April 2026", "Resilient Growth", "How disciplined companies create durable momentum.", magazinePhotos[1]],
   ["Issue 22", "march-2026-ai-operating-system", "March 2026", "The AI Operating System", "Boards, builders and operators enter the applied intelligence era.", magazinePhotos[2]],
   ["Issue 21", "february-2026-founder-energy", "February 2026", "Founder Energy", "Inside the leaner, sharper startup economy.", magazinePhotos[3]],
@@ -58,7 +58,7 @@ export const magazineIssues: MagazineIssue[] = issueSeeds.map((seed, index) => {
     title,
     subtitle,
     cover,
-    coverAlt: `${title} magazine cover for Momentum Magazine`,
+    coverAlt: `${title} magazine cover for The Success World`,
     contents: stories.slice(0, 5).map((story) => story.title),
     description: `${subtitle} This issue brings together field reporting, executive interviews and practical frameworks for leaders navigating change.`,
     stories,

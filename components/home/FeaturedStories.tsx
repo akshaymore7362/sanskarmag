@@ -1,51 +1,63 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Play } from "lucide-react";
+import Link from "next/link";
 import { articleService } from "@/services/articleService";
-import { trending } from "@/data/trending";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import type { Article } from "@/types";
 
 export function FeaturedStories() {
-  const feature = articleService.featured();
-  const secondary = articleService.secondary();
+  const [feature, setFeature] = useState<Article | null>(null);
+
+  useEffect(() => {
+    articleService.fetchSanityArticles().then((items) => {
+      if (items && items.length > 0) {
+        const featuredItems = items.filter((a: any) => a.featured || a.homePlacement?.featured);
+        setFeature(featuredItems[0] || items[0]);
+      }
+    });
+  }, []);
+
+  if (!feature) return null;
 
   return (
-    <section className="featured section-light">
-      <div className="feature-left">
-        <SectionHeading title="Featured Stories" linkText="View All Stories" />
-        <article className="feature-card">
-          <Image src={feature.image} alt="" fill className="object-cover" />
+    <section className="section">
+      <div className="section-label">Editor's Pick</div>
+      <div className="featured-strip">
+        <div className="featured-strip-img">
+          {feature.image && (
+            <Image
+              src={feature.image}
+              alt={feature.title}
+              width={600}
+              height={420}
+              className="featured-strip-src"
+              unoptimized
+            />
+          )}
+        </div>
+        <div className="featured-strip-content">
           <div>
-            <p className="gold-label">{feature.category}</p>
-            <h2>{feature.title}</h2>
-            <p>{feature.description}</p>
-            <strong>By {feature.author}</strong>
-            <small>{feature.date} | {feature.readTime}</small>
+            <span className="tag tag-leadership">{feature.category || "Leadership"}</span>
           </div>
-          <button aria-label="Play story"><Play size={16} fill="currentColor" /></button>
-        </article>
+          <h2 className="featured-strip-headline">
+            <Link href={`/blogs/${feature.slug}`}>{feature.title}</Link>
+          </h2>
+          <p className="featured-strip-excerpt">{feature.description}</p>
+          <div className="hero-meta">
+            <span>{feature.author}</span>
+            <span className="card-meta-dot" />
+            <span>{feature.date}</span>
+            <span className="card-meta-dot" />
+            <span>{feature.readTime}</span>
+          </div>
+          <div style={{ marginTop: "24px" }}>
+            <Link href={`/blogs/${feature.slug}`} className="btn btn-primary">
+              Read Story →
+            </Link>
+          </div>
+        </div>
       </div>
-      <div className="secondary-stories">
-        {secondary.map((story) => (
-          <article key={story.id}>
-            <Image src={story.image} alt="" width={106} height={82} style={{ width: 106, height: 82 }} />
-            <div>
-              <p>{story.category}</p>
-              <h3>{story.title}</h3>
-              <small>{story.date} | {story.readTime}</small>
-            </div>
-          </article>
-        ))}
-      </div>
-      <aside className="trending">
-        <SectionHeading title="Trending Now" linkText="View All" />
-        {trending.map((item, index) => (
-          <article key={item}>
-            <Image src={`/images/articles/trend-${index + 1}.svg`} alt="" width={130} height={78} style={{ width: 130, height: 78 }} />
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <h3>{item}</h3>
-          </article>
-        ))}
-      </aside>
     </section>
   );
 }

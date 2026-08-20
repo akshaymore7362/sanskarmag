@@ -1,23 +1,58 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import { magazineService } from "@/services/magazineService";
+import { Sparkles, CheckCircle2 } from "lucide-react";
 
 export function NewsletterSection() {
-  const [done, setDone] = useState(false);
-  const issue = magazineService.current();
+  const [submitted, setSubmitted] = useState(false);
+
   return (
-    <section className="newsletter">
-      <div>
-        <h2>The Magazine In Your Inbox</h2>
-        <p>Get editor notes, issue drops, sharp business reads and event briefings straight to your inbox.</p>
+    <section className="section newsletter-section" aria-label="Weekly Newsletter Subscription">
+      <div className="newsletter-card-purple">
+        <div className="newsletter-content">
+          <span className="newsletter-eyebrow">
+            <Sparkles size={13} /> EXECUTIVE BRIEFING
+          </span>
+          
+          <h2 className="newsletter-headline font-serif">
+            Stories Worth Your Time, <br />Every Week
+          </h2>
+          
+          <p className="newsletter-desc">
+            Join 450,000+ business leaders getting premium editorial briefings, market intelligence, and technological analysis delivered directly to their inbox.
+          </p>
+
+          {submitted ? (
+            <div className="newsletter-success-badge">
+              <CheckCircle2 size={18} />
+              <span>Thank you! You are now subscribed to The Success World weekly briefing.</span>
+            </div>
+          ) : (
+            <form
+              className="newsletter-form-row"
+              onSubmit={(e) => {
+                e.preventDefault();
+                setSubmitted(true);
+              }}
+            >
+              <input
+                className="newsletter-input"
+                type="email"
+                required
+                placeholder="Enter your corporate email address..."
+                aria-label="Email address for newsletter"
+              />
+              <button type="submit" className="btn btn-gold-gradient newsletter-submit-btn">
+                Subscribe
+              </button>
+            </form>
+          )}
+
+          <div className="newsletter-fine-print">
+            No spam. Unsubscribe at any time with one click.
+          </div>
+        </div>
       </div>
-      <form onSubmit={(e) => { e.preventDefault(); setDone(true); }}>
-        <input type="email" required placeholder="Enter your email address" />
-        <button>{done ? "Subscribed" : "Subscribe Now"}</button>
-      </form>
-      <Image src={issue.cover} alt={issue.coverAlt} fill className="object-cover" />
     </section>
   );
 }

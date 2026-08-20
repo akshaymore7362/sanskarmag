@@ -2,30 +2,24 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArticleCard } from "@/components/editorial/ArticleCard";
-import { TrendingSidebar } from "@/components/editorial/TrendingSidebar";
-import { authors } from "@/data/authors";
+import { Clock, Calendar, User } from "lucide-react";
 import { articleService } from "@/services/articleService";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return articleService.all().map((article) => ({ slug: article.slug }));
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = articleService.bySlug(slug);
+  const article = await articleService.fetchSanityArticleBySlug(slug);
   if (!article) return {};
 
   return {
-    title: `${article.title} | Momentum Magazine`,
-    description: article.subtitle,
+    title: `${article.title} | The Success World`,
+    description: article.subtitle || article.description,
     openGraph: {
       title: article.title,
-      description: article.subtitle,
+      description: article.subtitle || article.description,
       images: [article.image],
       type: "article",
     },
@@ -34,68 +28,120 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticleDetailPage({ params }: Props) {
   const { slug } = await params;
-  const article = articleService.bySlug(slug);
+  const article = await articleService.fetchSanityArticleBySlug(slug);
   if (!article) notFound();
-  const author = authors.find((item) => item.id === article.authorId) ?? authors[0];
 
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.subtitle,
-    image: article.image,
-    author: { "@type": "Person", name: article.author },
-    datePublished: article.date,
-    publisher: { "@type": "Organization", name: "Momentum Magazine" },
-  };
+  const relatedStories = articleService.related(article.slug);
 
   return (
-    <main className="site-shell inner-shell">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <article className="article-detail">
-        <header className="article-masthead">
-          <p className="gold-label">{article.category}</p>
-          <h1>{article.title}</h1>
-          <p>{article.subtitle}</p>
-          <div className="byline">
-            <Image src={author.image} alt={author.name} width={54} height={54} />
-            <span>By {article.author}<br /><small>{article.date} | {article.readTime}</small></span>
-            <div><Link href="#">Share</Link><Link href="#">Save</Link></div>
+    <main className="blog-detail-page site-shell inner-shell" style={{ background: "#F7F5F0", minHeight: "100vh", paddingBottom: "80px" }}>
+      {/* Top Dark Header Banner */}
+      <section className="article-header-banner" style={{ margin: "-20px -40px 32px -40px", padding: "40px 40px 36px 40px", background: "linear-gradient(135deg, #0F131F 0%, #161A28 60%, #080A10 100%)", borderRadius: "0 0 24px 24px" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+          {/* Breadcrumb */}
+          <div style={{ fontSize: "12px", color: "#94A3B8", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+            <Link href="/" style={{ color: "#94A3B8" }}>Home</Link>
+            <span>›</span>
+            <Link href="/articles" style={{ color: "#94A3B8" }}>Articles</Link>
+            <span>›</span>
+            <span style={{ color: "#D49A24" }}>{article.category || "Article"}</span>
           </div>
-        </header>
-        <div className="article-hero-image">
-          <Image src={article.image} alt={article.imageAlt} fill className="object-cover" />
-        </div>
-        <div className="article-body-layout">
-          <div className="article-body">
-            {article.body.map((section) => (
-              <section key={section.heading}>
-                <h2>{section.heading}</h2>
-                {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              </section>
-            ))}
-            <blockquote>{article.pullQuote}</blockquote>
-            <div className="stats-strip">
-              {article.stats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
-            </div>
-            <section className="author-bio">
-              <Image src={author.image} alt={author.name} width={82} height={82} />
-              <div><h3>{author.name}</h3><p>{author.bio}</p></div>
-            </section>
+
+          <span className="hero-gold-pill-sm" style={{ background: "#D49A24", color: "#080A10", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, textTransform: "uppercase" }}>
+            {article.category || "FEATURED"}
+          </span>
+
+          <h1 className="font-serif" style={{ fontSize: "40px", fontWeight: 900, color: "#FFFFFF", margin: "14px 0 16px", lineHeight: 1.15 }}>
+            {article.title}
+          </h1>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "13px", color: "rgba(248, 246, 241, 0.8)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: 700, color: "#FFFFFF" }}>
+              <User size={14} style={{ color: "#D49A24" }} /> {article.author || "Editorial Team"}
+            </span>
+            <span>•</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <Calendar size={14} /> {article.date}
+            </span>
+            <span>•</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "#38BDF8" }}>
+              <Clock size={14} /> {article.readTime}
+            </span>
           </div>
-          <aside className="article-toc">
-            <h2>In This Story</h2>
-            {article.body.map((section) => <a href="#" key={section.heading}>{section.heading}</a>)}
-            <TrendingSidebar />
-          </aside>
-        </div>
-      </article>
-      <section className="related-section">
-        <h2>Related Stories</h2>
-        <div className="article-grid article-grid-four">
-          {articleService.related(article.slug).map((item) => <ArticleCard article={item} compact key={item.slug} />)}
         </div>
       </section>
+
+      {/* Main Container */}
+      <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+        {/* HERO IMAGE */}
+        {article.image && (
+          <div style={{ position: "relative", height: "420px", borderRadius: "16px", overflow: "hidden", marginBottom: "32px", border: "1px solid #E5E2D9", boxShadow: "0 8px 24px rgba(0,0,0,0.06)" }}>
+            <Image
+              src={article.image}
+              alt={article.imageAlt || article.title}
+              fill
+              className="object-cover"
+              unoptimized
+            />
+          </div>
+        )}
+
+        {/* READING BODY */}
+        <article className="article-body-content" style={{ color: "#17151C", fontSize: "17px", lineHeight: 1.75 }}>
+          <p style={{ fontSize: "19px", fontWeight: 600, color: "#0F131F", lineHeight: 1.6, marginBottom: "24px" }}>
+            {article.description}
+          </p>
+
+          {/* Pullquote Box with Left Gold Border */}
+          <div style={{ background: "#FFFFFF", borderLeft: "4px solid #D49A24", borderRadius: "0 12px 12px 0", padding: "24px 28px", margin: "32px 0", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }}>
+            <p className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#0F131F", fontStyle: "italic", margin: 0, lineHeight: 1.4 }}>
+              "{article.pullQuote || "AI will not replace humans. But humans who use AI will replace those who don't."}"
+            </p>
+          </div>
+
+          <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 800, color: "#0F131F", marginTop: "36px", marginBottom: "14px" }}>
+            Why It Matters
+          </h2>
+          <p style={{ marginBottom: "24px" }}>
+            Enterprises and financial institutions are accelerating their adoption of automated intelligence to optimize capital allocation, streamline operation flows, and build resilient market strategies.
+          </p>
+
+          <p style={{ marginBottom: "32px" }}>
+            The executives who succeed over the next decade are those investing early in data infrastructure, governance, and organizational alignment across all core business units.
+          </p>
+
+          {/* Newsletter CTA Inside Article */}
+          <div style={{ background: "linear-gradient(135deg, #0F131F 0%, #161A28 100%)", borderRadius: "16px", padding: "32px", color: "#FFFFFF", textAlign: "center", margin: "40px 0" }}>
+            <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, marginBottom: "8px" }}>Subscribe to Our Weekly Newsletter</h3>
+            <p style={{ color: "#94A3B8", fontSize: "14px", marginBottom: "20px" }}>Get executive briefings, market analysis, and new article releases straight to your inbox.</p>
+            <Link href="/subscribe" className="btn btn-gold-gradient">
+              Subscribe to The Success World
+            </Link>
+          </div>
+        </article>
+
+        {/* RELATED ARTICLES GRID */}
+        {relatedStories.length > 0 && (
+          <section style={{ marginTop: "56px", paddingTop: "36px", borderTop: "2px solid #E5E2D9" }}>
+            <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#17151C", marginBottom: "20px" }}>Related Articles</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
+              {relatedStories.slice(0, 3).map((item) => (
+                <div key={item.slug} style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "12px", padding: "16px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+                  {item.image && (
+                    <div style={{ position: "relative", height: "140px", borderRadius: "8px", overflow: "hidden", marginBottom: "12px" }}>
+                      <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
+                    </div>
+                  )}
+                  <span style={{ fontSize: "10px", fontWeight: 800, color: "#38BDF8", textTransform: "uppercase" }}>{item.category}</span>
+                  <h4 className="font-serif" style={{ fontSize: "16px", fontWeight: 700, color: "#17151C", margin: "6px 0", lineHeight: 1.3 }}>
+                    <Link href={`/articles/${item.slug}`}>{item.title}</Link>
+                  </h4>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </main>
   );
 }

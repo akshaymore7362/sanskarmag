@@ -6,7 +6,7 @@ import { leaders } from "@/data/leaders";
 import { magazineIssues } from "@/data/magazines";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://momentum.example.com";
+  const base = "https://thesuccessworld.com";
   const staticRoutes = [
     "",
     "/articles",
@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes.map((route) => ({ url: `${base}${route}`, lastModified: new Date() })),
-    ...articles.map((article) => ({ url: `${base}/articles/${article.slug}`, lastModified: new Date(article.date) })),
+    ...articles.map((article) => ({ url: `${base}/articles/${article.slug}`, lastModified: new Date(article.date || Date.now()) })),
     ...magazineIssues.map((issue) => ({ url: `${base}/magazine/${issue.slug}`, lastModified: new Date() })),
     ...industries.map((industry) => ({ url: `${base}/industries/${industry.slug}`, lastModified: new Date() })),
     ...leaders.map((leader) => ({ url: `${base}/leaders/${leader.slug}`, lastModified: new Date() })),

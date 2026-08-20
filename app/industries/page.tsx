@@ -1,30 +1,42 @@
-import type { Metadata } from "next";
-import { DirectoryCard } from "@/components/editorial/DirectoryCard";
-import { PageIntro } from "@/components/editorial/PageIntro";
-import { industryService } from "@/services/industryService";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Industries | Momentum Magazine",
-  description: "A premium directory of industries shaping business momentum.",
-};
+import { IndustryHero } from "@/components/industry/IndustryHero";
+import { IndustryDirectoryGrid } from "@/components/industry/IndustryDirectoryGrid";
+import { FeaturedIndustryCard } from "@/components/industry/FeaturedIndustryCard";
+import { LatestIndustryIntelligence } from "@/components/industry/LatestIndustryIntelligence";
+import { IndustrySidebar } from "@/components/industry/IndustrySidebar";
+import { IndustryValueStrip } from "@/components/industry/IndustryValueStrip";
 
 export default function IndustriesPage() {
   return (
-    <main className="site-shell inner-shell">
-      <PageIntro title="Industries" intro="Sector intelligence across technology, finance, healthcare, real estate, energy, media and more." eyebrow="Market Directory" />
-      <section className="directory-grid">
-        {industryService.all().map((industry) => (
-          <DirectoryCard
-            key={industry.slug}
-            href={`/industries/${industry.slug}`}
-            image={industry.image}
-            alt={industry.imageAlt}
-            eyebrow={industry.descriptor}
-            title={industry.name}
-            description={industry.overview}
-          />
-        ))}
-      </section>
+    <main style={{ background: "#FFFFFF", minHeight: "100vh", paddingBottom: "24px" }}>
+      {/* 1. Compact Explore Industries Hero (300-350px high) */}
+      <IndustryHero />
+
+      {/* 2. Main Industry Directory (Compact 4-Column Desktop Grid) */}
+      <IndustryDirectoryGrid />
+
+      {/* 3. Featured Industry (Horizontal 50/50 Layout) */}
+      <FeaturedIndustryCard />
+
+      {/* 4. Latest Industry Intelligence (5 Article Rows) + Trending Sidebar (2 Modules) */}
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding: "0 6vw 24px",
+          display: "grid",
+          gridTemplateColumns: "1fr 320px",
+          gap: "32px",
+        }}
+      >
+        <LatestIndustryIntelligence />
+        <IndustrySidebar />
+      </div>
+
+      {/* 5. Small Value Strip */}
+      <IndustryValueStrip />
     </main>
   );
 }

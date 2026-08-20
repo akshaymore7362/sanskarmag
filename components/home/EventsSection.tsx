@@ -1,32 +1,57 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowRight, MapPin } from "lucide-react";
+import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { eventService } from "@/services/eventService";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import type { EventItem } from "@/types";
 
 export function EventsSection() {
-  const events = eventService.all();
-  const [featured, ...rest] = events;
-  const visibleRest = rest.slice(0, 7);
+  const [events, setEvents] = useState<EventItem[]>([]);
+
+  useEffect(() => {
+    eventService.fetchSanityEvents().then((items) => {
+      if (items && items.length > 0) {
+        setEvents(items.slice(0, 3));
+      } else {
+        setEvents(eventService.all().slice(0, 3));
+      }
+    });
+  }, []);
+
+  if (events.length === 0) return null;
+
   return (
-    <section className="events section-light">
-      <SectionHeading title="Upcoming Events" linkText="View All Events" />
-      <div className="event-panel">
-        <Image src={featured.image || ""} alt={featured.imageAlt} fill className="object-cover" />
-        <div className="event-feature">
-          <time><b>{featured.day}</b><span>{featured.month}</span></time>
-          <div>
-            <h3>{featured.title}</h3>
-            <p><MapPin size={13} /> {featured.location}</p>
-            <small>{featured.description}</small>
-            <a href="#">Register Now <ArrowRight size={13} /></a>
+    <section className="section section-bg">
+      <div className="section-label">Upcoming Events</div>
+      <div className="trending-grid">
+        {events.map((event, idx) => (
+          <div key={event.slug || String(idx)} className="mag-card">
+            <div className="mag-card-cover" style={{ height: "200px", position: "relative" }}>
+              {event.image ? (
+                <Image src={event.image} alt={event.title} fill className="object-cover" unoptimized />
+              ) : (
+                <div style={{ height: "100%", background: "#0B0B0B", display: "grid", placeItems: "center", color: "#fff", fontFamily: "var(--serif)" }}>
+                  {event.title}
+                </div>
+              )}
+            </div>
+            <div className="mag-card-body">
+              <span className="tag tag-strategy" style={{ marginBottom: "8px" }}>
+                {event.day} {event.month}
+              </span>
+              <h3 className="mag-card-title">
+                <Link href="/events">{event.title}</Link>
+              </h3>
+              <p style={{ fontSize: "14px", color: "var(--text-grey)", display: "flex", alignItems: "center", gap: "6px", marginBottom: "16px" }}>
+                <MapPin size={13} /> {event.location}
+              </p>
+              <a href={event.registrationUrl || "/events"} className="btn btn-secondary" style={{ width: "100%", fontSize: "13px" }}>
+                Register Now →
+              </a>
+            </div>
           </div>
-        </div>
-        {visibleRest.map((event) => (
-          <article key={event.title}>
-            <Image src={event.image} alt={event.imageAlt} width={92} height={62} style={{ width: 92, height: 62 }} />
-            <time><b>{event.day}</b><span>{event.month}</span></time>
-            <div><h3>{event.title}</h3><p>{event.location}</p></div>
-          </article>
         ))}
       </div>
     </section>

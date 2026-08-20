@@ -4,7 +4,7 @@ import { articlePhotos } from "@/data/media";
 
 const categoryImages: Record<string, { image: string; alt: string; industrySlug: string }> = {
   "Cover Story": {
-    image: articlePhotos.cover,
+    image: "/images/articles/hero-cover.jpg",
     alt: "Contemporary business office with cinematic editorial lighting",
     industrySlug: "leadership",
   },
@@ -115,7 +115,7 @@ function bodyFor(title: string, category: string): Article["body"] {
       ],
     },
     {
-      heading: "The Momentum View",
+      heading: "The Success World View",
       paragraphs: [
         "The next advantage will belong to companies that combine strategic patience with practical speed. They will not chase every new tool or market signal, but they will move quickly when the evidence is strong.",
         "That discipline is becoming the hallmark of modern business leadership: less theater, more clarity, and a sharper link between ambition and execution.",

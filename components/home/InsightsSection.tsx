@@ -1,26 +1,50 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { insights } from "@/data/insights";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import Link from "next/link";
+import { articleService } from "@/services/articleService";
+import type { Article } from "@/types";
 
 export function InsightsSection() {
-  const [main, ...items] = insights;
-  const visibleItems = items.slice(0, 10);
+  const [insights, setInsights] = useState<Article[]>([]);
+
+  useEffect(() => {
+    articleService.fetchSanityInsights().then((items) => {
+      if (items && items.length > 0) {
+        setInsights(items.slice(0, 3));
+      } else {
+        articleService.fetchSanityArticles().then((all) => {
+          setInsights(all.slice(0, 3));
+        });
+      }
+    });
+  }, []);
+
+  if (insights.length === 0) return null;
+
   return (
-    <section className="insights section-light">
-      <SectionHeading title="Voices & Insights" linkText="View All Insights" />
-      <div className="insights-grid">
-        <article className="opinion">
-          <Image src={main.image} alt={main.imageAlt} fill className="object-cover" />
-          <div><p>{main.category}</p><h3>{main.title}</h3><small>By {main.author}<br />{main.date} | {main.readTime}</small></div>
-        </article>
-        <div className="insight-list">
-          {visibleItems.map((item) => (
-            <article key={item.id}>
-              <Image src={item.image} alt={item.imageAlt} width={82} height={64} style={{ width: 82, height: 64 }} />
-              <div><p>{item.category}</p><h3>{item.title}</h3><small>{item.date}</small></div>
-            </article>
-          ))}
-        </div>
+    <section className="section">
+      <div className="section-label">Voices & Insights</div>
+      <div className="trending-grid">
+        {insights.map((item, idx) => (
+          <article key={item.slug || String(idx)} className="card card-medium">
+            {item.image && (
+              <div className="card-img">
+                <Image src={item.image} alt={item.title} width={400} height={220} unoptimized />
+              </div>
+            )}
+            <span className="tag tag-leadership">{item.category || "Insight"}</span>
+            <h3 className="card-title">
+              <Link href={`/articles/${item.slug}`}>{item.title}</Link>
+            </h3>
+            <div className="card-meta">
+              <span>{item.author}</span>
+              <span className="card-meta-dot" />
+              <span>{item.readTime}</span>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

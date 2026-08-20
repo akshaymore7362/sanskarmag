@@ -3,8 +3,8 @@ import { PageIntro } from "@/components/editorial/PageIntro";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 export const metadata: Metadata = {
-  title: "Newsletter | Momentum Magazine",
-  description: "Subscribe to Momentum Magazine's premium business newsletter.",
+  title: "Newsletter | The Success World",
+  description: "Subscribe to The Success World's premium business newsletter.",
 };
 
 export default function NewsletterPage() {

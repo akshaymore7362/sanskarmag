@@ -1,0 +1,21 @@
+{
+  "categories": [
+    { "title": "Featured Articles", "slug": "web-profiles" },
+    { "title": "Blogs And Articles", "slug": "blogs-and-articles" },
+    { "title": "Market Pulse", "slug": "market-news" },
+    { "title": "Magazines", "slug": "magazines" },
+    { "title": "Partner Brands", "slug": "trusted-brands" },
+    { "title": "The Briefing", "slug": "business-bulletin", "description": "bulletin" },
+    { "title": "Executive Perspectives", "slug": "master-talks", "description": "Executive perspectives and interview profiles." }
+  ],
+  "industryCategories": [
+    { "title": "Finance", "slug": "finance", "description": "Financial services, banking, and fintech." },
+    { "title": "Transportation", "slug": "transportation", "description": "Transportation and logistics." },
+    { "title": "Legal", "slug": "legal", "description": "Legal and corporate law." },
+    { "title": "Tech-Ai", "slug": "tech-ai", "description": "Technology and Artificial Intelligence." },
+    { "title": "Stock Market", "slug": "stock-market" },
+    { "title": "Politics", "slug": "politics" },
+    { "title": "Healthcare", "slug": "healthcare", "description": "Healthcare, medicine, and wellness." },
+    { "title": "Manufacturing-Products", "slug": "manufacturing-products", "description": "Manufacturing and industrial products." }
+  ]
+}

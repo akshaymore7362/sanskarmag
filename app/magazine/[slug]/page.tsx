@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const issue = magazineService.bySlug(slug);
   if (!issue) return {};
-  return { title: `${issue.title} | Momentum Magazine`, description: issue.description };
+  return { title: `${issue.title} | The Success World`, description: issue.description };
 }
 
 export default async function IssueDetailPage({ params }: Props) {

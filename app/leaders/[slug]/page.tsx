@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const leader = leaderService.bySlug(slug);
   if (!leader) return {};
-  return { title: `${leader.name} | Momentum Magazine`, description: leader.bio };
+  return { title: `${leader.name} | The Success World`, description: leader.bio };
 }
 
 export default async function LeaderProfilePage({ params }: Props) {

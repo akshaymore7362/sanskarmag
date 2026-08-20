@@ -4,15 +4,15 @@ import { PageIntro } from "@/components/editorial/PageIntro";
 import { magazineService } from "@/services/magazineService";
 
 export const metadata: Metadata = {
-  title: "Magazine Archive | Momentum Magazine",
-  description: "Browse premium digital issues of Momentum Magazine.",
+  title: "Magazine Archive | The Success World",
+  description: "Browse premium digital issues of The Success World.",
 };
 
 export default function MagazinePage() {
   return (
-    <main className="site-shell inner-shell">
-      <PageIntro title="Magazine" intro="Digital issues, cover stories and editorial packages from Momentum Magazine." eyebrow="Archive" dark />
-      <section className="issue-grid">
+    <main className="magazine-page site-shell inner-shell">
+      <PageIntro title="Magazine" intro="Digital issues, cover stories and editorial packages from The Success World." eyebrow="Archive" dark />
+      <section className="issue-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "24px", margin: "32px 0" }}>
         {magazineService.all().map((issue) => <IssueCard issue={issue} key={issue.slug} />)}
       </section>
     </main>

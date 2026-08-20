@@ -1,56 +1,93 @@
 import Link from "next/link";
-import { Send } from "lucide-react";
-import { Facebook, Instagram, Linkedin, Youtube } from "@/components/ui/SocialIcons";
-
-const columns = {
-  Explore: [
-    ["Stories", "/articles"],
-    ["Magazine", "/magazine"],
-    ["Leaders", "/leaders"],
-    ["Events", "/events"],
-  ],
-  Company: [
-    ["About Us", "/about"],
-    ["Advertise", "/advertise"],
-    ["Contact", "/contact"],
-  ],
-};
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="footer">
-      <div className="footer-top">
-        <div>
-          <Link href="/" className="brand">
-            <span className="brand-mark">M</span>
-            <span>Momentum<br />Magazine</span>
-          </Link>
-          <p>Independent business journalism for leaders, builders and investors.</p>
-        </div>
-        <form className="footer-newsletter">
-          <label htmlFor="footer-email">The Magazine In Your Inbox</label>
-          <div>
-            <input id="footer-email" placeholder="Enter your email" />
-            <button type="button" aria-label="Subscribe"><Send size={15} /></button>
+    <footer className="footer-dark" aria-label="Global Footer">
+      <div className="footer-container site-shell">
+        <div className="footer-top-grid">
+          {/* Brand Info & Tagline Column */}
+          <div className="footer-brand-col">
+            <Link href="/" className="footer-logo">
+              <span className="logo-title font-serif">
+                The <span className="logo-highlight">Success World</span>
+              </span>
+            </Link>
+            <div className="footer-tagline">INSPIRED. INFORMED. EMPOWERED.</div>
+            <p className="footer-desc">
+              The Success World is a premier international publication delivering executive briefings, technological breakthroughs, and economic insights for operators and global business leaders.
+            </p>
+            <div className="footer-socials">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">𝕏</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">▶</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📸</a>
+            </div>
           </div>
-        </form>
-      </div>
-      <div className="footer-grid">
-        {Object.entries(columns).map(([title, links]) => (
-          <div className="footer-col" key={title}>
-            <h3>{title}</h3>
-            {links.map(([label, href]) => <Link href={href} key={label}>{label}</Link>)}
+
+          {/* Column 1: QUICK LINKS */}
+          <div className="footer-links-col">
+            <h4 className="footer-col-title">QUICK LINKS</h4>
+            <ul>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/magazines">Magazines</Link></li>
+              <li><Link href="/blogs">Blogs & Articles</Link></li>
+              <li><Link href="/industries">Industries Directory</Link></li>
+              <li><Link href="/leaders">Executive Leaders</Link></li>
+              <li><Link href="/startups">Startups Watch</Link></li>
+            </ul>
           </div>
-        ))}
-        <div className="footer-col footer-card">
-          <h3>Work With Us</h3>
-          <Link href="/contact">Share a Story</Link>
-          <Link href="/advertise">Partner With Us</Link>
+
+          {/* Column 2: COMPANY */}
+          <div className="footer-links-col">
+            <h4 className="footer-col-title">COMPANY</h4>
+            <ul>
+              <li><Link href="/about">About Us</Link></li>
+              <li><Link href="/contact">Contact Newsroom</Link></li>
+              <li><Link href="/advertise">Advertise With Us</Link></li>
+              <li><Link href="/media-kit">Media Kit</Link></li>
+              <li><Link href="/subscribe">Subscriptions</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: KEY INDUSTRIES */}
+          <div className="footer-links-col">
+            <h4 className="footer-col-title">KEY INDUSTRIES</h4>
+            <ul>
+              <li><Link href="/industries/tech-ai">Tech & AI</Link></li>
+              <li><Link href="/industries/healthcare">Healthcare & Biotech</Link></li>
+              <li><Link href="/industries/finance">Finance & Fintech</Link></li>
+              <li><Link href="/industries/real-estate">Real Estate & PropTech</Link></li>
+              <li><Link href="/industries/energy">Energy & Climate</Link></li>
+              <li><Link href="/industries/transportation">Transportation & EV</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: RESOURCES */}
+          <div className="footer-links-col">
+            <h4 className="footer-col-title">RESOURCES</h4>
+            <ul>
+              <li><Link href="/insights">Executive Insights</Link></li>
+              <li><Link href="/events">Global Events</Link></li>
+              <li><Link href="/newsletter">Weekly Newsletter</Link></li>
+              <li><Link href="/sitemap.xml">Sitemap</Link></li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className="footer-bottom">
-        <p>(c) 2026 Momentum Magazine. All rights reserved.</p>
-        <div className="footer-socials"><Linkedin size={15} /><span>X</span><Facebook size={14} /><Instagram size={14} /><Youtube size={15} /></div>
+
+        {/* Footer Bottom Bar */}
+        <div className="footer-bottom-bar">
+          <p>© {currentYear} The Success World. All rights reserved.</p>
+          <div className="footer-legal-links">
+            <Link href="/about">Privacy Policy</Link>
+            <span>•</span>
+            <Link href="/about">Terms of Service</Link>
+            <span>•</span>
+            <Link href="/contact">Editorial Code of Ethics</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

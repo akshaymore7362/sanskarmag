@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const event = eventService.bySlug(slug);
   if (!event) return {};
-  return { title: `${event.title} | Momentum Magazine`, description: event.description };
+  return { title: `${event.title} | The Success World`, description: event.description };
 }
 
 export default async function EventDetailPage({ params }: Props) {
@@ -27,7 +27,7 @@ export default async function EventDetailPage({ params }: Props) {
   return (
     <main className="site-shell inner-shell">
       <section className="event-detail-hero">
-        <Image src={event.image} alt={event.imageAlt} fill className="object-cover" />
+        <Image src={event.image} alt={event.imageAlt} fill className="object-contain" />
         <div>
           <p className="gold-label">{event.date} | {event.location}</p>
           <h1>{event.title}</h1>

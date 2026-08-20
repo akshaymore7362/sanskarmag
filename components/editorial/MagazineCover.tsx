@@ -10,11 +10,13 @@ type Props = {
 export function MagazineCover({ issue, compact = false, decorative = false }: Props) {
   return (
     <div className={compact ? "magazine-cover magazine-cover-compact" : "magazine-cover"}>
-      <Image src={issue.cover} alt={decorative ? "" : issue.coverAlt} fill className="object-cover" />
+      {issue.cover ? (
+        <Image src={issue.cover} alt={decorative ? "" : (issue.coverAlt || issue.title || "Magazine Cover")} fill className="object-cover" unoptimized />
+      ) : null}
       <div className="magazine-cover-shade" />
       <div className="magazine-cover-top">
-        <strong>Momentum</strong>
-        <span>Magazine</span>
+        <strong>The Success</strong>
+        <span>World</span>
       </div>
       <div className="magazine-cover-lines">
         <span>Leadership</span>

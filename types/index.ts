@@ -14,22 +14,24 @@ export type Article = {
   id: string;
   slug: string;
   title: string;
-  subtitle: string;
-  category: string;
-  author: string;
-  authorId: string;
-  date: string;
-  readTime: string;
+  subtitle?: string;
+  category?: string;
+  author?: string;
+  authorId?: string;
+  date?: string;
+  readTime?: string;
   image: string;
-  imageAlt: string;
-  description: string;
-  industrySlug: string;
+  imageAlt?: string;
+  description?: string;
+  industrySlug?: string;
   issueSlug?: string;
-  tags: string[];
+  tags?: string[];
   featured?: boolean;
-  body: ArticleSection[];
-  pullQuote: string;
-  stats: { label: string; value: string }[];
+  body?: ArticleSection[];
+  pullQuote?: string;
+  stats?: { label: string; value: string }[];
+  contentType?: string;
+  homePlacement?: Record<string, boolean>;
 };
 
 export type Author = {
@@ -54,6 +56,7 @@ export type Leader = {
   highlights: string[];
   quote: string;
   industrySlug: string;
+  featuredOnHome?: boolean;
 };
 
 export type MagazineStory = {
@@ -67,7 +70,10 @@ export type MagazineStory = {
 };
 
 export type MagazineIssue = {
+  id?: string;
   issue: string;
+  issueNumber?: string;
+  publicationDate?: string;
   slug: string;
   date: string;
   title: string;
@@ -77,6 +83,7 @@ export type MagazineIssue = {
   contents: string[];
   description: string;
   stories: MagazineStory[];
+  pdfUrl?: string;
 };
 
 export type Industry = {
@@ -100,6 +107,7 @@ export type Startup = {
   imageAlt: string;
   summary: string;
   founder: string;
+  featuredOnHome?: boolean;
 };
 
 export type Insight = Article;
@@ -117,6 +125,8 @@ export type EventItem = {
   description: string;
   speakers: string[];
   agenda: string[];
+  registrationUrl?: string;
+  featuredOnHome?: boolean;
 };
 
 export type SiteSettings = {

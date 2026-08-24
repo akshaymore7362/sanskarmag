@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, UserCheck, Award } from "lucide-react";
+import { ArrowRight, Award } from "lucide-react";
 import { leaderService } from "@/services/leaderService";
 import type { Leader } from "@/types";
 
@@ -24,59 +24,114 @@ export function LeadersSection() {
   const supporting = leaders.slice(1, 3);
 
   return (
-    <section className="section featured-leaders-section" aria-label="Featured Leaders & Executives">
-      <div className="section-header-row">
+    <section className="py-12 lg:py-16 px-4 md:px-12 max-w-[1280px] mx-auto w-full">
+      {/* Header Row */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-[#ffdea5] pb-4 mb-8 gap-4">
         <div>
-          <span className="section-eyebrow">EXECUTIVE BOARD</span>
-          <h2 className="section-title font-serif">Featured Leaders & Visionaries</h2>
+          <span className="text-[#775a19] text-xs font-bold tracking-widest uppercase mb-2 block">
+            WEB PROFILES
+          </span>
+          <h2 className="font-serif text-2xl lg:text-4xl font-bold text-gray-900">
+            Featured Executive Leaders
+          </h2>
         </div>
-        <Link href="/leaders" className="section-viewall-link">
+
+        <Link
+          href="/leaders"
+          className="text-[#775a19] text-xs font-bold tracking-wider uppercase flex items-center gap-1 hover:text-[#785a1a] transition-colors whitespace-nowrap"
+        >
           <span>View All Leaders</span>
-          <ArrowRight size={15} />
+          <ArrowRight size={16} />
         </Link>
       </div>
 
-      <div className="featured-leaders-grid">
-        {/* Main Featured Executive */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        {/* Main Featured Executive Leader (col-span-7) */}
         {featured && (
-          <div className="main-featured-leader-card">
-            <div className="main-leader-portrait-wrap">
+          <div className="lg:col-span-7 bg-white border border-gray-200 rounded-xl p-6 lg:p-8 flex flex-col md:flex-row gap-6 items-center shadow-sm hover:shadow-md transition-shadow">
+            <div className="relative w-40 h-40 lg:w-48 lg:h-48 rounded-xl overflow-hidden shrink-0 bg-gray-100 shadow">
               {featured.image ? (
-                <Image src={featured.image} alt={featured.name} fill className="object-cover" unoptimized />
+                <Image
+                  src={featured.image}
+                  alt={featured.name}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
               ) : (
-                <div className="leader-portrait-placeholder font-serif">{featured.name}</div>
+                <div className="w-full h-full bg-[#0a192f] text-[#fed488] flex items-center justify-center font-serif text-2xl font-bold">
+                  {featured.name.charAt(0)}
+                </div>
               )}
             </div>
 
-            <div className="main-leader-info">
-              <span className="leader-gold-tag">FEATURED LEADER</span>
-              <h3 className="leader-name font-serif">{featured.name}</h3>
-              <div className="leader-position">{featured.role}, {featured.company}</div>
-              <p className="leader-bio">{featured.bio}</p>
-              <Link href={`/leaders/${featured.slug}`} className="btn btn-outline-gold leader-profile-btn">
-                <span>View Profile</span>
+            <div className="flex flex-col flex-1">
+              <span className="text-[#775a19] font-bold text-xs tracking-wider uppercase mb-1 flex items-center gap-1">
+                <Award size={14} /> COVER FEATURED LEADER
+              </span>
+
+              <h3 className="font-serif text-2xl lg:text-3xl font-bold text-gray-900 mb-1">
+                {featured.name}
+              </h3>
+
+              <div className="text-gray-600 text-sm font-semibold mb-3">
+                {featured.role} &bull; <span className="text-[#0a192f]">{featured.company}</span>
+              </div>
+
+              {featured.bio && (
+                <p className="text-gray-500 text-sm line-clamp-3 leading-relaxed mb-4">
+                  "{featured.bio}"
+                </p>
+              )}
+
+              <Link
+                href={`/leaders/${featured.slug}`}
+                className="text-[#0a192f] font-bold text-xs tracking-wider uppercase hover:text-[#775a19] flex items-center gap-1 mt-auto"
+              >
+                <span>View Full Profile</span>
                 <ArrowRight size={14} />
               </Link>
             </div>
           </div>
         )}
 
-        {/* Supporting Leaders */}
-        <div className="supporting-leaders-column">
+        {/* Supporting Executive Leaders (col-span-5) */}
+        <div className="lg:col-span-5 flex flex-col gap-4">
           {supporting.map((leader, idx) => (
-            <div key={leader.slug || String(idx)} className="supporting-leader-card">
-              <div className="supporting-portrait-wrap">
+            <div
+              key={leader.slug || String(idx)}
+              className="bg-white border border-gray-200 rounded-xl p-4 lg:p-6 flex gap-4 items-center shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
                 {leader.image && (
-                  <Image src={leader.image} alt={leader.name} fill className="object-cover" unoptimized />
+                  <Image
+                    src={leader.image}
+                    alt={leader.name}
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
                 )}
               </div>
-              <div className="supporting-leader-info">
-                <span className="supporting-leader-tag">EXECUTIVE</span>
-                <h4 className="supporting-name font-serif">
-                  <Link href={`/leaders/${leader.slug}`}>{leader.name}</Link>
+
+              <div className="flex flex-col flex-1 min-w-0">
+                <span className="text-[#775a19] font-bold text-[10px] tracking-wider uppercase mb-1">
+                  EXECUTIVE PROFILE
+                </span>
+
+                <h4 className="font-serif text-lg font-bold text-gray-900 line-clamp-1">
+                  <Link href={`/leaders/${leader.slug}`} className="hover:text-[#775a19] transition-colors">
+                    {leader.name}
+                  </Link>
                 </h4>
-                <div className="supporting-role">{leader.role}</div>
-                <div className="supporting-company">{leader.company}</div>
+
+                <div className="text-gray-600 text-xs font-medium line-clamp-1">
+                  {leader.role}
+                </div>
+
+                <div className="text-gray-400 text-xs font-semibold line-clamp-1">
+                  {leader.company}
+                </div>
               </div>
             </div>
           ))}

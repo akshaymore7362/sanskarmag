@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BookOpen, ExternalLink, Download, FileText, ArrowLeft } from "lucide-react";
 import { magazineService } from "@/services/magazineService";
 import { articleService } from "@/services/articleService";
 
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const issues = await magazineService.fetchSanityMagazines();
   const issue = issues.find((item) => item.slug === slug) || magazineService.bySlug(slug);
   if (!issue) return {};
-  return { title: `${issue.title} | The Success World Magazine`, description: issue.description };
+  return { title: `${issue.title} | The Success World Digital Magazine`, description: issue.description };
 }
 
 export default async function MagazineDetailPage({ params }: Props) {
@@ -26,51 +27,205 @@ export default async function MagazineDetailPage({ params }: Props) {
   const articles = await articleService.fetchSanityArticles();
 
   return (
-    <main className="magazine-detail-page site-shell">
-      <section className="section" style={{ background: "var(--black)", color: "var(--white)", padding: "64px 80px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: "48px", alignItems: "center" }}>
-          <div style={{ position: "relative", height: "460px", borderRadius: "16px", overflow: "hidden" }}>
+    <main className="magazine-detail-page site-shell" style={{ width: "100%", overflowX: "hidden" }}>
+      {/* Back Navigation Header Bar */}
+      <div style={{ background: "#070d18", borderBottom: "1px solid rgba(255, 255, 255, 0.1)", padding: "12px 24px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <Link
+            href="/magazines"
+            style={{
+              color: "#fed488",
+              fontSize: "12px",
+              fontWeight: 800,
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <ArrowLeft size={16} />
+            <span>Back to All Magazine Editions</span>
+          </Link>
+
+          <Link
+            href="/"
+            style={{
+              color: "rgba(255, 255, 255, 0.7)",
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+              textDecoration: "none",
+            }}
+          >
+            Homepage &rarr;
+          </Link>
+        </div>
+      </div>
+
+      {/* Magazine Hero Header */}
+      <section style={{ background: "#0a192f", color: "#ffffff", padding: "48px 24px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "40px", alignItems: "center" }}>
+          <div style={{ position: "relative", width: "100%", maxWidth: "340px", height: "440px", margin: "0 auto", borderRadius: "12px", overflow: "hidden", background: "#070910", boxShadow: "0 16px 40px rgba(0,0,0,0.5)" }}>
             {issue.cover ? (
-              <Image src={issue.cover} alt={issue.title} fill className="object-cover" unoptimized />
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img src={issue.cover} alt={issue.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", fontFamily: "var(--serif)", fontSize: "24px" }}>{issue.title}</div>
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#fed488", fontFamily: "var(--serif)", fontSize: "24px" }}>{issue.title}</div>
             )}
           </div>
-          <div>
-            <div style={{ color: "var(--startups)", fontSize: "12px", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase" }}>
-              Issue {issue.issueNumber || "24"} · {issue.publicationDate || "Spring 2026"}
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#fed488", textTransform: "uppercase" }}>
+              {issue.issue || "DIGITAL EDITION"} &bull; {issue.date || "2026"}
+            </span>
+
+            <h1 className="font-serif" style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 900, lineHeight: 1.1, color: "#ffffff", margin: 0 }}>
+              {issue.title}
+            </h1>
+
+            <p style={{ color: "rgba(214, 227, 255, 0.9)", fontSize: "16px", lineHeight: 1.6, margin: 0 }}>
+              {issue.description || "Explore exclusive executive conversations, industry insights, and market leadership in this digital magazine edition."}
+            </p>
+
+            <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginTop: "8px" }}>
+              {issue.pdfUrl ? (
+                <a
+                  href={issue.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "#fed488",
+                    color: "#0a192f",
+                    fontWeight: 900,
+                    fontSize: "13px",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    padding: "14px 28px",
+                    borderRadius: "6px",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <BookOpen size={18} /> Open PDF Digital Edition <ExternalLink size={15} />
+                </a>
+              ) : (
+                <a
+                  href={`/api/sanity`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "#fed488",
+                    color: "#0a192f",
+                    fontWeight: 900,
+                    fontSize: "13px",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    padding: "14px 28px",
+                    borderRadius: "6px",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FileText size={18} /> Read Digital Magazine Edition
+                </a>
+              )}
             </div>
-            <h1 style={{ fontFamily: "var(--serif)", fontSize: "52px", fontWeight: 900, lineHeight: 1.1, margin: "16px 0" }}>{issue.title}</h1>
-            <p style={{ color: "rgba(255,255,255,.7)", fontSize: "18px", lineHeight: 1.6, marginBottom: "24px" }}>{issue.description}</p>
-            {issue.pdfUrl && (
-              <a href={issue.pdfUrl} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ background: "var(--startups)" }}>
-                Download PDF Edition →
-              </a>
-            )}
           </div>
         </div>
       </section>
 
+      {/* Embedded PDF Interactive Reader */}
+      {issue.pdfUrl && (
+        <section style={{ maxWidth: "1280px", margin: "32px auto", padding: "0 24px" }}>
+          <div style={{ border: "1px solid #e1e3e4", borderRadius: "12px", overflow: "hidden", background: "#ffffff", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
+            <div style={{ background: "#0a192f", color: "#ffffff", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+              <div style={{ fontSize: "14px", fontWeight: 800, display: "flex", alignItems: "center", gap: "8px" }}>
+                <BookOpen size={18} style={{ color: "#fed488" }} />
+                <span>INTERACTIVE DIGITAL MAGAZINE READER // {issue.title}</span>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <Link
+                  href="/magazines"
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
+                  }}
+                >
+                  <ArrowLeft size={13} /> Back
+                </Link>
+
+                <a
+                  href={issue.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "#fed488",
+                    color: "#0a192f",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    padding: "8px 16px",
+                    borderRadius: "5px",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <Download size={14} /> Download PDF
+                </a>
+              </div>
+            </div>
+
+            <iframe
+              src={issue.pdfUrl}
+              title={`${issue.title} PDF Digital Reader`}
+              style={{ width: "100%", height: "800px", border: "none" }}
+            />
+          </div>
+        </section>
+      )}
+
       {/* Stories In This Issue */}
-      <section className="section" style={{ padding: "48px 80px" }}>
-        <div className="section-label">Stories In This Issue</div>
-        <div className="trending-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "32px" }}>
+      <section style={{ maxWidth: "1280px", margin: "32px auto", padding: "0 24px 48px" }}>
+        <div style={{ borderBottom: "2px solid #ffdea5", paddingBottom: "10px", marginBottom: "24px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#775a19", textTransform: "uppercase" }}>
+            EXECUTIVE FEATURES
+          </span>
+          <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "#191c1d", margin: "4px 0 0" }}>
+            Stories In This Magazine Edition
+          </h2>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
           {articles.slice(0, 6).map((art, idx) => (
-            <div key={art.slug || String(idx)} className="card card-medium">
+            <div key={art.slug || String(idx)} style={{ background: "#ffffff", border: "1px solid #e1e3e4", borderRadius: "10px", padding: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
               {art.image && (
-                <div className="card-img" style={{ height: "200px" }}>
-                  <Image src={art.image} alt={art.title} width={400} height={200} unoptimized />
+                <div style={{ position: "relative", width: "100%", height: "180px", borderRadius: "8px", overflow: "hidden", background: "#0a192f" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={art.image} alt={art.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
               )}
-              <span className="tag tag-tech">{art.category}</span>
-              <h3 className="card-title">
-                <Link href={`/blogs/${art.slug}`}>{art.title}</Link>
+              <span style={{ fontSize: "9px", fontWeight: 800, color: "#775a19", letterSpacing: "1px", textTransform: "uppercase" }}>{art.category || "EXECUTIVE FEATURE"}</span>
+              <h3 className="font-serif" style={{ fontSize: "16px", fontWeight: 800, color: "#191c1d", margin: 0, lineHeight: 1.35 }}>
+                <Link href={`/blogs/${art.slug}`} style={{ color: "#191c1d", textDecoration: "none" }}>{art.title}</Link>
               </h3>
-              <div className="card-meta">
-                <span>{art.author}</span>
-                <span className="card-meta-dot" />
-                <span>{art.readTime}</span>
-              </div>
             </div>
           ))}
         </div>

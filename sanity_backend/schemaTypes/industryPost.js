@@ -63,5 +63,16 @@ export default defineType({
       title: 'Featured',
       type: 'boolean',
     }),
+    defineField({
+      name: 'editorialSection',
+      title: 'Editorial Section',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'The Intelligence Brief', value: 'intelligenceBrief' },
+          { title: 'Leadership Lens', value: 'leadershipLens' },
+        ],
+      },
+    }),
   ],
 })

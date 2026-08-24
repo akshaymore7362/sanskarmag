@@ -3,80 +3,66 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { fetchSanityQuery } from "@/lib/sanity.client";
-import { Building2, Cpu, ShieldCheck, Zap, Activity, Globe2, Award, Sparkles } from "lucide-react";
+import { Building2 } from "lucide-react";
 
 interface BrandItem {
   _id: string;
   title: string;
   imageUrl?: string;
-  tagline?: string;
-  icon?: any;
 }
 
-const defaultBrands: BrandItem[] = [
-  { _id: "b1", title: "Google", tagline: "Cloud & AI", icon: Globe2 },
-  { _id: "b2", title: "Microsoft", tagline: "Enterprise Tech", icon: Cpu },
-  { _id: "b3", title: "AWS", tagline: "Cloud Infrastructure", icon: Zap },
-  { _id: "b4", title: "Deloitte", tagline: "Strategy & Advisory", icon: ShieldCheck },
-  { _id: "b5", title: "PwC", tagline: "Financial Consulting", icon: Building2 },
-  { _id: "b6", title: "IBM", tagline: "Quantum & Systems", icon: Activity },
-  { _id: "b7", title: "Oracle", tagline: "Enterprise Data", icon: Award },
-  { _id: "b8", title: "SAP", tagline: "ERP & Operations", icon: Sparkles },
-];
-
 export function PartnerBrandsSection() {
-  const [brands, setBrands] = useState<BrandItem[]>(defaultBrands);
+  const [brands, setBrands] = useState<BrandItem[]>([]);
 
   useEffect(() => {
-    fetchSanityQuery(`*[_type == "brand"]{ _id, title, "imageUrl": image.asset->url }`).then((data) => {
+    fetchSanityQuery(`*[_type in ["brand", "brandlogo"]]{ _id, title, "imageUrl": image.asset->url }`).then((data) => {
       if (data && data.length > 0) {
-        const mapped = data.map((b: any, idx: number) => {
-          const fallback = defaultBrands[idx % defaultBrands.length];
-          return {
-            _id: b._id || String(idx + 1),
-            title: b.title || fallback.title,
-            imageUrl: b.imageUrl,
-            tagline: fallback.tagline,
-            icon: fallback.icon,
-          };
-        });
+        const mapped = data.map((b: any, idx: number) => ({
+          _id: b._id || String(idx + 1),
+          title: b.title || "Partner Brand",
+          imageUrl: b.imageUrl || "",
+        }));
         setBrands(mapped);
       }
     });
   }, []);
 
+  if (brands.length === 0) return null;
+
   return (
-    <section className="section partner-brands-section" aria-label="Partner Brands">
-      <div className="section-header-row compact">
-        <span className="section-eyebrow">STRATEGIC ALLIANCES</span>
-        <h2 className="section-title font-serif">OUR PARTNER BRANDS</h2>
+    <section className="py-12 lg:py-16 px-4 md:px-12 max-w-[1280px] mx-auto w-full bg-white">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 lg:mb-12 gap-4 text-center md:text-left">
+        <div className="text-[#775a19] text-xs font-bold tracking-widest uppercase">
+          STRATEGIC ALLIANCES
+        </div>
+        <h2 className="font-serif text-lg md:text-2xl font-bold text-gray-900">
+          OUR PARTNER BRANDS
+        </h2>
       </div>
 
-      <div className="partner-brands-grid">
-        {brands.map((brand) => {
-          const IconComp = brand.icon || Building2;
-          return (
-            <div key={brand._id} className="partner-brand-card">
-              {brand.imageUrl ? (
-                <div className="partner-logo-wrap">
-                  <Image
-                    src={brand.imageUrl}
-                    alt={brand.title}
-                    fill
-                    className="object-contain"
-                    unoptimized
-                  />
-                </div>
-              ) : (
-                <div className="partner-brand-content">
-                  <IconComp size={18} className="partner-icon" />
-                  <span className="partner-name font-serif">{brand.title}</span>
-                  {brand.tagline && <span className="partner-tagline">{brand.tagline}</span>}
-                </div>
-              )}
-            </div>
-          );
-        })}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8">
+        {brands.map((brand) => (
+          <div
+            key={brand._id}
+            className="border border-gray-200 rounded-lg p-4 lg:p-8 flex items-center justify-center bg-white shadow-sm hover:shadow-md transition-shadow h-24 lg:h-32"
+          >
+            {brand.imageUrl ? (
+              <div className="relative w-full h-12 lg:h-16 flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={brand.imageUrl}
+                  alt={brand.title}
+                  style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center text-center gap-1">
+                <Building2 size={20} className="text-[#775a19]" />
+                <span className="font-serif font-bold text-sm text-gray-900">{brand.title}</span>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   );

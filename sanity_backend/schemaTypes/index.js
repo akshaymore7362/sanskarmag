@@ -9,6 +9,7 @@ import mediaKit from './mediaKit'
 import industryCategory from './industryCategory'
 import industryPost from './industryPost'
 import leader from './leader'
+import webprofile from './webprofile'
 import startup from './startup'
 
 export const schemaTypes = [
@@ -23,5 +24,6 @@ export const schemaTypes = [
   industryCategory,
   industryPost,
   leader,
+  webprofile,
   startup,
 ]

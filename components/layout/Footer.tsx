@@ -10,9 +10,15 @@ export function Footer() {
         <div className="footer-top-grid">
           {/* Brand Info & Tagline Column */}
           <div className="footer-brand-col">
-            <Link href="/" className="footer-logo">
-              <span className="logo-title font-serif">
-                The <span className="logo-highlight">Success World</span>
+            <Link href="/" className="footer-logo" style={{ display: "inline-flex", alignItems: "center", gap: "12px", textDecoration: "none", marginBottom: "12px" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="The Success World Executive Magazine Logo"
+                style={{ height: "46px", width: "auto", objectFit: "contain", borderRadius: "50%" }}
+              />
+              <span className="logo-title font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#FFFFFF" }}>
+                The <span className="logo-highlight" style={{ color: "#D49A24" }}>Success World</span>
               </span>
             </Link>
             <div className="footer-tagline">INSPIRED. INFORMED. EMPOWERED.</div>

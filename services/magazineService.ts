@@ -8,7 +8,8 @@ export const magazineService = {
 
   fetchSanityMagazines: async (): Promise<MagazineIssue[]> => {
     try {
-      const query = `*[_type == "magazine"] | order(publishedAt desc){
+      // Query ONLY authentic published magazine documents (no magpost duplicates)
+      const query = `*[_type == "magazine"] | order(publishedAt desc, _createdAt desc){
         _id,
         title,
         description,
@@ -17,6 +18,14 @@ export const magazineService = {
         issuuLink,
         altText,
         "cover": coalesce(cover.asset->url, mainImage.asset->url, image.asset->url, pdfCover.asset->url, magazineCover.asset->url),
+        "pdfUrl": coalesce(
+          pdfFile.asset->url,
+          pdf.asset->url,
+          file.asset->url,
+          linkedPdf.asset->url,
+          pdfUrl,
+          issuuLink
+        ),
         linkedArticle[]->{
           title,
           "slug": slug.current
@@ -24,29 +33,42 @@ export const magazineService = {
       }`;
       const data = await fetchSanityQuery(query);
       if (data && data.length > 0) {
-        return data.map((item: any, idx: number) => {
-          let dateStr = "May 2026";
-          if (item.publishedAt) {
-            try {
-              dateStr = new Date(item.publishedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" });
-            } catch {
-              dateStr = item.publishedAt;
+        // Filter out duplicate titles or slugs
+        const seenSlugs = new Set<string>();
+        const uniqueItems: MagazineIssue[] = [];
+
+        data.forEach((item: any, idx: number) => {
+          const itemSlug = item.slug || `issue-${idx + 1}`;
+          if (!seenSlugs.has(itemSlug)) {
+            seenSlugs.add(itemSlug);
+
+            let dateStr = "2026";
+            if (item.publishedAt) {
+              try {
+                dateStr = new Date(item.publishedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+              } catch {
+                dateStr = item.publishedAt;
+              }
             }
+
+            uniqueItems.push({
+              id: item._id || String(idx + 1),
+              issue: `Edition ${uniqueItems.length + 1}`,
+              slug: itemSlug,
+              date: dateStr,
+              title: item.title || "The Success World",
+              subtitle: item.description || "Executive Edition",
+              cover: item.cover || "",
+              coverAlt: item.altText || item.title || "Magazine Cover",
+              contents: item.linkedArticle ? item.linkedArticle.map((art: any) => art.title) : [],
+              description: item.description || "",
+              pdfUrl: item.pdfUrl || "",
+              stories: [],
+            });
           }
-          return {
-            issue: `Edition ${idx + 1}`,
-            slug: item.slug || `issue-${idx + 1}`,
-            date: dateStr,
-            title: item.title || "The Success World",
-            subtitle: item.description || "Executive Edition",
-            cover: item.cover || "",
-            coverAlt: item.altText || item.title || "Magazine Cover",
-            contents: item.linkedArticle ? item.linkedArticle.map((art: any) => art.title) : [],
-            description: item.description || "",
-            pdfUrl: item.issuuLink,
-            stories: [],
-          };
         });
+
+        return uniqueItems;
       }
     } catch (e) {
       console.warn("Sanity magazine fetch warning:", e);

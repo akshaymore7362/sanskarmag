@@ -3,112 +3,212 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { TrendingUp, ArrowRight, Clock, Calendar, Sparkles, BarChart3, Activity } from "lucide-react";
+import { ArrowRight, Calendar, Clock, TrendingUp } from "lucide-react";
 import { articleService } from "@/services/articleService";
 import type { Article } from "@/types";
 
 export function MarketNewsSection() {
-  const [news, setNews] = useState<Article[]>([]);
+  const [stories, setStories] = useState<Article[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {
-    articleService.fetchSanityArticlesByIndustry("technology").then((items) => {
+    articleService.fetchSanityArticles().then((items) => {
       if (items && items.length > 0) {
-        setNews(items.slice(0, 4));
+        setStories(items.slice(0, 4));
       } else {
-        articleService.fetchSanityArticles().then((all) => {
-          if (all && all.length > 0) setNews(all.slice(4, 8));
-        });
+        setStories(articleService.all().slice(0, 4));
       }
     });
   }, []);
 
-  if (news.length === 0) return null;
+  // Continuous 2-second Auto-Slide Timer
+  useEffect(() => {
+    if (stories.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % Math.min(stories.length, 3));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [stories.length]);
 
-  const heroItem = news[0];
-  const sideItems = news.slice(1, 4);
+  if (stories.length === 0) return null;
+
+  const lead = stories[activeIndex % stories.length];
+  const sideList = stories.slice(0, 3);
 
   return (
-    <section className="section market-news-section" aria-label="Market News & Economic Dynamics">
-      <div className="market-news-header-row">
+    <section style={{ width: "100%", maxWidth: "1280px", margin: "16px auto", padding: "24px 20px", background: "#f3f4f5", borderRadius: "12px", minHeight: "510px" }}>
+      {/* Header Row */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+          borderBottom: "2px solid #ffdea5",
+          paddingBottom: "10px",
+          marginBottom: "16px",
+          flexWrap: "wrap",
+          gap: "12px",
+        }}
+      >
         <div>
-          <div className="market-live-indicator">
-            <span className="live-pulse-dot" />
-            <Activity size={12} />
-            <span>BUSINESS INTELLIGENCE</span>
-          </div>
-          <h2 className="section-title font-serif">Market News & Economic Dynamics</h2>
+          <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "2px", color: "#775a19", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+            BUSINESS INTELLIGENCE &amp; MARKET DYNAMICS
+          </span>
+          <h2 className="font-serif" style={{ fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 900, color: "#191c1d", margin: 0 }}>
+            Market News &amp; Economic Dynamics
+          </h2>
         </div>
 
-        <Link href="/blogs" className="section-viewall-link">
-          <span>View All News</span>
+        <Link
+          href="/blogs"
+          style={{
+            fontSize: "11px",
+            fontWeight: 800,
+            letterSpacing: "1px",
+            color: "#775a19",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+          }}
+        >
+          <span>View All Intelligence</span>
           <ArrowRight size={15} />
         </Link>
       </div>
 
-      <div className="market-news-panel">
-        {/* LEFT: Chart / Featured Market Visual */}
-        {heroItem && (
-          <div className="market-chart-hero-card">
-            {/* SVG Interactive Market Chart Overlay Graphic */}
-            <div className="market-chart-graphic">
-              <svg viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="chart-svg">
-                <defs>
-                  <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#7C3AED" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
-                <path d="M0 160 Q 80 140 140 90 T 280 110 T 420 40 L 500 20 V 200 H 0 Z" fill="url(#chartGradient)" />
-                <path d="M0 160 Q 80 140 140 90 T 280 110 T 420 40 L 500 20" stroke="#F5B942" strokeWidth="3.5" strokeLinecap="round" />
-                <circle cx="140" cy="90" r="5" fill="#F5B942" />
-                <circle cx="280" cy="110" r="5" fill="#7C3AED" />
-                <circle cx="420" cy="40" r="5" fill="#F5B942" />
-              </svg>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "20px", alignItems: "flex-start" }}>
+        {/* LEFT COLUMN: Auto-Sliding Market Feature (Fixed Bounds = ZERO Shifting) */}
+        {lead && (
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px", height: "420px", overflow: "hidden" }}>
+            <div style={{ position: "relative", width: "100%", height: "260px", borderRadius: "10px", overflow: "hidden", background: "#0a192f", flexShrink: 0 }}>
+              {lead.image && (
+                <Image
+                  src={lead.image}
+                  alt={lead.title}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                  priority
+                />
+              )}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "12px",
+                  left: "12px",
+                  background: "#0a192f",
+                  color: "#ffffff",
+                  padding: "5px 12px",
+                  fontSize: "10px",
+                  fontWeight: 800,
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                  borderRadius: "4px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+                }}
+              >
+                <TrendingUp size={13} style={{ color: "#fed488" }} />
+                <span>{lead.category || "STOCK MARKET"}</span>
+              </div>
             </div>
 
-            <div className="market-hero-content-wrap">
-              <div className="market-hero-meta">
-                <span className="gold-pill-sm">ECONOMIC ANALYSIS</span>
-                <span className="market-date"><Calendar size={12} /> {heroItem.date}</span>
+            <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "11px", fontWeight: 700, color: "#75777e", marginBottom: "4px" }}>
+                <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                  <Calendar size={13} /> Jun 15, 2026
+                </span>
+                <span>•</span>
+                <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                  <Clock size={13} /> {lead.readTime || "5 min read"}
+                </span>
               </div>
 
-              <h3 className="market-hero-headline font-serif">
-                <Link href={`/blogs/${heroItem.slug}`}>{heroItem.title}</Link>
+              <h3 className="font-serif" style={{ fontSize: "19px", fontWeight: 900, color: "#191c1d", margin: "0 0 4px", lineHeight: 1.3, height: "50px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                <Link href={`/blogs/${lead.slug}`} style={{ color: "#191c1d", textDecoration: "none" }}>{lead.title}</Link>
               </h3>
 
-              <p className="market-hero-excerpt">{heroItem.description}</p>
+              <p style={{ fontSize: "13px", color: "#44474d", lineHeight: 1.45, margin: "0 0 8px", height: "38px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                {lead.description}
+              </p>
 
-              <div className="market-hero-footer">
-                <Link href={`/blogs/${heroItem.slug}`} className="read-coverage-btn">
-                  <span>Read Market Coverage</span>
-                  <ArrowRight size={14} />
-                </Link>
-              </div>
+              <Link
+                href={`/blogs/${lead.slug}`}
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 800,
+                  letterSpacing: "1px",
+                  color: "#0a192f",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  marginTop: "auto",
+                }}
+              >
+                <span>Read Market Coverage</span>
+                <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
         )}
 
-        {/* RIGHT: 3 Stacked Market News Stories */}
-        <div className="market-news-side-feed">
-          {sideItems.map((item, idx) => (
-            <article className="market-side-item" key={item.slug || String(idx)}>
-              {item.image && (
-                <div className="market-side-thumb-wrap">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
+        {/* RIGHT COLUMN: 3 Side Items (Strictly Top-Aligned = ZERO Upper Empty Gap!) */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "flex-start", marginTop: 0, paddingTop: 0 }}>
+          {sideList.map((item, idx) => {
+            const isActive = idx === activeIndex;
+            return (
+              <div
+                key={item.slug || String(idx)}
+                onClick={() => setActiveIndex(idx)}
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  padding: "10px",
+                  background: "#ffffff",
+                  borderRadius: "8px",
+                  border: "1px solid #e1e3e4",
+                  borderLeft: isActive ? "4px solid #775a19" : "1px solid #e1e3e4",
+                  cursor: "pointer",
+                  alignItems: "center",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
+                  transition: "all 0.25s ease",
+                  height: "128px",
+                }}
+              >
+                <div style={{ position: "relative", width: "95px", height: "108px", borderRadius: "6px", overflow: "hidden", flexShrink: 0, background: "#e7e8e9" }}>
+                  {item.image && (
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  )}
                 </div>
-              )}
-              <div className="market-side-content">
-                <span className="market-side-tag">MARKETS</span>
-                <h4 className="market-side-title font-serif">
-                  <Link href={`/blogs/${item.slug}`}>{item.title}</Link>
-                </h4>
-                <div className="market-side-meta">
-                  <Clock size={11} />
-                  <span>{item.readTime}</span>
+
+                <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between", padding: "2px 0" }}>
+                  <span style={{ fontSize: "9px", fontWeight: 800, color: "#775a19", letterSpacing: "1px", textTransform: "uppercase", display: "block" }}>
+                    {item.category || "MARKET INTELLIGENCE"}
+                  </span>
+
+                  <h4 className="font-serif" style={{ fontSize: "13px", fontWeight: 700, color: "#191c1d", margin: "2px 0", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "34px" }}>
+                    <Link href={`/blogs/${item.slug}`} style={{ color: "#191c1d", textDecoration: "none" }}>{item.title}</Link>
+                  </h4>
+
+                  <span style={{ fontSize: "10px", color: "#75777e", fontWeight: 600, display: "flex", alignItems: "center", gap: "3px", marginTop: "auto" }}>
+                    <Clock size={11} /> {item.readTime || "5 min read"}
+                  </span>
                 </div>
               </div>
-            </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

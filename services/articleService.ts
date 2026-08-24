@@ -233,4 +233,94 @@ export const articleService = {
     }
     return [];
   },
+
+  // Fetch articles for "The Intelligence Brief" section
+  fetchIntelligenceBriefArticles: async (): Promise<Article[]> => {
+    try {
+      const query = `*[_type in ["post", "industryPost"] && (status == "published" || !defined(status)) && (
+        editorialSection == "intelligenceBrief" ||
+        editorialSection == "the-briefing" ||
+        editorialSection == "briefing" ||
+        !defined(editorialSection)
+      )] | order(publishedAt desc, _createdAt desc){
+        _id,
+        _type,
+        title,
+        "slug": slug.current,
+        subtitle,
+        storyType,
+        contentType,
+        publishedAt,
+        readTime,
+        description,
+        pullQuote,
+        topics,
+        featured,
+        editorialSection,
+        altText,
+        "imageUrl": coalesce(mainImage.asset->url, image.asset->url, coverImage.asset->url, featuredImage.asset->url, thumbnail.asset->url),
+        imageAlt,
+        author,
+        authorRef->{ name, slug },
+        industryCategory->{ "name": coalesce(name, title), "slug": slug.current },
+        primaryIndustry->{ "name": coalesce(name, title), "slug": slug.current },
+        industryName,
+        categoryRef->{ title, "slug": slug.current },
+        category,
+        categories[]->{ title, "slug": slug.current }
+      }`;
+      const data = await fetchSanityQuery(query);
+      if (data && data.length > 0) {
+        return dedupeArticles(data.map(mapSanityDocToArticle));
+      }
+    } catch (e) {
+      console.warn("Sanity intelligence brief fetch warning:", e);
+    }
+    return [];
+  },
+
+  // Fetch articles for "Leadership Lens" section
+  fetchLeadershipLensArticles: async (): Promise<Article[]> => {
+    try {
+      const query = `*[_type in ["post", "industryPost"] && (status == "published" || !defined(status)) && (
+        editorialSection == "leadershipLens" ||
+        editorialSection == "executive-perspectives" ||
+        editorialSection == "perspectives" ||
+        !defined(editorialSection)
+      )] | order(publishedAt desc, _createdAt desc){
+        _id,
+        _type,
+        title,
+        "slug": slug.current,
+        subtitle,
+        storyType,
+        contentType,
+        publishedAt,
+        readTime,
+        description,
+        pullQuote,
+        topics,
+        featured,
+        editorialSection,
+        altText,
+        "imageUrl": coalesce(mainImage.asset->url, image.asset->url, coverImage.asset->url, featuredImage.asset->url, thumbnail.asset->url),
+        imageAlt,
+        author,
+        authorRef->{ name, slug },
+        industryCategory->{ "name": coalesce(name, title), "slug": slug.current },
+        primaryIndustry->{ "name": coalesce(name, title), "slug": slug.current },
+        industryName,
+        categoryRef->{ title, "slug": slug.current },
+        category,
+        categories[]->{ title, "slug": slug.current }
+      }`;
+      const data = await fetchSanityQuery(query);
+      if (data && data.length > 0) {
+        return dedupeArticles(data.map(mapSanityDocToArticle));
+      }
+    } catch (e) {
+      console.warn("Sanity leadership lens fetch warning:", e);
+    }
+    return [];
+  },
 };

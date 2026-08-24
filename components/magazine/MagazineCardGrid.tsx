@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Bookmark, RefreshCw } from "lucide-react";
+import { ArrowRight, Bookmark, RefreshCw, ExternalLink } from "lucide-react";
 import type { MagazineIssue } from "@/types";
 
 interface Props {
@@ -24,7 +24,7 @@ export function MagazineCardGrid({ issues }: Props) {
 
   return (
     <section style={{ width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 6vw 60px" }}>
-      {/* 4-Column Responsive Magazine Cards Grid (4 per row) */}
+      {/* 4-Column Responsive Magazine Cards Grid */}
       <div
         className="magazine-four-col-grid"
         style={{
@@ -36,6 +36,8 @@ export function MagazineCardGrid({ issues }: Props) {
       >
         {visibleIssues.map((item, idx) => {
           const isBookmarked = bookmarkedSlugs[item.slug];
+          const targetUrl = item.pdfUrl ? item.pdfUrl : `/magazines/${item.slug}`;
+          const isExternalPdf = Boolean(item.pdfUrl && (item.pdfUrl.startsWith("http://") || item.pdfUrl.startsWith("https://")));
 
           return (
             <div
@@ -63,35 +65,62 @@ export function MagazineCardGrid({ issues }: Props) {
                   background: "#151027",
                 }}
               >
-                {item.cover ? (
-                  <Image
-                    src={item.cover}
-                    alt={item.title}
-                    fill
-                    className="object-cover"
-                    unoptimized
-                    style={{ transition: "transform 0.4s ease" }}
-                  />
+                {isExternalPdf ? (
+                  <a href={targetUrl} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
+                    {item.cover ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={item.cover}
+                        alt={item.title}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          height: "100%",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          padding: "16px",
+                          textAlign: "center",
+                          background: "linear-gradient(135deg, #1A102F 0%, #0F131F 100%)",
+                        }}
+                      >
+                        <div className="font-serif" style={{ fontSize: "16px", fontWeight: 900, color: "#D49A24" }}>
+                          THE SUCCESS WORLD
+                        </div>
+                      </div>
+                    )}
+                  </a>
                 ) : (
-                  <div
-                    style={{
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "16px",
-                      textAlign: "center",
-                      background: "linear-gradient(135deg, #1A102F 0%, #0F131F 100%)",
-                    }}
-                  >
-                    <div className="font-serif" style={{ fontSize: "16px", fontWeight: 900, color: "#D49A24" }}>
-                      STAR PRIME
-                    </div>
-                    <div style={{ fontSize: "10px", color: "#FFFFFF", marginTop: "4px" }}>
-                      {item.issue || "EXECUTIVE EDITION"}
-                    </div>
-                  </div>
+                  <Link href={targetUrl} style={{ display: "block", width: "100%", height: "100%" }}>
+                    {item.cover ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={item.cover}
+                        alt={item.title}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          height: "100%",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          padding: "16px",
+                          textAlign: "center",
+                          background: "linear-gradient(135deg, #1A102F 0%, #0F131F 100%)",
+                        }}
+                      >
+                        <div className="font-serif" style={{ fontSize: "16px", fontWeight: 900, color: "#D49A24" }}>
+                          THE SUCCESS WORLD
+                        </div>
+                      </div>
+                    )}
+                  </Link>
                 )}
 
                 {/* Top Badge Overlay */}
@@ -115,7 +144,7 @@ export function MagazineCardGrid({ issues }: Props) {
                 </div>
               </div>
 
-              {/* Bottom Info Overlay Card (Dark Maroon / Burgundy overlay matching image) */}
+              {/* Bottom Info Overlay Card */}
               <div
                 style={{
                   background: "linear-gradient(180deg, #1C0F16 0%, #120A0E 100%)",
@@ -142,7 +171,15 @@ export function MagazineCardGrid({ issues }: Props) {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {item.title}
+                    {isExternalPdf ? (
+                      <a href={targetUrl} target="_blank" rel="noopener noreferrer" style={{ color: "#FFFFFF", textDecoration: "none" }}>
+                        {item.title}
+                      </a>
+                    ) : (
+                      <Link href={targetUrl} style={{ color: "#FFFFFF", textDecoration: "none" }}>
+                        {item.title}
+                      </Link>
+                    )}
                   </h3>
 
                   {/* Role / Subtitle */}
@@ -157,7 +194,7 @@ export function MagazineCardGrid({ issues }: Props) {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {item.subtitle || item.description || "Executive Business Leader"}
+                    {item.subtitle || item.description || "Digital Magazine Edition"}
                   </div>
                 </div>
 
@@ -171,21 +208,41 @@ export function MagazineCardGrid({ issues }: Props) {
                     borderTop: "1px solid rgba(255, 255, 255, 0.08)",
                   }}
                 >
-                  <Link
-                    href={`/magazines`}
-                    style={{
-                      fontSize: "11px",
-                      fontWeight: 800,
-                      color: "#D49A24",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <span>Read Edition</span>
-                    <ArrowRight size={12} />
-                  </Link>
+                  {isExternalPdf ? (
+                    <a
+                      href={targetUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: 800,
+                        color: "#D49A24",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <span>Read PDF Edition</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  ) : (
+                    <Link
+                      href={targetUrl}
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: 800,
+                        color: "#D49A24",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <span>Read Edition</span>
+                      <ArrowRight size={12} />
+                    </Link>
+                  )}
 
                   <button
                     type="button"

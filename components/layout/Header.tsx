@@ -31,7 +31,6 @@ const nav: NavItem[] = [
   { label: "Leaders", href: "/leaders" },
   { label: "Startups", href: "/startups" },
   { label: "Insights", href: "/insights" },
-  { label: "Events", href: "/events" },
   {
     label: "More",
     href: "#",
@@ -151,19 +150,17 @@ export function Header() {
 
       {/* 2. Main Navigation Bar */}
       <nav className="mainnav" aria-label="Main Navigation">
-        {/* Brand Logo & Slogan Stack */}
-        <Link href="/" className="nav-logo" style={{ textDecoration: "none" }}>
-          <div className="logo-brand-block">
-            <div className="logo-title font-serif" style={{ fontSize: "24px", fontWeight: 900, lineHeight: 1.05 }}>
-              <span style={{ color: "#FFFFFF" }}>The </span>
-              <span style={{ color: "#D49A24" }}>Success</span>
-            </div>
-            <div className="logo-title font-serif" style={{ fontSize: "24px", fontWeight: 900, color: "#D49A24", lineHeight: 1.05 }}>
-              World
-            </div>
-            <div className="logo-slogan" style={{ fontSize: "7px", fontWeight: 800, letterSpacing: "2.2px", color: "#D49A24", marginTop: "4px" }}>
-              INSPIRED. INFORMED. EMPOWERING. EXCELLENCE.
-            </div>
+        {/* Brand Logo & Title Stacked (Bigger Logo Size) */}
+        <Link href="/" className="nav-logo" style={{ textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "3px", flexShrink: 0, padding: "4px 0" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="The Success World Executive Magazine Logo"
+            style={{ height: "56px", width: "auto", objectFit: "contain", borderRadius: "50%", flexShrink: 0 }}
+          />
+          <div className="logo-title font-serif" style={{ fontSize: "13px", fontWeight: 900, lineHeight: 1, whiteSpace: "nowrap", letterSpacing: "0.5px" }}>
+            <span style={{ color: "#FFFFFF" }}>The </span>
+            <span style={{ color: "#8B1029" }}>Success World</span>
           </div>
         </Link>
 
@@ -187,7 +184,7 @@ export function Header() {
                   style={{
                     fontSize: "14px",
                     fontWeight: 700,
-                    color: isActive ? "#D49A24" : "#FFFFFF",
+                    color: isActive ? "#8B1029" : "#FFFFFF",
                     position: "relative",
                     padding: "24px 0",
                     display: "flex",
@@ -200,11 +197,11 @@ export function Header() {
                     <ChevronDown
                       size={13}
                       className={`dropdown-chevron ${isDropdownOpen ? "open" : ""}`}
-                      style={{ color: isActive ? "#D49A24" : "rgba(255, 255, 255, 0.6)" }}
+                      style={{ color: isActive ? "#8B1029" : "rgba(255, 255, 255, 0.6)" }}
                     />
                   )}
                   {isActive && (
-                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#D49A24", borderRadius: "2px", boxShadow: "0 0 8px rgba(212, 154, 36, 0.6)" }} />
+                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#8B1029", borderRadius: "2px", boxShadow: "0 0 8px rgba(139, 16, 41, 0.6)" }} />
                   )}
                 </Link>
 
@@ -245,8 +242,8 @@ export function Header() {
         </div>
 
         {/* Right Action Buttons */}
-        <div className="nav-actions" style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-          {/* Search Trigger Input Button */}
+        <div className="nav-actions" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          {/* Search Trigger Icon-Only Button */}
           <button
             type="button"
             className="search-btn"
@@ -255,19 +252,16 @@ export function Header() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "8px",
-              padding: "7px 14px",
+              justifyContent: "center",
+              padding: "8px 10px",
               background: "rgba(255, 255, 255, 0.06)",
               border: "1px solid rgba(255, 255, 255, 0.15)",
               borderRadius: "8px",
-              color: "rgba(255, 255, 255, 0.8)",
-              fontSize: "13px",
+              color: "#FFFFFF",
               cursor: "pointer",
             }}
           >
-            <Search size={14} style={{ color: "rgba(255, 255, 255, 0.7)" }} />
-            <span>Search</span>
-            <kbd style={{ fontSize: "10px", padding: "2px 5px", background: "rgba(255, 255, 255, 0.12)", borderRadius: "4px", color: "#D49A24", fontWeight: 700 }}>⌘K</kbd>
+            <Search size={18} />
           </button>
 
           {/* Nominate Now Button */}
@@ -279,10 +273,10 @@ export function Header() {
               alignItems: "center",
               gap: "6px",
               padding: "8px 16px",
-              background: "rgba(212, 154, 36, 0.15)",
-              border: "1px solid rgba(212, 154, 36, 0.4)",
+              background: "#8B1029",
+              border: "1px solid #8B1029",
               borderRadius: "8px",
-              color: "#D49A24",
+              color: "#FFFFFF",
               fontSize: "13px",
               fontWeight: 800,
               cursor: "pointer",
@@ -291,12 +285,6 @@ export function Header() {
             <Award size={14} />
             <span>Nominate Now</span>
           </button>
-
-          {/* Subscribe Button */}
-          <Link href="/subscribe" className="btn btn-gold-gradient" style={{ padding: "9px 18px", fontSize: "13px", fontWeight: 800, borderRadius: "8px" }}>
-            <Sparkles size={14} />
-            <span>Subscribe</span>
-          </Link>
 
           {/* Mobile Hamburger Trigger */}
           <button
@@ -429,11 +417,18 @@ export function Header() {
         <div className="mobile-drawer-overlay" onClick={() => toggleMenu(false)}>
           <div className="mobile-drawer" onClick={(e) => e.stopPropagation()}>
             <div className="mobile-drawer-header">
-              <div className="logo-brand-block">
-                <div className="logo-title font-serif">
-                  The <span className="logo-highlight">Success World</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.png"
+                  alt="The Success World Executive Magazine Logo"
+                  style={{ height: "38px", width: "auto", objectFit: "contain", borderRadius: "50%" }}
+                />
+                <div className="logo-brand-block">
+                  <div className="logo-title font-serif" style={{ fontSize: "16px", fontWeight: 900 }}>
+                    The <span className="logo-highlight">Success World</span>
+                  </div>
                 </div>
-                <div className="logo-slogan">INSPIRED. INFORMED. EMPOWERING. EXCELLENCE.</div>
               </div>
 
               <button

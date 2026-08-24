@@ -10,53 +10,44 @@ interface TickerItem {
   isPositive: boolean;
 }
 
-const initialMarketData: TickerItem[] = [
-  { symbol: "INDEX", price: "3,421.06", change: "-0.03%", isPositive: false },
-  { symbol: "BTC/USD", price: "$68,340.12", change: "+0.00%", isPositive: true },
-  { symbol: "S&P 500", price: "5,283.40", change: "+0.74%", isPositive: true },
-  { symbol: "NASDAQ", price: "16,898.05", change: "+0.67%", isPositive: true },
-  { symbol: "DOW JONES", price: "39,027.12", change: "-0.38%", isPositive: false },
-  { symbol: "GOLD", price: "$2,352.45", change: "+1.08%", isPositive: true },
-  { symbol: "USD/INR", price: "83.15", change: "-0.08%", isPositive: false },
+const fallbackMarketData: TickerItem[] = [
+  { symbol: "S&P 500", price: "5,969.34", change: "-0.44%", isPositive: false },
+  { symbol: "NASDAQ", price: "18,972.42", change: "-0.57%", isPositive: false },
+  { symbol: "DOW JONES", price: "43,456.78", change: "-0.35%", isPositive: false },
+  { symbol: "GOLD", price: "$2,674.50", change: "+0.79%", isPositive: true },
+  { symbol: "CRUDE OIL", price: "$69.04", change: "-2.32%", isPositive: false },
+  { symbol: "BTC/USD", price: "$98,429.00", change: "+1.53%", isPositive: true },
+  { symbol: "ETH/USD", price: "$3,499.84", change: "+2.85%", isPositive: true },
+  { symbol: "USD/INR", price: "₹84.45", change: "-0.04%", isPositive: false },
 ];
 
 const signalItems = [
-  "SIGNAL BLOGS AND ARTICLES: +14% Market Activity",
-  "SIGNAL EXECUTIVE PERSPECTIVES: +14% Market Activity",
-  "SIGNAL TECH & AI INNOVATIONS: +22% Enterprise Adoption",
-  "SIGNAL HEALTHCARE BIOTECH: +18% Capital Outflow",
+  "MARKET ACTIVITY: Enterprise AI & Semiconductor Rally Continues",
+  "GLOBAL MARKETS: Central Banks Monitor Interest Rate Policies",
+  "SECTOR WATCH: Renewable Energy & Biotech Capital Inflows",
 ];
 
 export function MarketTicker() {
-  const [items, setItems] = useState<TickerItem[]>(initialMarketData);
+  const [items, setItems] = useState<TickerItem[]>(fallbackMarketData);
 
+  // Fetch real live market quotes from API route
   useEffect(() => {
-    const interval = setInterval(() => {
-      setItems((prevItems) =>
-        prevItems.map((item) => {
-          if (Math.random() > 0.6) {
-            const rawVal = parseFloat(item.price.replace(/[^0-9.]/g, ""));
-            const delta = (Math.random() - 0.48) * (rawVal * 0.001);
-            const newVal = Math.max(1, rawVal + delta);
-            const isPos = delta >= 0;
-            const pct = (delta / rawVal) * 100;
-            const changeStr = `${isPos ? "+" : ""}${pct.toFixed(2)}%`;
-            const formattedPrice = item.price.startsWith("$")
-              ? `$${newVal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-              : newVal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-            return {
-              ...item,
-              price: formattedPrice,
-              change: changeStr,
-              isPositive: isPos,
-            };
+    async function loadLiveQuotes() {
+      try {
+        const res = await fetch("/api/market-ticker");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.tickers && data.tickers.length > 0) {
+            setItems(data.tickers);
           }
-          return item;
-        })
-      );
-    }, 4000);
+        }
+      } catch {
+        // Retain fallback data if fetch fails
+      }
+    }
 
+    loadLiveQuotes();
+    const interval = setInterval(loadLiveQuotes, 30000); // Refresh live quotes every 30s
     return () => clearInterval(interval);
   }, []);
 
@@ -64,10 +55,10 @@ export function MarketTicker() {
 
   return (
     <div className="market-ticker-bar" aria-label="Live Market Ticker">
-      {/* Far Left Badge */}
+      {/* Far Left Live Badge */}
       <div className="market-ticker-badge">
         <span className="live-dot" />
-        <Activity size={13} style={{ color: "#D49A24" }} />
+        <Activity size={13} style={{ color: "#8B1029" }} />
         <span>LIVE MARKET</span>
       </div>
 

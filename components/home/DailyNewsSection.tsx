@@ -60,20 +60,20 @@ export function DailyNewsSection() {
       style={{
         width: "100%",
         maxWidth: "1280px",
-        margin: "32px auto",
-        padding: "36px 20px",
+        margin: "24px auto",
+        padding: "24px 18px",
         background: "#FFFFFF",
         border: "1px solid #E2DCD0",
-        borderRadius: "20px",
-        boxShadow: "0 8px 30px rgba(0, 0, 0, 0.04)",
+        borderRadius: "16px",
+        boxShadow: "0 6px 24px rgba(0, 0, 0, 0.03)",
       }}
     >
       {/* Newspaper Press Masthead Header */}
       <div
         style={{
           borderBottom: "3px double #101722",
-          paddingBottom: "16px",
-          marginBottom: "28px",
+          paddingBottom: "12px",
+          marginBottom: "20px",
         }}
       >
         {/* Top Press Bar */}
@@ -83,8 +83,8 @@ export function DailyNewsSection() {
             justifyContent: "space-between",
             alignItems: "center",
             borderBottom: "1px solid #E2DCD0",
-            paddingBottom: "8px",
-            marginBottom: "12px",
+            paddingBottom: "6px",
+            marginBottom: "10px",
             fontSize: "10px",
             fontWeight: 800,
             letterSpacing: "2px",
@@ -126,7 +126,7 @@ export function DailyNewsSection() {
                 background: "#F7F5F0",
                 border: "1px solid #E2DCD0",
                 borderRadius: "4px",
-                padding: "4px 10px",
+                padding: "3px 8px",
                 cursor: "pointer",
                 display: "inline-flex",
                 alignItems: "center",
@@ -140,8 +140,8 @@ export function DailyNewsSection() {
         </div>
 
         {/* Newspaper Main Section Title */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "10px" }}>
-          <h2 className="font-serif" style={{ fontSize: "clamp(24px, 2.6vw, 34px)", fontWeight: 900, color: "#101722", margin: 0, letterSpacing: "-0.5px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "8px" }}>
+          <h2 className="font-serif" style={{ fontSize: "clamp(22px, 2.4vw, 30px)", fontWeight: 900, color: "#101722", margin: 0, letterSpacing: "-0.5px" }}>
             Daily Live News &amp; Market Intelligence
           </h2>
 
@@ -151,25 +151,25 @@ export function DailyNewsSection() {
         </div>
       </div>
 
-      {/* 3-Column Newspaper Layout */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "28px", alignItems: "stretch" }}>
-        {/* COLUMN 1: Lead Front Page Story Card with Image */}
+      {/* 3-Column Compact Newspaper Layout */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "20px", alignItems: "stretch" }}>
+        {/* COLUMN 1: Lead Front Page Story Card with Bigger Image */}
         {leadStory && (
           <div
             style={{
               background: "#FBF9F5",
               border: "1px solid #E5E2D9",
-              borderRadius: "14px",
-              padding: "20px",
+              borderRadius: "12px",
+              padding: "16px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
-              boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
             }}
           >
             <div>
-              {/* Lead News Story Image */}
-              <div style={{ position: "relative", width: "100%", height: "200px", borderRadius: "10px", overflow: "hidden", marginBottom: "16px", background: "#0A0D16" }}>
+              {/* Lead News Story Image (Bigger 220px Height) */}
+              <div style={{ position: "relative", width: "100%", height: "220px", borderRadius: "10px", overflow: "hidden", marginBottom: "14px", background: "#0A0D16" }}>
                 {leadStory.image ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img src={leadStory.image} alt={leadStory.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -178,35 +178,35 @@ export function DailyNewsSection() {
                     DAILY LIVE NEWS
                   </div>
                 )}
-                <div style={{ position: "absolute", top: "10px", left: "10px", background: "#8B1029", color: "#FFFFFF", fontSize: "10px", fontWeight: 900, padding: "3px 8px", borderRadius: "4px", letterSpacing: "1px", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "4px" }}>
+                <div style={{ position: "absolute", top: "10px", left: "10px", background: "#8B1029", color: "#FFFFFF", fontSize: "10px", fontWeight: 900, padding: "4px 10px", borderRadius: "4px", letterSpacing: "1px", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "4px" }}>
                   <Flame size={12} /> LEAD STORY
                 </div>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                <span style={{ fontSize: "11px", fontWeight: 800, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                <span style={{ fontSize: "10px", fontWeight: 800, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase" }}>
                   {leadStory.category} &bull; <span style={{ color: "#77727D" }}>{leadStory.source}</span>
                 </span>
 
-                <span style={{ fontSize: "11px", fontWeight: 800, color: "#8B1029", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                  <Clock size={12} /> {leadStory.time}
+                <span style={{ fontSize: "10px", fontWeight: 800, color: "#8B1029", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                  <Clock size={11} /> {leadStory.time}
                 </span>
               </div>
 
               <h3
                 className="font-serif"
                 style={{
-                  fontSize: "20px",
+                  fontSize: "19px",
                   fontWeight: 900,
                   lineHeight: 1.25,
                   color: "#101722",
-                  margin: "0 0 10px",
+                  margin: "0 0 8px",
                 }}
               >
                 {leadStory.title}
               </h3>
 
-              <p style={{ fontSize: "13px", color: "#555259", lineHeight: 1.6, margin: "0 0 20px" }}>
+              <p style={{ fontSize: "13px", color: "#555259", lineHeight: 1.55, margin: "0 0 16px" }}>
                 {leadStory.snippet}
               </p>
             </div>
@@ -222,7 +222,7 @@ export function DailyNewsSection() {
                 fontWeight: 900,
                 letterSpacing: "1px",
                 textTransform: "uppercase",
-                padding: "10px 18px",
+                padding: "10px 16px",
                 borderRadius: "8px",
                 textDecoration: "none",
                 display: "inline-flex",
@@ -238,8 +238,8 @@ export function DailyNewsSection() {
           </div>
         )}
 
-        {/* COLUMN 2: Secondary Front Page Column Stories with Images */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px", justifyContent: "space-between" }}>
+        {/* COLUMN 2: Secondary Front Page Column Stories with Bigger Images (130px x 100px) */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px", justifyContent: "space-between" }}>
           {secondaryStories.map((item, idx) => (
             <div
               key={item.id || String(idx)}
@@ -247,15 +247,16 @@ export function DailyNewsSection() {
                 background: "#FFFFFF",
                 border: "1px solid #E5E2D9",
                 borderRadius: "12px",
-                padding: "14px",
+                padding: "12px",
                 display: "flex",
                 gap: "14px",
                 alignItems: "center",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
+                flex: 1,
               }}
             >
-              {/* Thumbnail Image */}
-              <div style={{ position: "relative", width: "90px", height: "85px", borderRadius: "8px", overflow: "hidden", flexShrink: 0, background: "#0A0D16" }}>
+              {/* Bigger Thumbnail Image (130px x 100px) */}
+              <div style={{ position: "relative", width: "130px", height: "100px", borderRadius: "8px", overflow: "hidden", flexShrink: 0, background: "#0A0D16" }}>
                 {item.image ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img src={item.image} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -310,13 +311,13 @@ export function DailyNewsSection() {
           ))}
         </div>
 
-        {/* COLUMN 3: Live Real-Time Press Wire List with Thumbnails */}
-        <div style={{ background: "#FBF9F5", border: "1px solid #E5E2D9", borderRadius: "14px", padding: "18px", display: "flex", flexDirection: "column", gap: "12px" }}>
-          <div style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "2px", color: "#8B1029", textTransform: "uppercase", borderBottom: "1px solid #E2DCD0", paddingBottom: "8px" }}>
+        {/* COLUMN 3: Live Real-Time Press Wire List with Bigger Thumbnails (72px x 65px) */}
+        <div style={{ background: "#FBF9F5", border: "1px solid #E5E2D9", borderRadius: "12px", padding: "14px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "2px", color: "#8B1029", textTransform: "uppercase", borderBottom: "1px solid #E2DCD0", paddingBottom: "6px" }}>
             REAL-TIME PRESS WIRE
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px", flex: 1, justifyContent: "space-between" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", flex: 1, justifyContent: "space-between" }}>
             {wireHeadlines.map((wire, wIdx) => (
               <a
                 key={wire.id || String(wIdx)}
@@ -328,11 +329,12 @@ export function DailyNewsSection() {
                   gap: "10px",
                   alignItems: "center",
                   textDecoration: "none",
-                  paddingBottom: wIdx < wireHeadlines.length - 1 ? "10px" : "0",
+                  paddingBottom: wIdx < wireHeadlines.length - 1 ? "8px" : "0",
                   borderBottom: wIdx < wireHeadlines.length - 1 ? "1px dashed #E5E2D9" : "none",
                 }}
               >
-                <div style={{ position: "relative", width: "52px", height: "52px", borderRadius: "6px", overflow: "hidden", flexShrink: 0, background: "#0A0D16" }}>
+                {/* Bigger Wire Thumbnail (72px x 65px) */}
+                <div style={{ position: "relative", width: "72px", height: "65px", borderRadius: "6px", overflow: "hidden", flexShrink: 0, background: "#0A0D16" }}>
                   {wire.image ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img src={wire.image} alt={wire.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />

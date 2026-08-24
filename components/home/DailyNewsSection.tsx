@@ -238,8 +238,8 @@ export function DailyNewsSection() {
           </div>
         )}
 
-        {/* COLUMN 2: Secondary Front Page Column Stories with Bigger Images (130px x 100px) */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", justifyContent: "space-between" }}>
+        {/* COLUMN 2: Secondary Front Page Column Stories with Full-Height Images & Rich Snippets */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
           {secondaryStories.map((item, idx) => (
             <div
               key={item.id || String(idx)}
@@ -247,16 +247,16 @@ export function DailyNewsSection() {
                 background: "#FFFFFF",
                 border: "1px solid #E5E2D9",
                 borderRadius: "12px",
-                padding: "12px",
+                padding: "14px",
                 display: "flex",
                 gap: "14px",
-                alignItems: "center",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
+                alignItems: "stretch",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
                 flex: 1,
               }}
             >
-              {/* Bigger Thumbnail Image (130px x 100px) */}
-              <div style={{ position: "relative", width: "130px", height: "100px", borderRadius: "8px", overflow: "hidden", flexShrink: 0, background: "#0A0D16" }}>
+              {/* Full-Height Thumbnail Photo (140px width) */}
+              <div style={{ position: "relative", width: "140px", minHeight: "130px", borderRadius: "8px", overflow: "hidden", flexShrink: 0, background: "#0A0D16" }}>
                 {item.image ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img src={item.image} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -267,10 +267,10 @@ export function DailyNewsSection() {
                 )}
               </div>
 
-              <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+              <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3px" }}>
-                    <span style={{ fontSize: "9px", fontWeight: 800, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <span style={{ fontSize: "9px", fontWeight: 900, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase" }}>
                       {item.category}
                     </span>
                     <span style={{ fontSize: "10px", fontWeight: 700, color: "#77727D" }}>{item.time}</span>
@@ -279,10 +279,10 @@ export function DailyNewsSection() {
                   <h4
                     className="font-serif"
                     style={{
-                      fontSize: "14px",
+                      fontSize: "15px",
                       fontWeight: 900,
                       color: "#101722",
-                      margin: "0 0 4px",
+                      margin: "0 0 6px",
                       lineHeight: 1.3,
                       display: "-webkit-box",
                       WebkitLineClamp: 2,
@@ -292,17 +292,33 @@ export function DailyNewsSection() {
                   >
                     {item.title}
                   </h4>
+
+                  {/* Rich Text Snippet Content to fill empty space */}
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      color: "#555259",
+                      lineHeight: 1.45,
+                      margin: "0 0 8px",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {item.snippet}
+                  </p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "4px" }}>
-                  <span style={{ fontSize: "10px", fontWeight: 700, color: "#555259" }}>{item.source}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "4px", borderTop: "1px solid #F0ECE1" }}>
+                  <span style={{ fontSize: "10px", fontWeight: 800, color: "#101722" }}>{item.source}</span>
                   <a
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ fontSize: "10px", fontWeight: 800, color: "#8B1029", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "3px" }}
                   >
-                    <span>Read</span>
+                    <span>Read Coverage</span>
                     <ArrowRight size={11} />
                   </a>
                 </div>

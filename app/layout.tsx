@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { GlobalChatWidget } from "@/components/common/GlobalChatWidget";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thesuccessworld.com"),
@@ -37,6 +38,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         {children}
         <Footer />
+
+        {/* Global Fixed Position Chatbot & Reader Suggestion Widget (Appears on EVERY page) */}
+        <GlobalChatWidget />
       </body>
     </html>
   );

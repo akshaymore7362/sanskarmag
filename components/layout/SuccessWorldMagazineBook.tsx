@@ -2,12 +2,11 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { BookOpen, ChevronLeft, ChevronRight, Pause, Play, ExternalLink } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, Pause, Play, ExternalLink, Sparkles } from "lucide-react";
 import { magazineService } from "@/services/magazineService";
-import type { MagazineIssue } from "@/types";
 
 export interface MagazineData {
-  id: number | string;
+  id: number;
   title: string;
   issue: string;
   date: string;
@@ -16,7 +15,7 @@ export interface MagazineData {
   slug: string;
 }
 
-const fallbackMagazines: MagazineData[] = [
+const defaultMagazines: MagazineData[] = [
   {
     id: 1,
     title: "Magazine 01",
@@ -68,36 +67,36 @@ const fallbackMagazines: MagazineData[] = [
 ];
 
 export function SuccessWorldMagazineBook() {
-  const [magazines, setMagazines] = useState<MagazineData[]>(fallbackMagazines);
+  const [magazines, setMagazines] = useState<MagazineData[]>(defaultMagazines);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [isOpenBook, setIsOpenBook] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Fetch real Sanity magazines, fallback to 6 structured magazines
+  // Fetch real Sanity magazines or structure exactly 6 magazines
   useEffect(() => {
     magazineService.fetchSanityMagazines().then((items) => {
       if (items && items.length > 0) {
         const mapped = items.slice(0, 6).map((item, idx) => ({
           id: idx + 1,
           title: item.title || `Magazine 0${idx + 1}`,
-          issue: item.issue || `Magazine 0${idx + 1}`,
+          issue: `Magazine 0${idx + 1}`,
           date: item.date || "2026",
-          cover: item.cover || fallbackMagazines[idx % 6].cover,
+          cover: item.cover || defaultMagazines[idx % 6].cover,
           pdfUrl: item.pdfUrl,
-          slug: item.slug,
+          slug: item.slug || `magazine-0${idx + 1}`,
         }));
-        // Ensure strictly 6 magazines
+
         while (mapped.length < 6) {
           const idx = mapped.length;
-          const fb = fallbackMagazines[idx];
+          const fb = defaultMagazines[idx];
           mapped.push({
             id: idx + 1,
             title: `Magazine 0${idx + 1}`,
-            issue: `Edition 0${idx + 1}`,
-            date: fb.date || "2026",
+            issue: `Magazine 0${idx + 1}`,
+            date: fb.date,
             cover: fb.cover,
             pdfUrl: fb.pdfUrl,
             slug: fb.slug,
@@ -108,12 +107,16 @@ export function SuccessWorldMagazineBook() {
     });
   }, []);
 
-  // Automatic 3D Page Flip Interval (2 Seconds)
+  // Automatic 2-Second Page Flip & Animation Cycle
   useEffect(() => {
-    if (isPaused || magazines.length <= 1 || !isOpenBook) return;
+    if (isPaused || magazines.length <= 1) return;
 
     const interval = setInterval(() => {
-      flipToNext();
+      if (!isOpenBook) {
+        setIsOpenBook(true); // Smoothly open book
+      } else {
+        flipToNext(); // Turn 3D page every 2.2 seconds
+      }
     }, 2200);
 
     return () => clearInterval(interval);
@@ -126,7 +129,7 @@ export function SuccessWorldMagazineBook() {
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % magazines.length);
       setIsFlipping(false);
-    }, 900); // Duration matches CSS 3D page flip animation
+    }, 850); // Matches 3D page turn CSS transition duration
   }
 
   function flipToPrev() {
@@ -136,56 +139,55 @@ export function SuccessWorldMagazineBook() {
     setTimeout(() => {
       setCurrentIndex((prev) => (prev - 1 + magazines.length) % magazines.length);
       setIsFlipping(false);
-    }, 900);
+    }, 850);
   }
 
-  // Handle user interaction pause & resume
   function handleUserInteract() {
     setIsPaused(true);
     if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
     inactivityTimerRef.current = setTimeout(() => {
       setIsPaused(false);
-    }, 5000); // Resume auto-play after 5s of inactivity
+    }, 4000); // Resume auto-animation after 4s inactivity
   }
 
-  const currentMag = magazines[currentIndex] || fallbackMagazines[0];
-  const nextMag = magazines[(currentIndex + 1) % magazines.length] || fallbackMagazines[1];
-  const targetHref = currentMag.pdfUrl || (currentMag.slug ? `/magazines/${currentMag.slug}` : "/magazines");
+  const currentMag = magazines[currentIndex] || defaultMagazines[0];
+  const nextMag = magazines[(currentIndex + 1) % magazines.length] || defaultMagazines[1];
+  const targetHref = currentMag.pdfUrl || `/magazines/${currentMag.slug}`;
   const isExternal = Boolean(currentMag.pdfUrl && currentMag.pdfUrl.startsWith("http"));
 
   return (
     <div
-      className="magazine-book-showcase-container"
+      className="success-world-magazine-book"
       onMouseEnter={handleUserInteract}
       onClick={handleUserInteract}
       style={{
         width: "100%",
-        maxWidth: "360px",
+        maxWidth: "340px",
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
       }}
     >
-      {/* 3D HARDCOVER PHYSICAL MAGAZINE BOOK STAGE */}
+      {/* 3D MAGAZINE BOOK STAGE */}
       <div
         style={{
           position: "relative",
           width: "100%",
           perspective: "1400px",
-          padding: "20px 0 30px",
+          padding: "16px 0 24px",
           display: "flex",
           justifyContent: "center",
         }}
       >
-        {/* PHYSICAL AMBIENT DROP SHADOW BENEATH BOOK */}
+        {/* SOFT AMBIENT SHADOW BENEATH BOOK */}
         <div
           style={{
             position: "absolute",
-            bottom: "10px",
-            width: "80%",
-            height: "20px",
-            background: "radial-gradient(ellipse at center, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 75%)",
+            bottom: "8px",
+            width: "82%",
+            height: "18px",
+            background: "radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 75%)",
             borderRadius: "50%",
             zIndex: 1,
             pointerEvents: "none",
@@ -194,38 +196,41 @@ export function SuccessWorldMagazineBook() {
           }}
         />
 
-        {/* 3D BOOK STRUCTURE */}
+        {/* PHYSICAL 3D HARDCOVER BOOK */}
         <div
           style={{
             position: "relative",
-            width: isOpenBook ? "320px" : "170px",
-            height: "220px",
+            width: isOpenBook ? "310px" : "165px",
+            height: "215px",
             transformStyle: "preserve-3d",
             transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s ease",
             cursor: "pointer",
             zIndex: 2,
           }}
-          onClick={() => setIsOpenBook(!isOpenBook)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpenBook(!isOpenBook);
+          }}
           title={isOpenBook ? "Click to Close Magazine Book" : "Click to Open Magazine Book"}
         >
-          {/* HARDCOVER SPINE (Embossed Gold & Burgundy Hinge) */}
+          {/* HARDCOVER EMBOSSED SPINE */}
           <div
             style={{
               position: "absolute",
               top: 0,
               bottom: 0,
               left: isOpenBook ? "50%" : 0,
-              width: "14px",
-              marginLeft: isOpenBook ? "-7px" : "0",
-              background: "linear-gradient(90deg, #6B0C1F 0%, #8B1029 40%, #B69A5A 50%, #8B1029 60%, #50071C 100%)",
+              width: "12px",
+              marginLeft: isOpenBook ? "-6px" : "0",
+              background: "linear-gradient(90deg, #50071C 0%, #8B1029 40%, #B69A5A 50%, #8B1029 60%, #50071C 100%)",
               boxShadow: "0 0 10px rgba(0,0,0,0.5)",
               zIndex: 30,
-              borderRadius: "3px",
+              borderRadius: "2px",
               transition: "left 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           />
 
-          {/* CLOSED BOOK COVER VIEW (When Book is Closed) */}
+          {/* 1. CLOSED BOOK COVER (Success World Executive Cover) */}
           {!isOpenBook && (
             <div
               style={{
@@ -234,12 +239,12 @@ export function SuccessWorldMagazineBook() {
                 borderRadius: "4px 10px 10px 4px",
                 overflow: "hidden",
                 background: "#0A0D16",
-                boxShadow: "-8px 0 14px rgba(0,0,0,0.4), 10px 10px 30px rgba(0,0,0,0.6)",
+                boxShadow: "-6px 0 12px rgba(0,0,0,0.4), 8px 12px 30px rgba(0,0,0,0.6)",
                 borderLeft: "6px solid #8B1029",
                 transformStyle: "preserve-3d",
               }}
             >
-              {/* Stacked Paper Edges Effect */}
+              {/* Stacked Paper Edges */}
               <div
                 style={{
                   position: "absolute",
@@ -256,33 +261,42 @@ export function SuccessWorldMagazineBook() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={currentMag.cover}
-                alt={`Success World Magazine Cover ${currentIndex + 1}`}
+                alt={`Success World ${currentMag.title} Cover`}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
 
-              {/* Header Overlay Logo */}
+              {/* Success World Logo & Magazine Name Header */}
               <div
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   right: 0,
-                  background: "linear-gradient(180deg, rgba(10,13,22,0.9) 0%, rgba(10,13,22,0) 100%)",
-                  padding: "12px 10px 20px",
+                  background: "linear-gradient(180deg, rgba(10,13,22,0.92) 0%, rgba(10,13,22,0) 100%)",
+                  padding: "10px 8px 18px",
                   textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
-                <div style={{ fontSize: "8px", fontWeight: 900, letterSpacing: "2px", color: "#B69A5A", textTransform: "uppercase" }}>
-                  SUCCESS WORLD
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.png"
+                  alt="Success World Emblem"
+                  style={{ height: "24px", width: "auto", marginBottom: "4px", borderRadius: "50%" }}
+                />
+                <div style={{ fontSize: "7px", fontWeight: 900, letterSpacing: "2px", color: "#8B1029", textTransform: "uppercase" }}>
+                  THE EXECUTIVE PUBLICATION
                 </div>
-                <div className="font-serif" style={{ fontSize: "14px", fontWeight: 900, color: "#FFFFFF", letterSpacing: "1px" }}>
-                  THE SUCCESS WORLD
+                <div className="font-serif" style={{ fontSize: "13px", fontWeight: 900, color: "#FFFFFF", letterSpacing: "0.5px" }}>
+                  SUCCESS WORLD
                 </div>
               </div>
             </div>
           )}
 
-          {/* OPEN BOOK 2-PAGE SPREAD VIEW (When Book is Open) */}
+          {/* 2. OPEN BOOK 2-PAGE SPREAD (Realistic 3D Page Turn) */}
           {isOpenBook && (
             <div
               style={{
@@ -290,12 +304,12 @@ export function SuccessWorldMagazineBook() {
                 inset: 0,
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                boxShadow: "0 16px 45px rgba(0, 0, 0, 0.7)",
+                boxShadow: "0 14px 40px rgba(0, 0, 0, 0.7)",
                 borderRadius: "6px",
                 transformStyle: "preserve-3d",
               }}
             >
-              {/* LEFT PAGE SPREAD (Base Current Magazine Cover) */}
+              {/* LEFT PAGE: Current Magazine Cover */}
               <div
                 style={{
                   position: "relative",
@@ -321,22 +335,22 @@ export function SuccessWorldMagazineBook() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={currentMag.cover}
-                  alt={`Success World Magazine ${currentIndex + 1}`}
+                  alt={`Success World ${currentMag.title} Cover`}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
 
-                {/* Success World Editorial Masthead Overlay */}
+                {/* Left Page Top Header */}
                 <div
                   style={{
                     position: "absolute",
-                    top: "8px",
-                    left: "8px",
-                    right: "8px",
+                    top: "6px",
+                    left: "6px",
+                    right: "6px",
                     background: "rgba(10, 13, 22, 0.85)",
                     backdropFilter: "blur(4px)",
                     border: "1px solid rgba(139, 16, 41, 0.4)",
                     borderRadius: "4px",
-                    padding: "4px 6px",
+                    padding: "3px 6px",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -351,7 +365,7 @@ export function SuccessWorldMagazineBook() {
                 </div>
               </div>
 
-              {/* RIGHT PAGE SPREAD (Next Magazine Cover / Turning Page Destination) */}
+              {/* RIGHT PAGE: Next Magazine Cover */}
               <div
                 style={{
                   position: "relative",
@@ -377,34 +391,34 @@ export function SuccessWorldMagazineBook() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={nextMag.cover}
-                  alt={`Success World Magazine Next Cover`}
+                  alt={`Success World Next Cover`}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
 
-                {/* Right Page Success World Overlay */}
+                {/* Right Page Footer Tag */}
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "8px",
-                    left: "8px",
-                    right: "8px",
+                    bottom: "6px",
+                    left: "6px",
+                    right: "6px",
                     background: "rgba(10, 13, 22, 0.88)",
                     backdropFilter: "blur(4px)",
-                    padding: "6px 8px",
+                    padding: "5px 6px",
                     borderRadius: "4px",
                     border: "1px solid rgba(255, 255, 255, 0.15)",
                   }}
                 >
                   <div style={{ fontSize: "8px", fontWeight: 900, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase" }}>
-                    UPCOMING ISSUE &bull; 0{((currentIndex + 1) % magazines.length) + 1}
+                    NEXT ISSUE &bull; {nextMag.issue}
                   </div>
-                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#FFFFFF", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  <div style={{ fontSize: "9px", fontWeight: 800, color: "#FFFFFF", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {nextMag.title}
                   </div>
                 </div>
               </div>
 
-              {/* 3D REALISTIC PAGE FLIP LEAF (Animates 0deg -> -180deg) */}
+              {/* 3D REALISTIC PAGE FLIP LEAF (Animates rotateY(0deg) -> rotateY(-180deg)) */}
               <div
                 style={{
                   position: "absolute",
@@ -414,13 +428,13 @@ export function SuccessWorldMagazineBook() {
                   width: "50%",
                   transformOrigin: "left center",
                   transformStyle: "preserve-3d",
-                  transition: "transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
+                  transition: "transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
                   transform: isFlipping ? "rotateY(-180deg)" : "rotateY(0deg)",
                   zIndex: 20,
                   pointerEvents: "none",
                 }}
               >
-                {/* FRONT FACE OF TURNING PAGE */}
+                {/* FRONT FACE OF FLIPPING PAGE */}
                 <div
                   style={{
                     position: "absolute",
@@ -439,19 +453,18 @@ export function SuccessWorldMagazineBook() {
                     alt="Turning Page Front"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
-                  {/* Dynamic Turn Shadow Overlay */}
                   <div
                     style={{
                       position: "absolute",
                       inset: 0,
                       background: "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)",
                       opacity: isFlipping ? 0.6 : 0,
-                      transition: "opacity 0.9s ease",
+                      transition: "opacity 0.85s ease",
                     }}
                   />
                 </div>
 
-                {/* BACK FACE OF TURNING PAGE */}
+                {/* BACK FACE OF FLIPPING PAGE */}
                 <div
                   style={{
                     position: "absolute",
@@ -478,39 +491,42 @@ export function SuccessWorldMagazineBook() {
         </div>
       </div>
 
-      {/* MAGAZINE DETAILS & PAGE FLIP CONTROLS */}
+      {/* MAGAZINE DETAILS & CONTROLS */}
       <div
         style={{
           width: "100%",
           background: "rgba(255, 255, 255, 0.04)",
           border: "1px solid rgba(255, 255, 255, 0.12)",
           borderRadius: "12px",
-          padding: "12px 14px",
+          padding: "10px 12px",
           display: "flex",
           flexDirection: "column",
-          gap: "10px",
+          gap: "8px",
         }}
       >
-        {/* Magazine Title & Edition Number */}
+        {/* Magazine Title & Edition Indicator */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
             <div style={{ fontSize: "10px", fontWeight: 900, color: "#8B1029", letterSpacing: "1.5px", textTransform: "uppercase" }}>
               {currentMag.issue} &bull; <span style={{ color: "rgba(255,255,255,0.7)" }}>{currentMag.date}</span>
             </div>
-            <div className="font-serif" style={{ fontSize: "14px", fontWeight: 900, color: "#FFFFFF", margin: "2px 0 0" }}>
+            <div className="font-serif" style={{ fontSize: "13px", fontWeight: 900, color: "#FFFFFF", margin: "2px 0 0" }}>
               {currentMag.title}
             </div>
           </div>
 
           <button
             type="button"
-            onClick={() => setIsPaused(!isPaused)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsPaused(!isPaused);
+            }}
             style={{
               background: "rgba(255, 255, 255, 0.08)",
               border: "1px solid rgba(255, 255, 255, 0.15)",
               color: "#FFFFFF",
               borderRadius: "6px",
-              padding: "5px 8px",
+              padding: "4px 8px",
               cursor: "pointer",
               display: "inline-flex",
               alignItems: "center",
@@ -519,47 +535,51 @@ export function SuccessWorldMagazineBook() {
               fontWeight: 800,
             }}
           >
-            {isPaused ? <Play size={12} style={{ color: "#22C55E" }} /> : <Pause size={12} style={{ color: "#8B1029" }} />}
+            {isPaused ? <Play size={11} style={{ color: "#22C55E" }} /> : <Pause size={11} style={{ color: "#8B1029" }} />}
             <span>{isPaused ? "Play" : "Pause"}</span>
           </button>
         </div>
 
-        {/* Page Flip Navigation Controls */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+        {/* 6 Magazine Page Flip Dots & Navigation Controls */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px" }}>
           <button
             type="button"
-            onClick={flipToPrev}
+            onClick={(e) => {
+              e.stopPropagation();
+              flipToPrev();
+            }}
             disabled={isFlipping}
             style={{
               background: "rgba(255, 255, 255, 0.08)",
               border: "1px solid rgba(255, 255, 255, 0.15)",
               color: "#FFFFFF",
               borderRadius: "6px",
-              padding: "5px 10px",
+              padding: "4px 8px",
               fontSize: "10px",
               fontWeight: 800,
               cursor: "pointer",
               display: "inline-flex",
               alignItems: "center",
-              gap: "4px",
+              gap: "3px",
             }}
           >
             <ChevronLeft size={12} />
-            <span>Previous</span>
+            <span>Prev</span>
           </button>
 
-          {/* Indicator Dots for 6 Magazines */}
+          {/* Strictly 6 Magazine Dots */}
           <div style={{ display: "flex", gap: "4px" }}>
-            {magazines.map((_, idx) => (
+            {magazines.slice(0, 6).map((_, idx) => (
               <button
                 key={idx}
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   handleUserInteract();
                   setCurrentIndex(idx);
                 }}
                 style={{
-                  width: idx === currentIndex ? "16px" : "6px",
+                  width: idx === currentIndex ? "14px" : "6px",
                   height: "6px",
                   borderRadius: "3px",
                   background: idx === currentIndex ? "#8B1029" : "rgba(255, 255, 255, 0.3)",
@@ -567,27 +587,30 @@ export function SuccessWorldMagazineBook() {
                   cursor: "pointer",
                   transition: "all 0.3s ease",
                 }}
-                aria-label={`Go to Magazine ${idx + 1}`}
+                aria-label={`Go to Magazine 0${idx + 1}`}
               />
             ))}
           </div>
 
           <button
             type="button"
-            onClick={flipToNext}
+            onClick={(e) => {
+              e.stopPropagation();
+              flipToNext();
+            }}
             disabled={isFlipping}
             style={{
               background: "rgba(255, 255, 255, 0.08)",
               border: "1px solid rgba(255, 255, 255, 0.15)",
               color: "#FFFFFF",
               borderRadius: "6px",
-              padding: "5px 10px",
+              padding: "4px 8px",
               fontSize: "10px",
               fontWeight: 800,
               cursor: "pointer",
               display: "inline-flex",
               alignItems: "center",
-              gap: "4px",
+              gap: "3px",
             }}
           >
             <span>Next</span>
@@ -595,7 +618,7 @@ export function SuccessWorldMagazineBook() {
           </button>
         </div>
 
-        {/* Read Digital Issue CTA Link Button */}
+        {/* Open Digital Magazine Issue Link */}
         {isExternal ? (
           <a
             href={targetHref}
@@ -607,21 +630,21 @@ export function SuccessWorldMagazineBook() {
               justifyContent: "center",
               gap: "6px",
               width: "100%",
-              padding: "9px",
+              padding: "8px",
               background: "#8B1029",
               color: "#FFFFFF",
               borderRadius: "6px",
               fontSize: "11px",
               fontWeight: 900,
-              letterSpacing: "1px",
+              letterSpacing: "0.5px",
               textTransform: "uppercase",
               textDecoration: "none",
-              boxShadow: "0 4px 14px rgba(139, 16, 41, 0.35)",
+              boxShadow: "0 4px 12px rgba(139, 16, 41, 0.35)",
             }}
           >
             <BookOpen size={13} />
             <span>Read Digital Magazine Issue</span>
-            <ExternalLink size={12} />
+            <ExternalLink size={11} />
           </a>
         ) : (
           <Link
@@ -632,16 +655,16 @@ export function SuccessWorldMagazineBook() {
               justifyContent: "center",
               gap: "6px",
               width: "100%",
-              padding: "9px",
+              padding: "8px",
               background: "#8B1029",
               color: "#FFFFFF",
               borderRadius: "6px",
               fontSize: "11px",
               fontWeight: 900,
-              letterSpacing: "1px",
+              letterSpacing: "0.5px",
               textTransform: "uppercase",
               textDecoration: "none",
-              boxShadow: "0 4px 14px rgba(139, 16, 41, 0.35)",
+              boxShadow: "0 4px 12px rgba(139, 16, 41, 0.35)",
             }}
           >
             <BookOpen size={13} />

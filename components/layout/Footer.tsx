@@ -71,13 +71,13 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: 3D SUCCESS WORLD MAGAZINE BOOK SHOWCASE */}
-          <div className="footer-links-col" style={{ minWidth: "320px" }}>
-            <h4 className="footer-col-title font-serif" style={{ color: "#8B1029", letterSpacing: "1.5px" }}>
+          {/* Column 4: 3D SUCCESS WORLD MAGAZINE BOOK SHOWCASE (STRICT FIXED AREA) */}
+          <div className="footer-links-col" style={{ width: "260px", maxWidth: "260px", flexShrink: 0, overflow: "hidden" }}>
+            <h4 className="footer-col-title font-serif" style={{ color: "#8B1029", letterSpacing: "1.5px", textAlign: "center" }}>
               3D MAGAZINE SHOWCASE
             </h4>
 
-            {/* Premium 3D Physical Hardcover Magazine Book with Realistic Page Flip */}
+            {/* Premium 3D Physical Hardcover Magazine Book in Fixed Area */}
             <SuccessWorldMagazineBook />
           </div>
         </div>

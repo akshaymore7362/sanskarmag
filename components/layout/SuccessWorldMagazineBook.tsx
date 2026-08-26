@@ -72,45 +72,39 @@ export function SuccessWorldMagazineBook() {
     });
   }, []);
 
-  // Infinite Automatic Book Animation Cycle:
-  // CLOSED -> OPENING -> OPEN (Display page 2s) -> FLIPPING (Page turn 0.9s) -> OPEN -> ... -> CLOSING -> CLOSED
+  // Infinite Automatic Animation Cycle in Fixed Area:
+  // CLOSED -> OPENING -> OPEN (Display 2s) -> FLIPPING (Page turn 0.85s) -> OPEN -> ... -> CLOSING -> CLOSED
   useEffect(() => {
     if (magazines.length === 0) return;
 
     let timer: NodeJS.Timeout;
 
     if (bookState === "CLOSED") {
-      // 1. Hold Closed Book for 2 seconds, then Open
       timer = setTimeout(() => {
         setBookState("OPENING");
       }, 2000);
     } else if (bookState === "OPENING") {
-      // 2. Open animation transition (0.8s) -> OPEN
       timer = setTimeout(() => {
         setBookState("OPEN");
-      }, 800);
+      }, 750);
     } else if (bookState === "OPEN") {
-      // 3. Keep page visible for 2 seconds -> FLIPPING or CLOSING
       timer = setTimeout(() => {
         if (magIndex === magazines.length - 1) {
-          // After Magazine 06, smoothly close the book
           setBookState("CLOSING");
         } else {
           setBookState("FLIPPING");
         }
       }, 2000);
     } else if (bookState === "FLIPPING") {
-      // 4. 3D Page Flip animation transition (0.9s) -> advance to next magazine
       timer = setTimeout(() => {
         setMagIndex((prev) => (prev + 1) % magazines.length);
         setBookState("OPEN");
-      }, 900);
+      }, 850);
     } else if (bookState === "CLOSING") {
-      // 5. Close book transition (0.8s) -> back to CLOSED and reset index to 0
       timer = setTimeout(() => {
         setMagIndex(0);
         setBookState("CLOSED");
-      }, 800);
+      }, 750);
     }
 
     return () => clearTimeout(timer);
@@ -130,26 +124,30 @@ export function SuccessWorldMagazineBook() {
 
   const currentMag = magazines[magIndex] || defaultMagazines[0];
   const nextMag = magazines[(magIndex + 1) % magazines.length] || defaultMagazines[1];
-
   const isOpen = bookState !== "CLOSED";
 
   return (
     <div
       className="success-world-3d-magazine-showcase"
       style={{
-        width: "100%",
+        width: "250px",
+        height: "210px",
+        margin: "0 auto",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "20px 0",
+        position: "relative",
         userSelect: "none",
+        overflow: "hidden", // Keep strictly within assigned area
       }}
     >
-      {/* 3D HARDCOVER PHYSICAL MAGAZINE STAGE */}
+      {/* 3D HARDCOVER PHYSICAL MAGAZINE STAGE (FIXED AREA) */}
       <div
         style={{
           position: "relative",
-          perspective: "1400px",
+          width: "240px",
+          height: "180px",
+          perspective: "1200px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -159,27 +157,27 @@ export function SuccessWorldMagazineBook() {
         <div
           style={{
             position: "absolute",
-            bottom: "-12px",
-            width: isOpen ? "340px" : "180px",
-            height: "22px",
+            bottom: "-6px",
+            width: "220px",
+            height: "16px",
             background: "radial-gradient(ellipse at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 75%)",
             borderRadius: "50%",
             zIndex: 1,
             pointerEvents: "none",
-            transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s ease",
+            transition: "transform 0.4s ease",
             transform: bookState === "FLIPPING" ? "scale(1.05) translateY(2px)" : "scale(1)",
           }}
         />
 
-        {/* PHYSICAL 3D BOOK WRAPPER */}
+        {/* PHYSICAL 3D BOOK WRAPPER (FIXED AREA SIZE) */}
         <div
           onClick={handleBookClick}
           style={{
             position: "relative",
-            width: isOpen ? "340px" : "180px",
-            height: "235px",
+            width: isOpen ? "230px" : "125px",
+            height: "170px",
             transformStyle: "preserve-3d",
-            transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: "width 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
             cursor: "pointer",
             zIndex: 2,
           }}
@@ -192,29 +190,29 @@ export function SuccessWorldMagazineBook() {
               top: 0,
               bottom: 0,
               left: isOpen ? "50%" : 0,
-              width: "14px",
-              marginLeft: isOpen ? "-7px" : "0",
+              width: "10px",
+              marginLeft: isOpen ? "-5px" : "0",
               background: "linear-gradient(90deg, #50071C 0%, #8B1029 35%, #B69A5A 50%, #8B1029 65%, #50071C 100%)",
-              boxShadow: "0 0 10px rgba(0,0,0,0.6)",
+              boxShadow: "0 0 8px rgba(0,0,0,0.6)",
               zIndex: 40,
               borderRadius: "2px",
-              transition: "left 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+              transition: "left 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           />
 
-          {/* 1. CLOSED BOOK (Visible First) */}
+          {/* 1. CLOSED BOOK (Fits inside fixed area) */}
           <div
             style={{
               position: "absolute",
               inset: 0,
-              borderRadius: "4px 10px 10px 4px",
+              borderRadius: "4px 8px 8px 4px",
               overflow: "hidden",
               background: "#0A0D16",
-              boxShadow: "-8px 0 16px rgba(0,0,0,0.5), 12px 14px 35px rgba(0,0,0,0.7)",
-              borderLeft: "6px solid #8B1029",
+              boxShadow: "-6px 0 12px rgba(0,0,0,0.5), 8px 10px 25px rgba(0,0,0,0.6)",
+              borderLeft: "5px solid #8B1029",
               transformStyle: "preserve-3d",
               transformOrigin: "left center",
-              transition: "transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
+              transition: "transform 0.75s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
               transform: isOpen ? "rotateY(-180deg)" : "rotateY(0deg)",
               opacity: isOpen && bookState !== "OPENING" && bookState !== "CLOSING" ? 0 : 1,
               zIndex: 30,
@@ -224,10 +222,10 @@ export function SuccessWorldMagazineBook() {
             <div
               style={{
                 position: "absolute",
-                right: "-5px",
-                top: "4px",
-                bottom: "4px",
-                width: "8px",
+                right: "-4px",
+                top: "3px",
+                bottom: "3px",
+                width: "6px",
                 background: "repeating-linear-gradient(0deg, #F4F1EA 0px, #E5E2D9 2px, #FFFFFF 4px)",
                 boxShadow: "inset 2px 0 4px rgba(0,0,0,0.3)",
               }}
@@ -249,7 +247,7 @@ export function SuccessWorldMagazineBook() {
                 left: 0,
                 right: 0,
                 background: "linear-gradient(180deg, rgba(10,13,22,0.92) 0%, rgba(10,13,22,0) 100%)",
-                padding: "12px 10px 22px",
+                padding: "8px 6px 14px",
                 textAlign: "center",
                 display: "flex",
                 flexDirection: "column",
@@ -260,23 +258,23 @@ export function SuccessWorldMagazineBook() {
               <img
                 src="/logo.png"
                 alt="Success World Logo"
-                style={{ height: "26px", width: "auto", marginBottom: "4px", borderRadius: "50%" }}
+                style={{ height: "20px", width: "auto", marginBottom: "2px", borderRadius: "50%" }}
               />
-              <div className="font-serif" style={{ fontSize: "14px", fontWeight: 900, color: "#FFFFFF", letterSpacing: "1px" }}>
+              <div className="font-serif" style={{ fontSize: "11px", fontWeight: 900, color: "#FFFFFF", letterSpacing: "0.5px" }}>
                 SUCCESS WORLD
               </div>
             </div>
           </div>
 
-          {/* 2. OPEN BOOK 2-PAGE SPREAD (Visible after Opening) */}
+          {/* 2. OPEN BOOK 2-PAGE SPREAD (Fits inside fixed area) */}
           <div
             style={{
               position: "absolute",
               inset: 0,
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              boxShadow: "0 16px 45px rgba(0, 0, 0, 0.75)",
-              borderRadius: "6px",
+              boxShadow: "0 12px 35px rgba(0, 0, 0, 0.7)",
+              borderRadius: "4px",
               transformStyle: "preserve-3d",
               opacity: isOpen ? 1 : 0,
               transition: "opacity 0.4s ease",
@@ -287,10 +285,10 @@ export function SuccessWorldMagazineBook() {
               style={{
                 position: "relative",
                 background: "#0A0D16",
-                borderRadius: "6px 0 0 6px",
+                borderRadius: "4px 0 0 4px",
                 overflow: "hidden",
                 borderRight: "1px solid rgba(0,0,0,0.6)",
-                boxShadow: "inset -12px 0 24px rgba(0,0,0,0.55)",
+                boxShadow: "inset -10px 0 20px rgba(0,0,0,0.55)",
               }}
             >
               {/* Left Stacked Paper Edges */}
@@ -298,9 +296,9 @@ export function SuccessWorldMagazineBook() {
                 style={{
                   position: "absolute",
                   left: 0,
-                  top: "3px",
-                  bottom: "3px",
-                  width: "4px",
+                  top: "2px",
+                  bottom: "2px",
+                  width: "3px",
                   background: "repeating-linear-gradient(0deg, #F4F1EA 0px, #E5E2D9 2px, #FFFFFF 4px)",
                 }}
               />
@@ -318,10 +316,10 @@ export function SuccessWorldMagazineBook() {
               style={{
                 position: "relative",
                 background: "#0A0D16",
-                borderRadius: "0 6px 6px 0",
+                borderRadius: "0 4px 4px 0",
                 overflow: "hidden",
                 borderLeft: "1px solid rgba(0,0,0,0.6)",
-                boxShadow: "inset 12px 0 24px rgba(0,0,0,0.55)",
+                boxShadow: "inset 10px 0 20px rgba(0,0,0,0.55)",
               }}
             >
               {/* Right Stacked Paper Edges */}
@@ -329,9 +327,9 @@ export function SuccessWorldMagazineBook() {
                 style={{
                   position: "absolute",
                   right: 0,
-                  top: "3px",
-                  bottom: "3px",
-                  width: "4px",
+                  top: "2px",
+                  bottom: "2px",
+                  width: "3px",
                   background: "repeating-linear-gradient(0deg, #F4F1EA 0px, #E5E2D9 2px, #FFFFFF 4px)",
                 }}
               />
@@ -354,7 +352,7 @@ export function SuccessWorldMagazineBook() {
                 width: "50%",
                 transformOrigin: "left center",
                 transformStyle: "preserve-3d",
-                transition: "transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
+                transition: "transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
                 transform: bookState === "FLIPPING" ? "rotateY(-180deg)" : "rotateY(0deg)",
                 zIndex: 25,
                 pointerEvents: "none",
@@ -368,9 +366,9 @@ export function SuccessWorldMagazineBook() {
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
                   background: "#0A0D16",
-                  borderRadius: "0 6px 6px 0",
+                  borderRadius: "0 4px 4px 0",
                   overflow: "hidden",
-                  boxShadow: "inset 10px 0 20px rgba(0,0,0,0.4), 10px 0 25px rgba(0,0,0,0.5)",
+                  boxShadow: "inset 8px 0 16px rgba(0,0,0,0.4), 8px 0 20px rgba(0,0,0,0.5)",
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -379,14 +377,13 @@ export function SuccessWorldMagazineBook() {
                   alt="Turning Page Front"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
-                {/* Dynamic Page Bend Shadow */}
                 <div
                   style={{
                     position: "absolute",
                     inset: 0,
                     background: "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)",
                     opacity: bookState === "FLIPPING" ? 0.7 : 0,
-                    transition: "opacity 0.9s ease",
+                    transition: "opacity 0.85s ease",
                   }}
                 />
               </div>
@@ -400,9 +397,9 @@ export function SuccessWorldMagazineBook() {
                   WebkitBackfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
                   background: "#0A0D16",
-                  borderRadius: "6px 0 0 6px",
+                  borderRadius: "4px 0 0 4px",
                   overflow: "hidden",
-                  boxShadow: "inset -10px 0 20px rgba(0,0,0,0.4)",
+                  boxShadow: "inset -8px 0 16px rgba(0,0,0,0.4)",
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}

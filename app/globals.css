@@ -2561,7 +2561,7 @@ button {
    12. NEWSLETTER SECTION STYLES
    ============================================================ */
 .newsletter-section {
-  padding: 36px 0 48px;
+  padding: 20px 0 24px;
 }
 
 .newsletter-card-primary {
@@ -3190,11 +3190,23 @@ button {
 }
 .tsw-byline-time { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); font-weight: 700; }
 
+.tsw-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.tsw-section { max-width: 1240px; margin: 0 auto; padding: 24px 24px; }
 .tsw-band { width: 100%; }
 .tsw-band--paper { background: var(--off-white); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
 .tsw-band--dark { background: #17150F; }
-.tsw-band-inner { max-width: 1200px; margin: 0 auto; padding: 64px 40px; }
-@media (max-width: 640px) { .tsw-band-inner { padding: 44px 20px; } }
+.tsw-band-inner { max-width: 1240px; margin: 0 auto; padding: 24px 24px; }
+@media (max-width: 640px) {
+  .tsw-section { padding: 18px 16px; }
+  .tsw-band-inner { padding: 18px 16px; }
+}
 
 /* numbered editorial grid */
 .tsw-numbered {

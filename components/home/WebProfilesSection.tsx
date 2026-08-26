@@ -85,7 +85,7 @@ export function WebProfilesSection() {
       style={{
         background: "#F7F5F0",
         position: "relative",
-        padding: "70px 0 100px",
+        padding: "32px 0 36px",
         overflow: "hidden",
       }}
     >
@@ -131,9 +131,9 @@ export function WebProfilesSection() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            marginBottom: "50px",
+            marginBottom: "24px",
             flexWrap: "wrap",
-            gap: "20px",
+            gap: "16px",
           }}
         >
           <div>

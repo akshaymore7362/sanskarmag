@@ -57,99 +57,204 @@ export function FooterMagazineBookWidget() {
   return (
     <div
       style={{
-        marginTop: "12px",
-        background: "rgba(255, 255, 255, 0.04)",
+        background: "rgba(255, 255, 255, 0.03)",
         border: "1px solid rgba(255, 255, 255, 0.12)",
-        borderRadius: "14px",
-        padding: "14px",
-        maxWidth: "280px",
-        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+        borderRadius: "16px",
+        padding: "16px",
+        width: "100%",
+        maxWidth: "320px",
+        boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
       }}
     >
-      {/* Header Tagline */}
-      <div
+      {/* Column Title replacing Resources */}
+      <h4
+        className="footer-col-title font-serif"
         style={{
-          fontSize: "10px",
-          fontWeight: 800,
+          fontSize: "12px",
+          fontWeight: 900,
           letterSpacing: "1.5px",
           color: "#8B1029",
           textTransform: "uppercase",
-          marginBottom: "10px",
+          marginBottom: "14px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-          <Sparkles size={12} style={{ color: "#8B1029" }} />
-          FLIPPING MAGAZINE BOOK
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+          <Sparkles size={14} style={{ color: "#8B1029" }} />
+          OPEN MAGAZINE BOOK
         </span>
 
-        <span style={{ color: "rgba(255, 255, 255, 0.5)", fontSize: "9px" }}>
-          {activeIdx + 1} / {magazines.length}
+        <span style={{ color: "rgba(255, 255, 255, 0.5)", fontSize: "10px", fontWeight: 700 }}>
+          Page {activeIdx + 1} of {magazines.length}
         </span>
-      </div>
+      </h4>
 
-      {/* 3D Animated Flipping Magazine Cover Book Container */}
-      <div style={{ position: "relative", perspective: "1000px", margin: "0 auto 12px" }}>
+      {/* REALISTIC OPEN 2-PAGE HARDCOVER MAGAZINE BOOK SPREAD */}
+      <div
+        style={{
+          position: "relative",
+          perspective: "1200px",
+          margin: "0 auto 14px",
+        }}
+      >
         <div
           style={{
             position: "relative",
             width: "100%",
-            aspectRatio: "3 / 4",
-            maxHeight: "190px",
-            borderRadius: "8px",
+            background: "#161C2E",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            borderRadius: "10px",
+            padding: "8px",
+            boxShadow: "0 14px 36px rgba(0, 0, 0, 0.6)",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "2px",
             overflow: "hidden",
-            borderLeft: "4px solid #8B1029",
-            boxShadow: "0 10px 25px rgba(0, 0, 0, 0.5), inset -2px 0 6px rgba(0,0,0,0.4)",
-            transition: "transform 0.3s ease, opacity 0.3s ease",
-            transform: isFlipping ? "rotateY(-15deg) scale(0.96)" : "rotateY(0deg) scale(1)",
-            opacity: isFlipping ? 0.7 : 1,
-            background: "#0A0D16",
+            transition: "all 0.3s ease",
+            transform: isFlipping ? "rotateY(-12deg) scale(0.97)" : "rotateY(0deg) scale(1)",
+            opacity: isFlipping ? 0.75 : 1,
           }}
         >
-          {/* Cover Image */}
-          {currentMag.cover ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={currentMag.cover}
-              alt={currentMag.title}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          ) : (
-            <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#8B1029", fontWeight: 900, fontSize: "14px", padding: "10px", textAlign: "center" }}>
-              THE SUCCESS WORLD
-            </div>
-          )}
-
-          {/* Overlay Edition Badge */}
+          {/* CENTER SPINE CREASE SHADOW */}
           <div
             style={{
               position: "absolute",
-              bottom: "8px",
-              left: "8px",
-              right: "8px",
-              background: "rgba(10, 13, 22, 0.85)",
-              backdropFilter: "blur(4px)",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
-              padding: "4px 8px",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-              fontSize: "10px",
-              fontWeight: 800,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              top: 0,
+              bottom: 0,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "16px",
+              background: "linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.5) 100%)",
+              zIndex: 10,
+              pointerEvents: "none",
+            }}
+          />
+
+          {/* LEFT PAGE: Magazine Cover Photo */}
+          <div
+            style={{
+              background: "#0A0D16",
+              borderRadius: "6px 0 0 6px",
+              aspectRatio: "3 / 4",
+              overflow: "hidden",
+              position: "relative",
+              borderRight: "1px solid rgba(255,255,255,0.08)",
             }}
           >
-            <span style={{ color: "#8B1029" }}>{currentMag.date}</span>
-            <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.7)" }}>Issue #{activeIdx + 1}</span>
+            {currentMag.cover ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={currentMag.cover}
+                alt={currentMag.title}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#8B1029", fontWeight: 900, fontSize: "11px", padding: "6px", textAlign: "center" }}>
+                COVER PAGE
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT PAGE: Page Details & Issue Contents */}
+          <div
+            style={{
+              background: "#101722",
+              borderRadius: "0 6px 6px 0",
+              padding: "10px 8px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              borderLeft: "1px solid rgba(0,0,0,0.4)",
+            }}
+          >
+            <div>
+              <div style={{ fontSize: "9px", fontWeight: 900, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+                {currentMag.date}
+              </div>
+
+              <div
+                className="font-serif"
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 900,
+                  color: "#FFFFFF",
+                  lineHeight: 1.25,
+                  margin: "0 0 6px",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
+                {currentMag.title}
+              </div>
+
+              <p style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.7)", margin: 0, lineHeight: 1.3 }}>
+                Executive edition covering business leadership &amp; markets.
+              </p>
+            </div>
+
+            <div style={{ marginTop: "8px" }}>
+              <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)", marginBottom: "4px" }}>
+                Page {activeIdx + 1}
+              </div>
+
+              {isExternal ? (
+                <a
+                  href={targetLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "4px",
+                    width: "100%",
+                    padding: "6px",
+                    background: "#8B1029",
+                    color: "#FFFFFF",
+                    borderRadius: "4px",
+                    fontSize: "10px",
+                    fontWeight: 900,
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span>Open Page</span>
+                  <ExternalLink size={10} />
+                </a>
+              ) : (
+                <Link
+                  href={targetLink}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "4px",
+                    width: "100%",
+                    padding: "6px",
+                    background: "#8B1029",
+                    color: "#FFFFFF",
+                    borderRadius: "4px",
+                    fontSize: "10px",
+                    fontWeight: 900,
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span>Open Page</span>
+                  <BookOpen size={10} />
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Title & Page Flip Controls */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", marginBottom: "10px" }}>
+      {/* Manual Page Flip Controls */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
         <button
           type="button"
           onClick={handlePrevPage}
@@ -157,24 +262,23 @@ export function FooterMagazineBookWidget() {
             background: "rgba(255, 255, 255, 0.08)",
             border: "1px solid rgba(255, 255, 255, 0.15)",
             color: "#FFFFFF",
-            borderRadius: "50%",
-            width: "26px",
-            height: "26px",
-            display: "grid",
-            placeItems: "center",
+            borderRadius: "6px",
+            padding: "4px 10px",
+            fontSize: "10px",
+            fontWeight: 800,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
             cursor: "pointer",
-            flexShrink: 0,
           }}
-          aria-label="Previous magazine page"
         >
-          <ChevronLeft size={14} />
+          <ChevronLeft size={12} />
+          <span>Prev Page</span>
         </button>
 
-        <div style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", textAlign: "center", flex: 1 }}>
-          <div style={{ fontSize: "11px", fontWeight: 800, color: "#FFFFFF", textOverflow: "ellipsis", overflow: "hidden" }}>
-            {currentMag.title}
-          </div>
-        </div>
+        <span style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.5)", fontWeight: 700 }}>
+          {activeIdx + 1} / {magazines.length}
+        </span>
 
         <button
           type="button"
@@ -183,73 +287,20 @@ export function FooterMagazineBookWidget() {
             background: "rgba(255, 255, 255, 0.08)",
             border: "1px solid rgba(255, 255, 255, 0.15)",
             color: "#FFFFFF",
-            borderRadius: "50%",
-            width: "26px",
-            height: "26px",
-            display: "grid",
-            placeItems: "center",
+            borderRadius: "6px",
+            padding: "4px 10px",
+            fontSize: "10px",
+            fontWeight: 800,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
             cursor: "pointer",
-            flexShrink: 0,
           }}
-          aria-label="Next magazine page"
         >
-          <ChevronRight size={14} />
+          <span>Next Page</span>
+          <ChevronRight size={12} />
         </button>
       </div>
-
-      {/* Read Issue Button Link */}
-      {isExternal ? (
-        <a
-          href={targetLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "6px",
-            width: "100%",
-            padding: "8px 12px",
-            background: "#8B1029",
-            color: "#FFFFFF",
-            borderRadius: "6px",
-            fontSize: "11px",
-            fontWeight: 800,
-            letterSpacing: "0.5px",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            boxShadow: "0 4px 12px rgba(139, 16, 41, 0.35)",
-          }}
-        >
-          <BookOpen size={13} />
-          <span>Read Digital Issue</span>
-          <ExternalLink size={12} />
-        </a>
-      ) : (
-        <Link
-          href={targetLink}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "6px",
-            width: "100%",
-            padding: "8px 12px",
-            background: "#8B1029",
-            color: "#FFFFFF",
-            borderRadius: "6px",
-            fontSize: "11px",
-            fontWeight: 800,
-            letterSpacing: "0.5px",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            boxShadow: "0 4px 12px rgba(139, 16, 41, 0.35)",
-          }}
-        >
-          <BookOpen size={13} />
-          <span>Read Digital Issue</span>
-        </Link>
-      )}
     </div>
   );
 }

@@ -71,17 +71,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: RESOURCES & FLIPPING MAGAZINE BOOK SHOWCASE */}
-          <div className="footer-links-col" style={{ minWidth: "260px" }}>
-            <h4 className="footer-col-title">RESOURCES</h4>
-            <ul>
-              <li><Link href="/insights">Executive Insights</Link></li>
-              <li><Link href="/events">Global Events</Link></li>
-              <li><Link href="/newsletter">Weekly Newsletter</Link></li>
-              <li><Link href="/sitemap.xml">Sitemap</Link></li>
-            </ul>
-
-            {/* Auto-Flipping Magazine Book Widget (Displays Latest 6 Magazines) */}
+          {/* Column 4: OPEN MAGAZINE BOOK SHOWCASE (Replacing Resources list) */}
+          <div className="footer-links-col" style={{ minWidth: "300px" }}>
             <FooterMagazineBookWidget />
           </div>
         </div>

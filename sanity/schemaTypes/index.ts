@@ -11,6 +11,7 @@ import industryPost from './industryPost'
 import leader from './leader'
 import webprofile from './webprofile'
 import startup from './startup'
+import suggestion from './suggestion'
 
 export const schemaTypes = [
   post,
@@ -26,4 +27,5 @@ export const schemaTypes = [
   leader,
   webprofile,
   startup,
+  suggestion,
 ]

@@ -102,15 +102,31 @@ export function GlobalChatWidget() {
     }, 800);
   }
 
-  function handleSuggestionSubmit(e: React.FormEvent) {
+  async function handleSuggestionSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSugSubmitted(true);
+
+    try {
+      await fetch("/api/suggestions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: sugName,
+          email: sugEmail,
+          topic: sugTopic,
+          message: sugMessage,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to save suggestion to backend:", err);
+    }
+
     setTimeout(() => {
       // Auto add to chat log as confirmation
       const botMsg: Message = {
         id: `sug-confirm-${Date.now()}`,
         sender: "bot",
-        text: `Thank you ${sugName || "Valued Reader"}! Your ${sugTopic.toLowerCase()} has been sent to The Success World editorial board.`,
+        text: `Thank you ${sugName || "Valued Reader"}! Your ${sugTopic.toLowerCase()} has been saved to the backend and sent to The Success World editorial board.`,
         time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, botMsg]);

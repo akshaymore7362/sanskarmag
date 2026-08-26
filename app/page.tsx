@@ -12,38 +12,35 @@ import { NewsletterSection } from "@/components/home/NewsletterSection";
 export default function Home() {
   return (
     <main className="home-page" style={{ width: "100%", overflowX: "hidden" }}>
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO */}
       <HeroSection />
 
-      {/* INNER SITE SHELL FOR REMAINING SECTIONS */}
-      <div className="site-shell">
-        {/* 2. BUSINESS BULLETIN (ENTERPRISE & MARKET INTELLIGENCE) */}
-        <BusinessBulletinSection />
+      {/* 2. BUSINESS BULLETIN */}
+      <BusinessBulletinSection />
 
-        {/* 3. WEB PROFILES (DIRECTLY AFTER BUSINESS BULLETIN) */}
-        <WebProfilesSection />
+      {/* 3. EXECUTIVE DIRECTORY */}
+      <WebProfilesSection />
 
-        {/* 4. DAILY LIVE NEWS (REAL-TIME TODAY'S HEADLINES) */}
-        <DailyNewsSection />
+      {/* 4. DAILY LIVE NEWS */}
+      <DailyNewsSection />
 
-        {/* 5. THE INTELLIGENCE BRIEF */}
-        <IntelligenceBrief />
+      {/* 5. THE INTELLIGENCE BRIEF */}
+      <IntelligenceBrief />
 
-        {/* 6. LEADERSHIP LENS */}
-        <LeadershipLens />
+      {/* 6. LEADERSHIP LENS */}
+      <LeadershipLens />
 
-        {/* 7. OUR PARTNER BRANDS (STRATEGIC ALLIANCES) */}
-        <PartnerBrandsSection />
+      {/* 7. PARTNER BRANDS */}
+      <PartnerBrandsSection />
 
-        {/* 8. LATEST MAGAZINE ISSUES */}
-        <MagazineSection />
+      {/* 8. LATEST MAGAZINE ISSUES */}
+      <MagazineSection />
 
-        {/* 9. MASTER TALKS & INTERVIEWS */}
-        <MasterTalksSection />
+      {/* 9. MASTER TALKS & INTERVIEWS */}
+      <MasterTalksSection />
 
-        {/* 10. EXECUTIVE BRIEFING NEWSLETTER */}
-        <NewsletterSection />
-      </div>
+      {/* 10. EXECUTIVE BRIEFING NEWSLETTER */}
+      <NewsletterSection />
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { FooterMagazineBookWidget } from "@/components/layout/FooterMagazineBookWidget";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,7 +18,7 @@ export function Footer() {
                 style={{ height: "46px", width: "auto", objectFit: "contain", borderRadius: "50%" }}
               />
               <span className="logo-title font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#FFFFFF" }}>
-                The <span className="logo-highlight" style={{ color: "#D49A24" }}>Success World</span>
+                The <span className="logo-highlight" style={{ color: "#8B1029" }}>Success World</span>
               </span>
             </Link>
             <div className="footer-tagline">INSPIRED. INFORMED. EMPOWERED.</div>
@@ -39,7 +39,7 @@ export function Footer() {
             <ul>
               <li><Link href="/">Home</Link></li>
               <li><Link href="/magazines">Magazines</Link></li>
-              <li><Link href="/blogs">Blogs & Articles</Link></li>
+              <li><Link href="/blogs">Blogs &amp; Articles</Link></li>
               <li><Link href="/industries">Industries Directory</Link></li>
               <li><Link href="/leaders">Executive Leaders</Link></li>
               <li><Link href="/startups">Startups Watch</Link></li>
@@ -62,17 +62,17 @@ export function Footer() {
           <div className="footer-links-col">
             <h4 className="footer-col-title">KEY INDUSTRIES</h4>
             <ul>
-              <li><Link href="/industries/tech-ai">Tech & AI</Link></li>
-              <li><Link href="/industries/healthcare">Healthcare & Biotech</Link></li>
-              <li><Link href="/industries/finance">Finance & Fintech</Link></li>
-              <li><Link href="/industries/real-estate">Real Estate & PropTech</Link></li>
-              <li><Link href="/industries/energy">Energy & Climate</Link></li>
-              <li><Link href="/industries/transportation">Transportation & EV</Link></li>
+              <li><Link href="/industries/tech-ai">Tech &amp; AI</Link></li>
+              <li><Link href="/industries/healthcare">Healthcare &amp; Biotech</Link></li>
+              <li><Link href="/industries/finance">Finance &amp; Fintech</Link></li>
+              <li><Link href="/industries/real-estate">Real Estate &amp; PropTech</Link></li>
+              <li><Link href="/industries/energy">Energy &amp; Climate</Link></li>
+              <li><Link href="/industries/transportation">Transportation &amp; EV</Link></li>
             </ul>
           </div>
 
-          {/* Column 4: RESOURCES */}
-          <div className="footer-links-col">
+          {/* Column 4: RESOURCES & FLIPPING MAGAZINE BOOK SHOWCASE */}
+          <div className="footer-links-col" style={{ minWidth: "260px" }}>
             <h4 className="footer-col-title">RESOURCES</h4>
             <ul>
               <li><Link href="/insights">Executive Insights</Link></li>
@@ -80,6 +80,9 @@ export function Footer() {
               <li><Link href="/newsletter">Weekly Newsletter</Link></li>
               <li><Link href="/sitemap.xml">Sitemap</Link></li>
             </ul>
+
+            {/* Auto-Flipping Magazine Book Widget (Displays Latest 6 Magazines) */}
+            <FooterMagazineBookWidget />
           </div>
         </div>
 

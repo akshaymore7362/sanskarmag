@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FooterMagazineBookWidget } from "@/components/layout/FooterMagazineBookWidget";
+import { SuccessWorldMagazineBook } from "@/components/layout/SuccessWorldMagazineBook";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -71,9 +71,14 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: OPEN MAGAZINE BOOK SHOWCASE (Replacing Resources list) */}
-          <div className="footer-links-col" style={{ minWidth: "300px" }}>
-            <FooterMagazineBookWidget />
+          {/* Column 4: 3D SUCCESS WORLD MAGAZINE BOOK SHOWCASE */}
+          <div className="footer-links-col" style={{ minWidth: "320px" }}>
+            <h4 className="footer-col-title font-serif" style={{ color: "#8B1029", letterSpacing: "1.5px" }}>
+              3D MAGAZINE SHOWCASE
+            </h4>
+
+            {/* Premium 3D Physical Hardcover Magazine Book with Realistic Page Flip */}
+            <SuccessWorldMagazineBook />
           </div>
         </div>
 

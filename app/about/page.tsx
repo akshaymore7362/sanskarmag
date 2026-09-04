@@ -42,7 +42,7 @@ const pillars = [
 
 export default function AboutPage() {
   return (
-    <main className="about-page site-shell inner-shell" style={{ background: "#F7F5F0", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="about-page site-shell inner-shell" style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "60px" }}>
       <PageIntro
         title="About The Success World"
         intro="The Success World is a premier executive publication delivering field reporting, market intelligence, and strategic analysis for ambitious operators and global business leaders."
@@ -57,7 +57,7 @@ export default function AboutPage() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
               gap: "20px",
-              background: "#0F131F",
+              background: "#0A192F",
               border: "1px solid rgba(255, 255, 255, 0.12)",
               color: "#fff",
               borderRadius: "20px",
@@ -67,7 +67,7 @@ export default function AboutPage() {
           >
             {stats.map((st, idx) => (
               <div key={idx} style={{ textAlign: "center", borderRight: idx < stats.length - 1 ? "1px solid rgba(255,255,255,0.12)" : "none" }}>
-                <div className="font-serif" style={{ fontSize: "42px", fontWeight: 900, color: "#D49A24" }}>{st.value}</div>
+                <div className="font-serif" style={{ fontSize: "42px", fontWeight: 900, color: "#C5A059" }}>{st.value}</div>
                 <div style={{ fontSize: "11px", color: "#94A3B8", textTransform: "uppercase", letterSpacing: "1.5px", marginTop: "4px", fontWeight: 700 }}>{st.label}</div>
               </div>
             ))}
@@ -76,16 +76,16 @@ export default function AboutPage() {
 
         {/* Editorial Mission & Photo Feature */}
         <section style={{ marginBottom: "48px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center" }}>
+          <div className="grid-split-layout" style={{ alignItems: "center" }}>
             <div>
-              <span style={{ fontSize: "11px", fontWeight: 800, color: "#D49A24", letterSpacing: "2px", textTransform: "uppercase" }}>OUR PHILOSOPHY</span>
-              <h2 className="font-serif" style={{ fontSize: "38px", fontWeight: 900, color: "#17151C", lineHeight: 1.15, margin: "10px 0 20px" }}>
+              <span style={{ fontSize: "11px", fontWeight: 800, color: "#C5A059", letterSpacing: "2px", textTransform: "uppercase" }}>OUR PHILOSOPHY</span>
+              <h2 className="font-serif" style={{ fontSize: "38px", fontWeight: 900, color: "#0A192F", lineHeight: 1.15, margin: "10px 0 20px" }}>
                 Field Reporting & High-Impact Executive Intelligence
               </h2>
-              <p style={{ color: "#77727D", fontSize: "16px", lineHeight: 1.7, marginBottom: "16px" }}>
+              <p style={{ color: "#4B5563", fontSize: "16px", lineHeight: 1.7, marginBottom: "16px" }}>
                 Founded with the vision to illuminate the forces driving global business, <strong>The Success World</strong> bridges the gap between raw economic data and actionable leadership strategy.
               </p>
-              <p style={{ color: "#77727D", fontSize: "16px", lineHeight: 1.7, marginBottom: "28px" }}>
+              <p style={{ color: "#4B5563", fontSize: "16px", lineHeight: 1.7, marginBottom: "28px" }}>
                 We interview CEOs, technology founders, and policy experts to bring our readers unvarnished perspective on artificial intelligence, venture finance, global supply chains, and market disruption.
               </p>
               <Link href="/blogs" className="btn btn-gold-gradient">
@@ -94,7 +94,7 @@ export default function AboutPage() {
               </Link>
             </div>
 
-            <div style={{ position: "relative", height: "420px", borderRadius: "20px", overflow: "hidden", border: "1px solid #E5E2D9", boxShadow: "0 8px 24px rgba(0,0,0,0.06)" }}>
+            <div style={{ position: "relative", height: "420px", borderRadius: "20px", overflow: "hidden", border: "1px solid #E5E7EB", boxShadow: "0 8px 24px rgba(0,0,0,0.06)" }}>
               <Image
                 src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&h=800&q=82"
                 alt="Editorial Office"
@@ -109,8 +109,8 @@ export default function AboutPage() {
         {/* Core Editorial Pillars Grid */}
         <section style={{ marginBottom: "48px" }}>
           <div style={{ marginBottom: "24px" }}>
-            <span style={{ fontSize: "11px", fontWeight: 800, color: "#D49A24", letterSpacing: "2px", textTransform: "uppercase" }}>WHAT GUIDES US</span>
-            <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 800, color: "#17151C", marginTop: "4px" }}>Our Core Editorial Pillars</h2>
+            <span style={{ fontSize: "11px", fontWeight: 800, color: "#C5A059", letterSpacing: "2px", textTransform: "uppercase" }}>WHAT GUIDES US</span>
+            <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 800, color: "#0A192F", marginTop: "4px" }}>Our Core Editorial Pillars</h2>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "24px" }}>
@@ -121,7 +121,7 @@ export default function AboutPage() {
                   key={idx}
                   style={{
                     background: "#FFFFFF",
-                    border: "1px solid #E5E2D9",
+                    border: "1px solid #E5E7EB",
                     borderRadius: "16px",
                     padding: "32px 24px",
                     display: "flex",
@@ -131,11 +131,11 @@ export default function AboutPage() {
                   }}
                 >
                   <div>
-                    <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#D49A24", display: "grid", placeItems: "center", marginBottom: "20px" }}>
+                    <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#C5A059", display: "grid", placeItems: "center", marginBottom: "20px" }}>
                       <Icon size={24} />
                     </div>
-                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#17151C", marginBottom: "10px" }}>{pil.title}</h3>
-                    <p style={{ color: "#77727D", fontSize: "14px", lineHeight: 1.6 }}>{pil.desc}</p>
+                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#0A192F", marginBottom: "10px" }}>{pil.title}</h3>
+                    <p style={{ color: "#4B5563", fontSize: "14px", lineHeight: 1.6 }}>{pil.desc}</p>
                   </div>
                 </div>
               );

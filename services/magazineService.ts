@@ -43,12 +43,27 @@ export const magazineService = {
             seenSlugs.add(itemSlug);
 
             let dateStr = "2026";
+            let yearVal = "2026";
             if (item.publishedAt) {
               try {
-                dateStr = new Date(item.publishedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+                const pDate = new Date(item.publishedAt);
+                dateStr = pDate.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+                yearVal = pDate.getFullYear().toString();
               } catch {
                 dateStr = item.publishedAt;
               }
+            } else if (item._createdAt) {
+              try {
+                yearVal = new Date(item._createdAt).getFullYear().toString();
+              } catch {
+                yearVal = "2026";
+              }
+            }
+
+            // Extract 4-digit year if present in title or dateStr
+            const matchedYear = (dateStr + " " + (item.title || "")).match(/\b(20\d\d)\b/);
+            if (matchedYear && matchedYear[1]) {
+              yearVal = matchedYear[1];
             }
 
             uniqueItems.push({
@@ -56,6 +71,7 @@ export const magazineService = {
               issue: `Edition ${uniqueItems.length + 1}`,
               slug: itemSlug,
               date: dateStr,
+              year: yearVal,
               title: item.title || "The Success World",
               subtitle: item.description || "Executive Edition",
               cover: item.cover || "",

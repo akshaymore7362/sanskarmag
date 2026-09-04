@@ -73,7 +73,7 @@ export function FooterMagazineBookWidget() {
           fontSize: "12px",
           fontWeight: 900,
           letterSpacing: "1.5px",
-          color: "#8B1029",
+          color: "#C5A059",
           textTransform: "uppercase",
           marginBottom: "14px",
           display: "flex",
@@ -82,7 +82,7 @@ export function FooterMagazineBookWidget() {
         }}
       >
         <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-          <Sparkles size={14} style={{ color: "#8B1029" }} />
+          <Sparkles size={14} style={{ color: "#C5A059" }} />
           OPEN MAGAZINE BOOK
         </span>
 
@@ -103,7 +103,7 @@ export function FooterMagazineBookWidget() {
           style={{
             position: "relative",
             width: "100%",
-            background: "#161C2E",
+            background: "#0A192F",
             border: "1px solid rgba(255, 255, 255, 0.15)",
             borderRadius: "10px",
             padding: "8px",
@@ -135,7 +135,7 @@ export function FooterMagazineBookWidget() {
           {/* LEFT PAGE: Magazine Cover Photo */}
           <div
             style={{
-              background: "#0A0D16",
+              background: "#0A192F",
               borderRadius: "6px 0 0 6px",
               aspectRatio: "3 / 4",
               overflow: "hidden",
@@ -151,7 +151,7 @@ export function FooterMagazineBookWidget() {
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#8B1029", fontWeight: 900, fontSize: "11px", padding: "6px", textAlign: "center" }}>
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#C5A059", fontWeight: 900, fontSize: "11px", padding: "6px", textAlign: "center" }}>
                 COVER PAGE
               </div>
             )}
@@ -160,7 +160,7 @@ export function FooterMagazineBookWidget() {
           {/* RIGHT PAGE: Page Details & Issue Contents */}
           <div
             style={{
-              background: "#101722",
+              background: "#0A192F",
               borderRadius: "0 6px 6px 0",
               padding: "10px 8px",
               display: "flex",
@@ -170,7 +170,7 @@ export function FooterMagazineBookWidget() {
             }}
           >
             <div>
-              <div style={{ fontSize: "9px", fontWeight: 900, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+              <div style={{ fontSize: "9px", fontWeight: 900, color: "#C5A059", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
                 {currentMag.date}
               </div>
 
@@ -213,7 +213,7 @@ export function FooterMagazineBookWidget() {
                     gap: "4px",
                     width: "100%",
                     padding: "6px",
-                    background: "#8B1029",
+                    background: "#C5A059",
                     color: "#FFFFFF",
                     borderRadius: "4px",
                     fontSize: "10px",
@@ -235,7 +235,7 @@ export function FooterMagazineBookWidget() {
                     gap: "4px",
                     width: "100%",
                     padding: "6px",
-                    background: "#8B1029",
+                    background: "#C5A059",
                     color: "#FFFFFF",
                     borderRadius: "4px",
                     fontSize: "10px",

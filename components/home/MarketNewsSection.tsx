@@ -43,7 +43,7 @@ export function MarketNewsSection() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-end",
-          borderBottom: "2px solid #ffdea5",
+          borderBottom: "2px solid #D4B475",
           paddingBottom: "10px",
           marginBottom: "16px",
           flexWrap: "wrap",
@@ -51,10 +51,10 @@ export function MarketNewsSection() {
         }}
       >
         <div>
-          <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "2px", color: "#775a19", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+          <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "2px", color: "#B08B45", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
             BUSINESS INTELLIGENCE &amp; MARKET DYNAMICS
           </span>
-          <h2 className="font-serif" style={{ fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 900, color: "#191c1d", margin: 0 }}>
+          <h2 className="font-serif" style={{ fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 900, color: "#0A192F", margin: 0 }}>
             Market News &amp; Economic Dynamics
           </h2>
         </div>
@@ -65,7 +65,7 @@ export function MarketNewsSection() {
             fontSize: "11px",
             fontWeight: 800,
             letterSpacing: "1px",
-            color: "#775a19",
+            color: "#B08B45",
             textTransform: "uppercase",
             textDecoration: "none",
             display: "inline-flex",
@@ -112,13 +112,13 @@ export function MarketNewsSection() {
                   boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
                 }}
               >
-                <TrendingUp size={13} style={{ color: "#fed488" }} />
+                <TrendingUp size={13} style={{ color: "#D4B475" }} />
                 <span>{lead.category || "STOCK MARKET"}</span>
               </div>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-between" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "11px", fontWeight: 700, color: "#75777e", marginBottom: "4px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "11px", fontWeight: 700, color: "#6B7280", marginBottom: "4px" }}>
                 <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                   <Calendar size={13} /> Jun 15, 2026
                 </span>
@@ -128,11 +128,11 @@ export function MarketNewsSection() {
                 </span>
               </div>
 
-              <h3 className="font-serif" style={{ fontSize: "19px", fontWeight: 900, color: "#191c1d", margin: "0 0 4px", lineHeight: 1.3, height: "50px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                <Link href={`/blogs/${lead.slug}`} style={{ color: "#191c1d", textDecoration: "none" }}>{lead.title}</Link>
+              <h3 className="font-serif" style={{ fontSize: "19px", fontWeight: 900, color: "#0A192F", margin: "0 0 4px", lineHeight: 1.3, height: "50px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                <Link href={`/blogs/${lead.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>{lead.title}</Link>
               </h3>
 
-              <p style={{ fontSize: "13px", color: "#44474d", lineHeight: 1.45, margin: "0 0 8px", height: "38px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+              <p style={{ fontSize: "13px", color: "#4B5563", lineHeight: 1.45, margin: "0 0 8px", height: "38px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                 {lead.description}
               </p>
 
@@ -173,7 +173,7 @@ export function MarketNewsSection() {
                   background: "#ffffff",
                   borderRadius: "8px",
                   border: "1px solid #e1e3e4",
-                  borderLeft: isActive ? "4px solid #775a19" : "1px solid #e1e3e4",
+                  borderLeft: isActive ? "4px solid #B08B45" : "1px solid #e1e3e4",
                   cursor: "pointer",
                   alignItems: "center",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
@@ -194,15 +194,15 @@ export function MarketNewsSection() {
                 </div>
 
                 <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between", padding: "2px 0" }}>
-                  <span style={{ fontSize: "9px", fontWeight: 800, color: "#775a19", letterSpacing: "1px", textTransform: "uppercase", display: "block" }}>
+                  <span style={{ fontSize: "9px", fontWeight: 800, color: "#B08B45", letterSpacing: "1px", textTransform: "uppercase", display: "block" }}>
                     {item.category || "MARKET INTELLIGENCE"}
                   </span>
 
-                  <h4 className="font-serif" style={{ fontSize: "13px", fontWeight: 700, color: "#191c1d", margin: "2px 0", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "34px" }}>
-                    <Link href={`/blogs/${item.slug}`} style={{ color: "#191c1d", textDecoration: "none" }}>{item.title}</Link>
+                  <h4 className="font-serif" style={{ fontSize: "13px", fontWeight: 700, color: "#0A192F", margin: "2px 0", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "34px" }}>
+                    <Link href={`/blogs/${item.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>{item.title}</Link>
                   </h4>
 
-                  <span style={{ fontSize: "10px", color: "#75777e", fontWeight: 600, display: "flex", alignItems: "center", gap: "3px", marginTop: "auto" }}>
+                  <span style={{ fontSize: "10px", color: "#6B7280", fontWeight: 600, display: "flex", alignItems: "center", gap: "3px", marginTop: "auto" }}>
                     <Clock size={11} /> {item.readTime || "5 min read"}
                   </span>
                 </div>

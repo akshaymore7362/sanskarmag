@@ -18,7 +18,7 @@ const pastEvents = [
 
 export default function EventsPage() {
   return (
-    <main className="events-page site-shell inner-shell" style={{ background: "#F7F5F0", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="events-page site-shell inner-shell" style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "60px" }}>
       <PageIntro
         title="Events"
         intro="Global business forums, technology summits, leadership keynotes and executive networking."
@@ -28,19 +28,19 @@ export default function EventsPage() {
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         {/* Upcoming Events Section */}
         <section style={{ marginBottom: "48px" }}>
-          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#17151C", marginBottom: "20px" }}>Upcoming Events</h2>
+          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F", marginBottom: "20px" }}>Upcoming Events</h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {upcomingEvents.map((ev) => (
-              <div key={ev.name} style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "16px", padding: "20px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 10px rgba(0,0,0,0.03)" }}>
+              <div key={ev.name} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", padding: "20px 24px", display: "flex", flexWrap: "wrap", gap: "16px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 10px rgba(0,0,0,0.03)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                  <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#0F131F", color: "#D49A24", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#0A192F", color: "#C5A059", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                     <span style={{ fontSize: "18px", fontWeight: 900, lineHeight: 1 }}>{ev.day}</span>
                     <span style={{ fontSize: "9px", fontWeight: 800, letterSpacing: "1px" }}>{ev.month}</span>
                   </div>
                   <div>
-                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#17151C", margin: "0 0 2px" }}>{ev.name}</h3>
-                    <div style={{ fontSize: "13px", color: "#77727D" }}>{ev.location}</div>
+                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#0A192F", margin: "0 0 2px" }}>{ev.name}</h3>
+                    <div style={{ fontSize: "13px", color: "#4B5563" }}>{ev.location}</div>
                   </div>
                 </div>
 
@@ -54,17 +54,17 @@ export default function EventsPage() {
 
         {/* Past Events Section */}
         <section style={{ marginBottom: "48px" }}>
-          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#17151C", marginBottom: "20px" }}>Past Events</h2>
+          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F", marginBottom: "20px" }}>Past Events</h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "28px" }}>
+          <div className="grid-responsive-2">
             {pastEvents.map((item) => (
-              <div key={item.title} style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "16px", overflow: "hidden", boxShadow: "0 2px 10px rgba(0,0,0,0.03)" }}>
+              <div key={item.title} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", overflow: "hidden", boxShadow: "0 2px 10px rgba(0,0,0,0.03)" }}>
                 <div style={{ position: "relative", height: "200px" }}>
                   <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
                 </div>
                 <div style={{ padding: "20px" }}>
-                  <h4 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, color: "#17151C", margin: "0 0 4px" }}>{item.title}</h4>
-                  <div style={{ fontSize: "13px", color: "#77727D" }}>{item.location}</div>
+                  <h4 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, color: "#0A192F", margin: "0 0 4px" }}>{item.title}</h4>
+                  <div style={{ fontSize: "13px", color: "#4B5563" }}>{item.location}</div>
                 </div>
               </div>
             ))}

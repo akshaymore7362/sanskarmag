@@ -23,7 +23,7 @@ function highlightText(text: string, query: string) {
     <>
       {parts.map((part, i) =>
         part.toLowerCase() === query.toLowerCase() ? (
-          <mark key={i} style={{ background: "#D49A24", color: "#080A10", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
+          <mark key={i} style={{ background: "#C5A059", color: "#050C18", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
             {part}
           </mark>
         ) : (
@@ -50,7 +50,7 @@ export default async function SearchPage({ searchParams }: Props) {
     : allArticles;
 
   return (
-    <main className="site-shell inner-shell" style={{ background: "#F7F5F0", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="site-shell inner-shell" style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "60px" }}>
       <PageIntro
         title="Search Results"
         intro={`Found ${results.length} result(s) for "${query || "all content"}"`}
@@ -60,8 +60,8 @@ export default async function SearchPage({ searchParams }: Props) {
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         {/* Search Form */}
         <form action="/search" style={{ marginBottom: "32px" }}>
-          <div style={{ display: "flex", gap: "12px", background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "12px", padding: "10px 16px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
-            <SearchIcon size={20} style={{ color: "#D49A24", alignSelf: "center" }} />
+          <div style={{ display: "flex", gap: "12px", background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "12px", padding: "10px 16px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+            <SearchIcon size={20} style={{ color: "#C5A059", alignSelf: "center" }} />
             <input
               name="q"
               defaultValue={query}
@@ -77,26 +77,26 @@ export default async function SearchPage({ searchParams }: Props) {
         {/* Results Grid */}
         <section style={{ marginBottom: "48px" }}>
           {results.length > 0 ? (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
+            <div className="grid-responsive-3">
               {results.map((article, idx) => (
-                <article key={article.slug || String(idx)} style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "14px", padding: "18px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+                <article key={article.slug || String(idx)} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "18px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                   {article.image && (
                     <div style={{ position: "relative", height: "160px", borderRadius: "8px", overflow: "hidden", marginBottom: "12px" }}>
                       <Image src={article.image} alt={article.title} fill className="object-cover" unoptimized />
                     </div>
                   )}
-                  <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#D49A24" }}>
+                  <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#C5A059" }}>
                     {highlightText(article.category || "Article", query)}
                   </span>
-                  <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#17151C", margin: "6px 0 8px", lineHeight: 1.3 }}>
+                  <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#0A192F", margin: "6px 0 8px", lineHeight: 1.3 }}>
                     <Link href={`/blogs/${article.slug}`}>
                       {highlightText(article.title, query)}
                     </Link>
                   </h3>
-                  <p style={{ fontSize: "13px", color: "#77727D", lineHeight: 1.5, marginBottom: "12px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                  <p style={{ fontSize: "13px", color: "#4B5563", lineHeight: 1.5, marginBottom: "12px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                     {highlightText(article.description || "", query)}
                   </p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#77727D" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#4B5563" }}>
                     <Clock size={12} />
                     <span>{article.readTime}</span>
                   </div>
@@ -104,9 +104,9 @@ export default async function SearchPage({ searchParams }: Props) {
               ))}
             </div>
           ) : (
-            <div style={{ textAlign: "center", padding: "60px 20px", background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "16px" }}>
-              <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#17151C" }}>No Matching Stories Found</h3>
-              <p style={{ color: "#77727D", marginTop: "8px" }}>Try searching for generic terms like "AI", "Technology", "Economy", or "Leadership".</p>
+            <div style={{ textAlign: "center", padding: "60px 20px", background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px" }}>
+              <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F" }}>No Matching Stories Found</h3>
+              <p style={{ color: "#4B5563", marginTop: "8px" }}>Try searching for generic terms like "AI", "Technology", "Economy", or "Leadership".</p>
             </div>
           )}
         </section>

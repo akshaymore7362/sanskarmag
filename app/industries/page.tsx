@@ -21,14 +21,12 @@ export default function IndustriesPage() {
 
       {/* 4. Latest Industry Intelligence (5 Article Rows) + Trending Sidebar (2 Modules) */}
       <div
+        className="grid-sidebar-layout"
         style={{
           width: "100%",
           maxWidth: "1280px",
           margin: "0 auto",
-          padding: "0 6vw 24px",
-          display: "grid",
-          gridTemplateColumns: "1fr 320px",
-          gap: "32px",
+          padding: "0 6vw 40px",
         }}
       >
         <LatestIndustryIntelligence />

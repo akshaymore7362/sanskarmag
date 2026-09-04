@@ -55,11 +55,11 @@ export const industryArticlesList = [
 export function LatestIndustryIntelligence() {
   return (
     <div>
-      <div style={{ marginBottom: "16px", paddingBottom: "10px", borderBottom: "2px solid #50071C", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#17151C", margin: 0 }}>
+      <div style={{ marginBottom: "16px", paddingBottom: "10px", borderBottom: "2px solid #0A192F", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h2 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#0A192F", margin: 0 }}>
           Latest Industry Intelligence
         </h2>
-        <Link href="/blogs" style={{ fontSize: "12px", fontWeight: 700, color: "#50071C", textDecoration: "none" }}>
+        <Link href="/blogs" style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", textDecoration: "none" }}>
           View All Articles →
         </Link>
       </div>
@@ -68,13 +68,10 @@ export function LatestIndustryIntelligence() {
         {industryArticlesList.map((item, idx) => (
           <article
             key={item.slug || String(idx)}
+            className="latest-intelligence-row"
             style={{
-              display: "grid",
-              gridTemplateColumns: "160px 1fr 40px",
-              gap: "18px",
-              alignItems: "center",
               padding: "16px 0",
-              borderBottom: "1px solid #EAE7DC",
+              borderBottom: "1px solid #E5E7EB",
             }}
           >
             {/* Thumbnail */}
@@ -86,8 +83,8 @@ export function LatestIndustryIntelligence() {
                   aspectRatio: "16 / 10",
                   borderRadius: "8px",
                   overflow: "hidden",
-                  background: "#151027",
-                  border: "1px solid #E5E2D9",
+                  background: "#050C18",
+                  border: "1px solid #E5E7EB",
                 }}
               >
                 <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
@@ -102,7 +99,7 @@ export function LatestIndustryIntelligence() {
                   fontWeight: 800,
                   letterSpacing: "1.2px",
                   textTransform: "uppercase",
-                  color: "#50071C",
+                  color: "#0A192F",
                   display: "block",
                   marginBottom: "3px",
                 }}
@@ -115,12 +112,12 @@ export function LatestIndustryIntelligence() {
                 style={{
                   fontSize: "16px",
                   fontWeight: 800,
-                  color: "#17151C",
+                  color: "#0A192F",
                   margin: "0 0 4px",
                   lineHeight: 1.25,
                 }}
               >
-                <Link href={`/blogs/${item.slug}`} style={{ color: "#17151C", textDecoration: "none" }}>
+                <Link href={`/blogs/${item.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
                   {item.title}
                 </Link>
               </h3>
@@ -128,7 +125,7 @@ export function LatestIndustryIntelligence() {
               <p
                 style={{
                   fontSize: "12px",
-                  color: "#66606C",
+                  color: "#6B7280",
                   lineHeight: 1.45,
                   margin: "0 0 6px",
                   display: "-webkit-box",
@@ -140,7 +137,7 @@ export function LatestIndustryIntelligence() {
                 {item.description}
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#77727D" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#4B5563" }}>
                 <span>{item.date}</span>
                 <span>•</span>
                 <span><Clock size={11} style={{ display: "inline", marginRight: "3px" }} />{item.readTime}</span>
@@ -158,7 +155,7 @@ export function LatestIndustryIntelligence() {
                   background: "rgba(80, 7, 28, 0.06)",
                   display: "grid",
                   placeItems: "center",
-                  color: "#50071C",
+                  color: "#0A192F",
                   textDecoration: "none",
                 }}
               >

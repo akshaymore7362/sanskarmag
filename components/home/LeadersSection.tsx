@@ -26,9 +26,9 @@ export function LeadersSection() {
   return (
     <section className="py-12 lg:py-16 px-4 md:px-12 max-w-[1280px] mx-auto w-full">
       {/* Header Row */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-[#ffdea5] pb-4 mb-8 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-[#D4B475] pb-4 mb-8 gap-4">
         <div>
-          <span className="text-[#775a19] text-xs font-bold tracking-widest uppercase mb-2 block">
+          <span className="text-[#B08B45] text-xs font-bold tracking-widest uppercase mb-2 block">
             WEB PROFILES
           </span>
           <h2 className="font-serif text-2xl lg:text-4xl font-bold text-gray-900">
@@ -38,7 +38,7 @@ export function LeadersSection() {
 
         <Link
           href="/leaders"
-          className="text-[#775a19] text-xs font-bold tracking-wider uppercase flex items-center gap-1 hover:text-[#785a1a] transition-colors whitespace-nowrap"
+          className="text-[#B08B45] text-xs font-bold tracking-wider uppercase flex items-center gap-1 hover:text-[#B08B45] transition-colors whitespace-nowrap"
         >
           <span>View All Leaders</span>
           <ArrowRight size={16} />
@@ -59,14 +59,14 @@ export function LeadersSection() {
                   unoptimized
                 />
               ) : (
-                <div className="w-full h-full bg-[#0a192f] text-[#fed488] flex items-center justify-center font-serif text-2xl font-bold">
+                <div className="w-full h-full bg-[#0a192f] text-[#D4B475] flex items-center justify-center font-serif text-2xl font-bold">
                   {featured.name.charAt(0)}
                 </div>
               )}
             </div>
 
             <div className="flex flex-col flex-1">
-              <span className="text-[#775a19] font-bold text-xs tracking-wider uppercase mb-1 flex items-center gap-1">
+              <span className="text-[#B08B45] font-bold text-xs tracking-wider uppercase mb-1 flex items-center gap-1">
                 <Award size={14} /> COVER FEATURED LEADER
               </span>
 
@@ -86,7 +86,7 @@ export function LeadersSection() {
 
               <Link
                 href={`/leaders/${featured.slug}`}
-                className="text-[#0a192f] font-bold text-xs tracking-wider uppercase hover:text-[#775a19] flex items-center gap-1 mt-auto"
+                className="text-[#0a192f] font-bold text-xs tracking-wider uppercase hover:text-[#B08B45] flex items-center gap-1 mt-auto"
               >
                 <span>View Full Profile</span>
                 <ArrowRight size={14} />
@@ -115,12 +115,12 @@ export function LeadersSection() {
               </div>
 
               <div className="flex flex-col flex-1 min-w-0">
-                <span className="text-[#775a19] font-bold text-[10px] tracking-wider uppercase mb-1">
+                <span className="text-[#B08B45] font-bold text-[10px] tracking-wider uppercase mb-1">
                   EXECUTIVE PROFILE
                 </span>
 
                 <h4 className="font-serif text-lg font-bold text-gray-900 line-clamp-1">
-                  <Link href={`/leaders/${leader.slug}`} className="hover:text-[#775a19] transition-colors">
+                  <Link href={`/leaders/${leader.slug}`} className="hover:text-[#B08B45] transition-colors">
                     {leader.name}
                   </Link>
                 </h4>

@@ -55,7 +55,7 @@ function highlightMatch(text: string, query: string) {
     <>
       {parts.map((part, i) =>
         part.toLowerCase() === query.toLowerCase() ? (
-          <mark key={i} style={{ background: "#D49A24", color: "#080A10", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
+          <mark key={i} style={{ background: "#C5A059", color: "#050C18", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
             {part}
           </mark>
         ) : (
@@ -115,9 +115,14 @@ export function Header() {
         setMenuOpen(false);
       }
     };
+    const handleWindowClick = () => {
+      setActiveDropdown(null);
+    };
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("click", handleWindowClick);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("click", handleWindowClick);
       if (dropdownTimerRef.current) clearTimeout(dropdownTimerRef.current);
     };
   }, []);
@@ -144,24 +149,20 @@ export function Header() {
   };
 
   return (
-    <header className="header" style={{ background: "#0A0D16", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
+    <header className="header" suppressHydrationWarning style={{ background: "#0A192F", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
       {/* 1. Live Market Ticker */}
       <MarketTicker />
 
       {/* 2. Main Navigation Bar */}
       <nav className="mainnav" aria-label="Main Navigation">
-        {/* Brand Logo & Title Stacked (Bigger Logo Size) */}
-        <Link href="/" className="nav-logo" style={{ textDecoration: "none", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "3px", flexShrink: 0, padding: "4px 0" }}>
+        {/* Brand Logo & Title Stacked (Executive Logo) */}
+        <Link href="/" className="nav-logo" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0, padding: "3px 0" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo.png"
+            src="/logo-white-text.png"
             alt="The Success World Executive Magazine Logo"
-            style={{ height: "56px", width: "auto", objectFit: "contain", borderRadius: "50%", flexShrink: 0 }}
+            style={{ height: "38px", maxWidth: "220px", width: "auto", objectFit: "contain", flexShrink: 0 }}
           />
-          <div className="logo-title font-serif" style={{ fontSize: "13px", fontWeight: 900, lineHeight: 1, whiteSpace: "nowrap", letterSpacing: "0.5px" }}>
-            <span style={{ color: "#FFFFFF" }}>The </span>
-            <span style={{ color: "#8B1029" }}>Success World</span>
-          </div>
         </Link>
 
         {/* Desktop Navigation Links */}
@@ -184,7 +185,7 @@ export function Header() {
                   style={{
                     fontSize: "14px",
                     fontWeight: 700,
-                    color: isActive ? "#8B1029" : "#FFFFFF",
+                    color: isActive ? "#C5A059" : "#FFFFFF",
                     position: "relative",
                     padding: "24px 0",
                     display: "flex",
@@ -197,11 +198,11 @@ export function Header() {
                     <ChevronDown
                       size={13}
                       className={`dropdown-chevron ${isDropdownOpen ? "open" : ""}`}
-                      style={{ color: isActive ? "#8B1029" : "rgba(255, 255, 255, 0.6)" }}
+                      style={{ color: isActive ? "#C5A059" : "rgba(255, 255, 255, 0.6)" }}
                     />
                   )}
                   {isActive && (
-                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#8B1029", borderRadius: "2px", boxShadow: "0 0 8px rgba(139, 16, 41, 0.6)" }} />
+                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#C5A059", borderRadius: "2px", boxShadow: "0 0 8px rgba(197, 160, 89, 0.6)" }} />
                   )}
                 </Link>
 
@@ -256,7 +257,7 @@ export function Header() {
               padding: "8px 10px",
               background: "rgba(255, 255, 255, 0.06)",
               border: "1px solid rgba(255, 255, 255, 0.15)",
-              borderRadius: "8px",
+              borderRadius: "6px",
               color: "#FFFFFF",
               cursor: "pointer",
             }}
@@ -272,19 +273,42 @@ export function Header() {
               display: "flex",
               alignItems: "center",
               gap: "6px",
-              padding: "8px 16px",
-              background: "#8B1029",
-              border: "1px solid #8B1029",
-              borderRadius: "8px",
-              color: "#FFFFFF",
+              padding: "8px 14px",
+              background: "transparent",
+              border: "1px solid #C5A059",
+              borderRadius: "6px",
+              color: "#C5A059",
               fontSize: "13px",
-              fontWeight: 800,
+              fontWeight: 700,
               cursor: "pointer",
+              transition: "all 0.2s ease",
             }}
           >
             <Award size={14} />
             <span>Nominate Now</span>
           </button>
+
+          {/* Subscribe Button */}
+          <Link
+            href="/subscribe"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "8px 16px",
+              background: "#C5A059",
+              border: "1px solid #C5A059",
+              borderRadius: "6px",
+              color: "#0A192F",
+              fontSize: "13px",
+              fontWeight: 700,
+              textDecoration: "none",
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+            }}
+          >
+            <span>Subscribe</span>
+          </Link>
 
           {/* Mobile Hamburger Trigger */}
           <button
@@ -305,7 +329,7 @@ export function Header() {
           <div className="search-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "680px", maxHeight: "85vh", display: "flex", flexDirection: "column" }}>
             <form onSubmit={handleSearchSubmit} className="search-modal-header">
               <div className="search-input-wrap">
-                <Search size={20} className="search-modal-icon" style={{ color: "#D49A24" }} />
+                <Search size={20} className="search-modal-icon" style={{ color: "#C5A059" }} />
                 <input
                   name="q"
                   value={searchQuery}
@@ -336,7 +360,7 @@ export function Header() {
                 <div>
                   <div className="search-modal-label" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span>FOUND {liveResults.length} MATCHING STORIES</span>
-                    <button type="button" onClick={handleSearchSubmit} style={{ color: "#D49A24", fontWeight: 700, fontSize: "11px", background: "none", border: "none", cursor: "pointer" }}>
+                    <button type="button" onClick={handleSearchSubmit} style={{ color: "#C5A059", fontWeight: 700, fontSize: "11px", background: "none", border: "none", cursor: "pointer" }}>
                       View Full Results Page →
                     </button>
                   </div>
@@ -367,7 +391,7 @@ export function Header() {
                             </div>
                           )}
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#D49A24", textTransform: "uppercase" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", textTransform: "uppercase" }}>
                               {highlightMatch(item.category || "Story", searchQuery)}
                             </div>
                             <h4 className="font-serif" style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF", margin: "2px 0", lineHeight: 1.3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
@@ -417,18 +441,13 @@ export function Header() {
         <div className="mobile-drawer-overlay" onClick={() => toggleMenu(false)}>
           <div className="mobile-drawer" onClick={(e) => e.stopPropagation()}>
             <div className="mobile-drawer-header">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/logo.png"
-                  alt="The Success World Executive Magazine Logo"
-                  style={{ height: "38px", width: "auto", objectFit: "contain", borderRadius: "50%" }}
+                  src="/logo-white-text.png"
+                  alt="The Success World"
+                  style={{ height: "28px", maxWidth: "160px", width: "auto", objectFit: "contain" }}
                 />
-                <div className="logo-brand-block">
-                  <div className="logo-title font-serif" style={{ fontSize: "16px", fontWeight: 900 }}>
-                    The <span className="logo-highlight">Success World</span>
-                  </div>
-                </div>
               </div>
 
               <button

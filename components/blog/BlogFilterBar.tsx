@@ -31,8 +31,21 @@ export function BlogFilterBar({
         gap: "12px",
       }}
     >
-      {/* Category Pills */}
-      <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
+      {/* Category Pills (Scrollable on mobile) */}
+      <div
+        className="no-scrollbar"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          overflowX: "auto",
+          maxWidth: "100%",
+          paddingBottom: "4px",
+          WebkitOverflowScrolling: "touch",
+          flex: 1,
+          minWidth: 0,
+        }}
+      >
         {categories.map((cat) => {
           const isActive = activeCategory === cat;
           return (
@@ -45,11 +58,13 @@ export function BlogFilterBar({
                 borderRadius: "20px",
                 fontSize: "12px",
                 fontWeight: 700,
-                border: isActive ? "1px solid #50071C" : "1px solid #E5E2D9",
-                background: isActive ? "#50071C" : "#FFFFFF",
-                color: isActive ? "#FFFFFF" : "#4A454E",
+                whiteSpace: "nowrap",
+                border: isActive ? "1px solid #0A192F" : "1px solid #E5E7EB",
+                background: isActive ? "#0A192F" : "#FFFFFF",
+                color: isActive ? "#FFFFFF" : "#4B5563",
                 cursor: "pointer",
                 transition: "all 0.2s ease",
+                flexShrink: 0,
               }}
             >
               {cat}
@@ -59,7 +74,7 @@ export function BlogFilterBar({
       </div>
 
       {/* Right Search Input Field */}
-      <div style={{ position: "relative", width: "260px" }}>
+      <div style={{ position: "relative", width: "100%", maxWidth: "260px" }}>
         <input
           type="text"
           value={searchQuery}
@@ -69,11 +84,11 @@ export function BlogFilterBar({
             width: "100%",
             padding: "8px 36px 8px 12px",
             background: "#FFFFFF",
-            border: "1px solid #E5E2D9",
+            border: "1px solid #E5E7EB",
             borderRadius: "6px",
             fontSize: "12px",
             outline: "none",
-            color: "#17151C",
+            color: "#0A192F",
           }}
         />
         <Search size={15} style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8", pointerEvents: "none" }} />

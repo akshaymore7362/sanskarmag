@@ -18,7 +18,7 @@ export function ArticleCard({ article, compact = false }: Props) {
         {article.image ? (
           <Image src={article.image} alt={article.imageAlt || article.title} fill className="object-cover" unoptimized />
         ) : (
-          <div style={{ width: "100%", height: "100%", background: "#120E24" }} />
+          <div style={{ width: "100%", height: "100%", background: "#050C18" }} />
         )}
       </Link>
       <div>
@@ -27,12 +27,12 @@ export function ArticleCard({ article, compact = false }: Props) {
           <Link href={`/blogs/${article.slug}`}>{article.title}</Link>
         </h3>
         {!compact && article.description && (
-          <p style={{ color: "#A9A5B5", fontSize: "13px", lineHeight: 1.5, marginBottom: "12px" }}>{article.description}</p>
+          <p style={{ color: "#9CA3AF", fontSize: "13px", lineHeight: 1.5, marginBottom: "12px" }}>{article.description}</p>
         )}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#A9A5B5" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9CA3AF" }}>
           <span>{article.author || "Editorial"}</span>
           <span>•</span>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#F5B942" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#C5A059" }}>
             <Clock size={12} /> {article.readTime}
           </span>
         </div>

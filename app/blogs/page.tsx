@@ -66,14 +66,12 @@ export default function BlogsPage() {
 
       {/* 3. Main 2-Column Feed Layout */}
       <div
+        className="grid-sidebar-layout"
         style={{
           width: "100%",
           maxWidth: "1440px",
           margin: "0 auto",
           padding: "0 6vw 24px",
-          display: "grid",
-          gridTemplateColumns: "1fr 320px",
-          gap: "32px",
         }}
       >
         {/* Left Column: Numbered Editorial Article Feed */}
@@ -96,18 +94,18 @@ export default function BlogsPage() {
                   gap: "6px",
                   padding: "9px 24px",
                   background: "#FFFFFF",
-                  border: "2px solid #50071C",
+                  border: "2px solid #0A192F",
                   borderRadius: "20px",
                   fontSize: "12px",
                   fontWeight: 800,
-                  color: "#50071C",
+                  color: "#0A192F",
                   cursor: "pointer",
                   boxShadow: "0 2px 8px rgba(80, 7, 28, 0.05)",
                   transition: "all 0.2s ease",
                 }}
               >
                 <span>Load More Articles</span>
-                <span style={{ color: "#D49A24", fontWeight: 900 }}>↓</span>
+                <span style={{ color: "#C5A059", fontWeight: 900 }}>↓</span>
               </button>
             </div>
           )}

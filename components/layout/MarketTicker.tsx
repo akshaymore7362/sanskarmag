@@ -54,11 +54,11 @@ export function MarketTicker() {
   const displayItems = [...items, ...items];
 
   return (
-    <div className="market-ticker-bar" aria-label="Live Market Ticker">
+    <div className="market-ticker-bar" suppressHydrationWarning aria-label="Live Market Ticker">
       {/* Far Left Live Badge */}
       <div className="market-ticker-badge">
         <span className="live-dot" />
-        <Activity size={13} style={{ color: "#8B1029" }} />
+        <Activity size={13} style={{ color: "#C5A059" }} />
         <span>LIVE MARKET</span>
       </div>
 

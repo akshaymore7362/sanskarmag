@@ -40,8 +40,8 @@ export function TheBriefingSection() {
     <section
       style={{
         width: "100%",
-        background: "#F9F8F5",
-        color: "#191c1d",
+        background: "#F9FAFB",
+        color: "#0A192F",
         padding: "56px 20px",
         borderTop: "1px solid #EAE6DF",
         borderBottom: "1px solid #EAE6DF",
@@ -49,13 +49,13 @@ export function TheBriefingSection() {
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         {/* Section Header */}
-        <div style={{ borderBottom: "2px solid #191c1d", paddingBottom: "12px", marginBottom: "32px" }}>
+        <div style={{ borderBottom: "2px solid #0A192F", paddingBottom: "12px", marginBottom: "32px" }}>
           <span
             style={{
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#701528",
+              color: "#0A192F",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "4px",
@@ -113,7 +113,7 @@ export function TheBriefingSection() {
                       height: "100%",
                       display: "grid",
                       placeItems: "center",
-                      color: "#fed488",
+                      color: "#D4B475",
                       fontWeight: 800,
                       fontSize: "18px",
                       padding: "20px",
@@ -130,7 +130,7 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "10px",
                     fontWeight: 800,
-                    color: "#701528",
+                    color: "#0A192F",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
                     display: "block",
@@ -159,7 +159,7 @@ export function TheBriefingSection() {
                   <p
                     style={{
                       fontSize: "13px",
-                      color: "#44474d",
+                      color: "#4B5563",
                       lineHeight: 1.5,
                       margin: "0 0 10px",
                       display: "-webkit-box",
@@ -172,7 +172,7 @@ export function TheBriefingSection() {
                   </p>
                 )}
 
-                <div style={{ fontSize: "11px", color: "#75777e", fontWeight: 600 }}>
+                <div style={{ fontSize: "11px", color: "#6B7280", fontWeight: 600 }}>
                   <span>{mainFeature.author}</span> &bull; <span>{mainFeature.date}</span>
                 </div>
               </div>
@@ -205,7 +205,7 @@ export function TheBriefingSection() {
                       height: "100%",
                       display: "grid",
                       placeItems: "center",
-                      color: "#fed488",
+                      color: "#D4B475",
                       fontWeight: 800,
                       fontSize: "18px",
                       padding: "20px",
@@ -222,7 +222,7 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "10px",
                     fontWeight: 800,
-                    color: "#701528",
+                    color: "#0A192F",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
                     display: "block",
@@ -251,7 +251,7 @@ export function TheBriefingSection() {
                   <p
                     style={{
                       fontSize: "13px",
-                      color: "#44474d",
+                      color: "#4B5563",
                       lineHeight: 1.5,
                       margin: "0 0 10px",
                       display: "-webkit-box",
@@ -264,7 +264,7 @@ export function TheBriefingSection() {
                   </p>
                 )}
 
-                <div style={{ fontSize: "11px", color: "#75777e", fontWeight: 600 }}>
+                <div style={{ fontSize: "11px", color: "#6B7280", fontWeight: 600 }}>
                   <span>{secondFeature.author}</span> &bull; <span>{secondFeature.date}</span>
                 </div>
               </div>
@@ -274,8 +274,8 @@ export function TheBriefingSection() {
           {/* RIGHT COLUMN: Featured Briefing Box & Newsletter */}
           <div
             style={{
-              background: "#F3F0E8",
-              border: "1px solid #E2DCD0",
+              background: "#F3F4F6",
+              border: "1px solid #E5E7EB",
               borderRadius: "6px",
               padding: "24px",
               display: "flex",
@@ -284,12 +284,12 @@ export function TheBriefingSection() {
             }}
           >
             {sidebarBriefing && (
-              <div style={{ borderBottom: "1px solid #E2DCD0", paddingBottom: "20px" }}>
+              <div style={{ borderBottom: "1px solid #E5E7EB", paddingBottom: "20px" }}>
                 <span
                   style={{
                     fontSize: "10px",
                     fontWeight: 800,
-                    color: "#701528",
+                    color: "#0A192F",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
                     display: "block",
@@ -315,7 +315,7 @@ export function TheBriefingSection() {
                 </h4>
 
                 {sidebarBriefing.description && (
-                  <p style={{ fontSize: "12px", color: "#555860", lineHeight: 1.5, margin: "0 0 12px" }}>
+                  <p style={{ fontSize: "12px", color: "#6B7280", lineHeight: 1.5, margin: "0 0 12px" }}>
                     {sidebarBriefing.description}
                   </p>
                 )}
@@ -325,7 +325,7 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "11px",
                     fontWeight: 800,
-                    color: "#701528",
+                    color: "#0A192F",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
                     textDecoration: "none",
@@ -345,12 +345,12 @@ export function TheBriefingSection() {
               <div style={{ fontSize: "13px", fontWeight: 800, color: "#0a192f", marginBottom: "4px" }}>
                 Stay Informed in Strategy
               </div>
-              <p style={{ fontSize: "11px", color: "#666972", lineHeight: 1.4, margin: "0 0 12px" }}>
+              <p style={{ fontSize: "11px", color: "#6B7280", lineHeight: 1.4, margin: "0 0 12px" }}>
                 Receive exclusive C-suite market briefings delivered weekly.
               </p>
 
               {subscribed ? (
-                <div style={{ fontSize: "12px", fontWeight: 700, color: "#701528", background: "#EAE0D5", padding: "10px 12px", borderRadius: "4px" }}>
+                <div style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", background: "#E5E7EB", padding: "10px 12px", borderRadius: "4px" }}>
                   ✓ Subscription confirmed. Welcome to The Briefing.
                 </div>
               ) : (
@@ -365,7 +365,7 @@ export function TheBriefingSection() {
                       flex: 1,
                       padding: "8px 12px",
                       fontSize: "12px",
-                      border: "1px solid #D0C9BE",
+                      border: "1px solid #E5E7EB",
                       borderRadius: "4px",
                       background: "#ffffff",
                       outline: "none",
@@ -374,7 +374,7 @@ export function TheBriefingSection() {
                   <button
                     type="submit"
                     style={{
-                      background: "#701528",
+                      background: "#0A192F",
                       color: "#ffffff",
                       border: "none",
                       padding: "8px 14px",
@@ -395,7 +395,7 @@ export function TheBriefingSection() {
 
         {/* BOTTOM ROW: Numbered Editorial Story List (01, 02, 03, 04...) */}
         {numberedList.length > 0 && (
-          <div style={{ borderTop: "1px solid #191c1d", paddingTop: "28px" }}>
+          <div style={{ borderTop: "1px solid #0A192F", paddingTop: "28px" }}>
             <div
               style={{
                 display: "grid",
@@ -410,7 +410,7 @@ export function TheBriefingSection() {
                     display: "flex",
                     flexDirection: "column",
                     gap: "8px",
-                    borderBottom: "1px solid #E5E0D8",
+                    borderBottom: "1px solid #E5E7EB",
                     paddingBottom: "20px",
                   }}
                 >
@@ -419,7 +419,7 @@ export function TheBriefingSection() {
                     style={{
                       fontSize: "28px",
                       fontWeight: 300,
-                      color: "#701528",
+                      color: "#0A192F",
                       lineHeight: 1,
                     }}
                   >
@@ -430,7 +430,7 @@ export function TheBriefingSection() {
                     style={{
                       fontSize: "10px",
                       fontWeight: 800,
-                      color: "#701528",
+                      color: "#0A192F",
                       letterSpacing: "1.5px",
                       textTransform: "uppercase",
                     }}
@@ -457,7 +457,7 @@ export function TheBriefingSection() {
                     <p
                       style={{
                         fontSize: "12px",
-                        color: "#555860",
+                        color: "#6B7280",
                         lineHeight: 1.45,
                         margin: 0,
                         display: "-webkit-box",
@@ -479,7 +479,7 @@ export function TheBriefingSection() {
                 style={{
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#701528",
+                  color: "#0A192F",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
                   textDecoration: "none",

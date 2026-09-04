@@ -19,7 +19,7 @@ export default function AdvertisePage() {
       />
 
       <section className="section" style={{ padding: "48px 0" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "32px", marginBottom: "48px" }}>
+        <div className="grid-responsive-3" style={{ marginBottom: "48px" }}>
           <div style={{ background: "var(--light-grey)", padding: "32px", borderRadius: "16px", border: "1px solid var(--border-grey)" }}>
             <h3 style={{ fontFamily: "var(--serif)", fontSize: "22px", fontWeight: 700, marginBottom: "12px" }}>
               Digital Display & Native

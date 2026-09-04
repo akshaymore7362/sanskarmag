@@ -38,12 +38,12 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
   return (
     <section style={{ width: "100%", maxWidth: "1280px", margin: "0 auto 36px", padding: "0 6vw" }}>
       {/* SECTION HEADER & INTERACTIVE TOPIC FILTER BAR */}
-      <div style={{ marginBottom: "20px", paddingBottom: "12px", borderBottom: "2px solid #50071C", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
+      <div style={{ marginBottom: "20px", paddingBottom: "12px", borderBottom: "2px solid #0A192F", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
         <div>
-          <span style={{ fontSize: "10px", fontWeight: 800, color: "#D49A24", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+          <span style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1.5px", textTransform: "uppercase" }}>
             EXECUTIVE INTELLIGENCE STREAM
           </span>
-          <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 900, color: "#17151C", margin: "2px 0 0" }}>
+          <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 900, color: "#0A192F", margin: "2px 0 0" }}>
             Latest {industryName} Briefings ({filteredArticles.length})
           </h3>
         </div>
@@ -65,9 +65,9 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                   borderRadius: "20px",
                   fontSize: "11px",
                   fontWeight: 700,
-                  border: isActive ? "1px solid #50071C" : "1px solid #E5E2D9",
-                  background: isActive ? "#50071C" : "#FFFFFF",
-                  color: isActive ? "#FFFFFF" : "#4A454E",
+                  border: isActive ? "1px solid #0A192F" : "1px solid #E5E7EB",
+                  background: isActive ? "#0A192F" : "#FFFFFF",
+                  color: isActive ? "#FFFFFF" : "#4B5563",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
                   boxShadow: isActive ? "0 2px 8px rgba(80, 7, 28, 0.2)" : "none",
@@ -85,14 +85,11 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
         {visibleArticles.map((art, aIdx) => (
           <article
             key={art.slug || String(aIdx)}
+            className="article-feed-row"
             style={{
-              display: "grid",
-              gridTemplateColumns: "180px 1fr 60px",
-              gap: "20px",
-              alignItems: "center",
               padding: "16px",
               background: "#FFFFFF",
-              border: "1px solid #E5E2D9",
+              border: "1px solid #E5E7EB",
               borderRadius: "12px",
               boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
               transition: "all 0.2s ease",
@@ -107,14 +104,14 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                   aspectRatio: "16 / 10",
                   borderRadius: "8px",
                   overflow: "hidden",
-                  background: "#151027",
-                  border: "1px solid #E5E2D9",
+                  background: "#050C18",
+                  border: "1px solid #E5E7EB",
                 }}
               >
                 {art.image ? (
                   <Image src={art.image} alt={art.title} fill className="object-cover" unoptimized />
                 ) : (
-                  <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#50071C", color: "#D49A24", fontWeight: 800, fontSize: "12px" }}>
+                  <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#C5A059", fontWeight: 800, fontSize: "12px" }}>
                     TSW
                   </div>
                 )}
@@ -124,7 +121,7 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
             {/* Center Content */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-                <span style={{ fontSize: "9px", fontWeight: 800, letterSpacing: "1.2px", textTransform: "uppercase", color: "#50071C", background: "rgba(80, 7, 28, 0.06)", padding: "2px 8px", borderRadius: "4px" }}>
+                <span style={{ fontSize: "9px", fontWeight: 800, letterSpacing: "1.2px", textTransform: "uppercase", color: "#0A192F", background: "rgba(80, 7, 28, 0.06)", padding: "2px 8px", borderRadius: "4px" }}>
                   {art.category || industryName.toUpperCase()}
                 </span>
                 <span style={{ fontSize: "11px", color: "#94A3B8" }}>{art.date || "May 2026"}</span>
@@ -135,12 +132,12 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                 style={{
                   fontSize: "18px",
                   fontWeight: 800,
-                  color: "#17151C",
+                  color: "#0A192F",
                   margin: "0 0 6px",
                   lineHeight: 1.3,
                 }}
               >
-                <Link href={`/blogs/${art.slug}`} style={{ color: "#17151C", textDecoration: "none" }}>
+                <Link href={`/blogs/${art.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
                   {art.title}
                 </Link>
               </h4>
@@ -148,7 +145,7 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
               <p
                 style={{
                   fontSize: "12px",
-                  color: "#66606C",
+                  color: "#6B7280",
                   lineHeight: 1.5,
                   margin: "0 0 8px",
                   display: "-webkit-box",
@@ -160,11 +157,11 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                 {art.description || `Executive briefing on key technological, clinical and economic developments across the ${industryName} sector.`}
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "11px", color: "#77727D" }}>
-                <div style={{ width: "16px", height: "16px", borderRadius: "50%", background: "#E5E2D9", display: "grid", placeItems: "center", color: "#50071C" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "11px", color: "#4B5563" }}>
+                <div style={{ width: "16px", height: "16px", borderRadius: "50%", background: "#E5E7EB", display: "grid", placeItems: "center", color: "#0A192F" }}>
                   <User size={9} />
                 </div>
-                <span style={{ fontWeight: 600, color: "#4A454E" }}>{art.author || "Editorial Board"}</span>
+                <span style={{ fontWeight: 600, color: "#4B5563" }}>{art.author || "Editorial Board"}</span>
                 <span>•</span>
                 <span><Clock size={10} style={{ display: "inline", marginRight: "3px" }} />{art.readTime || "5 min read"}</span>
               </div>
@@ -182,7 +179,7 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                   border: "1px solid rgba(80, 7, 28, 0.15)",
                   display: "grid",
                   placeItems: "center",
-                  color: "#50071C",
+                  color: "#0A192F",
                   textDecoration: "none",
                   transition: "all 0.2s ease",
                 }}
@@ -206,18 +203,18 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
               gap: "6px",
               padding: "10px 24px",
               background: "#FFFFFF",
-              border: "2px solid #50071C",
+              border: "2px solid #0A192F",
               borderRadius: "20px",
               fontSize: "12px",
               fontWeight: 800,
-              color: "#50071C",
+              color: "#0A192F",
               cursor: "pointer",
               boxShadow: "0 2px 8px rgba(80, 7, 28, 0.05)",
               transition: "all 0.2s ease",
             }}
           >
             <span>Load More Briefings ({filteredArticles.length - visibleCount} remaining)</span>
-            <ChevronDown size={14} style={{ color: "#D49A24" }} />
+            <ChevronDown size={14} style={{ color: "#C5A059" }} />
           </button>
         </div>
       )}

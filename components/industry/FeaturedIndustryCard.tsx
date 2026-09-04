@@ -8,9 +8,8 @@ export function FeaturedIndustryCard() {
   return (
     <section style={{ width: "100%", maxWidth: "1280px", margin: "0 auto 36px", padding: "0 6vw" }}>
       <div
+        className="grid-split-layout"
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
           minHeight: "320px",
           borderRadius: "16px",
           overflow: "hidden",
@@ -21,7 +20,7 @@ export function FeaturedIndustryCard() {
         {/* LEFT: Burgundy / Navy Panel */}
         <div
           style={{
-            background: "linear-gradient(135deg, #0F172A 0%, #3B0716 60%, #50071C 100%)",
+            background: "linear-gradient(135deg, #0A192F 0%, #050C18 60%, #0A192F 100%)",
             padding: "36px 40px",
             display: "flex",
             flexDirection: "column",
@@ -34,7 +33,7 @@ export function FeaturedIndustryCard() {
               fontSize: "10px",
               fontWeight: 800,
               letterSpacing: "1.5px",
-              color: "#D49A24",
+              color: "#C5A059",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "8px",
@@ -90,7 +89,7 @@ export function FeaturedIndustryCard() {
         </div>
 
         {/* RIGHT: Large Healthcare Tech Image */}
-        <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "320px", background: "#0F172A" }}>
+        <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "320px", background: "#0A192F" }}>
           <Image
             src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80"
             alt="Healthcare Technology & AI Diagnostics"

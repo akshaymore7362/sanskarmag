@@ -69,7 +69,7 @@ export default function AdminSuggestionsPage() {
       {/* Top Banner */}
       <div
         style={{
-          background: "linear-gradient(135deg, #0A0D16 0%, #161C2E 100%)",
+          background: "linear-gradient(135deg, #0A192F 0%, #0A192F 100%)",
           color: "#FFFFFF",
           padding: "32px 28px",
           borderRadius: "20px",
@@ -84,8 +84,8 @@ export default function AdminSuggestionsPage() {
         }}
       >
         <div>
-          <div style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "2.5px", color: "#8B1029", textTransform: "uppercase", marginBottom: "8px", display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(139, 16, 41, 0.15)", padding: "4px 12px", borderRadius: "4px" }}>
-            <ShieldCheck size={14} style={{ color: "#8B1029" }} /> EDITORIAL BOARD ADMIN PORTAL
+          <div style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "2.5px", color: "#C5A059", textTransform: "uppercase", marginBottom: "8px", display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(139, 16, 41, 0.15)", padding: "4px 12px", borderRadius: "4px" }}>
+            <ShieldCheck size={14} style={{ color: "#C5A059" }} /> EDITORIAL BOARD ADMIN PORTAL
           </div>
           <h1 className="font-serif" style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, margin: "0 0 6px", color: "#FFFFFF" }}>
             Reader Suggestions &amp; Inbox
@@ -100,7 +100,7 @@ export default function AdminSuggestionsPage() {
           onClick={loadSuggestions}
           disabled={loading}
           style={{
-            background: "#8B1029",
+            background: "#C5A059",
             color: "#FFFFFF",
             border: "none",
             borderRadius: "8px",
@@ -123,22 +123,22 @@ export default function AdminSuggestionsPage() {
 
       {/* Metrics Row */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px", marginBottom: "32px" }}>
-        <div style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-          <div style={{ fontSize: "11px", fontWeight: 800, color: "#77727D", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+        <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
+          <div style={{ fontSize: "11px", fontWeight: 800, color: "#4B5563", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
             Total Suggestions
           </div>
-          <div style={{ fontSize: "28px", fontWeight: 900, color: "#101722" }}>{totalCount}</div>
+          <div style={{ fontSize: "28px", fontWeight: 900, color: "#0A192F" }}>{totalCount}</div>
         </div>
 
-        <div style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-          <div style={{ fontSize: "11px", fontWeight: 800, color: "#8B1029", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px", display: "flex", alignItems: "center", gap: "4px" }}>
-            <span style={{ width: "8px", height: "8px", background: "#8B1029", borderRadius: "50%" }} />
+        <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
+          <div style={{ fontSize: "11px", fontWeight: 800, color: "#C5A059", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px", display: "flex", alignItems: "center", gap: "4px" }}>
+            <span style={{ width: "8px", height: "8px", background: "#C5A059", borderRadius: "50%" }} />
             New Unreviewed
           </div>
-          <div style={{ fontSize: "28px", fontWeight: 900, color: "#8B1029" }}>{newCount}</div>
+          <div style={{ fontSize: "28px", fontWeight: 900, color: "#C5A059" }}>{newCount}</div>
         </div>
 
-        <div style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
+        <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
           <div style={{ fontSize: "11px", fontWeight: 800, color: "#22C55E", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
             Reviewed
           </div>
@@ -147,26 +147,26 @@ export default function AdminSuggestionsPage() {
       </div>
 
       {/* Search & Filter Controls */}
-      <div style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "16px", padding: "20px", marginBottom: "24px", display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
+      <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", padding: "20px", marginBottom: "24px", display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
         {/* Search Bar */}
         <div style={{ flex: "1 1 280px", position: "relative" }}>
-          <Search size={16} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#77727D" }} />
+          <Search size={16} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#4B5563" }} />
           <input
             type="text"
             placeholder="Search by sender name, email, or content..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ width: "100%", padding: "10px 14px 10px 40px", borderRadius: "8px", border: "1px solid #E2DCD0", fontSize: "13px", outline: "none", background: "#FBF9F5" }}
+            style={{ width: "100%", padding: "10px 14px 10px 40px", borderRadius: "8px", border: "1px solid #E5E7EB", fontSize: "13px", outline: "none", background: "#F9FAFB" }}
           />
         </div>
 
         {/* Topic Filter */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Filter size={14} style={{ color: "#8B1029" }} />
+          <Filter size={14} style={{ color: "#C5A059" }} />
           <select
             value={selectedTopic}
             onChange={(e) => setSelectedTopic(e.target.value)}
-            style={{ padding: "10px 14px", borderRadius: "8px", border: "1px solid #E2DCD0", fontSize: "12px", background: "#FFFFFF", fontWeight: 700 }}
+            style={{ padding: "10px 14px", borderRadius: "8px", border: "1px solid #E5E7EB", fontSize: "12px", background: "#FFFFFF", fontWeight: 700 }}
           >
             <option value="ALL">All Categories</option>
             <option value="Editorial Topic Idea">Editorial Topic Idea</option>
@@ -181,7 +181,7 @@ export default function AdminSuggestionsPage() {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            style={{ padding: "10px 14px", borderRadius: "8px", border: "1px solid #E2DCD0", fontSize: "12px", background: "#FFFFFF", fontWeight: 700 }}
+            style={{ padding: "10px 14px", borderRadius: "8px", border: "1px solid #E5E7EB", fontSize: "12px", background: "#FFFFFF", fontWeight: 700 }}
           >
             <option value="ALL">All Statuses</option>
             <option value="new">New</option>
@@ -192,11 +192,11 @@ export default function AdminSuggestionsPage() {
       </div>
 
       {/* Suggestions List Table */}
-      <div style={{ background: "#FFFFFF", border: "1px solid #E5E2D9", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
+      <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
         {filteredSuggestions.length === 0 ? (
-          <div style={{ padding: "48px 20px", textAlign: "center", color: "#77727D" }}>
-            <Lightbulb size={36} style={{ color: "#8B1029", margin: "0 auto 12px", opacity: 0.6 }} />
-            <h4 style={{ fontSize: "16px", fontWeight: 800, color: "#101722", margin: "0 0 4px" }}>
+          <div style={{ padding: "48px 20px", textAlign: "center", color: "#4B5563" }}>
+            <Lightbulb size={36} style={{ color: "#C5A059", margin: "0 auto 12px", opacity: 0.6 }} />
+            <h4 style={{ fontSize: "16px", fontWeight: 800, color: "#0A192F", margin: "0 0 4px" }}>
               No Suggestions Found
             </h4>
             <p style={{ fontSize: "13px", margin: 0 }}>
@@ -210,11 +210,11 @@ export default function AdminSuggestionsPage() {
                 key={item.id}
                 style={{
                   padding: "20px 24px",
-                  borderBottom: "1px solid #E5E2D9",
+                  borderBottom: "1px solid #E5E7EB",
                   display: "flex",
                   flexDirection: "column",
                   gap: "10px",
-                  background: item.status === "new" ? "#FDFBF7" : "#FFFFFF",
+                  background: item.status === "new" ? "#F9FAFB" : "#FFFFFF",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
@@ -224,7 +224,7 @@ export default function AdminSuggestionsPage() {
                         fontSize: "10px",
                         fontWeight: 900,
                         color: "#FFFFFF",
-                        background: "#8B1029",
+                        background: "#C5A059",
                         padding: "3px 10px",
                         borderRadius: "4px",
                         letterSpacing: "1px",
@@ -234,21 +234,21 @@ export default function AdminSuggestionsPage() {
                       {item.topic}
                     </span>
 
-                    <span style={{ fontSize: "14px", fontWeight: 900, color: "#101722" }}>
+                    <span style={{ fontSize: "14px", fontWeight: 900, color: "#0A192F" }}>
                       {item.name}
                     </span>
 
                     <a
                       href={`mailto:${item.email}`}
-                      style={{ fontSize: "12px", color: "#555259", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px" }}
+                      style={{ fontSize: "12px", color: "#4B5563", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px" }}
                     >
-                      <Mail size={12} style={{ color: "#8B1029" }} />
+                      <Mail size={12} style={{ color: "#C5A059" }} />
                       <span>{item.email}</span>
                     </a>
                   </div>
 
                   <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                    <span style={{ fontSize: "11px", color: "#77727D", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    <span style={{ fontSize: "11px", color: "#4B5563", display: "inline-flex", alignItems: "center", gap: "4px" }}>
                       <Clock size={12} />
                       {new Date(item.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                     </span>
@@ -260,11 +260,11 @@ export default function AdminSuggestionsPage() {
                       style={{
                         padding: "4px 10px",
                         borderRadius: "6px",
-                        border: "1px solid #E2DCD0",
+                        border: "1px solid #E5E7EB",
                         fontSize: "11px",
                         fontWeight: 800,
-                        background: item.status === "new" ? "rgba(139,16,41,0.1)" : item.status === "reviewed" ? "rgba(34,197,94,0.1)" : "#F7F5F0",
-                        color: item.status === "new" ? "#8B1029" : item.status === "reviewed" ? "#22C55E" : "#77727D",
+                        background: item.status === "new" ? "rgba(139,16,41,0.1)" : item.status === "reviewed" ? "rgba(34,197,94,0.1)" : "#F3F4F6",
+                        color: item.status === "new" ? "#C5A059" : item.status === "reviewed" ? "#22C55E" : "#4B5563",
                         cursor: "pointer",
                       }}
                     >
@@ -275,7 +275,7 @@ export default function AdminSuggestionsPage() {
                   </div>
                 </div>
 
-                <p style={{ fontSize: "14px", color: "#101722", lineHeight: 1.5, margin: 0, background: "#F7F5F0", padding: "12px 16px", borderRadius: "8px", border: "1px solid #E8E5DC" }}>
+                <p style={{ fontSize: "14px", color: "#0A192F", lineHeight: 1.5, margin: 0, background: "#F3F4F6", padding: "12px 16px", borderRadius: "8px", border: "1px solid #E5E7EB" }}>
                   &ldquo;{item.message}&rdquo;
                 </p>
               </div>

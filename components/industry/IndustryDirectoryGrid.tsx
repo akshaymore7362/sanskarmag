@@ -99,9 +99,8 @@ export function IndustryDirectoryGrid() {
   return (
     <section style={{ width: "100%", maxWidth: "1280px", margin: "28px auto 36px", padding: "0 6vw" }}>
       <div
+        className="grid-responsive-4"
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
           gap: "16px",
         }}
       >
@@ -115,8 +114,8 @@ export function IndustryDirectoryGrid() {
               href={`/industries/${item.slug}`}
               onMouseEnter={() => setActiveSlug(item.slug)}
               style={{
-                background: isActive ? "#50071C" : "#FFFFFF",
-                border: isActive ? "1px solid #50071C" : "1px solid #E5E2D9",
+                background: isActive ? "#0A192F" : "#FFFFFF",
+                border: isActive ? "1px solid #0A192F" : "1px solid #E5E7EB",
                 borderRadius: "10px",
                 padding: "16px 18px",
                 display: "flex",
@@ -135,7 +134,7 @@ export function IndustryDirectoryGrid() {
                   background: isActive ? "rgba(212, 154, 36, 0.2)" : "rgba(80, 7, 28, 0.06)",
                   display: "grid",
                   placeItems: "center",
-                  color: isActive ? "#D49A24" : "#50071C",
+                  color: isActive ? "#C5A059" : "#0A192F",
                   flexShrink: 0,
                 }}
               >
@@ -148,7 +147,7 @@ export function IndustryDirectoryGrid() {
                   style={{
                     fontSize: "15px",
                     fontWeight: 800,
-                    color: isActive ? "#FFFFFF" : "#17151C",
+                    color: isActive ? "#FFFFFF" : "#0A192F",
                     margin: "0 0 2px",
                     lineHeight: 1.25,
                     whiteSpace: "nowrap",
@@ -161,7 +160,7 @@ export function IndustryDirectoryGrid() {
                 <p
                   style={{
                     fontSize: "11px",
-                    color: isActive ? "rgba(255, 255, 255, 0.75)" : "#77727D",
+                    color: isActive ? "rgba(255, 255, 255, 0.75)" : "#4B5563",
                     margin: 0,
                     lineHeight: 1.3,
                     whiteSpace: "nowrap",
@@ -176,7 +175,7 @@ export function IndustryDirectoryGrid() {
               <ChevronRight
                 size={15}
                 style={{
-                  color: isActive ? "#D49A24" : "#94A3B8",
+                  color: isActive ? "#C5A059" : "#94A3B8",
                   flexShrink: 0,
                 }}
               />

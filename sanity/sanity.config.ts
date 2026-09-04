@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'The Success World',
 
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'i7vt4u64',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || '0ju83vao',
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [structureTool(), visionTool()],

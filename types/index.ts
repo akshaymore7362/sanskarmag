@@ -76,6 +76,7 @@ export type MagazineIssue = {
   publicationDate?: string;
   slug: string;
   date: string;
+  year?: string;
   title: string;
   subtitle: string;
   cover: string;

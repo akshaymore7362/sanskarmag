@@ -8,8 +8,8 @@ export function IndustryHero() {
     <section
       style={{
         width: "100%",
-        background: "linear-gradient(135deg, #FDFCF9 0%, #F6F2E7 100%)",
-        borderBottom: "1px solid #EAE7DC",
+        background: "linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%)",
+        borderBottom: "1px solid #E5E7EB",
         position: "relative",
         overflow: "hidden",
         padding: "32px 6vw 28px",
@@ -35,21 +35,18 @@ export function IndustryHero() {
         />
         <defs>
           <linearGradient id="industryWave" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#D49A24" />
-            <stop offset="100%" stopColor="#50071C" />
+            <stop offset="0%" stopColor="#C5A059" />
+            <stop offset="100%" stopColor="#0A192F" />
           </linearGradient>
         </defs>
       </svg>
 
       <div
+        className="hero-grid-split"
         style={{
           width: "100%",
           maxWidth: "1280px",
           margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1.1fr 0.9fr",
-          gap: "36px",
-          alignItems: "center",
           position: "relative",
           zIndex: 2,
         }}
@@ -61,7 +58,7 @@ export function IndustryHero() {
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#D49A24",
+              color: "#C5A059",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "6px",
@@ -75,7 +72,7 @@ export function IndustryHero() {
             style={{
               fontSize: "clamp(34px, 4.2vw, 50px)",
               fontWeight: 900,
-              color: "#50071C",
+              color: "#0A192F",
               margin: "0 0 10px",
               lineHeight: 1.1,
             }}
@@ -86,7 +83,7 @@ export function IndustryHero() {
           <p
             style={{
               fontSize: "15px",
-              color: "#4A454E",
+              color: "#4B5563",
               lineHeight: 1.5,
               maxWidth: "520px",
               marginBottom: "20px",
@@ -107,26 +104,26 @@ export function IndustryHero() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <Layers size={18} style={{ color: "#50071C" }} />
+              <Layers size={18} style={{ color: "#0A192F" }} />
               <div>
-                <div style={{ fontSize: "17px", fontWeight: 900, color: "#50071C", lineHeight: 1.1 }}>12+</div>
-                <div style={{ fontSize: "11px", color: "#77727D" }}>Industries Covered</div>
+                <div style={{ fontSize: "17px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>12+</div>
+                <div style={{ fontSize: "11px", color: "#4B5563" }}>Industries Covered</div>
               </div>
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <Users size={18} style={{ color: "#50071C" }} />
+              <Users size={18} style={{ color: "#0A192F" }} />
               <div>
-                <div style={{ fontSize: "17px", fontWeight: 900, color: "#50071C", lineHeight: 1.1 }}>5000+</div>
-                <div style={{ fontSize: "11px", color: "#77727D" }}>Expert Contributors</div>
+                <div style={{ fontSize: "17px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>5000+</div>
+                <div style={{ fontSize: "11px", color: "#4B5563" }}>Expert Contributors</div>
               </div>
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <Globe2 size={18} style={{ color: "#50071C" }} />
+              <Globe2 size={18} style={{ color: "#0A192F" }} />
               <div>
-                <div style={{ fontSize: "17px", fontWeight: 900, color: "#50071C", lineHeight: 1.1 }}>1M+</div>
-                <div style={{ fontSize: "11px", color: "#77727D" }}>Monthly Readers</div>
+                <div style={{ fontSize: "17px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>1M+</div>
+                <div style={{ fontSize: "11px", color: "#4B5563" }}>Monthly Readers</div>
               </div>
             </div>
           </div>
@@ -142,7 +139,7 @@ export function IndustryHero() {
               height: "220px",
               borderRadius: "14px",
               overflow: "hidden",
-              border: "1px solid #E5E1D3",
+              border: "1px solid #E5E7EB",
               boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08)",
             }}
           >
@@ -165,7 +162,7 @@ export function IndustryHero() {
                 color: "#FFFFFF",
               }}
             >
-              <span style={{ fontSize: "10px", fontWeight: 800, color: "#D49A24", letterSpacing: "1.5px" }}>
+              <span style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1.5px" }}>
                 GLOBAL INTELLIGENCE
               </span>
               <h4 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, margin: "2px 0 0", color: "#FFFFFF" }}>

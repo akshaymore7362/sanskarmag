@@ -83,7 +83,7 @@ export function WebProfilesSection() {
   return (
     <section
       style={{
-        background: "#F7F5F0",
+        background: "#F3F4F6",
         position: "relative",
         padding: "32px 0 36px",
         overflow: "hidden",
@@ -104,9 +104,9 @@ export function WebProfilesSection() {
         viewBox="0 0 450 180"
         fill="none"
       >
-        <path d="M0,180 Q225,90 450,150 T900,100" stroke="#B69A5A" strokeWidth="1" fill="none" />
-        <path d="M0,180 Q225,110 450,165 T900,120" stroke="#B69A5A" strokeWidth="1" fill="none" />
-        <path d="M0,180 Q225,130 450,180 T900,140" stroke="#B69A5A" strokeWidth="1" fill="none" />
+        <path d="M0,180 Q225,90 450,150 T900,100" stroke="#C5A059" strokeWidth="1" fill="none" />
+        <path d="M0,180 Q225,110 450,165 T900,120" stroke="#C5A059" strokeWidth="1" fill="none" />
+        <path d="M0,180 Q225,130 450,180 T900,140" stroke="#C5A059" strokeWidth="1" fill="none" />
       </svg>
 
       {/* Background Graphic Wave (Bottom Left Dark Burgundy Accent) */}
@@ -117,7 +117,7 @@ export function WebProfilesSection() {
           left: 0,
           width: "320px",
           height: "110px",
-          background: "linear-gradient(135deg, #50071C 0%, #8B1029 100%)",
+          background: "linear-gradient(135deg, #0A192F 0%, #C5A059 100%)",
           borderTopRightRadius: "100%",
           pointerEvents: "none",
           zIndex: 1,
@@ -142,7 +142,7 @@ export function WebProfilesSection() {
                 fontSize: "11px",
                 fontWeight: 800,
                 letterSpacing: "2px",
-                color: "#8B1029",
+                color: "#C5A059",
                 textTransform: "uppercase",
                 display: "inline-flex",
                 alignItems: "center",
@@ -150,7 +150,7 @@ export function WebProfilesSection() {
                 marginBottom: "8px",
               }}
             >
-              <Crown size={14} style={{ color: "#8B1029" }} />
+              <Crown size={14} style={{ color: "#C5A059" }} />
               EXECUTIVE DIRECTORY
             </div>
             <h2
@@ -158,17 +158,17 @@ export function WebProfilesSection() {
               style={{
                 fontSize: "44px",
                 fontWeight: 900,
-                color: "#101722",
+                color: "#0A192F",
                 lineHeight: 1.1,
                 margin: "0 0 10px",
               }}
             >
-              Web <span style={{ color: "#8B1029" }}>Profiles</span> Wall
+              Web <span style={{ color: "#C5A059" }}>Profiles</span> Wall
             </h2>
             <p
               style={{
                 fontSize: "15px",
-                color: "#55515A",
+                color: "#4B5563",
                 margin: 0,
                 maxWidth: "520px",
                 lineHeight: 1.5,
@@ -184,13 +184,13 @@ export function WebProfilesSection() {
               fontSize: "13px",
               fontWeight: 800,
               letterSpacing: "1px",
-              color: "#8B1029",
+              color: "#C5A059",
               textTransform: "uppercase",
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
-              borderBottom: "2px solid #8B1029",
+              borderBottom: "2px solid #C5A059",
               paddingBottom: "4px",
               transition: "opacity 0.2s ease",
             }}
@@ -219,7 +219,7 @@ export function WebProfilesSection() {
                   padding: "0 24px 30px",
                   textAlign: "center",
                   position: "relative",
-                  borderRight: idx < 3 ? "1px solid #E5E2D9" : "none",
+                  borderRight: idx < 3 ? "1px solid #E5E7EB" : "none",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -234,20 +234,20 @@ export function WebProfilesSection() {
                       top: "50%",
                       width: "8px",
                       height: "8px",
-                      background: "#B69A5A",
+                      background: "#C5A059",
                       transform: "translateY(-50%) rotate(45deg)",
                       zIndex: 3,
                     }}
                   />
                 )}
 
-                {/* Circular Portrait Avatar Container with Arc Ring */}
+                {/* Circular Portrait Avatar Container with Arc Ring (Enlarged 185px for full photo fit) */}
                 <div
                   style={{
                     position: "relative",
-                    width: "140px",
-                    height: "140px",
-                    margin: "0 auto 24px",
+                    width: "185px",
+                    height: "185px",
+                    margin: "0 auto 20px",
                   }}
                 >
                   {/* Outer Golden/Burgundy Thin Arc Ring */}
@@ -256,9 +256,9 @@ export function WebProfilesSection() {
                       position: "absolute",
                       inset: "-8px",
                       borderRadius: "50%",
-                      border: "1.5px solid #8B1029",
+                      border: "2px solid #C5A059",
                       borderLeftColor: "transparent",
-                      borderBottomColor: "#B69A5A",
+                      borderBottomColor: "#C5A059",
                       transform: "rotate(-35deg)",
                       pointerEvents: "none",
                     }}
@@ -272,7 +272,7 @@ export function WebProfilesSection() {
                       top: "30%",
                       width: "16px",
                       height: "36px",
-                      background: "radial-gradient(#B69A5A 1.5px, transparent 1.5px)",
+                      background: "radial-gradient(#C5A059 1.5px, transparent 1.5px)",
                       backgroundSize: "6px 6px",
                       opacity: 0.7,
                       pointerEvents: "none",
@@ -286,9 +286,9 @@ export function WebProfilesSection() {
                       height: "100%",
                       borderRadius: "50%",
                       overflow: "hidden",
-                      background: "#F2EDE4",
-                      border: "3px solid #FFFFFF",
-                      boxShadow: "0 8px 24px rgba(0, 0, 0, 0.08)",
+                      background: "#F3F4F6",
+                      border: "3.5px solid #FFFFFF",
+                      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.12)",
                       position: "relative",
                     }}
                   >
@@ -297,7 +297,7 @@ export function WebProfilesSection() {
                       <img
                         src={leader.image}
                         alt={leader.name}
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
                       />
                     ) : (
                       <div
@@ -305,10 +305,10 @@ export function WebProfilesSection() {
                           height: "100%",
                           display: "grid",
                           placeItems: "center",
-                          color: "#8B1029",
+                          color: "#C5A059",
                           fontWeight: 900,
-                          fontSize: "36px",
-                          background: "#EBE5D8",
+                          fontSize: "44px",
+                          background: "#E5E7EB",
                         }}
                       >
                         {leader.name.charAt(0)}
@@ -320,21 +320,21 @@ export function WebProfilesSection() {
                   <div
                     style={{
                       position: "absolute",
-                      bottom: "2px",
-                      right: "2px",
-                      width: "32px",
-                      height: "32px",
+                      bottom: "4px",
+                      right: "4px",
+                      width: "36px",
+                      height: "36px",
                       borderRadius: "50%",
-                      background: "#8B1029",
+                      background: "#C5A059",
                       color: "#FFFFFF",
-                      border: "2px solid #FFFFFF",
-                      boxShadow: "0 4px 10px rgba(139, 16, 41, 0.3)",
+                      border: "2.5px solid #FFFFFF",
+                      boxShadow: "0 4px 12px rgba(10, 25, 47, 0.3)",
                       display: "grid",
                       placeItems: "center",
                       zIndex: 4,
                     }}
                   >
-                    <IconComp size={15} />
+                    <IconComp size={17} />
                   </div>
                 </div>
 
@@ -344,7 +344,7 @@ export function WebProfilesSection() {
                   style={{
                     fontSize: "22px",
                     fontWeight: 800,
-                    color: "#101722",
+                    color: "#0A192F",
                     margin: "0 0 6px",
                     lineHeight: 1.25,
                   }}
@@ -358,7 +358,7 @@ export function WebProfilesSection() {
                     fontSize: "11px",
                     fontWeight: 900,
                     letterSpacing: "1.5px",
-                    color: "#8B1029",
+                    color: "#C5A059",
                     textTransform: "uppercase",
                     marginBottom: "8px",
                   }}
@@ -371,7 +371,7 @@ export function WebProfilesSection() {
                   style={{
                     width: "24px",
                     height: "1px",
-                    background: "#B69A5A",
+                    background: "#C5A059",
                     margin: "0 auto 12px",
                     position: "relative",
                   }}
@@ -380,7 +380,7 @@ export function WebProfilesSection() {
                     style={{
                       width: "5px",
                       height: "5px",
-                      background: "#B69A5A",
+                      background: "#C5A059",
                       transform: "translate(-50%, -50%) rotate(45deg)",
                       position: "absolute",
                       left: "50%",
@@ -393,7 +393,7 @@ export function WebProfilesSection() {
                 <p
                   style={{
                     fontSize: "13px",
-                    color: "#66616C",
+                    color: "#6B7280",
                     lineHeight: 1.5,
                     margin: "0 0 20px",
                     maxWidth: "220px",
@@ -413,10 +413,10 @@ export function WebProfilesSection() {
                     fontSize: "12px",
                     fontWeight: 800,
                     letterSpacing: "1px",
-                    color: "#8B1029",
+                    color: "#C5A059",
                     textTransform: "uppercase",
                     textDecoration: "none",
-                    borderBottom: "1.5px solid #8B1029",
+                    borderBottom: "1.5px solid #C5A059",
                     paddingBottom: "2px",
                     display: "inline-flex",
                     alignItems: "center",

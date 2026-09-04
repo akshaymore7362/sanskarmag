@@ -130,22 +130,24 @@ export function SuccessWorldMagazineBook() {
     <div
       className="success-world-3d-magazine-showcase"
       style={{
-        width: "250px",
+        width: "100%",
+        maxWidth: "260px",
         height: "210px",
-        margin: "0 auto",
+        marginLeft: "auto",
+        marginRight: 0,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
         userSelect: "none",
-        overflow: "hidden", // Keep strictly within assigned area
+        overflow: "visible",
       }}
     >
-      {/* 3D HARDCOVER PHYSICAL MAGAZINE STAGE (FIXED AREA) */}
+      {/* 3D HARDCOVER PHYSICAL MAGAZINE STAGE */}
       <div
         style={{
           position: "relative",
-          width: "240px",
+          width: "255px",
           height: "180px",
           perspective: "1200px",
           display: "flex",
@@ -192,7 +194,7 @@ export function SuccessWorldMagazineBook() {
               left: isOpen ? "50%" : 0,
               width: "10px",
               marginLeft: isOpen ? "-5px" : "0",
-              background: "linear-gradient(90deg, #50071C 0%, #8B1029 35%, #B69A5A 50%, #8B1029 65%, #50071C 100%)",
+              background: "linear-gradient(90deg, #0A192F 0%, #C5A059 35%, #C5A059 50%, #C5A059 65%, #0A192F 100%)",
               boxShadow: "0 0 8px rgba(0,0,0,0.6)",
               zIndex: 40,
               borderRadius: "2px",
@@ -207,9 +209,9 @@ export function SuccessWorldMagazineBook() {
               inset: 0,
               borderRadius: "4px 8px 8px 4px",
               overflow: "hidden",
-              background: "#0A0D16",
+              background: "#0A192F",
               boxShadow: "-6px 0 12px rgba(0,0,0,0.5), 8px 10px 25px rgba(0,0,0,0.6)",
-              borderLeft: "5px solid #8B1029",
+              borderLeft: "5px solid #C5A059",
               transformStyle: "preserve-3d",
               transformOrigin: "left center",
               transition: "transform 0.75s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
@@ -226,7 +228,7 @@ export function SuccessWorldMagazineBook() {
                 top: "3px",
                 bottom: "3px",
                 width: "6px",
-                background: "repeating-linear-gradient(0deg, #F4F1EA 0px, #E5E2D9 2px, #FFFFFF 4px)",
+                background: "repeating-linear-gradient(0deg, #F3F4F6 0px, #E5E7EB 2px, #FFFFFF 4px)",
                 boxShadow: "inset 2px 0 4px rgba(0,0,0,0.3)",
               }}
             />
@@ -256,13 +258,10 @@ export function SuccessWorldMagazineBook() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo.png"
+                src="/logo-white-text.png"
                 alt="Success World Logo"
-                style={{ height: "20px", width: "auto", marginBottom: "2px", borderRadius: "50%" }}
+                style={{ height: "26px", width: "auto", marginBottom: "4px", objectFit: "contain" }}
               />
-              <div className="font-serif" style={{ fontSize: "11px", fontWeight: 900, color: "#FFFFFF", letterSpacing: "0.5px" }}>
-                SUCCESS WORLD
-              </div>
             </div>
           </div>
 
@@ -284,7 +283,7 @@ export function SuccessWorldMagazineBook() {
             <div
               style={{
                 position: "relative",
-                background: "#0A0D16",
+                background: "#0A192F",
                 borderRadius: "4px 0 0 4px",
                 overflow: "hidden",
                 borderRight: "1px solid rgba(0,0,0,0.6)",
@@ -299,7 +298,7 @@ export function SuccessWorldMagazineBook() {
                   top: "2px",
                   bottom: "2px",
                   width: "3px",
-                  background: "repeating-linear-gradient(0deg, #F4F1EA 0px, #E5E2D9 2px, #FFFFFF 4px)",
+                  background: "repeating-linear-gradient(0deg, #F3F4F6 0px, #E5E7EB 2px, #FFFFFF 4px)",
                 }}
               />
 
@@ -315,7 +314,7 @@ export function SuccessWorldMagazineBook() {
             <div
               style={{
                 position: "relative",
-                background: "#0A0D16",
+                background: "#0A192F",
                 borderRadius: "0 4px 4px 0",
                 overflow: "hidden",
                 borderLeft: "1px solid rgba(0,0,0,0.6)",
@@ -330,7 +329,7 @@ export function SuccessWorldMagazineBook() {
                   top: "2px",
                   bottom: "2px",
                   width: "3px",
-                  background: "repeating-linear-gradient(0deg, #F4F1EA 0px, #E5E2D9 2px, #FFFFFF 4px)",
+                  background: "repeating-linear-gradient(0deg, #F3F4F6 0px, #E5E7EB 2px, #FFFFFF 4px)",
                 }}
               />
 
@@ -365,7 +364,7 @@ export function SuccessWorldMagazineBook() {
                   inset: 0,
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
-                  background: "#0A0D16",
+                  background: "#0A192F",
                   borderRadius: "0 4px 4px 0",
                   overflow: "hidden",
                   boxShadow: "inset 8px 0 16px rgba(0,0,0,0.4), 8px 0 20px rgba(0,0,0,0.5)",
@@ -396,7 +395,7 @@ export function SuccessWorldMagazineBook() {
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
-                  background: "#0A0D16",
+                  background: "#0A192F",
                   borderRadius: "4px 0 0 4px",
                   overflow: "hidden",
                   boxShadow: "inset -8px 0 16px rgba(0,0,0,0.4)",

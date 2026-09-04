@@ -37,7 +37,7 @@ export function BusinessBulletinSection() {
         </Link>
       </div>
 
-      <div className="tsw-bulletin-grid">
+      <div className="tsw-bulletin-grid grid-sidebar-layout">
         {/* LEFT — lead feature */}
         {lead && (
           <article className="tsw-card tsw-bulletin-lead">

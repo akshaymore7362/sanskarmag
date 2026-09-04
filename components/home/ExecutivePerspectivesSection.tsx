@@ -27,21 +27,21 @@ export function ExecutivePerspectivesSection() {
     <section
       style={{
         width: "100%",
-        background: "#F9F8F5",
-        color: "#191c1d",
+        background: "#F9FAFB",
+        color: "#0A192F",
         padding: "56px 20px",
         borderBottom: "1px solid #EAE6DF",
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         {/* Section Header */}
-        <div style={{ borderBottom: "2px solid #191c1d", paddingBottom: "12px", marginBottom: "36px" }}>
+        <div style={{ borderBottom: "2px solid #0A192F", paddingBottom: "12px", marginBottom: "36px" }}>
           <span
             style={{
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#701528",
+              color: "#0A192F",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "4px",
@@ -98,7 +98,7 @@ export function ExecutivePerspectivesSection() {
                     height: "100%",
                     display: "grid",
                     placeItems: "center",
-                    color: "#fed488",
+                    color: "#D4B475",
                     fontWeight: 800,
                     fontSize: "22px",
                     padding: "20px",
@@ -116,7 +116,7 @@ export function ExecutivePerspectivesSection() {
                 style={{
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#701528",
+                  color: "#0A192F",
                   letterSpacing: "1.5px",
                   textTransform: "uppercase",
                 }}
@@ -140,12 +140,12 @@ export function ExecutivePerspectivesSection() {
               </h3>
 
               {featureStory.description && (
-                <p style={{ fontSize: "14px", color: "#44474d", lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: "14px", color: "#4B5563", lineHeight: 1.6, margin: 0 }}>
                   {featureStory.description}
                 </p>
               )}
 
-              <div style={{ fontSize: "12px", color: "#75777e", fontWeight: 600 }}>
+              <div style={{ fontSize: "12px", color: "#6B7280", fontWeight: 600 }}>
                 <span>By {featureStory.author}</span> &bull; <span>{featureStory.readTime}</span>
               </div>
 
@@ -155,7 +155,7 @@ export function ExecutivePerspectivesSection() {
                   style={{
                     fontSize: "12px",
                     fontWeight: 800,
-                    color: "#701528",
+                    color: "#0A192F",
                     letterSpacing: "1px",
                     textTransform: "uppercase",
                     textDecoration: "none",
@@ -174,7 +174,7 @@ export function ExecutivePerspectivesSection() {
 
         {/* Numbered Editorial Grid Below Feature (01, 02, 03, 04 across 4 Columns) */}
         {numberedGrid.length > 0 && (
-          <div style={{ borderTop: "1px solid #191c1d", paddingTop: "32px" }}>
+          <div style={{ borderTop: "1px solid #0A192F", paddingTop: "32px" }}>
             <div
               style={{
                 display: "grid",
@@ -189,7 +189,7 @@ export function ExecutivePerspectivesSection() {
                     display: "flex",
                     flexDirection: "column",
                     gap: "10px",
-                    borderTop: "1px solid #E5E0D8",
+                    borderTop: "1px solid #E5E7EB",
                     paddingTop: "16px",
                   }}
                 >
@@ -198,14 +198,14 @@ export function ExecutivePerspectivesSection() {
                     style={{
                       fontSize: "36px",
                       fontWeight: 300,
-                      color: "#701528",
+                      color: "#0A192F",
                       lineHeight: 1,
                     }}
                   >
                     {String(idx + 1).padStart(2, "0")}
                   </div>
 
-                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#701528", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#0A192F", letterSpacing: "1.5px", textTransform: "uppercase" }}>
                     {item.category || "PERSPECTIVE"} &bull; {item.date}
                   </div>
 
@@ -228,7 +228,7 @@ export function ExecutivePerspectivesSection() {
                     <p
                       style={{
                         fontSize: "12px",
-                        color: "#555860",
+                        color: "#6B7280",
                         lineHeight: 1.45,
                         margin: 0,
                         display: "-webkit-box",
@@ -250,7 +250,7 @@ export function ExecutivePerspectivesSection() {
                 style={{
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#701528",
+                  color: "#0A192F",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
                   textDecoration: "none",

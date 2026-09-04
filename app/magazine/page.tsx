@@ -12,7 +12,7 @@ export default function MagazinePage() {
   return (
     <main className="magazine-page site-shell inner-shell">
       <PageIntro title="Magazine" intro="Digital issues, cover stories and editorial packages from The Success World." eyebrow="Archive" dark />
-      <section className="issue-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "24px", margin: "32px 0" }}>
+      <section className="issue-grid grid-responsive-4" style={{ margin: "32px 0" }}>
         {magazineService.all().map((issue) => <IssueCard issue={issue} key={issue.slug} />)}
       </section>
     </main>

@@ -8,13 +8,9 @@ import { MagazineNewsletterSection } from "@/components/magazine/MagazineNewslet
 import { magazineService } from "@/services/magazineService";
 import type { MagazineIssue } from "@/types";
 
-const categoriesList = ["All", "Business", "Leadership", "Innovation", "Entrepreneurship", "Lifestyle"];
-
 export default function MagazinesPage() {
   const [sanityIssues, setSanityIssues] = useState<MagazineIssue[]>([]);
-  const [activeCategory, setActiveCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All Years");
-  const [sortBy, setSortBy] = useState<"sequence" | "year-desc" | "year-asc">("sequence");
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -39,15 +35,9 @@ export default function MagazinesPage() {
     return ["All Years", ...sortedYears];
   }, [sanityIssues]);
 
-  // Filter Sanity Magazines by category, publication year, and search term (sorted Year-wise & Sequence-wise)
+  // Filter Sanity Magazines strictly by selected year & search query
   const filteredCards = useMemo(() => {
     const list = sanityIssues.filter((card) => {
-      const matchesCategory =
-        activeCategory === "All" ||
-        card.title.toLowerCase().includes(activeCategory.toLowerCase()) ||
-        (card.subtitle && card.subtitle.toLowerCase().includes(activeCategory.toLowerCase())) ||
-        (card.description && card.description.toLowerCase().includes(activeCategory.toLowerCase()));
-
       const cardYear = card.year || (card.date ? card.date.match(/\b(19\d{2}|20\d{2})\b/)?.[1] : undefined);
       const matchesYear =
         selectedYear === "All Years" ||
@@ -59,7 +49,7 @@ export default function MagazinesPage() {
         card.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (card.subtitle && card.subtitle.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      return matchesCategory && matchesYear && matchesSearch;
+      return matchesYear && matchesSearch;
     });
 
     return list.sort((a, b) => {
@@ -68,36 +58,21 @@ export default function MagazinesPage() {
       const seqA = a.sequenceNum || 1;
       const seqB = b.sequenceNum || 1;
 
-      if (sortBy === "sequence") {
-        // Sequence-wise within year
-        if (yrB !== yrA) return yrB - yrA;
-        return seqA - seqB;
-      } else if (sortBy === "year-desc") {
-        if (yrB !== yrA) return yrB - yrA;
-        return seqA - seqB;
-      } else if (sortBy === "year-asc") {
-        if (yrA !== yrB) return yrA - yrB;
-        return seqA - seqB;
-      }
-      return 0;
+      if (yrB !== yrA) return yrB - yrA;
+      return seqB - seqA; // Latest magazine edition first
     });
-  }, [sanityIssues, activeCategory, selectedYear, searchQuery, sortBy]);
+  }, [sanityIssues, selectedYear, searchQuery]);
 
   return (
     <main style={{ background: "var(--editorial-ivory, #F5F1EA)", minHeight: "100vh", paddingBottom: "40px" }}>
       {/* 1. Full-Width Luxury Magazine Hero Banner */}
       {sanityIssues.length > 0 && <MagazineHeroBanner issues={sanityIssues.slice(0, 5)} />}
 
-      {/* 2. Filter & Search Bar with Year Selector & Sort Options */}
+      {/* 2. Filter & Search Bar with Clean Direct Year Selector (All Years, 2026, 2025, 2024) */}
       <MagazineFilterBar
-        categories={categoriesList}
-        activeCategory={activeCategory}
-        onSelectCategory={setActiveCategory}
         availableYears={availableYears}
         selectedYear={selectedYear}
         onSelectYear={setSelectedYear}
-        sortBy={sortBy}
-        onSortChange={setSortBy}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         totalFilteredCount={filteredCards.length}
@@ -111,3 +86,4 @@ export default function MagazinesPage() {
     </main>
   );
 }
+

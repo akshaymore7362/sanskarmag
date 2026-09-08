@@ -30,7 +30,7 @@ export function HeroSection() {
   useEffect(() => {
     magazineService.fetchSanityMagazines().then((issues) => {
       if (issues && issues.length > 0) {
-        setMagazines(issues.slice(0, 6)); // Take latest 6 magazines
+        setMagazines(issues.slice(0, 6));
       }
     });
 
@@ -41,24 +41,24 @@ export function HeroSection() {
     });
   }, []);
 
-  // Continuous Auto-Slide Timer (cycles latest magazines every 4s unless hovered)
+  // Continuous Automatic Slide Timer (3.5s)
   useEffect(() => {
-    if (magazines.length <= 1 || isPaused) return;
+    if (magazines.length <= 1) return;
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % magazines.length);
-    }, 4000);
+    }, 3500);
     return () => clearInterval(timer);
-  }, [magazines.length, isPaused]);
+  }, [magazines.length]);
 
   const activeIssue = magazines.length > 0 ? magazines[currentIndex % magazines.length] : null;
   const activeLeader = leaders.length > 0 ? leaders[currentIndex % leaders.length] : null;
 
-  const heroTitle = activeIssue?.title || "International Executive Edition & Global Market Leadership 2026";
+  const heroTitle = activeIssue?.title || "International Executive Edition";
   const heroDesc =
     activeIssue?.subtitle ||
     activeIssue?.description ||
-    "Delivering exclusive economic briefings, technology breakthroughs, and strategic insights for global operators and C-suite leaders.";
+    "Delivering strategic economic briefings and executive insights for global decision makers.";
   const heroCover = activeIssue?.cover || "";
   const issueTag = activeIssue?.issue || `EDITION 0${currentIndex + 1}`;
   const issueDate = activeIssue?.date || "2026";
@@ -88,7 +88,7 @@ export function HeroSection() {
   const slideVariants = {
     initial: (dir: number) => ({
       opacity: 0,
-      x: dir > 0 ? 35 : -35,
+      x: dir > 0 ? 25 : -25,
     }),
     animate: {
       opacity: 1,
@@ -96,9 +96,12 @@ export function HeroSection() {
     },
     exit: (dir: number) => ({
       opacity: 0,
-      x: dir > 0 ? -35 : 35,
+      x: dir > 0 ? -25 : 25,
     }),
   };
+
+  const behind1 = magazines.length > 1 ? magazines[(currentIndex + 1) % magazines.length] : null;
+  const behind2 = magazines.length > 2 ? magazines[(currentIndex + 2) % magazines.length] : null;
 
   return (
     <section
@@ -108,67 +111,36 @@ export function HeroSection() {
         backgroundColor: "var(--editorial-ivory, #F5F1EA)",
         background: "var(--editorial-ivory, #F5F1EA)",
         borderBottom: "1px solid var(--editorial-border, #DDD5CC)",
-        padding: "42px 0 52px",
+        padding: "24px 0 28px",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Background Micro Decorative Glow Gradients */}
-      <div
-        style={{
-          position: "absolute",
-          top: "-100px",
-          right: "-100px",
-          width: "400px",
-          height: "400px",
-          background: "radial-gradient(circle, rgba(10, 25, 47, 0.06) 0%, rgba(0,0,0,0) 70%)",
-          borderRadius: "50%",
-          pointerEvents: "none",
-        }}
-      />
-
       <div className="site-shell" style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-        {/* Top Header Bar: Section Eyebrow & Controls */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        {/* Top Eyebrow & Navigation Bar */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <span
               style={{
-                background: "transparent",
-                border: "1px solid #0A192F",
-                color: "#0A192F",
+                background: "#0A192F",
+                color: "#FFFFFF",
                 fontSize: "10px",
                 fontWeight: 800,
-                letterSpacing: "1.5px",
+                letterSpacing: "1px",
                 textTransform: "uppercase",
-                padding: "5px 12px",
-                borderRadius: "4px",
+                padding: "3px 8px",
+                borderRadius: "3px",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "6px",
+                gap: "4px",
               }}
             >
-              <Sparkles size={12} />
-              EXECUTIVE MAGAZINE SLIDER &bull; {issueDate}
-            </span>
-
-            <span
-              style={{
-                fontSize: "11px",
-                fontWeight: 800,
-                letterSpacing: "1.2px",
-                color: "#059669",
-                textTransform: "uppercase",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              <span style={{ width: "7px", height: "7px", background: "#059669", borderRadius: "50%", boxShadow: "0 0 8px #059669" }} />
-              LIVE PRESS RELEASE
+              <Sparkles size={11} />
+              EXECUTIVE EDITION &bull; {issueDate}
             </span>
 
             {isPaused && (
-              <span style={{ fontSize: "10px", color: "var(--editorial-charcoal, #55545A)", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+              <span style={{ fontSize: "10px", color: "#55545A", display: "inline-flex", alignItems: "center", gap: "4px" }}>
                 <Pause size={10} /> PAUSED
               </span>
             )}
@@ -176,29 +148,28 @@ export function HeroSection() {
 
           {magazines.length > 1 && (
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span style={{ fontSize: "12px", fontWeight: 800, color: "#0A192F" }}>
-                0{currentIndex + 1} <span style={{ color: "var(--editorial-charcoal, #55545A)" }}>/ 0{magazines.length}</span>
+              <span style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F" }}>
+                0{currentIndex + 1} <span style={{ color: "#55545A" }}>/ 0{magazines.length}</span>
               </span>
 
-              <div style={{ display: "flex", gap: "6px" }}>
+              <div style={{ display: "flex", gap: "4px" }}>
                 <button
                   type="button"
                   onClick={handlePrev}
                   style={{
-                    background: "var(--editorial-surface, #FCFAF6)",
-                    border: "1px solid var(--editorial-border, #DDD5CC)",
+                    background: "#FFFFFF",
+                    border: "1px solid #CBD5E1",
                     borderRadius: "50%",
-                    color: "var(--editorial-navy, #101722)",
-                    width: "32px",
-                    height: "32px",
+                    color: "#0A192F",
+                    width: "28px",
+                    height: "28px",
                     cursor: "pointer",
                     display: "grid",
                     placeItems: "center",
-                    boxShadow: "0 2px 4px rgba(16, 23, 34, 0.05)",
                   }}
                   aria-label="Previous Magazine Slide"
                 >
-                  <ChevronLeft size={16} />
+                  <ChevronLeft size={14} />
                 </button>
                 <button
                   type="button"
@@ -208,24 +179,23 @@ export function HeroSection() {
                     border: "1px solid #0A192F",
                     borderRadius: "50%",
                     color: "#FFFFFF",
-                    width: "32px",
-                    height: "32px",
+                    width: "28px",
+                    height: "28px",
                     cursor: "pointer",
                     display: "grid",
                     placeItems: "center",
-                    boxShadow: "0 2px 4px rgba(10, 25, 47, 0.3)",
                   }}
                   aria-label="Next Magazine Slide"
                 >
-                  <ChevronRight size={16} />
+                  <ChevronRight size={14} />
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        {/* Synchronized Animated 2-Column Hero Area */}
-        <div style={{ position: "relative", minHeight: "410px" }}>
+        {/* 2-Column Animated Hero Grid: 3D Cross Magazine Stack & Compact Info */}
+        <div style={{ position: "relative" }}>
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
               key={currentIndex}
@@ -234,77 +204,80 @@ export function HeroSection() {
               initial="initial"
               animate="animate"
               exit="exit"
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               className="hero-grid-responsive"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 480px",
+                gap: "36px",
+                alignItems: "center",
+              }}
             >
-              {/* LEFT COLUMN: Editorial Content & CTAs */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+              {/* LEFT COLUMN: Compact Editorial Information (Reflects ONLY Front Magazine) */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "560px" }}>
                 {/* Main Headline */}
                 <h1
                   className="font-serif"
                   style={{
-                    fontSize: "clamp(30px, 3.6vw, 46px)",
+                    fontSize: "clamp(24px, 2.2vw, 32px)",
                     fontWeight: 900,
-                    lineHeight: 1.15,
-                    color: "var(--editorial-navy, #101722)",
+                    lineHeight: 1.2,
+                    color: "#101722",
                     margin: 0,
-                    letterSpacing: "-0.5px",
+                    letterSpacing: "-0.3px",
                   }}
                 >
                   Empowering Visionaries &amp; <span style={{ color: "#0A192F" }}>Shaping Global Markets</span>
                 </h1>
 
-                {/* Dynamic Issue Title & Description Card */}
-                <div style={{ background: "var(--editorial-surface, #FCFAF6)", border: "1px solid var(--editorial-border, #DDD5CC)", borderRadius: "12px", padding: "18px 20px", boxShadow: "0 8px 30px rgba(16, 23, 34, 0.06)" }}>
-                  <div style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "4px" }}>
+                {/* Single Combined Featured Coverage Text Block */}
+                <div>
+                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>
                     FEATURED COVERAGE &bull; {issueTag}
                   </div>
-                  <h3 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, color: "var(--editorial-navy, #101722)", margin: "0 0 6px", lineHeight: 1.3 }}>
+                  <h3 className="font-serif" style={{ fontSize: "16px", fontWeight: 800, color: "#101722", margin: "0 0 4px", lineHeight: 1.3 }}>
                     {heroTitle}
                   </h3>
-                  <p style={{ fontSize: "14px", color: "var(--editorial-charcoal, #55545A)", margin: 0, lineHeight: 1.55 }}>
+                  <p style={{ fontSize: "13px", color: "#55545A", margin: 0, lineHeight: 1.45 }}>
                     {heroDesc}
                   </p>
                 </div>
 
-                {/* Cover Featured Executive Profile Card */}
+                {/* Executive Profile */}
                 {activeLeader && (
-                  <div style={{ display: "flex", alignItems: "center", gap: "14px", background: "var(--editorial-surface, #FCFAF6)", border: "1px solid var(--editorial-border, #DDD5CC)", borderRadius: "10px", padding: "10px 14px", boxShadow: "0 8px 30px rgba(16, 23, 34, 0.06)" }}>
-                    <div style={{ width: "46px", height: "46px", borderRadius: "50%", overflow: "hidden", border: "2px solid #0A192F", flexShrink: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "4px 0" }}>
+                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", overflow: "hidden", border: "1.5px solid #0A192F", flexShrink: 0 }}>
                       {activeLeader.image ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img src={activeLeader.image} alt={activeLeader.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       ) : (
-                        <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#FFFFFF", fontWeight: 900, fontSize: "18px" }}>
+                        <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#FFFFFF", fontWeight: 800, fontSize: "14px" }}>
                           {activeLeader.name.charAt(0)}
                         </div>
                       )}
                     </div>
                     <div>
-                      <div style={{ fontSize: "10px", fontWeight: 800, color: "#0A192F", letterSpacing: "1px", textTransform: "uppercase" }}>
-                        COVER FEATURED EXECUTIVE
-                      </div>
-                      <div className="font-serif" style={{ fontSize: "15px", fontWeight: 800, color: "var(--editorial-navy, #101722)" }}>
+                      <div className="font-serif" style={{ fontSize: "13px", fontWeight: 800, color: "#101722", lineHeight: 1.2 }}>
                         {activeLeader.name}
                       </div>
-                      <div style={{ fontSize: "11px", color: "var(--editorial-charcoal, #55545A)", fontWeight: 600 }}>
+                      <div style={{ fontSize: "11px", color: "#55545A", fontWeight: 600 }}>
                         {activeLeader.role} {activeLeader.company ? `&bull; ${activeLeader.company}` : ""}
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Topics Bar */}
-                <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", fontSize: "12px", fontWeight: 700, color: "var(--editorial-charcoal, #55545A)" }}>
+                {/* Industry Topics Tag Bar */}
+                <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", fontSize: "11px", fontWeight: 700, color: "#55545A" }}>
                   {["Enterprise AI & Tech", "Capital Markets", "Executive Leadership"].map((topic) => (
-                    <span key={topic} style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}>
-                      <CheckCircle size={14} style={{ color: "#059669" }} /> {topic}
+                    <span key={topic} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                      <CheckCircle size={12} style={{ color: "#059669" }} /> {topic}
                     </span>
                   ))}
                 </div>
 
                 {/* Action Buttons */}
-                <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginTop: "4px" }}>
+                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "4px" }}>
                   {isExternalPdf ? (
                     <a
                       href={targetPdfUrl}
@@ -313,23 +286,21 @@ export function HeroSection() {
                       style={{
                         background: "#0A192F",
                         color: "#FFFFFF",
-                        fontSize: "13px",
+                        fontSize: "12px",
                         fontWeight: 800,
-                        letterSpacing: "0.8px",
+                        letterSpacing: "0.5px",
                         textTransform: "uppercase",
-                        padding: "14px 24px",
-                        borderRadius: "6px",
+                        padding: "10px 18px",
+                        borderRadius: "5px",
                         textDecoration: "none",
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "8px",
-                        transition: "all 0.2s ease",
-                        boxShadow: "0 4px 12px rgba(10, 25, 47, 0.25)",
+                        gap: "6px",
                       }}
                     >
-                      <BookOpen size={16} />
+                      <BookOpen size={14} />
                       <span>Read Digital Magazine</span>
-                      <ExternalLink size={14} />
+                      <ExternalLink size={12} />
                     </a>
                   ) : (
                     <Link
@@ -337,21 +308,19 @@ export function HeroSection() {
                       style={{
                         background: "#0A192F",
                         color: "#FFFFFF",
-                        fontSize: "13px",
+                        fontSize: "12px",
                         fontWeight: 800,
-                        letterSpacing: "0.8px",
+                        letterSpacing: "0.5px",
                         textTransform: "uppercase",
-                        padding: "14px 24px",
-                        borderRadius: "6px",
+                        padding: "10px 18px",
+                        borderRadius: "5px",
                         textDecoration: "none",
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "8px",
-                        transition: "all 0.2s ease",
-                        boxShadow: "0 4px 12px rgba(10, 25, 47, 0.25)",
+                        gap: "6px",
                       }}
                     >
-                      <BookOpen size={16} />
+                      <BookOpen size={14} />
                       <span>Read Digital Magazine</span>
                     </Link>
                   )}
@@ -362,98 +331,141 @@ export function HeroSection() {
                     style={{
                       background: "transparent",
                       color: "#0A192F",
-                      fontSize: "13px",
+                      fontSize: "12px",
                       fontWeight: 700,
-                      letterSpacing: "0.8px",
+                      letterSpacing: "0.5px",
                       textTransform: "uppercase",
-                      padding: "14px 24px",
-                      borderRadius: "6px",
+                      padding: "10px 18px",
+                      borderRadius: "5px",
                       border: "1px solid #0A192F",
                       cursor: "pointer",
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "8px",
-                      transition: "all 0.2s ease",
+                      gap: "6px",
                     }}
                   >
-                    <ShieldCheck size={16} style={{ color: "#0A192F" }} />
+                    <ShieldCheck size={14} style={{ color: "#0A192F" }} />
                     <span>Nominate A Leader</span>
                   </button>
                 </div>
               </div>
 
-              {/* RIGHT COLUMN: Synchronized 3D Animated Cover Showcase */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
+              {/* RIGHT COLUMN: Expansive 3D 3-Layer Cross Magazine Fan Showcase */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div
                   style={{
                     position: "relative",
-                    width: "100%",
-                    maxWidth: "340px",
-                    aspectRatio: "3 / 4",
-                    borderRadius: "14px",
-                    overflow: "hidden",
-                    borderLeft: "6px solid #0A192F",
-                    background: "var(--editorial-surface, #FCFAF6)",
-                    boxShadow: "0 20px 45px -10px rgba(10, 25, 47, 0.25), 0 8px 20px rgba(16, 23, 34, 0.08)",
+                    width: "440px",
+                    height: "500px",
+                    maxWidth: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  {/* Issue Tag Badge */}
+                  {/* Background Layer 2 (Cross-angled right behind) */}
+                  {behind2 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "20px",
+                        right: "10px",
+                        width: "295px",
+                        aspectRatio: "3 / 4",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        border: "1px solid #DDD5CC",
+                        transform: "rotate(10deg)",
+                        boxShadow: "0 12px 32px rgba(10, 25, 47, 0.15)",
+                        opacity: 0.75,
+                        zIndex: 1,
+                        background: "#FCFAF6",
+                      }}
+                    >
+                      {behind2.cover ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={behind2.cover} alt={behind2.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      ) : (
+                        <div style={{ height: "100%", background: "#0A192F" }} />
+                      )}
+                    </div>
+                  )}
+
+                  {/* Background Layer 1 (Cross-angled left behind) */}
+                  {behind1 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        left: "10px",
+                        width: "310px",
+                        aspectRatio: "3 / 4",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        border: "1px solid #DDD5CC",
+                        transform: "rotate(-8deg)",
+                        boxShadow: "0 14px 36px rgba(10, 25, 47, 0.2)",
+                        opacity: 0.88,
+                        zIndex: 2,
+                        background: "#FCFAF6",
+                      }}
+                    >
+                      {behind1.cover ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={behind1.cover} alt={behind1.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      ) : (
+                        <div style={{ height: "100%", background: "#0A192F" }} />
+                      )}
+                    </div>
+                  )}
+
+                  {/* Front Main Upright Active Cover (Large Focal Point) */}
                   <div
                     style={{
-                      position: "absolute",
-                      top: "12px",
-                      left: "12px",
-                      zIndex: 10,
-                      background: "#0A192F",
-                      color: "#FFFFFF",
-                      fontSize: "10px",
-                      fontWeight: 900,
-                      letterSpacing: "1.5px",
-                      padding: "5px 10px",
-                      borderRadius: "4px",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+                      position: "relative",
+                      width: "330px",
+                      aspectRatio: "3 / 4",
+                      borderRadius: "14px",
+                      overflow: "hidden",
+                      borderLeft: "6px solid #0A192F",
+                      background: "#FCFAF6",
+                      boxShadow: "0 24px 60px rgba(10, 25, 47, 0.32)",
+                      zIndex: 3,
                     }}
                   >
-                    <Star size={11} fill="currentColor" />
-                    {issueTag}
+                    {isExternalPdf ? (
+                      <a href={targetPdfUrl} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
+                        {heroCover ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img src={heroCover} alt={heroTitle} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        ) : (
+                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
+                            THE SUCCESS WORLD
+                          </div>
+                        )}
+                      </a>
+                    ) : (
+                      <Link href={targetPdfUrl} style={{ display: "block", width: "100%", height: "100%" }}>
+                        {heroCover ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img src={heroCover} alt={heroTitle} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        ) : (
+                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
+                            THE SUCCESS WORLD
+                          </div>
+                        )}
+                      </Link>
+                    )}
                   </div>
-
-                  {/* Cover Image */}
-                  {isExternalPdf ? (
-                    <a href={targetPdfUrl} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
-                      {heroCover ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={heroCover} alt={heroTitle} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      ) : (
-                        <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "20px", padding: "20px", textAlign: "center" }}>
-                          THE SUCCESS WORLD
-                        </div>
-                      )}
-                    </a>
-                  ) : (
-                    <Link href={targetPdfUrl} style={{ display: "block", width: "100%", height: "100%" }}>
-                      {heroCover ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={heroCover} alt={heroTitle} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      ) : (
-                        <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "20px", padding: "20px", textAlign: "center" }}>
-                          THE SUCCESS WORLD
-                        </div>
-                      )}
-                    </Link>
-                  )}
                 </div>
 
-                {/* Magazine Switcher Thumbnail Indicators */}
+                {/* Thumbnail Switcher */}
                 {magazines.length > 1 && (
                   <div
                     style={{
                       display: "flex",
                       gap: "8px",
-                      marginTop: "18px",
+                      marginTop: "12px",
                       justifyContent: "center",
                       flexWrap: "wrap",
                     }}
@@ -465,24 +477,24 @@ export function HeroSection() {
                         onClick={() => handleSelect(idx)}
                         aria-label={`Switch to magazine ${idx + 1}`}
                         style={{
-                          width: "42px",
-                          height: "56px",
-                          borderRadius: "6px",
+                          width: "36px",
+                          height: "48px",
+                          borderRadius: "4px",
                           overflow: "hidden",
-                          border: idx === currentIndex ? "2.5px solid #0A192F" : "1.5px solid var(--editorial-border, #DDD5CC)",
+                          border: idx === currentIndex ? "2.5px solid #0A192F" : "1px solid #CBD5E1",
                           padding: 0,
-                          background: "var(--editorial-surface, #FCFAF6)",
+                          background: "#FCFAF6",
                           cursor: "pointer",
                           opacity: idx === currentIndex ? 1 : 0.6,
-                          transform: idx === currentIndex ? "scale(1.1)" : "scale(1)",
-                          transition: "all 0.25s ease",
+                          transform: idx === currentIndex ? "scale(1.08)" : "scale(1)",
+                          transition: "all 0.2s ease",
                         }}
                       >
                         {item.cover ? (
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img src={item.cover} alt={`Magazine ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         ) : (
-                          <span style={{ fontSize: "9px", color: "#0A192F", fontWeight: 900 }}>#{idx + 1}</span>
+                          <span style={{ fontSize: "9px", color: "#0A192F", fontWeight: 800 }}>#{idx + 1}</span>
                         )}
                       </button>
                     ))}
@@ -493,50 +505,50 @@ export function HeroSection() {
           </AnimatePresence>
         </div>
 
-        {/* Executive Impact Metrics Counter Bar */}
+        {/* Compact Metrics Strip */}
         <div
           style={{
-            marginTop: "40px",
-            paddingTop: "22px",
+            marginTop: "20px",
+            paddingTop: "14px",
             borderTop: "1px solid var(--editorial-border, #DDD5CC)",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "20px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+            gap: "12px",
             textAlign: "center",
           }}
         >
           <div>
-            <div className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "#0A192F" }}>
+            <div className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>
               500+
             </div>
-            <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "1px", color: "var(--editorial-charcoal, #55545A)", textTransform: "uppercase" }}>
-              EXECUTIVE LEADERS PROFILED
+            <div style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "0.5px", color: "#55545A", textTransform: "uppercase" }}>
+              EXECUTIVE LEADERS
             </div>
           </div>
 
           <div>
-            <div className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "var(--editorial-navy, #101722)" }}>
+            <div className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#101722", lineHeight: 1.1 }}>
               120K+
             </div>
-            <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "1px", color: "var(--editorial-charcoal, #55545A)", textTransform: "uppercase" }}>
+            <div style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "0.5px", color: "#55545A", textTransform: "uppercase" }}>
               C-SUITE SUBSCRIBERS
             </div>
           </div>
 
           <div>
-            <div className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "#0A192F" }}>
+            <div className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>
               50+
             </div>
-            <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "1px", color: "var(--editorial-charcoal, #55545A)", textTransform: "uppercase" }}>
+            <div style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "0.5px", color: "#55545A", textTransform: "uppercase" }}>
               COUNTRIES REACHED
             </div>
           </div>
 
           <div>
-            <div className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "var(--editorial-navy, #101722)" }}>
+            <div className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#101722", lineHeight: 1.1 }}>
               100%
             </div>
-            <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "1px", color: "var(--editorial-charcoal, #55545A)", textTransform: "uppercase" }}>
+            <div style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "0.5px", color: "#55545A", textTransform: "uppercase" }}>
               INDEPENDENT JOURNALISM
             </div>
           </div>
@@ -547,4 +559,5 @@ export function HeroSection() {
     </section>
   );
 }
+
 

@@ -12,9 +12,7 @@ import {
   Sparkles,
   Award,
   Users,
-  ShieldCheck,
   Pause,
-  Play,
   ArrowRight,
   CheckCircle2,
 } from "lucide-react";
@@ -29,15 +27,15 @@ export function MagazineHeroBanner({ issues }: Props) {
   const [direction, setDirection] = useState<number>(1);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-slide effect (cycles every 5 seconds unless hovered)
+  // Continuous Auto-slide effect (3.5 seconds)
   useEffect(() => {
-    if (issues.length <= 1 || isPaused) return;
+    if (issues.length <= 1) return;
     const timer = setInterval(() => {
       setDirection(1);
       setActiveIndex((prev) => (prev + 1) % issues.length);
-    }, 5000);
+    }, 3500);
     return () => clearInterval(timer);
-  }, [issues.length, isPaused]);
+  }, [issues.length]);
 
   if (!issues || issues.length === 0) return null;
 
@@ -66,18 +64,17 @@ export function MagazineHeroBanner({ issues }: Props) {
   const issueTag = active.issue || `EDITION 0${activeIndex + 1}`;
   const issueDate = active.date || "2026";
   const issueSubtitle =
-    active.subtitle || active.description || "Exclusive edition featuring visionary leaders, innovators and changemakers shaping the future.";
+    active.subtitle || active.description || "Exclusive edition featuring visionary leaders, innovators and changemakers.";
 
-  // Extract top story items or key features
   const highlights =
     active.contents && active.contents.length > 0
       ? active.contents.slice(0, 3)
-      : ["Leadership Spotlights", "Industry Market Briefings", "Global Innovation Trends"];
+      : ["Leadership Spotlights", "Market Briefings", "Global Innovation"];
 
   const slideVariants = {
     initial: (dir: number) => ({
       opacity: 0,
-      x: dir > 0 ? 40 : -40,
+      x: dir > 0 ? 25 : -25,
     }),
     animate: {
       opacity: 1,
@@ -85,9 +82,12 @@ export function MagazineHeroBanner({ issues }: Props) {
     },
     exit: (dir: number) => ({
       opacity: 0,
-      x: dir > 0 ? -40 : 40,
+      x: dir > 0 ? -25 : 25,
     }),
   };
+
+  const behind1 = issues.length > 1 ? issues[(activeIndex + 1) % issues.length] : null;
+  const behind2 = issues.length > 2 ? issues[(activeIndex + 2) % issues.length] : null;
 
   return (
     <section
@@ -100,24 +100,9 @@ export function MagazineHeroBanner({ issues }: Props) {
         position: "relative",
         overflow: "hidden",
         borderBottom: "1px solid var(--editorial-border, #DDD5CC)",
+        padding: "24px 6vw 20px",
       }}
     >
-      {/* Background Micro Decorative Overlay Pattern */}
-      <svg
-        viewBox="0 0 1440 320"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.05, pointerEvents: "none" }}
-      >
-        <path d="M0 192C240 128 480 256 720 192C960 128 1200 224 1440 160V320H0V192Z" fill="url(#goldWaveHero)" />
-        <defs>
-          <linearGradient id="goldWaveHero" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#0A192F" />
-            <stop offset="100%" stopColor="#0A192F" />
-          </linearGradient>
-        </defs>
-      </svg>
-
       <div
         style={{
           width: "100%",
@@ -127,62 +112,59 @@ export function MagazineHeroBanner({ issues }: Props) {
           zIndex: 2,
         }}
       >
-        {/* Header Bar: Section Kicker & Slide Counter Indicator */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px", flexWrap: "wrap", gap: "12px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        {/* Header Bar */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <span
               style={{
-                background: "transparent",
-                border: "1px solid #0A192F",
-                color: "#0A192F",
-                fontSize: "11px",
-                fontWeight: 900,
-                letterSpacing: "1.5px",
+                background: "#0A192F",
+                color: "#FFFFFF",
+                fontSize: "10px",
+                fontWeight: 800,
+                letterSpacing: "1px",
                 textTransform: "uppercase",
-                padding: "6px 14px",
-                borderRadius: "20px",
+                padding: "3px 8px",
+                borderRadius: "3px",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "6px",
+                gap: "4px",
               }}
             >
-              <Sparkles size={12} />
-              SPECIAL MAGAZINE EDITION HERO
+              <Sparkles size={11} />
+              FEATURED MAGAZINE &bull; {issueDate}
             </span>
 
             {isPaused && (
-              <span style={{ fontSize: "10px", color: "var(--editorial-charcoal, #55545A)", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                <Pause size={10} /> PAUSED ON HOVER
+              <span style={{ fontSize: "10px", color: "#55545A", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                <Pause size={10} /> PAUSED
               </span>
             )}
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-            <span style={{ fontSize: "13px", fontWeight: 800, color: "#0A192F", letterSpacing: "1px" }}>
-              0{activeIndex + 1} <span style={{ color: "var(--editorial-charcoal, #55545A)" }}>/ 0{issues.length}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F" }}>
+              0{activeIndex + 1} <span style={{ color: "#55545A" }}>/ 0{issues.length}</span>
             </span>
 
-            {/* Navigation Arrows in Top Bar */}
             {issues.length > 1 && (
-              <div style={{ display: "flex", gap: "8px" }}>
+              <div style={{ display: "flex", gap: "4px" }}>
                 <button
                   type="button"
                   onClick={handlePrev}
                   style={{
-                    background: "var(--editorial-surface, #FCFAF6)",
-                    border: "1px solid var(--editorial-border, #DDD5CC)",
+                    background: "#FFFFFF",
+                    border: "1px solid #CBD5E1",
                     borderRadius: "50%",
-                    color: "var(--editorial-navy, #101722)",
-                    width: "36px",
-                    height: "36px",
+                    color: "#0A192F",
+                    width: "28px",
+                    height: "28px",
                     cursor: "pointer",
                     display: "grid",
                     placeItems: "center",
-                    transition: "all 0.2s ease",
                   }}
                   aria-label="Previous Slide"
                 >
-                  <ChevronLeft size={18} />
+                  <ChevronLeft size={14} />
                 </button>
                 <button
                   type="button"
@@ -192,24 +174,23 @@ export function MagazineHeroBanner({ issues }: Props) {
                     border: "1px solid #0A192F",
                     borderRadius: "50%",
                     color: "#FFFFFF",
-                    width: "36px",
-                    height: "36px",
+                    width: "28px",
+                    height: "28px",
                     cursor: "pointer",
                     display: "grid",
                     placeItems: "center",
-                    transition: "all 0.2s ease",
                   }}
                   aria-label="Next Slide"
                 >
-                  <ChevronRight size={18} />
+                  <ChevronRight size={14} />
                 </button>
               </div>
             )}
           </div>
         </div>
 
-        {/* Main 2-Column Synchronized Animated Grid */}
-        <div style={{ position: "relative", minHeight: "400px" }}>
+        {/* 2-Column Compact Animated Grid: 3D Cross Magazine Stack & Info */}
+        <div style={{ position: "relative" }}>
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
               key={activeIndex}
@@ -218,40 +199,31 @@ export function MagazineHeroBanner({ issues }: Props) {
               initial="initial"
               animate="animate"
               exit="exit"
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="hero-grid-split"
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 480px",
+                gap: "36px",
+                alignItems: "center",
+              }}
             >
-              {/* LEFT COLUMN: Synchronized Dynamic Content */}
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px", flexWrap: "wrap" }}>
-                  <span
-                    style={{
-                      background: "#0A192F",
-                      color: "#FFFFFF",
-                      fontSize: "10px",
-                      fontWeight: 900,
-                      letterSpacing: "1.5px",
-                      textTransform: "uppercase",
-                      padding: "4px 10px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    {issueTag}
-                  </span>
-                  <span style={{ fontSize: "12px", fontWeight: 800, color: "var(--editorial-charcoal, #55545A)", letterSpacing: "1px" }}>
-                    &bull; {issueDate}
+              {/* LEFT COLUMN: Compact Content (Reflects ONLY Front Active Magazine) */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "560px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ fontSize: "11px", fontWeight: 800, color: "#C5A059", letterSpacing: "1px", textTransform: "uppercase" }}>
+                    {issueTag} &bull; {issueDate}
                   </span>
                 </div>
 
                 <h1
                   className="font-serif"
                   style={{
-                    fontSize: "clamp(30px, 3.6vw, 48px)",
+                    fontSize: "clamp(24px, 2.2vw, 32px)",
                     fontWeight: 900,
-                    color: "var(--editorial-navy, #101722)",
-                    margin: "0 0 16px",
-                    lineHeight: 1.15,
-                    letterSpacing: "-0.5px",
+                    color: "#101722",
+                    margin: 0,
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.3px",
                   }}
                 >
                   {active.title}
@@ -259,48 +231,37 @@ export function MagazineHeroBanner({ issues }: Props) {
 
                 <p
                   style={{
-                    fontSize: "15px",
-                    color: "var(--editorial-charcoal, #55545A)",
-                    lineHeight: 1.6,
-                    maxWidth: "600px",
-                    marginBottom: "24px",
+                    fontSize: "13px",
+                    color: "#55545A",
+                    lineHeight: 1.45,
+                    margin: 0,
                   }}
                 >
                   {issueSubtitle}
                 </p>
 
-                {/* Key Highlights / Coverage Bullet Points */}
-                <div style={{ marginBottom: "28px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <div style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                    FEATURED STORIES &amp; COVERAGE
-                  </div>
-                  <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                    {highlights.map((item, idx) => (
-                      <span
-                        key={idx}
-                        style={{
-                          background: "var(--editorial-surface, #FCFAF6)",
-                          border: "1px solid var(--editorial-border, #DDD5CC)",
-                          color: "var(--editorial-navy, #101722)",
-                          fontSize: "12px",
-                          fontWeight: 700,
-                          padding: "6px 14px",
-                          borderRadius: "20px",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "6px",
-                          boxShadow: "0 2px 6px rgba(16, 23, 34, 0.04)",
-                        }}
-                      >
-                        <CheckCircle2 size={13} style={{ color: "#059669" }} />
-                        {item}
-                      </span>
-                    ))}
-                  </div>
+                {/* Bullet Highlights */}
+                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "2px" }}>
+                  {highlights.map((item, idx) => (
+                    <span
+                      key={idx}
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        color: "#101722",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
+                    >
+                      <CheckCircle2 size={12} style={{ color: "#059669" }} />
+                      {item}
+                    </span>
+                  ))}
                 </div>
 
                 {/* Call To Action Buttons */}
-                <div className="hero-cta-group" style={{ display: "flex", gap: "14px", flexWrap: "wrap", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "6px" }}>
                   {isExternalPdf ? (
                     <a
                       href={targetPdfUrl}
@@ -309,22 +270,21 @@ export function MagazineHeroBanner({ issues }: Props) {
                       style={{
                         background: "#0A192F",
                         color: "#FFFFFF",
-                        fontSize: "13px",
-                        fontWeight: 900,
-                        letterSpacing: "0.8px",
+                        fontSize: "12px",
+                        fontWeight: 800,
+                        letterSpacing: "0.5px",
                         textTransform: "uppercase",
-                        padding: "14px 26px",
-                        borderRadius: "8px",
+                        padding: "10px 18px",
+                        borderRadius: "5px",
                         textDecoration: "none",
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "8px",
-                        boxShadow: "0 6px 20px rgba(10, 25, 47, 0.25)",
+                        gap: "6px",
                       }}
                     >
-                      <BookOpen size={16} />
+                      <BookOpen size={14} />
                       <span>Read Digital Edition</span>
-                      <ExternalLink size={14} />
+                      <ExternalLink size={12} />
                     </a>
                   ) : (
                     <Link
@@ -332,151 +292,132 @@ export function MagazineHeroBanner({ issues }: Props) {
                       style={{
                         background: "#0A192F",
                         color: "#FFFFFF",
-                        fontSize: "13px",
-                        fontWeight: 900,
-                        letterSpacing: "0.8px",
+                        fontSize: "12px",
+                        fontWeight: 800,
+                        letterSpacing: "0.5px",
                         textTransform: "uppercase",
-                        padding: "14px 26px",
-                        borderRadius: "8px",
+                        padding: "10px 18px",
+                        borderRadius: "5px",
                         textDecoration: "none",
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "8px",
-                        boxShadow: "0 6px 20px rgba(10, 25, 47, 0.25)",
+                        gap: "6px",
                       }}
                     >
-                      <BookOpen size={16} />
+                      <BookOpen size={14} />
                       <span>Read Digital Edition</span>
-                      <ArrowRight size={14} />
+                      <ArrowRight size={12} />
                     </Link>
                   )}
-
-                  <Link
-                    href="/magazines"
-                    style={{
-                      background: "transparent",
-                      border: "1px solid #0A192F",
-                      color: "#0A192F",
-                      fontSize: "13px",
-                      fontWeight: 800,
-                      letterSpacing: "0.8px",
-                      textTransform: "uppercase",
-                      padding: "14px 24px",
-                      borderRadius: "8px",
-                      textDecoration: "none",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
-                  >
-                    <span>Browse All Issues</span>
-                  </Link>
                 </div>
               </div>
 
-              {/* RIGHT COLUMN: Synchronized 3D Fan-out Stack Artwork */}
-              <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "360px", width: "100%", maxWidth: "100%", overflow: "hidden" }}>
-                {/* 3D Overlapping Fan Stack Container */}
-                <div style={{ position: "relative", width: "260px", height: "360px", maxWidth: "100%" }}>
-                  {/* Background Layer 2 (Angled right) */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "20px",
-                      left: "40px",
-                      width: "240px",
-                      height: "330px",
-                      borderRadius: "12px",
-                      background: "#FCFAF6",
-                      border: "1px solid #DDD5CC",
-                      transform: "rotate(6deg)",
-                      boxShadow: "0 10px 30px rgba(16,23,34,0.08)",
-                      opacity: 0.7,
-                    }}
-                  />
+              {/* RIGHT COLUMN: Expansive 3D 3-Layer Cross Magazine Fan Showcase */}
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div
+                  style={{
+                    position: "relative",
+                    width: "440px",
+                    height: "500px",
+                    maxWidth: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {/* Background Layer 2 (Cross-angled right behind) */}
+                  {behind2 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "20px",
+                        right: "10px",
+                        width: "295px",
+                        aspectRatio: "3 / 4",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        border: "1px solid #DDD5CC",
+                        transform: "rotate(10deg)",
+                        boxShadow: "0 12px 32px rgba(10, 25, 47, 0.15)",
+                        opacity: 0.75,
+                        zIndex: 1,
+                        background: "#FCFAF6",
+                      }}
+                    >
+                      {behind2.cover ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={behind2.cover} alt={behind2.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      ) : (
+                        <div style={{ height: "100%", background: "#0A192F" }} />
+                      )}
+                    </div>
+                  )}
 
-                  {/* Background Layer 1 (Angled left) */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "10px",
-                      left: "20px",
-                      width: "240px",
-                      height: "330px",
-                      borderRadius: "12px",
-                      background: "#FCFAF6",
-                      border: "1px solid #DDD5CC",
-                      transform: "rotate(3deg)",
-                      boxShadow: "0 14px 35px rgba(16,23,34,0.1)",
-                      opacity: 0.85,
-                    }}
-                  />
+                  {/* Background Layer 1 (Cross-angled left behind) */}
+                  {behind1 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        left: "10px",
+                        width: "310px",
+                        aspectRatio: "3 / 4",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        border: "1px solid #DDD5CC",
+                        transform: "rotate(-8deg)",
+                        boxShadow: "0 14px 36px rgba(10, 25, 47, 0.2)",
+                        opacity: 0.88,
+                        zIndex: 2,
+                        background: "#FCFAF6",
+                      }}
+                    >
+                      {behind1.cover ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={behind1.cover} alt={behind1.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      ) : (
+                        <div style={{ height: "100%", background: "#0A192F" }} />
+                      )}
+                    </div>
+                  )}
 
-                  {/* Main Front Upright Magazine Cover */}
+                  {/* Front Main Upright Active Cover (Large Focal Point) */}
                   <div
                     style={{
-                      position: "absolute",
-                      top: "0",
-                      left: "0",
-                      width: "250px",
-                      height: "340px",
+                      position: "relative",
+                      width: "330px",
+                      aspectRatio: "3 / 4",
                       borderRadius: "14px",
                       overflow: "hidden",
-                      border: "1px solid #DDD5CC",
-                      boxShadow: "0 20px 50px rgba(16, 23, 34, 0.2)",
-                      zIndex: 4,
+                      borderLeft: "6px solid #0A192F",
+                      background: "#FCFAF6",
+                      boxShadow: "0 24px 60px rgba(10, 25, 47, 0.32)",
+                      zIndex: 3,
                     }}
                   >
-                    {active.cover ? (
-                      <Image src={active.cover} alt={active.title} fill className="object-cover" unoptimized priority />
+                    {isExternalPdf ? (
+                      <a href={targetPdfUrl} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
+                        {active.cover ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img src={active.cover} alt={active.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        ) : (
+                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
+                            THE SUCCESS WORLD
+                          </div>
+                        )}
+                      </a>
                     ) : (
-                      <div
-                        style={{
-                          background: "#0A192F",
-                          height: "100%",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          padding: "20px",
-                          textAlign: "center",
-                        }}
-                      >
-                        <div className="font-serif" style={{ fontSize: "22px", fontWeight: 900, color: "#FFFFFF" }}>
-                          STAR PRIME
-                        </div>
-                        <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.8)", marginTop: "6px" }}>INSPIRE. EMPOWER. SUCCEED.</div>
-                      </div>
+                      <Link href={targetPdfUrl} style={{ display: "block", width: "100%", height: "100%" }}>
+                        {active.cover ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img src={active.cover} alt={active.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        ) : (
+                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
+                            THE SUCCESS WORLD
+                          </div>
+                        )}
+                      </Link>
                     )}
-                  </div>
-
-                  {/* Circular Floating Badge */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "-10px",
-                      right: "0px",
-                      width: "100px",
-                      height: "100px",
-                      borderRadius: "50%",
-                      background: "#0A192F",
-                      boxShadow: "0 10px 25px rgba(10, 25, 47, 0.3)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      textAlign: "center",
-                      padding: "8px",
-                      zIndex: 6,
-                      border: "3px solid var(--editorial-ivory, #F5F1EA)",
-                    }}
-                  >
-                    <div style={{ fontSize: "10px", fontWeight: 900, color: "#FFFFFF", lineHeight: 1.2 }}>
-                      Inspiring Leaders.
-                    </div>
-                    <div style={{ fontSize: "9px", fontWeight: 800, color: "rgba(255,255,255,0.8)", marginTop: "3px" }}>
-                      Impacting Lives.
-                    </div>
                   </div>
                 </div>
               </div>
@@ -484,22 +425,21 @@ export function MagazineHeroBanner({ issues }: Props) {
           </AnimatePresence>
         </div>
 
-        {/* Bottom Thumbnail Strip Selector & Pagination Bar */}
+        {/* Thumbnail Selector Strip */}
         {issues.length > 1 && (
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              gap: "16px",
-              marginTop: "36px",
-              paddingTop: "20px",
+              gap: "12px",
+              marginTop: "16px",
+              paddingTop: "12px",
               borderTop: "1px solid var(--editorial-border, #DDD5CC)",
               flexWrap: "wrap",
             }}
           >
-            {/* Interactive Cover Thumbnails */}
-            <div style={{ display: "flex", gap: "10px", alignItems: "center", overflowX: "auto", paddingBottom: "4px" }}>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center", overflowX: "auto", paddingBottom: "2px" }}>
               {issues.map((item, idx) => (
                 <button
                   key={idx}
@@ -509,28 +449,28 @@ export function MagazineHeroBanner({ issues }: Props) {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "10px",
-                    background: "var(--editorial-surface, #FCFAF6)",
-                    border: idx === activeIndex ? "2px solid #0A192F" : "1px solid var(--editorial-border, #DDD5CC)",
-                    borderRadius: "8px",
-                    padding: "6px 12px 6px 6px",
+                    gap: "8px",
+                    background: "#FFFFFF",
+                    border: idx === activeIndex ? "2px solid #0A192F" : "1px solid #CBD5E1",
+                    borderRadius: "6px",
+                    padding: "4px 8px 4px 4px",
                     cursor: "pointer",
-                    transition: "all 0.25s ease",
+                    transition: "all 0.2s ease",
                   }}
                 >
-                  <div style={{ width: "32px", height: "42px", borderRadius: "4px", overflow: "hidden", position: "relative", background: "#0A192F", flexShrink: 0 }}>
+                  <div style={{ width: "24px", height: "32px", borderRadius: "3px", overflow: "hidden", position: "relative", background: "#0A192F", flexShrink: 0 }}>
                     {item.cover ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={item.cover} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     ) : (
-                      <span style={{ fontSize: "9px", color: "#FFFFFF" }}>#{idx + 1}</span>
+                      <span style={{ fontSize: "8px", color: "#FFFFFF" }}>#{idx + 1}</span>
                     )}
                   </div>
                   <div style={{ textAlign: "left" }}>
-                    <div style={{ fontSize: "10px", fontWeight: 800, color: idx === activeIndex ? "#0A192F" : "var(--editorial-charcoal, #55545A)" }}>
-                      {item.issue || `EDITION ${idx + 1}`}
+                    <div style={{ fontSize: "9px", fontWeight: 800, color: idx === activeIndex ? "#0A192F" : "#55545A" }}>
+                      {item.issue || `ED. 0${idx + 1}`}
                     </div>
-                    <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--editorial-navy, #101722)", maxWidth: "120px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <div style={{ fontSize: "11px", fontWeight: 700, color: "#101722", maxWidth: "100px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                       {item.title}
                     </div>
                   </div>
@@ -538,15 +478,14 @@ export function MagazineHeroBanner({ issues }: Props) {
               ))}
             </div>
 
-            {/* Overall Stats */}
-            <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <Award size={16} style={{ color: "#0A192F" }} />
-                <span style={{ fontSize: "12px", color: "var(--editorial-navy, #101722)", fontWeight: 700 }}>80+ Editions</span>
+            <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <Award size={14} style={{ color: "#0A192F" }} />
+                <span style={{ fontSize: "11px", color: "#101722", fontWeight: 700 }}>80+ Editions</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <Users size={16} style={{ color: "#0A192F" }} />
-                <span style={{ fontSize: "12px", color: "var(--editorial-navy, #101722)", fontWeight: 700 }}>500+ Leaders</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <Users size={14} style={{ color: "#0A192F" }} />
+                <span style={{ fontSize: "11px", color: "#101722", fontWeight: 700 }}>500+ Leaders</span>
               </div>
             </div>
           </div>
@@ -555,4 +494,5 @@ export function MagazineHeroBanner({ issues }: Props) {
     </section>
   );
 }
+
 

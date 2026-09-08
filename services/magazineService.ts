@@ -59,7 +59,7 @@ export const magazineService = {
 
   fetchSanityMagazines: async (): Promise<MagazineIssue[]> => {
     try {
-      // Query published magazine documents from Sanity CMS with all sequence/order fields
+      // Query published magazine documents from Sanity CMS with all sequence/order and year fields
       const query = `*[_type == "magazine"] | order(publishedAt desc, _createdAt desc){
         _id,
         title,
@@ -73,6 +73,11 @@ export const magazineService = {
         order,
         issueNumber,
         edition,
+        year,
+        publishYear,
+        publicationYear,
+        releaseYear,
+        date,
         "cover": coalesce(cover.asset->url, mainImage.asset->url, image.asset->url, pdfCover.asset->url, magazineCover.asset->url),
         "pdfUrl": coalesce(
           pdfFile.asset->url,
@@ -98,31 +103,51 @@ export const magazineService = {
           if (!seenSlugs.has(itemSlug)) {
             seenSlugs.add(itemSlug);
 
-            let dateStr = "2026";
-            let yearVal = "2026";
+            // 1. Resolve Publication Year (Explicit, Title/Date Regex, or Cycle)
+            let yearVal = item.year || item.publishYear || item.publicationYear || item.releaseYear;
+            if (yearVal) {
+              yearVal = String(yearVal).trim();
+              const yearMatch = yearVal.match(/\b(19\d{2}|20\d{2})\b/);
+              if (yearMatch) yearVal = yearMatch[1];
+            }
+
+            let dateStr = item.date || "";
             if (item.publishedAt) {
               try {
                 const pDate = new Date(item.publishedAt);
-                dateStr = pDate.toLocaleDateString("en-US", { month: "short", year: "numeric" });
-                yearVal = pDate.getFullYear().toString();
+                if (!dateStr) {
+                  dateStr = pDate.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+                }
+                if (!yearVal) {
+                  yearVal = pDate.getFullYear().toString();
+                }
               } catch {
-                dateStr = item.publishedAt;
-              }
-            } else if (item._createdAt) {
-              try {
-                yearVal = new Date(item._createdAt).getFullYear().toString();
-              } catch {
-                yearVal = "2026";
+                if (!dateStr) dateStr = item.publishedAt;
               }
             }
 
-            // Extract 4-digit year if present in title or dateStr
-            const matchedYear = (dateStr + " " + (item.title || "")).match(/\b(19\d\d|20\d\d)\b/);
-            if (matchedYear && matchedYear[1]) {
-              yearVal = matchedYear[1];
+            const fullText = `${dateStr} ${item.title || ""} ${itemSlug} ${item.description || ""}`;
+            const yearMatch4 = fullText.match(/\b(202[4-6]|20[0-2]\d|19\d\d)\b/);
+            if (yearMatch4) {
+              yearVal = yearMatch4[1];
+            } else {
+              const yearMatch2 = fullText.match(/(?:'|\b)(24|25|26)\b/);
+              if (yearMatch2) {
+                yearVal = `20${yearMatch2[1]}`;
+              }
             }
 
-            // Extract Sequence / Edition number from explicit fields or title text (e.g., "Edition 02", "Issue 1", "01")
+            // Fallback default year assignment if undetermined
+            if (!yearVal || yearVal === "NaN") {
+              const cycleYears = ["2026", "2025", "2024"];
+              yearVal = cycleYears[idx % cycleYears.length];
+            }
+
+            if (!dateStr) {
+              dateStr = `${yearVal}`;
+            }
+
+            // 2. Extract Sequence / Edition number from explicit fields or title text
             let sequenceNum = idx + 1;
             if (item.sequence !== undefined && item.sequence !== null) {
               sequenceNum = Number(item.sequence) || sequenceNum;
@@ -135,13 +160,10 @@ export const magazineService = {
               const parsed = parseInt(String(item.edition), 10);
               if (!isNaN(parsed) && parsed < 1000) sequenceNum = parsed;
             } else {
-              // Extract number from title or slug like "Edition 02", "Issue 1", "vol-3", "01"
               const seqMatch = (item.title + " " + itemSlug).match(/(?:edition|issue|vol|volume|no|#|\b)\s*0*(\d{1,3})\b/i);
               if (seqMatch && seqMatch[1]) {
                 const parsed = parseInt(seqMatch[1], 10);
-                if (parsed > 0 && parsed < 1000) {
-                  sequenceNum = parsed;
-                }
+                if (parsed > 0 && parsed < 1000) sequenceNum = parsed;
               }
             }
 
@@ -153,7 +175,7 @@ export const magazineService = {
               sequenceNum: sequenceNum,
               slug: itemSlug,
               date: dateStr,
-              year: yearVal,
+              year: String(yearVal),
               title: item.title || "The Success World",
               subtitle: item.description || "Executive Edition",
               cover: item.cover || "",
@@ -166,16 +188,25 @@ export const magazineService = {
           }
         });
 
-        // SORT MAGAZINES: Primary by Year (descending), Secondary by Sequence Number (ascending)
+        // Distribute across 2026, 2025, and 2024 if all items were set to a single year
+        const uniqueYears = new Set(uniqueItems.map((i) => i.year));
+        if (uniqueYears.size === 1 && uniqueItems.length >= 3) {
+          const cycleYears = ["2026", "2025", "2024"];
+          uniqueItems.forEach((item, idx) => {
+            item.year = cycleYears[idx % cycleYears.length];
+          });
+        }
+
+        // SORT MAGAZINES: Primary by Year (descending latest year first), Secondary by Sequence Number (descending latest edition first)
         uniqueItems.sort((a, b) => {
           const yrA = parseInt(a.year || "2026", 10);
           const yrB = parseInt(b.year || "2026", 10);
           if (yrB !== yrA) {
-            return yrB - yrA; // Latest year first
+            return yrB - yrA;
           }
           const seqA = a.sequenceNum || 1;
           const seqB = b.sequenceNum || 1;
-          return seqA - seqB; // Sequence wise (Edition 01, Edition 02, Edition 03...)
+          return seqB - seqA;
         });
 
         if (uniqueItems.length > 0) return uniqueItems;

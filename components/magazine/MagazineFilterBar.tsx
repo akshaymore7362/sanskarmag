@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, ChevronDown, Search, Sparkles, Check } from "lucide-react";
+import { Calendar, ChevronDown, Search, Sparkles, Check, ArrowUpDown, Layers } from "lucide-react";
+
+export type MagazineSortOption = "sequence" | "year-desc" | "year-asc";
 
 interface Props {
   categories: string[];
@@ -10,6 +12,8 @@ interface Props {
   availableYears: string[];
   selectedYear: string;
   onSelectYear: (year: string) => void;
+  sortBy: MagazineSortOption;
+  onSortChange: (sort: MagazineSortOption) => void;
   searchQuery: string;
   onSearchChange: (q: string) => void;
   totalFilteredCount: number;
@@ -22,11 +26,14 @@ export function MagazineFilterBar({
   availableYears,
   selectedYear,
   onSelectYear,
+  sortBy,
+  onSortChange,
   searchQuery,
   onSearchChange,
   totalFilteredCount,
 }: Props) {
   const [isYearDropdownOpen, setIsYearDropdownOpen] = useState(false);
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
 
   return (
     <div
@@ -50,20 +57,23 @@ export function MagazineFilterBar({
           gap: "14px",
         }}
       >
-        {/* LEFT: Year Selector Dropdown & Year Quick Pills */}
+        {/* LEFT: Year Selector & Sequence / Year Sort Controls */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-          {/* Interactive Year Selector Dropdown Pill */}
+          {/* Year Filter Dropdown Button */}
           <div style={{ position: "relative" }}>
             <button
               type="button"
-              onClick={() => setIsYearDropdownOpen((prev) => !prev)}
+              onClick={() => {
+                setIsYearDropdownOpen((prev) => !prev);
+                setIsSortDropdownOpen(false);
+              }}
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
                 padding: "8px 16px",
                 background: selectedYear !== "All Years" ? "#0A192F" : "#FFFFFF",
-                border: selectedYear !== "All Years" ? "1px solid #0A192F" : "1px solid #E5E7EB",
+                border: selectedYear !== "All Years" ? "1px solid #0A192F" : "1px solid #CBD5E1",
                 borderRadius: "8px",
                 fontSize: "13px",
                 fontWeight: 800,
@@ -78,14 +88,14 @@ export function MagazineFilterBar({
               <ChevronDown size={14} style={{ color: selectedYear !== "All Years" ? "#D4B475" : "#4B5563", transform: isYearDropdownOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }} />
             </button>
 
-            {/* Dropdown Menu Overlay */}
+            {/* Year Dropdown Menu Overlay */}
             {isYearDropdownOpen && (
               <div
                 style={{
                   position: "absolute",
                   top: "calc(100% + 6px)",
                   left: 0,
-                  width: "200px",
+                  width: "210px",
                   background: "#FFFFFF",
                   border: "1px solid #DDD5CC",
                   borderRadius: "10px",
@@ -124,7 +134,7 @@ export function MagazineFilterBar({
                         transition: "background 0.15s ease",
                       }}
                     >
-                      <span>{yr === "All Years" ? "All Publication Years" : `${yr} Edition`}</span>
+                      <span>{yr === "All Years" ? "All Publication Years" : `${yr} Editions`}</span>
                       {isSelected && <Check size={14} style={{ color: "#0A192F" }} />}
                     </button>
                   );
@@ -133,7 +143,7 @@ export function MagazineFilterBar({
             )}
           </div>
 
-          {/* Quick Year Filter Pills */}
+          {/* Quick Year Filter Pills (2026, 2025, 2024) */}
           <div
             className="no-scrollbar"
             style={{
@@ -154,23 +164,158 @@ export function MagazineFilterBar({
                   type="button"
                   onClick={() => onSelectYear(yr)}
                   style={{
-                    padding: "6px 12px",
-                    borderRadius: "6px",
-                    fontSize: "11px",
+                    padding: "7px 14px",
+                    borderRadius: "8px",
+                    fontSize: "12px",
                     fontWeight: 800,
                     whiteSpace: "nowrap",
-                    border: isSelected ? "1px solid #0A192F" : "1px solid #E5E7EB",
+                    border: isSelected ? "1.5px solid #0A192F" : "1px solid #CBD5E1",
                     background: isSelected ? "#0A192F" : "#FFFFFF",
-                    color: isSelected ? "#FFFFFF" : "#6B7280",
+                    color: isSelected ? "#FFFFFF" : "#334155",
                     cursor: "pointer",
                     transition: "all 0.2s ease",
+                    boxShadow: isSelected ? "0 2px 8px rgba(10,25,47,0.15)" : "none",
                     flexShrink: 0,
                   }}
                 >
-                  {yr}
+                  {yr === "All Years" ? "All Years" : `'${yr.slice(2)} (${yr})`}
                 </button>
               );
             })}
+          </div>
+
+          {/* Sequence & Year Order Control Pill */}
+          <div style={{ position: "relative" }}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsSortDropdownOpen((prev) => !prev);
+                setIsYearDropdownOpen(false);
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                padding: "8px 14px",
+                background: "#F8FAFC",
+                border: "1px solid #CBD5E1",
+                borderRadius: "8px",
+                fontSize: "12px",
+                fontWeight: 800,
+                color: "#0A192F",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <ArrowUpDown size={14} style={{ color: "#C5A059" }} />
+              <span>
+                {sortBy === "sequence"
+                  ? "Sort: Sequence-Wise (Ed. 01, 02...)"
+                  : sortBy === "year-desc"
+                  ? "Sort: Year-Wise (2026 → 2024)"
+                  : "Sort: Year-Wise (2024 → 2026)"}
+              </span>
+              <ChevronDown size={13} style={{ transform: isSortDropdownOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }} />
+            </button>
+
+            {/* Sort Menu Overlay */}
+            {isSortDropdownOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 6px)",
+                  left: 0,
+                  width: "240px",
+                  background: "#FFFFFF",
+                  border: "1px solid #DDD5CC",
+                  borderRadius: "10px",
+                  boxShadow: "0 12px 32px rgba(10, 25, 47, 0.15)",
+                  padding: "8px 6px",
+                  zIndex: 100,
+                }}
+              >
+                <div style={{ fontSize: "10px", fontWeight: 800, color: "#94A3B8", padding: "4px 10px 6px", letterSpacing: "1px", textTransform: "uppercase" }}>
+                  SORTING SEQUENCE
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSortChange("sequence");
+                    setIsSortDropdownOpen(false);
+                  }}
+                  style={{
+                    width: "100%",
+                    padding: "8px 12px",
+                    textAlign: "left",
+                    background: sortBy === "sequence" ? "var(--editorial-surface, #FCFAF6)" : "transparent",
+                    border: "none",
+                    borderRadius: "6px",
+                    fontSize: "12px",
+                    fontWeight: sortBy === "sequence" ? 800 : 600,
+                    color: sortBy === "sequence" ? "#0A192F" : "#55545A",
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Sequence-Wise (Edition 01, 02...)</span>
+                  {sortBy === "sequence" && <Check size={14} style={{ color: "#0A192F" }} />}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSortChange("year-desc");
+                    setIsSortDropdownOpen(false);
+                  }}
+                  style={{
+                    width: "100%",
+                    padding: "8px 12px",
+                    textAlign: "left",
+                    background: sortBy === "year-desc" ? "var(--editorial-surface, #FCFAF6)" : "transparent",
+                    border: "none",
+                    borderRadius: "6px",
+                    fontSize: "12px",
+                    fontWeight: sortBy === "year-desc" ? 800 : 600,
+                    color: sortBy === "year-desc" ? "#0A192F" : "#55545A",
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Year-Wise (Newest 2026 → 2024)</span>
+                  {sortBy === "year-desc" && <Check size={14} style={{ color: "#0A192F" }} />}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSortChange("year-asc");
+                    setIsSortDropdownOpen(false);
+                  }}
+                  style={{
+                    width: "100%",
+                    padding: "8px 12px",
+                    textAlign: "left",
+                    background: sortBy === "year-asc" ? "var(--editorial-surface, #FCFAF6)" : "transparent",
+                    border: "none",
+                    borderRadius: "6px",
+                    fontSize: "12px",
+                    fontWeight: sortBy === "year-asc" ? 800 : 600,
+                    color: sortBy === "year-asc" ? "#0A192F" : "#55545A",
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Year-Wise (Oldest 2024 → 2026)</span>
+                  {sortBy === "year-asc" && <Check size={14} style={{ color: "#0A192F" }} />}
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -193,7 +338,7 @@ export function MagazineFilterBar({
               width: "100%",
               padding: "8px 36px 8px 14px",
               background: "#FFFFFF",
-              border: "1px solid #E5E7EB",
+              border: "1px solid #CBD5E1",
               borderRadius: "8px",
               fontSize: "13px",
               outline: "none",
@@ -270,13 +415,14 @@ export function MagazineFilterBar({
           </span>
         </div>
 
-        {(selectedYear !== "All Years" || activeCategory !== "All" || searchQuery.trim()) && (
+        {(selectedYear !== "All Years" || activeCategory !== "All" || searchQuery.trim() || sortBy !== "sequence") && (
           <button
             type="button"
             onClick={() => {
               onSelectYear("All Years");
               onSelectCategory("All");
               onSearchChange("");
+              onSortChange("sequence");
             }}
             style={{
               background: "none",

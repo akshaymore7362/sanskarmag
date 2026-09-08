@@ -73,6 +73,7 @@ export type MagazineIssue = {
   id?: string;
   issue: string;
   issueNumber?: string;
+  sequenceNum?: number;
   publicationDate?: string;
   slug: string;
   date: string;

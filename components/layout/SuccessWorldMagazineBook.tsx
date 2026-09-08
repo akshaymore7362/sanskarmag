@@ -1,416 +1,412 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { BookOpen, ChevronLeft, ChevronRight, ExternalLink, Sparkles } from "lucide-react";
 import { magazineService } from "@/services/magazineService";
-
-export interface MagazineData {
-  id: number;
-  title: string;
-  cover: string;
-}
-
-const defaultMagazines: MagazineData[] = [
-  {
-    id: 1,
-    title: "Magazine 01",
-    cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 2,
-    title: "Magazine 02",
-    cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 3,
-    title: "Magazine 03",
-    cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 4,
-    title: "Magazine 04",
-    cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 5,
-    title: "Magazine 05",
-    cover: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 6,
-    title: "Magazine 06",
-    cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=800&q=80",
-  },
-];
-
-type BookState = "CLOSED" | "OPENING" | "OPEN" | "FLIPPING" | "CLOSING";
+import type { MagazineIssue } from "@/types";
 
 export function SuccessWorldMagazineBook() {
-  const [magazines, setMagazines] = useState<MagazineData[]>(defaultMagazines);
-  const [magIndex, setMagIndex] = useState(0);
-  const [bookState, setBookState] = useState<BookState>("CLOSED");
+  const [magazines, setMagazines] = useState<MagazineIssue[]>([]);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [bookState, setBookState] = useState<"CLOSED" | "OPEN" | "FLIPPING">("OPEN");
 
-  // Fetch Sanity magazine covers or structure strictly 6 magazines
   useEffect(() => {
     magazineService.fetchSanityMagazines().then((items) => {
       if (items && items.length > 0) {
-        const mapped = items.slice(0, 6).map((item, idx) => ({
-          id: idx + 1,
-          title: `Magazine 0${idx + 1}`,
-          cover: item.cover || defaultMagazines[idx % 6].cover,
-        }));
-
-        while (mapped.length < 6) {
-          const idx = mapped.length;
-          mapped.push({
-            id: idx + 1,
-            title: `Magazine 0${idx + 1}`,
-            cover: defaultMagazines[idx].cover,
-          });
-        }
-        setMagazines(mapped.slice(0, 6));
+        setMagazines(items.slice(0, 6));
       }
     });
   }, []);
 
-  // Infinite Automatic Animation Cycle in Fixed Area:
-  // CLOSED -> OPENING -> OPEN (Display 2s) -> FLIPPING (Page turn 0.85s) -> OPEN -> ... -> CLOSING -> CLOSED
+  // Automatic gentle page turn cycle every 4 seconds
   useEffect(() => {
+    if (magazines.length <= 1) return;
+
+    const timer = setInterval(() => {
+      handleNextPage();
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [magazines, activeIdx]);
+
+  function handleNextPage() {
     if (magazines.length === 0) return;
-
-    let timer: NodeJS.Timeout;
-
-    if (bookState === "CLOSED") {
-      timer = setTimeout(() => {
-        setBookState("OPENING");
-      }, 2000);
-    } else if (bookState === "OPENING") {
-      timer = setTimeout(() => {
-        setBookState("OPEN");
-      }, 750);
-    } else if (bookState === "OPEN") {
-      timer = setTimeout(() => {
-        if (magIndex === magazines.length - 1) {
-          setBookState("CLOSING");
-        } else {
-          setBookState("FLIPPING");
-        }
-      }, 2000);
-    } else if (bookState === "FLIPPING") {
-      timer = setTimeout(() => {
-        setMagIndex((prev) => (prev + 1) % magazines.length);
-        setBookState("OPEN");
-      }, 850);
-    } else if (bookState === "CLOSING") {
-      timer = setTimeout(() => {
-        setMagIndex(0);
-        setBookState("CLOSED");
-      }, 750);
-    }
-
-    return () => clearTimeout(timer);
-  }, [bookState, magIndex, magazines]);
-
-  function handleBookClick() {
-    if (bookState === "CLOSED") {
-      setBookState("OPENING");
-    } else if (bookState === "OPEN") {
-      if (magIndex === magazines.length - 1) {
-        setBookState("CLOSING");
-      } else {
-        setBookState("FLIPPING");
-      }
-    }
+    setBookState("FLIPPING");
+    setTimeout(() => {
+      setActiveIdx((prev) => (prev + 1) % magazines.length);
+      setBookState("OPEN");
+    }, 450);
   }
 
-  const currentMag = magazines[magIndex] || defaultMagazines[0];
-  const nextMag = magazines[(magIndex + 1) % magazines.length] || defaultMagazines[1];
-  const isOpen = bookState !== "CLOSED";
+  function handlePrevPage() {
+    if (magazines.length === 0) return;
+    setBookState("FLIPPING");
+    setTimeout(() => {
+      setActiveIdx((prev) => (prev - 1 + magazines.length) % magazines.length);
+      setBookState("OPEN");
+    }, 450);
+  }
+
+  const currentMag = magazines[activeIdx] || {
+    title: "Executive Edition 2026",
+    issue: "Edition 01",
+    date: "May 2026",
+    cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+    pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
+    slug: "executive-magazine-2026",
+  };
+
+  const nextMag = magazines[(activeIdx + 1) % (magazines.length || 1)] || currentMag;
+  const targetLink = currentMag.pdfUrl || `/magazines/${currentMag.slug}`;
+  const isExternal = Boolean(currentMag.pdfUrl && currentMag.pdfUrl.startsWith("http"));
 
   return (
     <div
-      className="success-world-3d-magazine-showcase"
       style={{
         width: "100%",
-        maxWidth: "260px",
-        height: "210px",
-        marginLeft: "auto",
-        marginRight: 0,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "relative",
-        userSelect: "none",
-        overflow: "visible",
+        maxWidth: "280px",
+        margin: "0 auto",
+        background: "#0A192F",
+        border: "1px solid rgba(197, 160, 89, 0.3)",
+        borderRadius: "14px",
+        padding: "12px 14px",
+        boxShadow: "0 10px 28px rgba(0, 0, 0, 0.25)",
+        boxSizing: "border-box",
+        overflow: "hidden",
       }}
     >
-      {/* 3D HARDCOVER PHYSICAL MAGAZINE STAGE */}
+      {/* Top Edition & Page Status Header */}
       <div
         style={{
-          position: "relative",
-          width: "255px",
-          height: "180px",
-          perspective: "1200px",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
+          marginBottom: "10px",
+          fontSize: "10px",
+          fontWeight: 800,
+          color: "#C5A059",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
         }}
       >
-        {/* SOFT AMBIENT DROP SHADOW BENEATH PHYSICAL BOOK */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-6px",
-            width: "220px",
-            height: "16px",
-            background: "radial-gradient(ellipse at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 75%)",
-            borderRadius: "50%",
-            zIndex: 1,
-            pointerEvents: "none",
-            transition: "transform 0.4s ease",
-            transform: bookState === "FLIPPING" ? "scale(1.05) translateY(2px)" : "scale(1)",
-          }}
-        />
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+          <Sparkles size={12} />
+          {currentMag.issue || "EDITION 2026"}
+        </span>
+        <span style={{ color: "#94A3B8" }}>
+          {activeIdx + 1} / {magazines.length || 1}
+        </span>
+      </div>
 
-        {/* PHYSICAL 3D BOOK WRAPPER (FIXED AREA SIZE) */}
+      {/* 3D HARDCOVER SPREAD CONTAINER */}
+      <div
+        onClick={handleNextPage}
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "145px",
+          perspective: "1000px",
+          cursor: "pointer",
+          marginBottom: "10px",
+          userSelect: "none",
+        }}
+        title="Click to turn page"
+      >
+        {/* Book Outer Frame Spread */}
         <div
-          onClick={handleBookClick}
           style={{
             position: "relative",
-            width: isOpen ? "230px" : "125px",
-            height: "170px",
-            transformStyle: "preserve-3d",
-            transition: "width 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-            cursor: "pointer",
-            zIndex: 2,
+            width: "100%",
+            height: "100%",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            borderRadius: "6px",
+            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
+            background: "#06101E",
+            overflow: "hidden",
           }}
-          title="Success World Magazine 3D Flipbook"
         >
-          {/* HARDCOVER EMBOSSED BURGUNDY & GOLD SPINE */}
+          {/* CENTER SPINE CREASE SHADOW */}
           <div
             style={{
               position: "absolute",
               top: 0,
               bottom: 0,
-              left: isOpen ? "50%" : 0,
-              width: "10px",
-              marginLeft: isOpen ? "-5px" : "0",
-              background: "linear-gradient(90deg, #0A192F 0%, #C5A059 35%, #C5A059 50%, #C5A059 65%, #0A192F 100%)",
-              boxShadow: "0 0 8px rgba(0,0,0,0.6)",
-              zIndex: 40,
-              borderRadius: "2px",
-              transition: "left 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "12px",
+              background: "linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(197,160,89,0.3) 50%, rgba(0,0,0,0.6) 100%)",
+              zIndex: 20,
+              pointerEvents: "none",
             }}
           />
 
-          {/* 1. CLOSED BOOK (Fits inside fixed area) */}
+          {/* LEFT PAGE: Cover Art */}
           <div
             style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: "4px 8px 8px 4px",
-              overflow: "hidden",
+              position: "relative",
+              height: "100%",
               background: "#0A192F",
-              boxShadow: "-6px 0 12px rgba(0,0,0,0.5), 8px 10px 25px rgba(0,0,0,0.6)",
-              borderLeft: "5px solid #C5A059",
-              transformStyle: "preserve-3d",
-              transformOrigin: "left center",
-              transition: "transform 0.75s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
-              transform: isOpen ? "rotateY(-180deg)" : "rotateY(0deg)",
-              opacity: isOpen && bookState !== "OPENING" && bookState !== "CLOSING" ? 0 : 1,
-              zIndex: 30,
+              borderRight: "1px solid rgba(255, 255, 255, 0.08)",
+              overflow: "hidden",
             }}
           >
-            {/* Stacked Paper Edges */}
-            <div
-              style={{
-                position: "absolute",
-                right: "-4px",
-                top: "3px",
-                bottom: "3px",
-                width: "6px",
-                background: "repeating-linear-gradient(0deg, #F3F4F6 0px, #E5E7EB 2px, #FFFFFF 4px)",
-                boxShadow: "inset 2px 0 4px rgba(0,0,0,0.3)",
-              }}
-            />
-
-            {/* Actual Success World Magazine Cover Image */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={currentMag.cover}
-              alt="Success World Magazine Front Cover"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-
-            {/* Success World Logo & Magazine Name Header */}
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                background: "linear-gradient(180deg, rgba(10,13,22,0.92) 0%, rgba(10,13,22,0) 100%)",
-                padding: "8px 6px 14px",
-                textAlign: "center",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo-white-text.png"
-                alt="Success World Logo"
-                style={{ height: "26px", width: "auto", marginBottom: "4px", objectFit: "contain" }}
-              />
-            </div>
-          </div>
-
-          {/* 2. OPEN BOOK 2-PAGE SPREAD (Fits inside fixed area) */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              boxShadow: "0 12px 35px rgba(0, 0, 0, 0.7)",
-              borderRadius: "4px",
-              transformStyle: "preserve-3d",
-              opacity: isOpen ? 1 : 0,
-              transition: "opacity 0.4s ease",
-            }}
-          >
-            {/* LEFT PAGE SPREAD (Base Current Magazine Cover) */}
-            <div
-              style={{
-                position: "relative",
-                background: "#0A192F",
-                borderRadius: "4px 0 0 4px",
-                overflow: "hidden",
-                borderRight: "1px solid rgba(0,0,0,0.6)",
-                boxShadow: "inset -10px 0 20px rgba(0,0,0,0.55)",
-              }}
-            >
-              {/* Left Stacked Paper Edges */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  top: "2px",
-                  bottom: "2px",
-                  width: "3px",
-                  background: "repeating-linear-gradient(0deg, #F3F4F6 0px, #E5E7EB 2px, #FFFFFF 4px)",
-                }}
-              />
-
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+            {currentMag.cover ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={currentMag.cover}
-                alt={`Success World Magazine ${magIndex + 1} Page`}
+                alt={currentMag.title}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-            </div>
-
-            {/* RIGHT PAGE SPREAD (Next Magazine Cover) */}
-            <div
-              style={{
-                position: "relative",
-                background: "#0A192F",
-                borderRadius: "0 4px 4px 0",
-                overflow: "hidden",
-                borderLeft: "1px solid rgba(0,0,0,0.6)",
-                boxShadow: "inset 10px 0 20px rgba(0,0,0,0.55)",
-              }}
-            >
-              {/* Right Stacked Paper Edges */}
+            ) : (
               <div
                 style={{
-                  position: "absolute",
-                  right: 0,
-                  top: "2px",
-                  bottom: "2px",
-                  width: "3px",
-                  background: "repeating-linear-gradient(0deg, #F3F4F6 0px, #E5E7EB 2px, #FFFFFF 4px)",
+                  height: "100%",
+                  display: "grid",
+                  placeItems: "center",
+                  color: "#C5A059",
+                  fontSize: "10px",
+                  fontWeight: 800,
+                  textAlign: "center",
+                  padding: "6px",
                 }}
-              />
+              >
+                {currentMag.title}
+              </div>
+            )}
 
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={nextMag.cover}
-                alt={`Success World Magazine Next Page`}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </div>
-
-            {/* 3D REALISTIC PAGE FLIP LEAF (Animates 0deg -> -180deg) */}
+            {/* Inner Page Crease Gradient */}
             <div
               style={{
                 position: "absolute",
-                top: 0,
-                bottom: 0,
-                right: 0,
-                width: "50%",
-                transformOrigin: "left center",
-                transformStyle: "preserve-3d",
-                transition: "transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
-                transform: bookState === "FLIPPING" ? "rotateY(-180deg)" : "rotateY(0deg)",
-                zIndex: 25,
+                inset: 0,
+                background: "linear-gradient(90deg, rgba(0,0,0,0) 80%, rgba(0,0,0,0.4) 100%)",
                 pointerEvents: "none",
               }}
-            >
-              {/* FRONT FACE OF FLIPPING PAGE */}
+            />
+          </div>
+
+          {/* RIGHT PAGE: Details & Instant CTA */}
+          <div
+            style={{
+              position: "relative",
+              height: "100%",
+              background: "#081426",
+              padding: "10px 8px 8px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              boxSizing: "border-box",
+            }}
+          >
+            <div>
+              <div style={{ fontSize: "9px", fontWeight: 800, color: "#C5A059", marginBottom: "3px" }}>
+                {currentMag.date || "2026"}
+              </div>
               <div
+                className="font-serif"
                 style={{
-                  position: "absolute",
-                  inset: 0,
-                  backfaceVisibility: "hidden",
-                  WebkitBackfaceVisibility: "hidden",
-                  background: "#0A192F",
-                  borderRadius: "0 4px 4px 0",
+                  fontSize: "11px",
+                  fontWeight: 800,
+                  color: "#FFFFFF",
+                  lineHeight: 1.25,
+                  margin: "0 0 4px",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
                   overflow: "hidden",
-                  boxShadow: "inset 8px 0 16px rgba(0,0,0,0.4), 8px 0 20px rgba(0,0,0,0.5)",
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {currentMag.title}
+              </div>
+              <p
+                style={{
+                  fontSize: "9px",
+                  color: "#94A3B8",
+                  margin: 0,
+                  lineHeight: 1.3,
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
+                {currentMag.subtitle || "Executive briefing & market analysis."}
+              </p>
+            </div>
+
+            {/* Open / Read Button */}
+            {isExternal ? (
+              <a
+                href={targetLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "4px",
+                  width: "100%",
+                  padding: "5px 6px",
+                  background: "#C5A059",
+                  color: "#0A192F",
+                  borderRadius: "5px",
+                  fontSize: "9.5px",
+                  fontWeight: 900,
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                }}
+              >
+                <span>Read PDF</span>
+                <ExternalLink size={10} />
+              </a>
+            ) : (
+              <Link
+                href={targetLink}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "4px",
+                  width: "100%",
+                  padding: "5px 6px",
+                  background: "#C5A059",
+                  color: "#0A192F",
+                  borderRadius: "5px",
+                  fontSize: "9.5px",
+                  fontWeight: 900,
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                }}
+              >
+                <span>Open Issue</span>
+                <BookOpen size={10} />
+              </Link>
+            )}
+          </div>
+
+          {/* 3D Animated Flip Leaf */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              right: 0,
+              width: "50%",
+              transformOrigin: "left center",
+              transformStyle: "preserve-3d",
+              transition: "transform 0.45s ease-in-out",
+              transform: bookState === "FLIPPING" ? "rotateY(-180deg)" : "rotateY(0deg)",
+              zIndex: 15,
+              pointerEvents: "none",
+            }}
+          >
+            {/* Front of leaf */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                background: "#081426",
+                overflow: "hidden",
+                borderLeft: "1px solid rgba(255,255,255,0.1)",
+              }}
+            >
+              {currentMag.cover && (
+                /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   src={currentMag.cover}
-                  alt="Turning Page Front"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  alt="Turning Leaf"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
                 />
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)",
-                    opacity: bookState === "FLIPPING" ? 0.7 : 0,
-                    transition: "opacity 0.85s ease",
-                  }}
-                />
-              </div>
+              )}
+            </div>
 
-              {/* BACK FACE OF FLIPPING PAGE */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backfaceVisibility: "hidden",
-                  WebkitBackfaceVisibility: "hidden",
-                  transform: "rotateY(180deg)",
-                  background: "#0A192F",
-                  borderRadius: "4px 0 0 4px",
-                  overflow: "hidden",
-                  boxShadow: "inset -8px 0 16px rgba(0,0,0,0.4)",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* Back of leaf */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                transform: "rotateY(180deg)",
+                background: "#0A192F",
+                overflow: "hidden",
+              }}
+            >
+              {nextMag.cover && (
+                /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   src={nextMag.cover}
-                  alt="Turning Page Back"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  alt="Next Leaf"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
                 />
-              </div>
+              )}
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Manual Controls Row */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "6px",
+        }}
+      >
+        <button
+          type="button"
+          onClick={handlePrevPage}
+          style={{
+            background: "rgba(255, 255, 255, 0.08)",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            color: "#FFFFFF",
+            borderRadius: "5px",
+            padding: "4px 8px",
+            fontSize: "9.5px",
+            fontWeight: 800,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "3px",
+            cursor: "pointer",
+          }}
+        >
+          <ChevronLeft size={11} />
+          <span>Prev</span>
+        </button>
+
+        <span style={{ fontSize: "9.5px", color: "#94A3B8", fontWeight: 700 }}>
+          Tap to turn page
+        </span>
+
+        <button
+          type="button"
+          onClick={handleNextPage}
+          style={{
+            background: "rgba(255, 255, 255, 0.08)",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            color: "#FFFFFF",
+            borderRadius: "5px",
+            padding: "4px 8px",
+            fontSize: "9.5px",
+            fontWeight: 800,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "3px",
+            cursor: "pointer",
+          }}
+        >
+          <span>Next</span>
+          <ChevronRight size={11} />
+        </button>
       </div>
     </div>
   );

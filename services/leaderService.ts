@@ -20,10 +20,65 @@ function toPlainText(val: any): string {
   return "";
 }
 
+const defaultLeaders: Leader[] = [
+  {
+    id: "1",
+    name: "Iana Abuqulbain",
+    role: "EXECUTIVE LEADER",
+    company: "Global Growth Corp",
+    slug: "iana-abuqulbain",
+    bio: "Driving enterprise growth and global excellence across international markets.",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+    imageAlt: "Iana Abuqulbain",
+    highlights: [],
+    quote: "",
+    industrySlug: "technology",
+  },
+  {
+    id: "2",
+    name: "Dr. Annalisa Perego",
+    role: "EXECUTIVE LEADER",
+    company: "Sustainable Tech",
+    slug: "dr-annalisa-perego",
+    bio: "Leading strategic initiatives for sustainable growth and digital innovation.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80",
+    imageAlt: "Dr. Annalisa Perego",
+    highlights: [],
+    quote: "",
+    industrySlug: "technology",
+  },
+  {
+    id: "3",
+    name: "James Stephens",
+    role: "EXECUTIVE LEADER",
+    company: "Apex Leadership",
+    slug: "james-stephens",
+    bio: "Empowering teams to achieve operational excellence and market leadership.",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+    imageAlt: "James Stephens",
+    highlights: [],
+    quote: "",
+    industrySlug: "technology",
+  },
+  {
+    id: "4",
+    name: "Nichole Daher",
+    role: "EXECUTIVE LEADER",
+    company: "Creative Solutions",
+    slug: "nichole-daher",
+    bio: "Championing innovation and creative solutions across global industries.",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+    imageAlt: "Nichole Daher",
+    highlights: [],
+    quote: "",
+    industrySlug: "technology",
+  },
+];
+
 export const leaderService = {
-  all: (): Leader[] => [],
-  featured: (): Leader | undefined => undefined,
-  bySlug: (slug: string): Leader | undefined => undefined,
+  all: (): Leader[] => defaultLeaders,
+  featured: (): Leader | undefined => defaultLeaders[0],
+  bySlug: (slug: string): Leader | undefined => defaultLeaders.find((l) => l.slug === slug) || defaultLeaders[0],
 
   fetchSanityLeaders: async (): Promise<Leader[]> => {
     try {
@@ -91,12 +146,12 @@ export const leaderService = {
           });
         }
 
-        return mapped;
+        if (mapped.length > 0) return mapped;
       }
     } catch (e) {
       console.warn("Sanity web profiles fetch warning:", e);
     }
-    return [];
+    return defaultLeaders;
   },
 
   fetchHomeLeaders: async (): Promise<Leader[]> => {

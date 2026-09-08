@@ -54,16 +54,121 @@ const dedupeArticles = (list: Article[]): Article[] => {
   });
 };
 
+const defaultArticles: Article[] = [
+  {
+    id: "art-1",
+    slug: "global-ai-infrastructure-boom-2026",
+    title: "Global Enterprise AI Infrastructure Surge Shapes 2026 Capital Allocations",
+    subtitle: "Enterprise leaders re-evaluate data center architecture and GPU investments.",
+    category: "Technology",
+    author: "Elena Rostova",
+    authorId: "1",
+    date: "May 2026",
+    readTime: "6 min read",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "AI Infrastructure",
+    description: "Corporate IT departments increase infrastructure allocations for generative AI deployment across global operations.",
+    industrySlug: "technology",
+    tags: ["Technology", "AI", "Enterprise"],
+    contentType: "insight",
+  },
+  {
+    id: "art-2",
+    slug: "sustainable-capital-markets-transformation",
+    title: "Green Bond Issuance Hits Record Milestones Amid Global Grid Transition",
+    subtitle: "Institutional investors double down on renewable infrastructure funds.",
+    category: "Business",
+    author: "Marcus Vance",
+    authorId: "2",
+    date: "Apr 2026",
+    readTime: "5 min read",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Capital Markets",
+    description: "Private equity funds accelerate investments in next-generation clean grid networks and energy storage.",
+    industrySlug: "business",
+    tags: ["Business", "Markets", "Capital"],
+    contentType: "story",
+  },
+  {
+    id: "art-3",
+    slug: "future-of-csuite-leadership-frameworks",
+    title: "The Next Era of Executive Leadership: Navigating Geopolitical Ambiguity",
+    subtitle: "How modern CEOs balance supply chain resilience and digital transformation.",
+    category: "Leadership",
+    author: "Dr. Annalisa Perego",
+    authorId: "3",
+    date: "Apr 2026",
+    readTime: "7 min read",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Leadership",
+    description: "Discover strategic decision-making paradigms adopted by Fortune 500 boardrooms in 2026.",
+    industrySlug: "leadership",
+    tags: ["Leadership", "Strategy"],
+    contentType: "insight",
+  },
+  {
+    id: "art-4",
+    slug: "cross-border-fintech-regulatory-shift",
+    title: "Digital Currencies & Cross-Border Payments: Regulatory Horizons 2026",
+    subtitle: "Central banks and commercial institutions align on global settlement protocols.",
+    category: "Economy",
+    author: "Jonathan Sterling",
+    authorId: "4",
+    date: "Mar 2026",
+    readTime: "4 min read",
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Fintech",
+    description: "Global financial networks adopt unified instant clearing protocols to streamline international commerce.",
+    industrySlug: "economy",
+    tags: ["Economy", "Fintech"],
+    contentType: "story",
+  },
+  {
+    id: "art-5",
+    slug: "quantum-computing-commercialization-milestones",
+    title: "Quantum Encryption Standards Mandatory for Financial Systems by 2027",
+    subtitle: "Cybersecurity leaders prepare enterprise networks for post-quantum algorithms.",
+    category: "Innovation",
+    author: "Sarah Jenkins",
+    authorId: "5",
+    date: "Mar 2026",
+    readTime: "5 min read",
+    image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Quantum Tech",
+    description: "Banking and government systems begin migrating core data infrastructure to post-quantum cryptography.",
+    industrySlug: "innovation",
+    tags: ["Innovation", "Quantum"],
+    contentType: "insight",
+  },
+  {
+    id: "art-6",
+    slug: "healthcare-ai-diagnostics-revolution",
+    title: "Precision Medicine & AI Diagnostics Scale Across Global Healthcare Hubs",
+    subtitle: "Clinical algorithms reduce patient diagnosis timelines while improving outcomes.",
+    category: "Healthcare",
+    author: "Dr. Michael Chen",
+    authorId: "6",
+    date: "Feb 2026",
+    readTime: "6 min read",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Healthcare AI",
+    description: "Hospitals and research institutions integrate predictive machine learning into emergency room triage.",
+    industrySlug: "healthcare",
+    tags: ["Healthcare", "AI"],
+    contentType: "story",
+  },
+];
+
 export const articleService = {
-  all: (): Article[] => [],
-  hero: (): Article | undefined => undefined,
-  featured: (): Article | undefined => undefined,
-  secondary: (): Article[] => [],
-  latest: (): Article[] => [],
-  bySlug: (slug: string): Article | undefined => undefined,
-  byIndustry: (industrySlug: string): Article[] => [],
-  related: (slug: string): Article[] => [],
-  trending: (): Article[] => [],
+  all: (): Article[] => defaultArticles,
+  hero: (): Article | undefined => defaultArticles[0],
+  featured: (): Article | undefined => defaultArticles[1],
+  secondary: (): Article[] => defaultArticles.slice(1, 4),
+  latest: (): Article[] => defaultArticles,
+  bySlug: (slug: string): Article | undefined => defaultArticles.find((a) => a.slug === slug) || defaultArticles[0],
+  byIndustry: (industrySlug: string): Article[] => defaultArticles,
+  related: (slug: string): Article[] => defaultArticles.slice(1, 4),
+  trending: (): Article[] => defaultArticles.slice(0, 4),
 
   // Fetch a single article by slug from Sanity
   fetchSanityArticleBySlug: async (slug: string): Promise<Article | undefined> => {
@@ -104,7 +209,7 @@ export const articleService = {
     } catch (e) {
       console.warn(`Sanity article fetch warning for slug ${slug}:`, e);
     }
-    return undefined;
+    return defaultArticles.find((a) => a.slug === slug) || defaultArticles[0];
   },
 
   // Fetch 100% pure live published post & industryPost documents from Sanity
@@ -143,7 +248,7 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity article fetch warning:", e);
     }
-    return [];
+    return defaultArticles;
   },
 
   // Fetch posts strictly belonging to a specific Industry
@@ -192,7 +297,7 @@ export const articleService = {
     } catch (e) {
       console.warn(`Sanity fetch warning for industry ${industrySlug}:`, e);
     }
-    return [];
+    return defaultArticles;
   },
 
   // Fetch posts for Insights view
@@ -231,7 +336,7 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity insights fetch warning:", e);
     }
-    return [];
+    return defaultArticles;
   },
 
   // Fetch articles for "The Intelligence Brief" section
@@ -276,7 +381,7 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity intelligence brief fetch warning:", e);
     }
-    return [];
+    return defaultArticles;
   },
 
   // Fetch articles for "Leadership Lens" section
@@ -321,6 +426,6 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity leadership lens fetch warning:", e);
     }
-    return [];
+    return defaultArticles;
   },
 };

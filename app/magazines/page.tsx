@@ -14,6 +14,7 @@ export default function MagazinesPage() {
   const [sanityIssues, setSanityIssues] = useState<MagazineIssue[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All Years");
+  const [sortBy, setSortBy] = useState<"sequence" | "year-desc" | "year-asc">("sequence");
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -22,35 +23,32 @@ export default function MagazinesPage() {
     });
   }, []);
 
-  // Extract dynamic unique years from fetched magazine issues
+  // Extract dynamic unique years from fetched magazine issues (guaranteeing 2026, 2025, 2024)
   const availableYears = useMemo(() => {
-    const yearsSet = new Set<string>();
+    const yearsSet = new Set<string>(["2026", "2025", "2024"]);
     sanityIssues.forEach((issue) => {
       if (issue.year) {
         yearsSet.add(issue.year);
       } else if (issue.date) {
-        const match = issue.date.match(/\b(20\d{2}|19\d{2})\b/);
+        const match = issue.date.match(/\b(19\d{2}|20\d{2})\b/);
         if (match) yearsSet.add(match[1]);
       }
     });
 
     const sortedYears = Array.from(yearsSet).sort((a, b) => Number(b) - Number(a));
-    if (sortedYears.length === 0) {
-      return ["All Years", "2026", "2025", "2024"];
-    }
     return ["All Years", ...sortedYears];
   }, [sanityIssues]);
 
-  // Filter Sanity Magazines by category, publication year, and search term
+  // Filter Sanity Magazines by category, publication year, and search term (sorted Year-wise & Sequence-wise)
   const filteredCards = useMemo(() => {
-    return sanityIssues.filter((card) => {
+    const list = sanityIssues.filter((card) => {
       const matchesCategory =
         activeCategory === "All" ||
         card.title.toLowerCase().includes(activeCategory.toLowerCase()) ||
         (card.subtitle && card.subtitle.toLowerCase().includes(activeCategory.toLowerCase())) ||
         (card.description && card.description.toLowerCase().includes(activeCategory.toLowerCase()));
 
-      const cardYear = card.year || (card.date ? card.date.match(/\b(20\d{2}|19\d{2})\b/)?.[1] : undefined);
+      const cardYear = card.year || (card.date ? card.date.match(/\b(19\d{2}|20\d{2})\b/)?.[1] : undefined);
       const matchesYear =
         selectedYear === "All Years" ||
         cardYear === selectedYear ||
@@ -63,14 +61,34 @@ export default function MagazinesPage() {
 
       return matchesCategory && matchesYear && matchesSearch;
     });
-  }, [sanityIssues, activeCategory, selectedYear, searchQuery]);
+
+    return list.sort((a, b) => {
+      const yrA = parseInt(a.year || "2026", 10);
+      const yrB = parseInt(b.year || "2026", 10);
+      const seqA = a.sequenceNum || 1;
+      const seqB = b.sequenceNum || 1;
+
+      if (sortBy === "sequence") {
+        // Sequence-wise within year
+        if (yrB !== yrA) return yrB - yrA;
+        return seqA - seqB;
+      } else if (sortBy === "year-desc") {
+        if (yrB !== yrA) return yrB - yrA;
+        return seqA - seqB;
+      } else if (sortBy === "year-asc") {
+        if (yrA !== yrB) return yrA - yrB;
+        return seqA - seqB;
+      }
+      return 0;
+    });
+  }, [sanityIssues, activeCategory, selectedYear, searchQuery, sortBy]);
 
   return (
     <main style={{ background: "var(--editorial-ivory, #F5F1EA)", minHeight: "100vh", paddingBottom: "40px" }}>
       {/* 1. Full-Width Luxury Magazine Hero Banner */}
       {sanityIssues.length > 0 && <MagazineHeroBanner issues={sanityIssues.slice(0, 5)} />}
 
-      {/* 2. Filter & Search Bar with Year Selector */}
+      {/* 2. Filter & Search Bar with Year Selector & Sort Options */}
       <MagazineFilterBar
         categories={categoriesList}
         activeCategory={activeCategory}
@@ -78,6 +96,8 @@ export default function MagazinesPage() {
         availableYears={availableYears}
         selectedYear={selectedYear}
         onSelectYear={setSelectedYear}
+        sortBy={sortBy}
+        onSortChange={setSortBy}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         totalFilteredCount={filteredCards.length}

@@ -12,8 +12,12 @@ export function IssueCard({ issue }: { issue: MagazineIssue }) {
       <h3><Link href={`/magazine/${issue.slug}`}>{issue.title}</Link></h3>
       <small>{issue.subtitle}</small>
       <div>
-        <Link href={`/magazine/${issue.slug}`}>Read Issue</Link>
-        <Link href="#">Download PDF</Link>
+        <Link href={`/magazines/${issue.slug}`}>Read Issue</Link>
+        {issue.pdfUrl ? (
+          <a href={issue.pdfUrl} target="_blank" rel="noopener noreferrer">Download PDF</a>
+        ) : (
+          <Link href={`/magazines/${issue.slug}`}>View Magazine</Link>
+        )}
       </div>
     </article>
   );

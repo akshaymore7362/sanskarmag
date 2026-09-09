@@ -82,7 +82,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
                 fontSize: "14px",
                 fontWeight: 700,
                 color: selectedCategory === cat ? "#0A192F" : "#4B5563",
-                borderBottom: selectedCategory === cat ? "3px solid #C5A059" : "none",
+                borderBottom: selectedCategory === cat ? "3px solid #1E40AF" : "none",
                 marginBottom: "-2px",
                 cursor: "pointer",
                 whiteSpace: "nowrap",
@@ -98,7 +98,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
           <section style={{ marginBottom: "40px" }}>
             <div style={{ background: "#0A192F", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "20px", overflow: "hidden", display: "grid", gridTemplateColumns: "1.2fr 1fr" }}>
               <div style={{ padding: "40px", color: "#FFFFFF", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <span className="hero-gold-pill-sm" style={{ background: "#C5A059", color: "#050C18", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, width: "fit-content", marginBottom: "12px" }}>
+                <span className="hero-gold-pill-sm" style={{ background: "#1E40AF", color: "#050C18", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, width: "fit-content", marginBottom: "12px" }}>
                   FEATURED INSIGHT
                 </span>
                 <h2 className="font-serif" style={{ fontSize: "32px", fontWeight: 900, color: "#FFFFFF", marginBottom: "14px", lineHeight: 1.2 }}>
@@ -107,7 +107,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
                 <p style={{ color: "#94A3B8", fontSize: "15px", lineHeight: 1.6, marginBottom: "24px" }}>
                   {featured.description}
                 </p>
-                <Link href={`/blogs/${featured.slug}`} className="btn btn-gold-gradient" style={{ width: "fit-content" }}>
+                <Link href={`/blogs/${featured.slug}`} className="btn btn-blue-gradient" style={{ width: "fit-content" }}>
                   <span>Read Insight</span>
                   <ArrowRight size={16} />
                 </Link>

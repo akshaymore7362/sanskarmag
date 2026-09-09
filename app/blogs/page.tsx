@@ -105,7 +105,7 @@ export default function BlogsPage() {
                 }}
               >
                 <span>Load More Articles</span>
-                <span style={{ color: "#C5A059", fontWeight: 900 }}>↓</span>
+                <span style={{ color: "#1E40AF", fontWeight: 900 }}>↓</span>
               </button>
             </div>
           )}

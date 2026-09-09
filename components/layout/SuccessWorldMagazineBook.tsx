@@ -85,7 +85,7 @@ export function SuccessWorldMagazineBook() {
           marginBottom: "10px",
           fontSize: "10px",
           fontWeight: 800,
-          color: "#C5A059",
+          color: "#1E40AF",
           letterSpacing: "1px",
           textTransform: "uppercase",
         }}
@@ -165,7 +165,7 @@ export function SuccessWorldMagazineBook() {
                   height: "100%",
                   display: "grid",
                   placeItems: "center",
-                  color: "#C5A059",
+                  color: "#1E40AF",
                   fontSize: "10px",
                   fontWeight: 800,
                   textAlign: "center",
@@ -201,7 +201,7 @@ export function SuccessWorldMagazineBook() {
             }}
           >
             <div>
-              <div style={{ fontSize: "9px", fontWeight: 800, color: "#C5A059", marginBottom: "3px" }}>
+              <div style={{ fontSize: "9px", fontWeight: 800, color: "#1E40AF", marginBottom: "3px" }}>
                 {currentMag.date || "2026"}
               </div>
               <div
@@ -250,7 +250,7 @@ export function SuccessWorldMagazineBook() {
                   gap: "4px",
                   width: "100%",
                   padding: "5px 6px",
-                  background: "#C5A059",
+                  background: "#1E40AF",
                   color: "#0A192F",
                   borderRadius: "5px",
                   fontSize: "9.5px",
@@ -274,7 +274,7 @@ export function SuccessWorldMagazineBook() {
                   gap: "4px",
                   width: "100%",
                   padding: "5px 6px",
-                  background: "#C5A059",
+                  background: "#1E40AF",
                   color: "#0A192F",
                   borderRadius: "5px",
                   fontSize: "9.5px",

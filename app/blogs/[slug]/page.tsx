@@ -44,10 +44,10 @@ export default async function BlogDetailPage({ params }: Props) {
             <span>›</span>
             <Link href="/blogs" style={{ color: "#9CA3AF" }}>Blogs</Link>
             <span>›</span>
-            <span style={{ color: "#C5A059" }}>{article.category || "Article"}</span>
+            <span style={{ color: "#1E40AF" }}>{article.category || "Article"}</span>
           </div>
 
-          <span className="hero-gold-pill-sm" style={{ background: "#C5A059", color: "#050C18", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, textTransform: "uppercase" }}>
+          <span className="hero-gold-pill-sm" style={{ background: "#1E40AF", color: "#050C18", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, textTransform: "uppercase" }}>
             {article.category || "FEATURED"}
           </span>
 
@@ -57,7 +57,7 @@ export default async function BlogDetailPage({ params }: Props) {
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "13px", color: "rgba(248, 246, 241, 0.8)" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: 700, color: "#FFFFFF" }}>
-              <User size={14} style={{ color: "#C5A059" }} /> {article.author || "Editorial Team"}
+              <User size={14} style={{ color: "#1E40AF" }} /> {article.author || "Editorial Team"}
             </span>
             <span>•</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
@@ -93,7 +93,7 @@ export default async function BlogDetailPage({ params }: Props) {
           </p>
 
           {/* Pullquote Box with Left Gold Border */}
-          <div style={{ background: "#FFFFFF", borderLeft: "4px solid #C5A059", borderRadius: "0 12px 12px 0", padding: "24px 28px", margin: "32px 0", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }}>
+          <div style={{ background: "#FFFFFF", borderLeft: "4px solid #1E40AF", borderRadius: "0 12px 12px 0", padding: "24px 28px", margin: "32px 0", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }}>
             <p className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#050C18", fontStyle: "italic", margin: 0, lineHeight: 1.4 }}>
               "{article.pullQuote || "AI will not replace humans. But humans who use AI will replace those who don't."}"
             </p>
@@ -114,7 +114,7 @@ export default async function BlogDetailPage({ params }: Props) {
           <div style={{ background: "linear-gradient(135deg, #050C18 0%, #0A192F 100%)", borderRadius: "16px", padding: "32px", color: "#FFFFFF", textAlign: "center", margin: "40px 0" }}>
             <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, marginBottom: "8px" }}>Subscribe to Our Weekly Newsletter</h3>
             <p style={{ color: "#9CA3AF", fontSize: "14px", marginBottom: "20px" }}>Get executive briefings, market analysis, and new article releases straight to your inbox.</p>
-            <Link href="/blogs#newsletter" className="btn btn-gold-gradient">
+            <Link href="/blogs#newsletter" className="btn btn-blue-gradient">
               Subscribe to The Success World
             </Link>
           </div>

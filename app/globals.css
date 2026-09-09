@@ -3,8 +3,8 @@
 @theme {
   --color-brand-navy: #0A192F;
   --color-brand-dark: #050C18;
-  --color-brand-gold: #C5A059;
-  --color-brand-gold-light: #D4B475;
+  --color-brand-gold: #1E40AF;
+  --color-brand-gold-light: #3B82F6;
   --color-brand-gray: #F9FAFB;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -12,7 +12,7 @@
 
 /* ============================================================
    THE SUCCESS WORLD — EXECUTIVE NAVY & LUXURY GOLD DESIGN SYSTEM
-   Visual Identity: Primary Navy (#0A192F), Deep Dark Navy (#050C18), Luxury Gold (#C5A059), Light Gold (#D4B475), Light Canvas (#F3F4F6 / #F9FAFB), White (#FFFFFF)
+   Visual Identity: Primary Navy (#0A192F), Deep Dark Navy (#050C18), Luxury Gold (#1E40AF), Light Gold (#3B82F6), Light Canvas (#F3F4F6 / #F9FAFB), White (#FFFFFF)
    ============================================================ */
 
 /* ============================================================
@@ -47,12 +47,12 @@
   --black:              #050C18;
 
   /* Executive Accent System — Navy & Luxury Gold */
-  --gold-primary:       #C5A059;
-  --gold-warm:          #D4B475;
-  --gold-light:         #D4B475;
-  --gold:               #C5A059;
-  --accent:             #C5A059;
-  --accent-dark:        #B08B45;
+  --blue-primary:       #1E40AF;
+  --blue-warm:          #3B82F6;
+  --blue-light:         #3B82F6;
+  --blue-accent:               #1E40AF;
+  --accent:             #1E40AF;
+  --accent-dark:        #1E3A8A;
   --accent-tint:        #FAF6EE;
 
   /* Editorial Ink Scale */
@@ -75,11 +75,11 @@
   --border-dark:        #1F2937;
 
   /* Categories Accent Colors */
-  --startups:           #C5A059;
-  --tech:               #C5A059;
-  --finance:            #C5A059;
-  --leadership:         #C5A059;
-  --strategy:           #C5A059;
+  --startups:           #1E40AF;
+  --tech:               #1E40AF;
+  --finance:            #1E40AF;
+  --leadership:         #1E40AF;
+  --strategy:           #1E40AF;
 
   /* Spacing Tokens */
   --sp-8:  8px;  --sp-16: 16px; --sp-24: 24px; --sp-32: 32px;
@@ -175,7 +175,7 @@ button {
   font-weight: 800;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   margin-bottom: 6px;
 }
 
@@ -192,7 +192,7 @@ button {
   gap: 6px;
   font-size: 13px;
   font-weight: 700;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   transition: all 0.2s ease;
 }
 
@@ -504,13 +504,13 @@ button {
   padding: 12px 24px;
 }
 
-.btn-gold-gradient {
-  background: #C5A059;
+.btn-blue-gradient {
+  background: #1E40AF;
   color: #FFFFFF;
   box-shadow: 0 4px 14px rgba(139, 16, 41, 0.25);
 }
 
-.btn-gold-gradient:hover {
+.btn-blue-gradient:hover {
   background: #6B0C1F;
   color: #FFFFFF;
   transform: translateY(-2px);
@@ -526,7 +526,7 @@ button {
 
 .btn-outline-violet:hover, .btn-outline-dark:hover {
   background: #F3F4F6;
-  border-color: var(--gold-primary);
+  border-color: var(--blue-primary);
   color: var(--text-dark);
 }
 
@@ -562,7 +562,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   flex-shrink: 0;
   z-index: 2;
 }
@@ -663,7 +663,7 @@ button {
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   margin-bottom: -2px;
 }
 
@@ -675,14 +675,14 @@ button {
 }
 
 .logo-highlight {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .logo-slogan {
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   margin-top: 3px;
 }
 
@@ -709,7 +709,7 @@ button {
 }
 
 .nav-link:hover, .nav-link.active {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .nav-link.active::after {
@@ -719,8 +719,8 @@ button {
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--gold-primary);
-  box-shadow: 0 0 8px var(--gold-primary);
+  background: var(--blue-primary);
+  box-shadow: 0 0 8px var(--blue-primary);
 }
 
 .dropdown-chevron {
@@ -730,7 +730,7 @@ button {
 
 .dropdown-chevron.open {
   transform: rotate(180deg);
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .nav-dropdown-menu {
@@ -757,7 +757,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .dropdown-items-grid {
@@ -823,7 +823,7 @@ button {
   padding: 2px 6px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .nav-divider {
@@ -842,7 +842,7 @@ button {
 }
 
 .nav-signin-link:hover {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .mobile-trigger {
@@ -888,7 +888,7 @@ button {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
-    color: var(--gold-primary);
+    color: var(--blue-primary);
     cursor: pointer;
   }
 }
@@ -965,7 +965,7 @@ button {
 .drawer-close-btn {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   border-radius: 8px;
   padding: 8px;
   display: flex;
@@ -1006,7 +1006,7 @@ button {
 }
 
 .mobile-nav-link:hover {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .mobile-subnav-list {
@@ -1027,7 +1027,7 @@ button {
 }
 
 .mobile-subnav-link:hover {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .mobile-drawer-footer {
@@ -1096,7 +1096,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   margin-bottom: 12px;
 }
 
@@ -1119,8 +1119,8 @@ button {
 }
 
 .search-chip:hover {
-  border-color: var(--gold-primary);
-  color: var(--gold-primary);
+  border-color: var(--blue-primary);
+  color: var(--blue-primary);
 }
 
 /* Mobile Drawer Navigation */
@@ -1341,7 +1341,7 @@ button {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: #C5A059;
+  background: #1E40AF;
   color: #050C18;
   padding: 3px 8px;
   border-radius: 5px;
@@ -1381,7 +1381,7 @@ button {
 .hero-arrow-btn.active, .hero-arrow-btn:hover {
   background: rgba(212, 154, 36, 0.25);
   border-color: rgba(212, 154, 36, 0.5);
-  color: #C5A059;
+  color: #1E40AF;
 }
 
 .hero-main-title {
@@ -1412,7 +1412,7 @@ button {
   height: 44px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #C5A059;
+  border: 2px solid #1E40AF;
   flex-shrink: 0;
 }
 
@@ -1423,7 +1423,7 @@ button {
   line-height: 1.4;
   margin-top: 6px;
   padding-left: 10px;
-  border-left: 2px solid #C5A059;
+  border-left: 2px solid #1E40AF;
 }
 
 .hero-topic-pill {
@@ -1460,7 +1460,7 @@ button {
 
 .hero-dot.active {
   width: 24px;
-  background: #C5A059;
+  background: #1E40AF;
 }
 
 /* RESPONSIVE HERO BREAKPOINTS */
@@ -1530,7 +1530,7 @@ button {
   font-weight: 800;
   letter-spacing: 2px;
   color: #050C18;
-  background: var(--gold-primary);
+  background: var(--blue-primary);
   padding: 4px 12px;
   border-radius: 4px;
 }
@@ -1558,7 +1558,7 @@ button {
 }
 
 .hero-headline a:hover {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .hero-description {
@@ -1601,7 +1601,7 @@ button {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--gold-primary);
+  background: var(--blue-primary);
   display: grid;
   placeItems: center;
   color: #050C18;
@@ -1630,7 +1630,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .issue-card-date {
@@ -1662,7 +1662,7 @@ button {
 .graphic-brand {
   font-size: 20px;
   font-weight: 900;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .graphic-subtitle {
@@ -1699,7 +1699,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   margin-bottom: 10px;
 }
 
@@ -1719,7 +1719,7 @@ button {
 .topic-num {
   font-size: 10px;
   font-weight: 800;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .topic-name {
@@ -1768,7 +1768,7 @@ button {
   position: absolute;
   top: 16px;
   left: 16px;
-  background: var(--gold-primary);
+  background: var(--blue-primary);
   color: #050C18;
   font-size: 10px;
   font-weight: 800;
@@ -1808,7 +1808,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   font-weight: 700;
 }
 
@@ -1833,7 +1833,7 @@ button {
 }
 
 .bulletin-side-item:hover {
-  border-color: var(--gold-primary);
+  border-color: var(--blue-primary);
   transform: translateX(3px);
 }
 
@@ -1855,7 +1855,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   text-transform: uppercase;
 }
 
@@ -1939,7 +1939,7 @@ button {
 }
 
 .partner-brand-card:hover {
-  border-color: var(--gold-primary);
+  border-color: var(--blue-primary);
   box-shadow: 0 4px 14px rgba(212, 154, 36, 0.2);
   transform: translateY(-2px);
 }
@@ -1958,7 +1958,7 @@ button {
 }
 
 .partner-icon {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .partner-name {
@@ -2005,7 +2005,7 @@ button {
   display: grid;
   placeItems: center;
   background: #0A192F;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   font-size: 20px;
 }
 
@@ -2013,7 +2013,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .leader-name {
@@ -2026,7 +2026,7 @@ button {
 .leader-position {
   font-size: 14px;
   font-weight: 600;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   margin-bottom: 12px;
 }
 
@@ -2067,7 +2067,7 @@ button {
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .supporting-name {
@@ -2105,7 +2105,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   margin-bottom: 4px;
 }
 
@@ -2145,7 +2145,7 @@ button {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #050C18 0%, #050C18 100%);
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   font-size: 20px;
   font-weight: 900;
 }
@@ -2265,7 +2265,7 @@ button {
 .market-borderless-side-item.active-borderless {
   background: rgba(212, 154, 36, 0.08);
   border-color: #E5E7EB;
-  border-left-color: var(--gold-primary);
+  border-left-color: var(--blue-primary);
   box-shadow: 0 0 16px rgba(212, 154, 36, 0.15);
 }
 
@@ -2429,7 +2429,7 @@ button {
 .placeholder-brand {
   font-size: 14px;
   font-weight: 900;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .placeholder-edition {
@@ -2543,7 +2543,7 @@ button {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: var(--gold-primary);
+  background: var(--blue-primary);
   border: 2px solid #FFFFFF;
   display: grid;
   placeItems: center;
@@ -2564,7 +2564,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .master-talk-title {
@@ -2587,7 +2587,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   font-weight: 700;
 }
 
@@ -2632,7 +2632,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2.5px;
-  color: #D4B475;
+  color: #3B82F6;
   margin-bottom: 12px;
   text-transform: uppercase;
 }
@@ -2675,11 +2675,11 @@ button {
 }
 
 .newsletter-input:focus {
-  border-color: #D4B475;
+  border-color: #3B82F6;
 }
 
 .newsletter-submit-btn {
-  background: #D4B475;
+  background: #3B82F6;
   color: #0a192f;
   font-size: 13px;
   font-weight: 800;
@@ -2694,7 +2694,7 @@ button {
 }
 
 .newsletter-submit-btn:hover {
-  background: #D4B475;
+  background: #3B82F6;
 }
 
 .newsletter-success-badge {
@@ -3183,7 +3183,7 @@ button {
 .search-modal-label {
   font-size: 11px;
   font-weight: 800;
-  color: #C5A059;
+  color: #1E40AF;
   letter-spacing: 1px;
   margin-bottom: 12px;
 }
@@ -3208,7 +3208,7 @@ button {
 }
 
 .search-chip:hover {
-  background: #C5A059;
+  background: #1E40AF;
   color: #050C18;
 }
 
@@ -3282,7 +3282,7 @@ button {
 }
 
 .mobile-nav-link:hover {
-  color: #C5A059;
+  color: #1E40AF;
 }
 
 .mobile-subnav-list {
@@ -3301,7 +3301,7 @@ button {
 }
 
 .mobile-subnav-link:hover {
-  color: #C5A059;
+  color: #1E40AF;
 }
 
 .mobile-drawer-footer {
@@ -3644,8 +3644,8 @@ button {
 }
 
 .master-talks-discover-btn:hover {
-  color: var(--gold-primary);
-  border-bottom-color: var(--gold-primary);
+  color: var(--blue-primary);
+  border-bottom-color: var(--blue-primary);
 }
 
 .master-talks-episodes-stack {
@@ -3677,7 +3677,7 @@ button {
 .master-talk-ep-card.active-ep {
   background: rgba(212, 154, 36, 0.08);
   border-color: #E5E7EB;
-  border-left-color: var(--gold-primary);
+  border-left-color: var(--blue-primary);
   box-shadow: 0 2px 10px rgba(212, 154, 36, 0.1);
 }
 
@@ -3755,8 +3755,8 @@ button {
 }
 
 .video-card-play-button:hover .video-play-circle {
-  background: var(--gold-primary);
-  border-color: var(--gold-primary);
+  background: var(--blue-primary);
+  border-color: var(--blue-primary);
   transform: scale(1.12);
   box-shadow: 0 10px 30px rgba(212, 154, 36, 0.5);
 }
@@ -3785,7 +3785,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   display: block;
   margin-bottom: 6px;
 }
@@ -3805,7 +3805,7 @@ button {
 }
 
 .video-card-title a:hover {
-  color: var(--gold-primary);
+  color: var(--blue-primary);
 }
 
 .video-card-bottom-row {
@@ -3830,7 +3830,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--gold-primary);
+  color: var(--blue-primary);
   text-decoration: none;
   transition: color 0.2s ease, gap 0.2s ease;
 }
@@ -4230,3 +4230,34 @@ button {
 }
 
 .tsw-section-foot { display: flex; justify-content: flex-end; margin-top: 24px; }
+
+/* ============================================================
+   GLOBAL SIGNATURE BUTTON THEME (NOMINATE NOW & SUBSCRIBE)
+   ============================================================ */
+.btn-nominate {
+  background: transparent !important;
+  color: #1E40AF !important;
+  border: 1.5px solid #1E40AF !important;
+  font-weight: 800 !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-nominate:hover {
+  background: #1E40AF !important;
+  color: #0A192F !important;
+}
+
+.btn-subscribe {
+  background: #1E40AF !important;
+  color: #0A192F !important;
+  border: 1.5px solid #1E40AF !important;
+  font-weight: 800 !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-subscribe:hover {
+  background: #1E3A8A !important;
+  color: #FFFFFF !important;
+}
+
+

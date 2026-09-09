@@ -44,7 +44,7 @@ export function MagazineFilterBar({
         {/* Direct Year Buttons: All Years, 2026, 2025, 2024 */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px", marginRight: "4px" }}>
-            <Calendar size={18} style={{ color: "#C5A059" }} />
+            <Calendar size={18} style={{ color: "#1E40AF" }} />
             <span style={{ fontSize: "13px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.5px" }}>
               Year:
             </span>
@@ -132,7 +132,7 @@ export function MagazineFilterBar({
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <Sparkles size={14} style={{ color: "#C5A059" }} />
+          <Sparkles size={14} style={{ color: "#1E40AF" }} />
           <span>
             {selectedYear === "All Years" ? "All Publication Years" : `${selectedYear} Published Magazines`}{" "}
             <span style={{ color: "#55545A", fontWeight: 600 }}>({totalFilteredCount} Issues)</span>

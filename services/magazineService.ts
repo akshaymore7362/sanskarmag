@@ -6,15 +6,15 @@ const defaultMagazines: MagazineIssue[] = [
     id: "mag-1",
     issue: "Edition 01",
     sequenceNum: 1,
-    slug: "executive-magazine-2026",
-    date: "May 2026",
-    year: "2026",
-    title: "EXECUTIVE MAGAZINE • 2026",
-    subtitle: "Shaping Global Markets & Enterprise Growth",
+    slug: "brian-bouchard-the-best-cyber-security-solution-providers-to-watch-in-2025",
+    date: "Sep 2025",
+    year: "2025",
+    title: "BRIAN BOUCHARD - Cyber Security Solution Providers to Watch in 2025",
+    subtitle: "Shaping Global Cyber Defense & Infrastructure Growth",
     cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
-    coverAlt: "Executive Magazine 2026",
-    contents: ["AI Infrastructure Shift", "Capital Market Horizons", "C-Suite Leadership Paradigm"],
-    description: "The official 2026 edition profiling visionary CEOs and market leaders driving digital transformation.",
+    coverAlt: "Brian Bouchard Magazine 2025",
+    contents: ["Cyber Defense Systems", "Enterprise AI & Cloud", "Leadership Insights"],
+    description: "Special release profiling top cyber security innovators and enterprise leaders.",
     pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
     stories: [],
   },
@@ -22,15 +22,15 @@ const defaultMagazines: MagazineIssue[] = [
     id: "mag-2",
     issue: "Edition 02",
     sequenceNum: 2,
-    slug: "global-leaders-summit-2026",
-    date: "Apr 2026",
-    year: "2026",
-    title: "GLOBAL LEADERSHIP & INNOVATION ISSUE",
-    subtitle: "Pioneering Sustainable Growth and Venture Capital",
+    slug: "kathleen-black-top-10-transformational-ceos-2025",
+    date: "Sep 2025",
+    year: "2025",
+    title: "Kathleen Black - Top 10 Transformational CEOs 2025",
+    subtitle: "Pioneering Strategic Leadership and Executive Growth",
     cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
-    coverAlt: "Global Leadership Issue",
-    contents: ["Venture Capital Trends", "Clean Energy Grids", "Cross-Border Enterprise"],
-    description: "Special release on clean energy infrastructure investment and enterprise growth strategy.",
+    coverAlt: "Kathleen Black Issue",
+    contents: ["Transformational Leadership", "High-Growth Scaling", "Executive Strategy"],
+    description: "In-depth briefing on executive transformation and organizational performance.",
     pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
     stories: [],
   },
@@ -38,15 +38,15 @@ const defaultMagazines: MagazineIssue[] = [
     id: "mag-3",
     issue: "Edition 03",
     sequenceNum: 3,
-    slug: "future-of-fintech-2025",
-    date: "Nov 2025",
-    year: "2025",
-    title: "FINTECH & CAPITAL MARKETS REPORT",
-    subtitle: "Digital Assets, Quantum Encryption, and Banking",
+    slug: "graziella-gallelli-5-most-inspiring-business-leaders-to-watch-in-2024",
+    date: "Sep 2024",
+    year: "2024",
+    title: "Graziella Gallelli - Inspiring Business Leaders to Watch in 2024",
+    subtitle: "Global Enterprise Strategy & Innovation",
     cover: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
-    coverAlt: "Fintech Issue",
-    contents: ["Quantum Encryption", "Central Bank Digital Currencies", "Wall Street Tech"],
-    description: "In-depth analysis of global financial technologies and institutional trading infrastructure.",
+    coverAlt: "Graziella Gallelli Issue",
+    contents: ["Global Expansion", "Sovereign Investment", "Market Leadership"],
+    description: "Highlighting influential global leaders driving international business growth.",
     pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
     stories: [],
   },
@@ -59,8 +59,8 @@ export const magazineService = {
 
   fetchSanityMagazines: async (): Promise<MagazineIssue[]> => {
     try {
-      // Query published magazine documents from Sanity CMS with all sequence/order and year fields
-      const query = `*[_type == "magazine"] | order(publishedAt desc, _createdAt desc){
+      // Fetch published magazines from Sanity CMS strictly ordered by creation / publication timestamp descending (LATEST PUBLISHED FIRST)
+      const query = `*[_type == "magazine"] | order(_createdAt desc, publishedAt desc){
         _id,
         title,
         description,
@@ -94,7 +94,6 @@ export const magazineService = {
       }`;
       const data = await fetchSanityQuery(query);
       if (data && data.length > 0) {
-        // Filter out duplicate titles or slugs
         const seenSlugs = new Set<string>();
         const uniqueItems: MagazineIssue[] = [];
 
@@ -103,7 +102,7 @@ export const magazineService = {
           if (!seenSlugs.has(itemSlug)) {
             seenSlugs.add(itemSlug);
 
-            // 1. Resolve Publication Year (Explicit, Title/Date Regex, or Cycle)
+            // 1. Extract Real Publication Year (From Explicit Field, Date, Title, or Created At)
             let yearVal = item.year || item.publishYear || item.publicationYear || item.releaseYear;
             if (yearVal) {
               yearVal = String(yearVal).trim();
@@ -126,28 +125,31 @@ export const magazineService = {
               }
             }
 
+            // Extract four-digit year from title or date if not explicitly set
             const fullText = `${dateStr} ${item.title || ""} ${itemSlug} ${item.description || ""}`;
-            const yearMatch4 = fullText.match(/\b(202[4-6]|20[0-2]\d|19\d\d)\b/);
+            const yearMatch4 = fullText.match(/\b(202[0-5]|20[0-1]\d|19\d\d)\b/);
             if (yearMatch4) {
               yearVal = yearMatch4[1];
-            } else {
-              const yearMatch2 = fullText.match(/(?:'|\b)(24|25|26)\b/);
-              if (yearMatch2) {
-                yearVal = `20${yearMatch2[1]}`;
+            } else if (!yearVal) {
+              // Extract from creation date if available
+              if (item._createdAt) {
+                try {
+                  const cDate = new Date(item._createdAt);
+                  yearVal = cDate.getFullYear().toString();
+                  if (yearVal === "2026") yearVal = "2025"; // Fallback to 2025 if environment clock reports 2026
+                } catch {
+                  yearVal = "2025";
+                }
+              } else {
+                yearVal = "2025";
               }
-            }
-
-            // Fallback default year assignment if undetermined
-            if (!yearVal || yearVal === "NaN") {
-              const cycleYears = ["2026", "2025", "2024"];
-              yearVal = cycleYears[idx % cycleYears.length];
             }
 
             if (!dateStr) {
               dateStr = `${yearVal}`;
             }
 
-            // 2. Extract Sequence / Edition number from explicit fields or title text
+            // 2. Extract Sequence / Edition number
             let sequenceNum = idx + 1;
             if (item.sequence !== undefined && item.sequence !== null) {
               sequenceNum = Number(item.sequence) || sequenceNum;
@@ -188,27 +190,7 @@ export const magazineService = {
           }
         });
 
-        // Distribute across 2026, 2025, and 2024 if all items were set to a single year
-        const uniqueYears = new Set(uniqueItems.map((i) => i.year));
-        if (uniqueYears.size === 1 && uniqueItems.length >= 3) {
-          const cycleYears = ["2026", "2025", "2024"];
-          uniqueItems.forEach((item, idx) => {
-            item.year = cycleYears[idx % cycleYears.length];
-          });
-        }
-
-        // SORT MAGAZINES: Primary by Year (descending latest year first), Secondary by Sequence Number (descending latest edition first)
-        uniqueItems.sort((a, b) => {
-          const yrA = parseInt(a.year || "2026", 10);
-          const yrB = parseInt(b.year || "2026", 10);
-          if (yrB !== yrA) {
-            return yrB - yrA;
-          }
-          const seqA = a.sequenceNum || 1;
-          const seqB = b.sequenceNum || 1;
-          return seqB - seqA;
-        });
-
+        // PRESERVE SANITY PUBLISHED SEQUENCE: Latest published magazine ALWAYS first
         if (uniqueItems.length > 0) return uniqueItems;
       }
     } catch (e) {

@@ -32,7 +32,7 @@ export default function ContactPage() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#C5A059", display: "grid", placeItems: "center" }}>
+                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#1E40AF", display: "grid", placeItems: "center" }}>
                   <Phone size={20} />
                 </div>
                 <div>
@@ -42,7 +42,7 @@ export default function ContactPage() {
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#C5A059", display: "grid", placeItems: "center" }}>
+                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#1E40AF", display: "grid", placeItems: "center" }}>
                   <Mail size={20} />
                 </div>
                 <div>
@@ -52,7 +52,7 @@ export default function ContactPage() {
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#C5A059", display: "grid", placeItems: "center" }}>
+                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#1E40AF", display: "grid", placeItems: "center" }}>
                   <MapPin size={20} />
                 </div>
                 <div>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <button type="submit" className="btn btn-gold-gradient" style={{ marginTop: "8px", alignSelf: "flex-end" }}>
+                <button type="submit" className="btn btn-blue-gradient" style={{ marginTop: "8px", alignSelf: "flex-end" }}>
                   <span>Send Message</span>
                   <Send size={15} />
                 </button>

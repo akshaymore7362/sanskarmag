@@ -104,7 +104,7 @@ export function IndustrySidebar() {
           overflow: "hidden",
         }}
       >
-        <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1.5px", color: "#C5A059", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+        <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1.5px", color: "#1E40AF", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
           WEEKLY BRIEFING
         </span>
 
@@ -141,7 +141,7 @@ export function IndustrySidebar() {
             />
             <button
               type="submit"
-              className="btn btn-gold-gradient"
+              className="btn btn-blue-gradient"
               style={{ padding: "8px 14px", fontSize: "12px", fontWeight: 800, borderRadius: "6px", border: "none", cursor: "pointer" }}
             >
               Subscribe Now
@@ -151,7 +151,7 @@ export function IndustrySidebar() {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "10px", color: "rgba(255, 255, 255, 0.5)", marginTop: "6px" }}>
           <span>No spam. Unsubscribe at any time.</span>
-          <Mail size={13} style={{ color: "#C5A059", opacity: 0.6 }} />
+          <Mail size={13} style={{ color: "#1E40AF", opacity: 0.6 }} />
         </div>
       </div>
     </aside>

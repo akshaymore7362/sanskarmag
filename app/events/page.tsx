@@ -34,7 +34,7 @@ export default function EventsPage() {
             {upcomingEvents.map((ev) => (
               <div key={ev.name} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", padding: "20px 24px", display: "flex", flexWrap: "wrap", gap: "16px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 10px rgba(0,0,0,0.03)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                  <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#0A192F", color: "#C5A059", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#0A192F", color: "#1E40AF", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                     <span style={{ fontSize: "18px", fontWeight: 900, lineHeight: 1 }}>{ev.day}</span>
                     <span style={{ fontSize: "9px", fontWeight: 800, letterSpacing: "1px" }}>{ev.month}</span>
                   </div>
@@ -44,7 +44,7 @@ export default function EventsPage() {
                   </div>
                 </div>
 
-                <Link href="/events" className="btn btn-gold-gradient btn-sm">
+                <Link href="/events" className="btn btn-blue-gradient btn-sm">
                   Register Now
                 </Link>
               </div>

@@ -98,7 +98,7 @@ export const leaderService = {
         "slug": slug.current,
         "role": coalesce(designation, role, "Executive Leader"),
         "company": coalesce(company, organization, "Enterprise Global"),
-        "bio": coalesce(description, excerpt, biography, bio, title),
+        "bio": coalesce(body, description, excerpt, biography, bio, title),
         imageAlt,
         featuredOnHome,
         "imageUrl": coalesce(mainImage.asset->url, image.asset->url, cover.asset->url, profileImage.asset->url)

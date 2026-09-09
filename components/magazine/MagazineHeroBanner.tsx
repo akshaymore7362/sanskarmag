@@ -62,7 +62,7 @@ export function MagazineHeroBanner({ issues }: Props) {
   );
 
   const issueTag = active.issue || `EDITION 0${activeIndex + 1}`;
-  const issueDate = active.date || "2026";
+  const issueDate = active.date || active.year || "";
   const issueSubtitle =
     active.subtitle || active.description || "Exclusive edition featuring visionary leaders, innovators and changemakers.";
 
@@ -210,7 +210,7 @@ export function MagazineHeroBanner({ issues }: Props) {
               {/* LEFT COLUMN: Compact Content (Reflects ONLY Front Active Magazine) */}
               <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "560px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "11px", fontWeight: 800, color: "#C5A059", letterSpacing: "1px", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: "11px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase" }}>
                     {issueTag} &bull; {issueDate}
                   </span>
                 </div>

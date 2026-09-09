@@ -9,11 +9,11 @@ export function PageIntro({ eyebrow, title, intro }: Props) {
   return (
     <section className="page-intro-header-banner" style={{ margin: "-20px -40px 32px -40px", padding: "48px 40px 40px 40px", background: "linear-gradient(135deg, #0A192F 0%, #050C18 60%, #050C18 100%)", borderRadius: "0 0 24px 24px", position: "relative", overflow: "hidden", borderBottom: "1px solid rgba(255, 255, 255, 0.12)" }}>
       {/* Background Subtle Gradient Wave Accent */}
-      <div style={{ position: "absolute", top: 0, right: 0, width: "300px", height: "100%", opacity: 0.15, background: "radial-gradient(circle at 100% 0%, #C5A059 0%, transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: 0, right: 0, width: "300px", height: "100%", opacity: 0.15, background: "radial-gradient(circle at 100% 0%, #1E40AF 0%, transparent 70%)", pointerEvents: "none" }} />
       
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1280px", margin: "0 auto" }}>
         {eyebrow && (
-          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "#C5A059", display: "inline-block", marginBottom: "8px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "#1E40AF", display: "inline-block", marginBottom: "8px" }}>
             {eyebrow}
           </span>
         )}

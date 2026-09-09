@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { MagazineHeroBanner } from "@/components/magazine/MagazineHeroBanner";
 import { MagazineFilterBar } from "@/components/magazine/MagazineFilterBar";
 import { MagazineCardGrid } from "@/components/magazine/MagazineCardGrid";
 import { MagazineNewsletterSection } from "@/components/magazine/MagazineNewsletterSection";
@@ -19,9 +18,9 @@ export default function MagazinesPage() {
     });
   }, []);
 
-  // Extract dynamic unique years from fetched magazine issues (guaranteeing 2026, 2025, 2024)
+  // Extract dynamic unique years strictly from real fetched magazine issues
   const availableYears = useMemo(() => {
-    const yearsSet = new Set<string>(["2026", "2025", "2024"]);
+    const yearsSet = new Set<string>();
     sanityIssues.forEach((issue) => {
       if (issue.year) {
         yearsSet.add(issue.year);
@@ -35,9 +34,9 @@ export default function MagazinesPage() {
     return ["All Years", ...sortedYears];
   }, [sanityIssues]);
 
-  // Filter Sanity Magazines strictly by selected year & search query
+  // Filter Sanity Magazines by selected year & search query, preserving published sequence (latest first)
   const filteredCards = useMemo(() => {
-    const list = sanityIssues.filter((card) => {
+    return sanityIssues.filter((card) => {
       const cardYear = card.year || (card.date ? card.date.match(/\b(19\d{2}|20\d{2})\b/)?.[1] : undefined);
       const matchesYear =
         selectedYear === "All Years" ||
@@ -51,24 +50,11 @@ export default function MagazinesPage() {
 
       return matchesYear && matchesSearch;
     });
-
-    return list.sort((a, b) => {
-      const yrA = parseInt(a.year || "2026", 10);
-      const yrB = parseInt(b.year || "2026", 10);
-      const seqA = a.sequenceNum || 1;
-      const seqB = b.sequenceNum || 1;
-
-      if (yrB !== yrA) return yrB - yrA;
-      return seqB - seqA; // Latest magazine edition first
-    });
   }, [sanityIssues, selectedYear, searchQuery]);
 
   return (
     <main style={{ background: "var(--editorial-ivory, #F5F1EA)", minHeight: "100vh", paddingBottom: "40px" }}>
-      {/* 1. Full-Width Luxury Magazine Hero Banner */}
-      {sanityIssues.length > 0 && <MagazineHeroBanner issues={sanityIssues.slice(0, 5)} />}
-
-      {/* 2. Filter & Search Bar with Clean Direct Year Selector (All Years, 2026, 2025, 2024) */}
+      {/* 1. Filter & Search Bar with Clean Direct Year Selector */}
       <MagazineFilterBar
         availableYears={availableYears}
         selectedYear={selectedYear}
@@ -78,12 +64,11 @@ export default function MagazinesPage() {
         totalFilteredCount={filteredCards.length}
       />
 
-      {/* 3. Authentic Sanity Magazine Cards Grid */}
+      {/* 2. Authentic Sanity Magazine Cards Grid in Published Sequence */}
       <MagazineCardGrid issues={filteredCards} />
 
-      {/* 4. Stay Inspired Newsletter Section */}
+      {/* 3. Stay Inspired Newsletter Section */}
       <MagazineNewsletterSection />
     </main>
   );
 }
-

@@ -98,7 +98,7 @@ export function ExecutivePerspectivesSection() {
                     height: "100%",
                     display: "grid",
                     placeItems: "center",
-                    color: "#D4B475",
+                    color: "#3B82F6",
                     fontWeight: 800,
                     fontSize: "22px",
                     padding: "20px",

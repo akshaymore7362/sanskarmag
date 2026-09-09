@@ -116,7 +116,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
               fontSize: "10px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#C5A059",
+              color: "#1E40AF",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "4px",
@@ -163,7 +163,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
 
               <button
                 type="button"
-                className="btn btn-gold-gradient"
+                className="btn btn-blue-gradient"
                 onClick={handleResetAndClose}
                 style={{ padding: "10px 24px", fontSize: "13px", fontWeight: 800, borderRadius: "8px" }}
               >
@@ -360,7 +360,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-gold-gradient"
+                  className="btn btn-blue-gradient"
                   style={{
                     flex: "1.6",
                     padding: "11px",

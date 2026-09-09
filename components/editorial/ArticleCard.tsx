@@ -32,7 +32,7 @@ export function ArticleCard({ article, compact = false }: Props) {
         <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9CA3AF" }}>
           <span>{article.author || "Editorial"}</span>
           <span>•</span>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#C5A059" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#1E40AF" }}>
             <Clock size={12} /> {article.readTime}
           </span>
         </div>

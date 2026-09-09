@@ -34,7 +34,7 @@ export default async function MagazineDetailPage({ params }: Props) {
           <Link
             href="/magazines"
             style={{
-              color: "#D4B475",
+              color: "#3B82F6",
               fontSize: "12px",
               fontWeight: 800,
               letterSpacing: "1px",
@@ -73,12 +73,12 @@ export default async function MagazineDetailPage({ params }: Props) {
               /* eslint-disable-next-line @next/next/no-img-element */
               <img src={issue.cover} alt={issue.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#D4B475", fontFamily: "var(--serif)", fontSize: "24px" }}>{issue.title}</div>
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#3B82F6", fontFamily: "var(--serif)", fontSize: "24px" }}>{issue.title}</div>
             )}
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#D4B475", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#3B82F6", textTransform: "uppercase" }}>
               {issue.issue || "DIGITAL EDITION"} &bull; {issue.date || "2026"}
             </span>
 
@@ -97,7 +97,7 @@ export default async function MagazineDetailPage({ params }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    background: "#D4B475",
+                    background: "#3B82F6",
                     color: "#0a192f",
                     fontWeight: 900,
                     fontSize: "13px",
@@ -119,7 +119,7 @@ export default async function MagazineDetailPage({ params }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    background: "#D4B475",
+                    background: "#3B82F6",
                     color: "#0a192f",
                     fontWeight: 900,
                     fontSize: "13px",
@@ -147,7 +147,7 @@ export default async function MagazineDetailPage({ params }: Props) {
           <div style={{ border: "1px solid #e1e3e4", borderRadius: "12px", overflow: "hidden", background: "#ffffff", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
             <div style={{ background: "#0a192f", color: "#ffffff", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
               <div style={{ fontSize: "14px", fontWeight: 800, display: "flex", alignItems: "center", gap: "8px" }}>
-                <BookOpen size={18} style={{ color: "#D4B475" }} />
+                <BookOpen size={18} style={{ color: "#3B82F6" }} />
                 <span>INTERACTIVE DIGITAL MAGAZINE READER // {issue.title}</span>
               </div>
 
@@ -174,7 +174,7 @@ export default async function MagazineDetailPage({ params }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    background: "#D4B475",
+                    background: "#3B82F6",
                     color: "#0a192f",
                     fontSize: "11px",
                     fontWeight: 800,
@@ -204,8 +204,8 @@ export default async function MagazineDetailPage({ params }: Props) {
 
       {/* Stories In This Issue */}
       <section style={{ maxWidth: "1280px", margin: "32px auto", padding: "0 24px 48px" }}>
-        <div style={{ borderBottom: "2px solid #D4B475", paddingBottom: "10px", marginBottom: "24px" }}>
-          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#B08B45", textTransform: "uppercase" }}>
+        <div style={{ borderBottom: "2px solid #3B82F6", paddingBottom: "10px", marginBottom: "24px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#1E3A8A", textTransform: "uppercase" }}>
             EXECUTIVE FEATURES
           </span>
           <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "#0A192F", margin: "4px 0 0" }}>
@@ -222,7 +222,7 @@ export default async function MagazineDetailPage({ params }: Props) {
                   <img src={art.image} alt={art.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
               )}
-              <span style={{ fontSize: "9px", fontWeight: 800, color: "#B08B45", letterSpacing: "1px", textTransform: "uppercase" }}>{art.category || "EXECUTIVE FEATURE"}</span>
+              <span style={{ fontSize: "9px", fontWeight: 800, color: "#1E3A8A", letterSpacing: "1px", textTransform: "uppercase" }}>{art.category || "EXECUTIVE FEATURE"}</span>
               <h3 className="font-serif" style={{ fontSize: "16px", fontWeight: 800, color: "#0A192F", margin: 0, lineHeight: 1.35 }}>
                 <Link href={`/blogs/${art.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>{art.title}</Link>
               </h3>

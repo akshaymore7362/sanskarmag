@@ -28,7 +28,7 @@ export function BlogArticleRow({ article, index }: Props) {
         style={{
           fontSize: "26px",
           fontWeight: 800,
-          color: "#C5A059",
+          color: "#1E40AF",
           opacity: 0.95,
         }}
       >
@@ -51,7 +51,7 @@ export function BlogArticleRow({ article, index }: Props) {
           {article.image ? (
             <Image src={article.image} alt={article.title} fill className="object-cover" unoptimized />
           ) : (
-            <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#C5A059", fontWeight: 800, fontSize: "14px" }}>
+            <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#1E40AF", fontWeight: 800, fontSize: "14px" }}>
               TSW
             </div>
           )}

@@ -40,7 +40,7 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
       {/* SECTION HEADER & INTERACTIVE TOPIC FILTER BAR */}
       <div style={{ marginBottom: "20px", paddingBottom: "12px", borderBottom: "2px solid #0A192F", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
         <div>
-          <span style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+          <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px", textTransform: "uppercase" }}>
             EXECUTIVE INTELLIGENCE STREAM
           </span>
           <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 900, color: "#0A192F", margin: "2px 0 0" }}>
@@ -111,7 +111,7 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                 {art.image ? (
                   <Image src={art.image} alt={art.title} fill className="object-cover" unoptimized />
                 ) : (
-                  <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#C5A059", fontWeight: 800, fontSize: "12px" }}>
+                  <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#1E40AF", fontWeight: 800, fontSize: "12px" }}>
                     TSW
                   </div>
                 )}
@@ -214,7 +214,7 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
             }}
           >
             <span>Load More Briefings ({filteredArticles.length - visibleCount} remaining)</span>
-            <ChevronDown size={14} style={{ color: "#C5A059" }} />
+            <ChevronDown size={14} style={{ color: "#1E40AF" }} />
           </button>
         </div>
       )}

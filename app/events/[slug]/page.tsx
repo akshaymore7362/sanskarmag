@@ -32,7 +32,7 @@ export default async function EventDetailPage({ params }: Props) {
           <p className="gold-label">{event.date} | {event.location}</p>
           <h1>{event.title}</h1>
           <p>{event.description}</p>
-          <Link href="#">Register Now</Link>
+          <Link href="/contact" className="btn btn-primary">Register Now</Link>
         </div>
       </section>
       <section className="three-column-feature">

@@ -51,7 +51,7 @@ export default function ArticlesPage() {
                 fontSize: "14px",
                 fontWeight: 700,
                 color: activeCategory === cat ? "#0A192F" : "#4B5563",
-                borderBottom: activeCategory === cat ? "3px solid #C5A059" : "none",
+                borderBottom: activeCategory === cat ? "3px solid #1E40AF" : "none",
                 marginBottom: "-2px",
                 cursor: "pointer",
                 whiteSpace: "nowrap",
@@ -72,7 +72,7 @@ export default function ArticlesPage() {
                 </div>
               )}
               <div>
-                <span className="hero-gold-pill-sm" style={{ background: "#C5A059", color: "#050C18", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800 }}>FEATURED</span>
+                <span className="hero-gold-pill-sm" style={{ background: "#1E40AF", color: "#050C18", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800 }}>FEATURED</span>
                 <h2 className="font-serif" style={{ fontSize: "26px", fontWeight: 800, color: "#FFFFFF", margin: "10px 0 8px", lineHeight: 1.25 }}>
                   <Link href={`/blogs/${featured.slug}`}>{featured.title}</Link>
                 </h2>
@@ -109,7 +109,7 @@ export default function ArticlesPage() {
         <section style={{ marginBottom: "48px" }}>
           <div className="section-header-row" style={{ marginBottom: "20px" }}>
             <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F" }}>Latest Articles</h2>
-            <Link href="/blogs" style={{ fontSize: "13px", fontWeight: 700, color: "#C5A059", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+            <Link href="/blogs" style={{ fontSize: "13px", fontWeight: 700, color: "#1E40AF", display: "inline-flex", alignItems: "center", gap: "4px" }}>
               View All <ArrowRight size={14} />
             </Link>
           </div>

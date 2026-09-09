@@ -55,7 +55,7 @@ function highlightMatch(text: string, query: string) {
     <>
       {parts.map((part, i) =>
         part.toLowerCase() === query.toLowerCase() ? (
-          <mark key={i} style={{ background: "#C5A059", color: "#050C18", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
+          <mark key={i} style={{ background: "#1E40AF", color: "#050C18", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
             {part}
           </mark>
         ) : (
@@ -185,7 +185,7 @@ export function Header() {
                   style={{
                     fontSize: "14px",
                     fontWeight: 700,
-                    color: isActive ? "#C5A059" : "#FFFFFF",
+                    color: isActive ? "#1E40AF" : "#FFFFFF",
                     position: "relative",
                     padding: "24px 0",
                     display: "flex",
@@ -198,11 +198,11 @@ export function Header() {
                     <ChevronDown
                       size={13}
                       className={`dropdown-chevron ${isDropdownOpen ? "open" : ""}`}
-                      style={{ color: isActive ? "#C5A059" : "rgba(255, 255, 255, 0.6)" }}
+                      style={{ color: isActive ? "#1E40AF" : "rgba(255, 255, 255, 0.6)" }}
                     />
                   )}
                   {isActive && (
-                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#C5A059", borderRadius: "2px", boxShadow: "0 0 8px rgba(197, 160, 89, 0.6)" }} />
+                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#1E40AF", borderRadius: "2px", boxShadow: "0 0 8px rgba(197, 160, 89, 0.6)" }} />
                   )}
                 </Link>
 
@@ -275,9 +275,9 @@ export function Header() {
               gap: "6px",
               padding: "8px 14px",
               background: "transparent",
-              border: "1px solid #C5A059",
+              border: "1px solid #1E40AF",
               borderRadius: "6px",
-              color: "#C5A059",
+              color: "#1E40AF",
               fontSize: "13px",
               fontWeight: 700,
               cursor: "pointer",
@@ -296,8 +296,8 @@ export function Header() {
               alignItems: "center",
               gap: "6px",
               padding: "8px 16px",
-              background: "#C5A059",
-              border: "1px solid #C5A059",
+              background: "#1E40AF",
+              border: "1px solid #1E40AF",
               borderRadius: "6px",
               color: "#0A192F",
               fontSize: "13px",
@@ -329,7 +329,7 @@ export function Header() {
           <div className="search-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "680px", maxHeight: "85vh", display: "flex", flexDirection: "column" }}>
             <form onSubmit={handleSearchSubmit} className="search-modal-header">
               <div className="search-input-wrap">
-                <Search size={20} className="search-modal-icon" style={{ color: "#C5A059" }} />
+                <Search size={20} className="search-modal-icon" style={{ color: "#1E40AF" }} />
                 <input
                   name="q"
                   value={searchQuery}
@@ -360,7 +360,7 @@ export function Header() {
                 <div>
                   <div className="search-modal-label" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span>FOUND {liveResults.length} MATCHING STORIES</span>
-                    <button type="button" onClick={handleSearchSubmit} style={{ color: "#C5A059", fontWeight: 700, fontSize: "11px", background: "none", border: "none", cursor: "pointer" }}>
+                    <button type="button" onClick={handleSearchSubmit} style={{ color: "#1E40AF", fontWeight: 700, fontSize: "11px", background: "none", border: "none", cursor: "pointer" }}>
                       View Full Results Page →
                     </button>
                   </div>
@@ -391,7 +391,7 @@ export function Header() {
                             </div>
                           )}
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", textTransform: "uppercase" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", textTransform: "uppercase" }}>
                               {highlightMatch(item.category || "Story", searchQuery)}
                             </div>
                             <h4 className="font-serif" style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF", margin: "2px 0", lineHeight: 1.3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
@@ -492,7 +492,7 @@ export function Header() {
               </div>
 
               <div className="mobile-drawer-footer">
-                <Link href="/subscribe" className="btn btn-gold-gradient w-full text-center" onClick={() => toggleMenu(false)}>
+                <Link href="/subscribe" className="btn btn-blue-gradient w-full text-center" onClick={() => toggleMenu(false)}>
                   <Sparkles size={16} /> Subscribe to Magazine
                 </Link>
               </div>

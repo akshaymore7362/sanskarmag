@@ -46,8 +46,8 @@ export function MagazineNewsletterSection() {
           >
             <div style={{ padding: "24px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               <div>
-                <div className="font-serif" style={{ fontSize: "22px", fontWeight: 900, color: "#C5A059" }}>
-                  STAR PRIME
+                <div className="font-serif" style={{ fontSize: "18px", fontWeight: 900, color: "#1E40AF" }}>
+                  THE SUCCESS WORLD
                 </div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)", marginTop: "4px", letterSpacing: "1.5px" }}>
                   SPECIAL EDITION
@@ -70,7 +70,7 @@ export function MagazineNewsletterSection() {
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#C5A059",
+              color: "#1E40AF",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "8px",
@@ -117,7 +117,7 @@ export function MagazineNewsletterSection() {
               />
               <button
                 type="submit"
-                className="btn btn-gold-gradient"
+                className="btn btn-blue-gradient"
                 style={{ padding: "12px 28px", fontSize: "14px", fontWeight: 800, borderRadius: "8px", flexShrink: 0 }}
               >
                 Subscribe
@@ -128,7 +128,7 @@ export function MagazineNewsletterSection() {
           {/* 3 Feature Indicators Row (Matching reference image) */}
           <div style={{ display: "flex", gap: "28px", alignItems: "center", flexWrap: "wrap", paddingTop: "16px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Award size={16} style={{ color: "#C5A059" }} />
+              <Award size={16} style={{ color: "#1E40AF" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Exclusive Editions</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>Straight to you</div>
@@ -136,7 +136,7 @@ export function MagazineNewsletterSection() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Sparkles size={16} style={{ color: "#C5A059" }} />
+              <Sparkles size={16} style={{ color: "#1E40AF" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Inspiring Leaders</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>Real stories, real impact</div>
@@ -144,7 +144,7 @@ export function MagazineNewsletterSection() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <TrendingUp size={16} style={{ color: "#C5A059" }} />
+              <TrendingUp size={16} style={{ color: "#1E40AF" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Business Insights</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>That drive growth</div>

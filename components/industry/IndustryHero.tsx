@@ -35,7 +35,7 @@ export function IndustryHero() {
         />
         <defs>
           <linearGradient id="industryWave" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#C5A059" />
+            <stop offset="0%" stopColor="#1E40AF" />
             <stop offset="100%" stopColor="#0A192F" />
           </linearGradient>
         </defs>
@@ -58,7 +58,7 @@ export function IndustryHero() {
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#C5A059",
+              color: "#1E40AF",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "6px",
@@ -162,7 +162,7 @@ export function IndustryHero() {
                 color: "#FFFFFF",
               }}
             >
-              <span style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1.5px" }}>
+              <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px" }}>
                 GLOBAL INTELLIGENCE
               </span>
               <h4 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, margin: "2px 0 0", color: "#FFFFFF" }}>

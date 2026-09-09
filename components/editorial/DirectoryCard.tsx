@@ -20,13 +20,13 @@ export function DirectoryCard({ href, image, alt, eyebrow, title, description }:
         </div>
       )}
       <div>
-        <span className="hero-gold-pill-sm" style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1.5px" }}>{eyebrow || "SECTOR"}</span>
+        <span className="hero-gold-pill-sm" style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px" }}>{eyebrow || "SECTOR"}</span>
         <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 800, color: "#FFFFFF", margin: "8px 0 10px", lineHeight: 1.25 }}>
           {title}
         </h3>
         <p style={{ color: "#9CA3AF", fontSize: "14px", lineHeight: 1.5, marginBottom: "16px" }}>{description}</p>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 700, color: "#C5A059" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 700, color: "#1E40AF" }}>
         <span>Explore Sector Intelligence</span>
         <ArrowUpRight size={14} />
       </div>

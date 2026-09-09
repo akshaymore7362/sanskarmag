@@ -55,7 +55,7 @@ export default function SubscribePage() {
                 key={tier.name}
                 style={{
                   background: tier.popular ? "#0A192F" : "#FFFFFF",
-                  border: tier.popular ? "2px solid #C5A059" : "1px solid #E5E7EB",
+                  border: tier.popular ? "2px solid #1E40AF" : "1px solid #E5E7EB",
                   color: tier.popular ? "#FFFFFF" : "#0A192F",
                   borderRadius: "20px",
                   padding: "36px",
@@ -67,7 +67,7 @@ export default function SubscribePage() {
                 }}
               >
                 {tier.popular && (
-                  <span style={{ position: "absolute", top: "-12px", right: "24px", background: "#C5A059", color: "#050C18", fontSize: "10px", fontWeight: 800, padding: "4px 12px", borderRadius: "12px", letterSpacing: "1px" }}>
+                  <span style={{ position: "absolute", top: "-12px", right: "24px", background: "#1E40AF", color: "#050C18", fontSize: "10px", fontWeight: 800, padding: "4px 12px", borderRadius: "12px", letterSpacing: "1px" }}>
                     RECOMMENDED
                   </span>
                 )}
@@ -75,21 +75,21 @@ export default function SubscribePage() {
                 <div>
                   <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, marginBottom: "8px" }}>{tier.name}</h3>
                   <div style={{ display: "flex", alignItems: "baseline", gap: "4px", marginBottom: "24px" }}>
-                    <span className="font-serif" style={{ fontSize: "44px", fontWeight: 900, color: "#C5A059" }}>{tier.price}</span>
+                    <span className="font-serif" style={{ fontSize: "44px", fontWeight: 900, color: "#1E40AF" }}>{tier.price}</span>
                     <span style={{ fontSize: "14px", color: tier.popular ? "#94A3B8" : "#4B5563" }}>{tier.period}</span>
                   </div>
 
                   <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px 0", display: "flex", flexDirection: "column", gap: "12px" }}>
                     {tier.features.map((feat) => (
                       <li key={feat} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: tier.popular ? "#F8FAFC" : "#0A192F" }}>
-                        <Check size={16} style={{ color: "#C5A059", flexShrink: 0 }} />
+                        <Check size={16} style={{ color: "#1E40AF", flexShrink: 0 }} />
                         <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <button type="button" className="btn btn-gold-gradient" style={{ width: "100%", justifyContent: "center" }}>
+                <button type="button" className="btn btn-blue-gradient" style={{ width: "100%", justifyContent: "center" }}>
                   <Sparkles size={16} />
                   <span>{tier.cta}</span>
                 </button>

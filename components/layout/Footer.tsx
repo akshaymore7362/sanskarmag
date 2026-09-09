@@ -115,9 +115,9 @@ export function Footer() {
                   <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                 </svg>
               </a>
-              <a href="/newsletter" aria-label="Newsletter RSS" title="Newsletter">
+              <Link href="/subscribe" aria-label="Newsletter RSS" title="Newsletter">
                 <Mail size={15} />
-              </a>
+              </Link>
             </div>
 
             {/* Live Newsroom Active Status Badge */}

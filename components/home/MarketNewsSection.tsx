@@ -43,7 +43,7 @@ export function MarketNewsSection() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-end",
-          borderBottom: "2px solid #D4B475",
+          borderBottom: "2px solid #3B82F6",
           paddingBottom: "10px",
           marginBottom: "16px",
           flexWrap: "wrap",
@@ -51,7 +51,7 @@ export function MarketNewsSection() {
         }}
       >
         <div>
-          <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "2px", color: "#B08B45", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+          <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "2px", color: "#1E3A8A", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
             BUSINESS INTELLIGENCE &amp; MARKET DYNAMICS
           </span>
           <h2 className="font-serif" style={{ fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 900, color: "#0A192F", margin: 0 }}>
@@ -65,7 +65,7 @@ export function MarketNewsSection() {
             fontSize: "11px",
             fontWeight: 800,
             letterSpacing: "1px",
-            color: "#B08B45",
+            color: "#1E3A8A",
             textTransform: "uppercase",
             textDecoration: "none",
             display: "inline-flex",
@@ -112,7 +112,7 @@ export function MarketNewsSection() {
                   boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
                 }}
               >
-                <TrendingUp size={13} style={{ color: "#D4B475" }} />
+                <TrendingUp size={13} style={{ color: "#3B82F6" }} />
                 <span>{lead.category || "STOCK MARKET"}</span>
               </div>
             </div>
@@ -173,7 +173,7 @@ export function MarketNewsSection() {
                   background: "#ffffff",
                   borderRadius: "8px",
                   border: "1px solid #e1e3e4",
-                  borderLeft: isActive ? "4px solid #B08B45" : "1px solid #e1e3e4",
+                  borderLeft: isActive ? "4px solid #1E3A8A" : "1px solid #e1e3e4",
                   cursor: "pointer",
                   alignItems: "center",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
@@ -194,7 +194,7 @@ export function MarketNewsSection() {
                 </div>
 
                 <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between", padding: "2px 0" }}>
-                  <span style={{ fontSize: "9px", fontWeight: 800, color: "#B08B45", letterSpacing: "1px", textTransform: "uppercase", display: "block" }}>
+                  <span style={{ fontSize: "9px", fontWeight: 800, color: "#1E3A8A", letterSpacing: "1px", textTransform: "uppercase", display: "block" }}>
                     {item.category || "MARKET INTELLIGENCE"}
                   </span>
 

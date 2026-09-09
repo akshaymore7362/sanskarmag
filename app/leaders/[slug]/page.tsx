@@ -30,22 +30,23 @@ export default async function LeaderProfilePage({ params }: Props) {
   const articles = await articleService.fetchSanityArticles();
 
   return (
-    <main className="site-shell inner-shell" style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="site-shell inner-shell" style={{ background: "#F8FAFC", minHeight: "100vh", paddingBottom: "60px" }}>
       {/* Back Navigation Bar */}
-      <div style={{ background: "#0a192f", color: "#ffffff", padding: "12px 24px" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "#0A192F", color: "#ffffff", padding: "14px 24px", boxShadow: "0 2px 10px rgba(0,0,0,0.15)" }}>
+        <div style={{ maxWidth: "1400px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link
             href="/leaders"
             style={{
-              color: "#D4B475",
+              color: "#1E40AF",
               fontSize: "12px",
               fontWeight: 800,
-              letterSpacing: "1px",
+              letterSpacing: "1.2px",
               textTransform: "uppercase",
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
+              transition: "opacity 0.2s ease",
             }}
           >
             <ArrowLeft size={16} />
@@ -54,15 +55,15 @@ export default async function LeaderProfilePage({ params }: Props) {
         </div>
       </div>
 
-      {/* Centered Leader Profile Card (Full Width 1400px, Middle Image, Downside Content) */}
-      <section style={{ width: "100%", maxWidth: "1400px", margin: "32px auto", padding: "0 24px", boxSizing: "border-box" }}>
+      {/* Centered Grand Leader Profile Card */}
+      <section style={{ width: "100%", maxWidth: "1400px", margin: "36px auto", padding: "0 24px", boxSizing: "border-box" }}>
         <div
           style={{
             background: "#ffffff",
-            border: "1px solid #e1e3e4",
-            borderRadius: "20px",
-            padding: "44px 36px",
-            boxShadow: "0 4px 25px rgba(0,0,0,0.05)",
+            border: "1px solid #E2E8F0",
+            borderRadius: "24px",
+            padding: "clamp(32px, 5vw, 64px) clamp(24px, 4vw, 56px)",
+            boxShadow: "0 20px 50px rgba(10, 25, 47, 0.08)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -71,104 +72,143 @@ export default async function LeaderProfilePage({ params }: Props) {
             boxSizing: "border-box",
           }}
         >
-          {/* Centered Executive Photo */}
+          {/* Centered Extra Large Executive Photo Frame (100% Uncropped Full View) */}
           <div
             style={{
               position: "relative",
               width: "100%",
-              maxWidth: "500px",
-              height: "520px",
-              maxHeight: "70vh",
-              borderRadius: "18px",
+              maxWidth: "900px",
+              height: "720px",
+              maxHeight: "82vh",
+              borderRadius: "24px",
               overflow: "hidden",
-              background: "#0a192f",
-              border: "3.5px solid #D4B475",
-              boxShadow: "0 12px 35px rgba(0,0,0,0.18)",
-              marginBottom: "28px",
+              background: "radial-gradient(circle at center, #1E293B 0%, #0F172A 100%)",
+              border: "3.5px solid #1E40AF",
+              boxShadow: "0 25px 60px rgba(10, 25, 47, 0.28)",
+              marginBottom: "36px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "20px",
+              boxSizing: "border-box",
             }}
           >
             {leader.image ? (
               /* eslint-disable-next-line @next/next/no-img-element */
-              <img src={leader.image} alt={leader.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img
+                src={leader.image}
+                alt={leader.name}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 10px 25px rgba(0,0,0,0.5))",
+                }}
+              />
             ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#D4B475", fontSize: "64px", fontWeight: 900 }}>
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#1E40AF", fontSize: "96px", fontWeight: 900 }}>
                 {leader.name.charAt(0)}
               </div>
             )}
+
+            {/* Executive Badge */}
+            <div
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "20px",
+                background: "rgba(10, 25, 47, 0.92)",
+                backdropFilter: "blur(10px)",
+                color: "#1E40AF",
+                fontSize: "11px",
+                fontWeight: 800,
+                letterSpacing: "1.8px",
+                textTransform: "uppercase",
+                padding: "10px 20px",
+                borderRadius: "30px",
+                border: "1.5px solid rgba(197, 160, 89, 0.6)",
+                boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
+              }}
+            >
+              VERIFIED EXECUTIVE PORTRAIT
+            </div>
           </div>
 
-          {/* Centered Header & Credentials */}
-          <span style={{ fontSize: "11px", fontWeight: 800, color: "#B08B45", letterSpacing: "2px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "8px" }}>
-            <Award size={14} /> EXECUTIVE WEB PROFILE
+          {/* Header Credentials */}
+          <span style={{ fontSize: "12px", fontWeight: 800, color: "#1E40AF", letterSpacing: "2.5px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+            <Award size={16} style={{ color: "#1E40AF" }} /> OFFICIAL EXECUTIVE WEB PROFILE
           </span>
 
-          <h1 className="font-serif" style={{ fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 900, color: "#0A192F", margin: "0 0 10px", lineHeight: 1.15 }}>
+          <h1 className="font-serif" style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, color: "#0A192F", margin: "0 0 14px", lineHeight: 1.1, letterSpacing: "-0.5px" }}>
             {leader.name}
           </h1>
 
-          <div style={{ fontSize: "16px", fontWeight: 700, color: "#0a192f", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", flexWrap: "wrap", marginBottom: "28px" }}>
-            <span>{leader.role}</span>
-            <span style={{ color: "#B08B45" }}>&bull;</span>
-            <span style={{ color: "#4B5563", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-              <Building size={16} /> {leader.company}
+          <div style={{ fontSize: "17px", fontWeight: 700, color: "#1E40AF", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap", marginBottom: "36px" }}>
+            <span>{leader.role || "EXECUTIVE LEADER"}</span>
+            <span style={{ color: "#94A3B8" }}>&bull;</span>
+            <span style={{ color: "#4B5563", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <Building size={18} style={{ color: "#1E40AF" }} /> {leader.company || "Leadership & Innovation"}
             </span>
           </div>
 
-          {/* Downside Bio Info Content (Full Width below image & header) */}
+          {/* Full Bio & Main Content Section (Shown 100% Fully) */}
           {leader.bio && (
-            <div style={{ width: "100%", textAlign: "left", marginBottom: "28px" }}>
+            <div style={{ width: "100%", maxWidth: "1000px", textAlign: "left", marginBottom: "40px" }}>
               <LeaderBioExpandable bio={leader.bio} />
             </div>
           )}
 
-          {/* Bottom Action CTA */}
+          {/* Action CTA Button */}
           <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
             <Link
               href="/contact"
               style={{
-                background: "#0a192f",
-                color: "#D4B475",
+                background: "linear-gradient(135deg, #0A192F 0%, #1E293B 100%)",
+                color: "#FFFFFF",
                 fontWeight: 800,
                 fontSize: "13px",
-                letterSpacing: "1px",
+                letterSpacing: "1.4px",
                 textTransform: "uppercase",
-                padding: "14px 32px",
-                borderRadius: "8px",
+                padding: "18px 42px",
+                borderRadius: "30px",
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "8px",
-                boxShadow: "0 4px 14px rgba(10, 25, 47, 0.2)",
+                gap: "12px",
+                boxShadow: "0 8px 25px rgba(10, 25, 47, 0.22)",
+                border: "1px solid rgba(197, 160, 89, 0.3)",
+                transition: "all 0.25s ease",
               }}
             >
-              Request Executive Interview
+              <span>Request Executive Interview</span>
+              <UserCheck size={18} style={{ color: "#1E40AF" }} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Related Executive Features (Full Width 1400px) */}
+      {/* Related Executive Features */}
       <section style={{ width: "100%", maxWidth: "1400px", margin: "48px auto 0", padding: "0 24px", boxSizing: "border-box" }}>
-        <div style={{ borderBottom: "2px solid #D4B475", paddingBottom: "10px", marginBottom: "24px" }}>
-          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#B08B45", textTransform: "uppercase" }}>
+        <div style={{ borderBottom: "2px solid #1E40AF", paddingBottom: "12px", marginBottom: "28px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#1E40AF", textTransform: "uppercase" }}>
             EXECUTIVE INSIGHTS
           </span>
-          <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "#0A192F", margin: "4px 0 0" }}>
+          <h2 className="font-serif" style={{ fontSize: "30px", fontWeight: 900, color: "#0A192F", margin: "4px 0 0" }}>
             Related Market Stories &amp; Articles
           </h2>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
           {articles.slice(0, 4).map((art, idx) => (
-            <div key={art.slug || String(idx)} style={{ background: "#ffffff", border: "1px solid #e1e3e4", borderRadius: "10px", padding: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div key={art.slug || String(idx)} style={{ background: "#ffffff", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "18px", display: "flex", flexDirection: "column", gap: "12px", boxShadow: "0 4px 14px rgba(0,0,0,0.03)" }}>
               {art.image && (
-                <div style={{ position: "relative", width: "100%", height: "180px", borderRadius: "8px", overflow: "hidden", background: "#0a192f" }}>
+                <div style={{ position: "relative", width: "100%", height: "190px", borderRadius: "10px", overflow: "hidden", background: "#0F172A" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={art.image} alt={art.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <img src={art.image} alt={art.title} style={{ width: "100%", height: "100%", objectFit: "contain", padding: "6px" }} />
                 </div>
               )}
-              <span style={{ fontSize: "9px", fontWeight: 800, color: "#B08B45", letterSpacing: "1px", textTransform: "uppercase" }}>{art.category || "EXECUTIVE FEATURE"}</span>
-              <h3 className="font-serif" style={{ fontSize: "16px", fontWeight: 800, color: "#0A192F", margin: 0, lineHeight: 1.35 }}>
+              <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase" }}>{art.category || "EXECUTIVE FEATURE"}</span>
+              <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#0A192F", margin: 0, lineHeight: 1.35 }}>
                 <Link href={`/blogs/${art.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>{art.title}</Link>
               </h3>
             </div>
@@ -178,3 +218,4 @@ export default async function LeaderProfilePage({ params }: Props) {
     </main>
   );
 }
+

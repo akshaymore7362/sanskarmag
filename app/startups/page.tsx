@@ -36,13 +36,13 @@ export default function StartupsPage() {
               const Icon = startup.icon;
               return (
                 <div key={startup.name} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", padding: "24px", textAlign: "center", boxShadow: "0 2px 10px rgba(0,0,0,0.03)" }}>
-                  <div style={{ width: "56px", height: "56px", borderRadius: "14px", background: "rgba(212, 154, 36, 0.12)", color: "#C5A059", display: "grid", placeItems: "center", margin: "0 auto 14px" }}>
+                  <div style={{ width: "56px", height: "56px", borderRadius: "14px", background: "rgba(212, 154, 36, 0.12)", color: "#1E40AF", display: "grid", placeItems: "center", margin: "0 auto 14px" }}>
                     <Icon size={28} />
                   </div>
                   <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 900, color: "#0A192F", margin: "0 0 4px" }}>{startup.name}</h3>
                   <div style={{ fontSize: "11px", fontWeight: 800, color: "#7C3AED", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "8px" }}>{startup.category}</div>
                   <p style={{ fontSize: "13px", color: "#4B5563", lineHeight: 1.5, marginBottom: "16px" }}>{startup.desc}</p>
-                  <Link href="/startups" style={{ fontSize: "11px", fontWeight: 700, color: "#C5A059", border: "1px solid #C5A059", padding: "6px 16px", borderRadius: "6px", display: "inline-block" }}>
+                  <Link href="/startups" style={{ fontSize: "11px", fontWeight: 700, color: "#1E40AF", border: "1px solid #1E40AF", padding: "6px 16px", borderRadius: "6px", display: "inline-block" }}>
                     View Profile
                   </Link>
                 </div>

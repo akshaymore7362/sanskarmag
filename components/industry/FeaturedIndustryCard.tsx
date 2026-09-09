@@ -33,7 +33,7 @@ export function FeaturedIndustryCard() {
               fontSize: "10px",
               fontWeight: 800,
               letterSpacing: "1.5px",
-              color: "#C5A059",
+              color: "#1E40AF",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "8px",
@@ -70,7 +70,7 @@ export function FeaturedIndustryCard() {
           <div>
             <Link
               href="/industries/healthcare"
-              className="btn btn-gold-gradient"
+              className="btn btn-blue-gradient"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function LeaderBioExpandable({ bio }: Props) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   if (!bio) return null;
 
@@ -22,11 +22,11 @@ export function LeaderBioExpandable({ bio }: Props) {
         border: "1px solid #E2E8F0",
         borderRadius: "12px",
         padding: "20px 24px",
-        borderLeft: "4px solid #C5A059",
+        borderLeft: "4px solid #1E40AF",
         position: "relative",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px", color: "#C5A059" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px", color: "#1E40AF" }}>
         <Quote size={18} />
         <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase" }}>
           Executive Biography &amp; Profile Summary
@@ -76,7 +76,7 @@ export function LeaderBioExpandable({ bio }: Props) {
           style={{
             marginTop: "12px",
             background: "transparent",
-            border: "1px solid #C5A059",
+            border: "1px solid #1E40AF",
             borderRadius: "20px",
             color: "#0A192F",
             padding: "6px 16px",
@@ -90,7 +90,7 @@ export function LeaderBioExpandable({ bio }: Props) {
           }}
         >
           <span>{isExpanded ? "Show Less" : "Read Full Profile"}</span>
-          {isExpanded ? <ChevronUp size={14} style={{ color: "#C5A059" }} /> : <ChevronDown size={14} style={{ color: "#C5A059" }} />}
+          {isExpanded ? <ChevronUp size={14} style={{ color: "#1E40AF" }} /> : <ChevronDown size={14} style={{ color: "#1E40AF" }} />}
         </button>
       )}
     </div>

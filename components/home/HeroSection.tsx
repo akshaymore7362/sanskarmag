@@ -61,7 +61,7 @@ export function HeroSection() {
     "Delivering strategic economic briefings and executive insights for global decision makers.";
   const heroCover = activeIssue?.cover || "";
   const issueTag = activeIssue?.issue || `EDITION 0${currentIndex + 1}`;
-  const issueDate = activeIssue?.date || "2026";
+  const issueDate = activeIssue?.date || activeIssue?.year || "";
 
   const targetPdfUrl = activeIssue?.pdfUrl ? activeIssue.pdfUrl : `/magazines/${activeIssue?.slug || ""}`;
   const isExternalPdf = Boolean(
@@ -232,7 +232,7 @@ export function HeroSection() {
 
                 {/* Single Combined Featured Coverage Text Block */}
                 <div>
-                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>
+                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>
                     FEATURED COVERAGE &bull; {issueTag}
                   </div>
                   <h3 className="font-serif" style={{ fontSize: "16px", fontWeight: 800, color: "#101722", margin: "0 0 4px", lineHeight: 1.3 }}>
@@ -330,22 +330,23 @@ export function HeroSection() {
                     onClick={() => setNominateOpen(true)}
                     style={{
                       background: "transparent",
-                      color: "#0A192F",
+                      color: "#1E40AF",
                       fontSize: "12px",
-                      fontWeight: 700,
-                      letterSpacing: "0.5px",
+                      fontWeight: 800,
+                      letterSpacing: "0.8px",
                       textTransform: "uppercase",
                       padding: "10px 18px",
-                      borderRadius: "5px",
-                      border: "1px solid #0A192F",
+                      borderRadius: "6px",
+                      border: "1.5px solid #1E40AF",
                       cursor: "pointer",
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "6px",
+                      transition: "all 0.2s ease",
                     }}
                   >
-                    <ShieldCheck size={14} style={{ color: "#0A192F" }} />
-                    <span>Nominate A Leader</span>
+                    <ShieldCheck size={14} style={{ color: "#1E40AF" }} />
+                    <span>Nominate Now</span>
                   </button>
                 </div>
               </div>

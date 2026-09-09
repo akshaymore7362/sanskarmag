@@ -111,7 +111,7 @@ export default function LeadersPage() {
             overflow: "hidden",
           }}
         >
-          {/* Background Decorative Gold Wave */}
+          {/* Background Decorative Sapphire Wave */}
           <svg
             style={{
               position: "absolute",
@@ -126,9 +126,9 @@ export default function LeadersPage() {
             viewBox="0 0 450 180"
             fill="none"
           >
-            <path d="M0,180 Q225,90 450,150 T900,100" stroke="#C5A059" strokeWidth="1" fill="none" />
-            <path d="M0,180 Q225,110 450,165 T900,120" stroke="#C5A059" strokeWidth="1" fill="none" />
-            <path d="M0,180 Q225,130 450,180 T900,140" stroke="#C5A059" strokeWidth="1" fill="none" />
+            <path d="M0,180 Q225,90 450,150 T900,100" stroke="#1E40AF" strokeWidth="1" fill="none" />
+            <path d="M0,180 Q225,110 450,165 T900,120" stroke="#1E40AF" strokeWidth="1" fill="none" />
+            <path d="M0,180 Q225,130 450,180 T900,140" stroke="#1E40AF" strokeWidth="1" fill="none" />
           </svg>
 
           {/* Section Header with Search Bar */}
@@ -150,7 +150,7 @@ export default function LeadersPage() {
                   fontSize: "11px",
                   fontWeight: 800,
                   letterSpacing: "2px",
-                  color: "#C5A059",
+                  color: "#1E40AF",
                   textTransform: "uppercase",
                   display: "inline-flex",
                   alignItems: "center",
@@ -158,7 +158,7 @@ export default function LeadersPage() {
                   marginBottom: "6px",
                 }}
               >
-                <Crown size={14} style={{ color: "#C5A059" }} />
+                <Crown size={14} style={{ color: "#1E40AF" }} />
                 EXECUTIVE DIRECTORY
               </div>
               <h2
@@ -171,7 +171,7 @@ export default function LeadersPage() {
                   lineHeight: 1.2,
                 }}
               >
-                All Web <span style={{ color: "#C5A059" }}>Profiles</span> ({filteredLeaders.length})
+                All Web <span style={{ color: "#1E40AF" }}>Profiles</span> ({filteredLeaders.length})
               </h2>
             </div>
 
@@ -242,15 +242,15 @@ export default function LeadersPage() {
                       margin: "0 auto 20px",
                     }}
                   >
-                    {/* Outer Golden/Burgundy Thin Arc Ring */}
+                    {/* Outer Sapphire/Burgundy Thin Arc Ring */}
                     <div
                       style={{
                         position: "absolute",
                         inset: "-8px",
                         borderRadius: "50%",
-                        border: "2px solid #C5A059",
+                        border: "2px solid #1E40AF",
                         borderLeftColor: "transparent",
-                        borderBottomColor: "#C5A059",
+                        borderBottomColor: "#1E40AF",
                         transform: "rotate(-35deg)",
                         pointerEvents: "none",
                       }}
@@ -264,7 +264,7 @@ export default function LeadersPage() {
                         top: "30%",
                         width: "16px",
                         height: "36px",
-                        background: "radial-gradient(#C5A059 1.5px, transparent 1.5px)",
+                        background: "radial-gradient(#1E40AF 1.5px, transparent 1.5px)",
                         backgroundSize: "6px 6px",
                         opacity: 0.7,
                         pointerEvents: "none",
@@ -297,7 +297,7 @@ export default function LeadersPage() {
                             height: "100%",
                             display: "grid",
                             placeItems: "center",
-                            color: "#C5A059",
+                            color: "#1E40AF",
                             fontWeight: 900,
                             fontSize: "44px",
                             background: "#E5E7EB",
@@ -317,7 +317,7 @@ export default function LeadersPage() {
                         width: "36px",
                         height: "36px",
                         borderRadius: "50%",
-                        background: "#C5A059",
+                        background: "#1E40AF",
                         color: "#FFFFFF",
                         border: "2.5px solid #FFFFFF",
                         boxShadow: "0 4px 12px rgba(10, 25, 47, 0.3)",
@@ -352,7 +352,7 @@ export default function LeadersPage() {
                       fontSize: "11px",
                       fontWeight: 900,
                       letterSpacing: "1.5px",
-                      color: "#C5A059",
+                      color: "#1E40AF",
                       textTransform: "uppercase",
                       marginBottom: "8px",
                     }}
@@ -365,7 +365,7 @@ export default function LeadersPage() {
                     style={{
                       width: "24px",
                       height: "1px",
-                      background: "#C5A059",
+                      background: "#1E40AF",
                       margin: "0 auto 12px",
                       position: "relative",
                     }}
@@ -374,7 +374,7 @@ export default function LeadersPage() {
                       style={{
                         width: "5px",
                         height: "5px",
-                        background: "#C5A059",
+                        background: "#1E40AF",
                         transform: "translate(-50%, -50%) rotate(45deg)",
                         position: "absolute",
                         left: "50%",
@@ -407,10 +407,10 @@ export default function LeadersPage() {
                       fontSize: "12px",
                       fontWeight: 800,
                       letterSpacing: "1px",
-                      color: "#C5A059",
+                      color: "#1E40AF",
                       textTransform: "uppercase",
                       textDecoration: "none",
-                      borderBottom: "1.5px solid #C5A059",
+                      borderBottom: "1.5px solid #1E40AF",
                       paddingBottom: "2px",
                       display: "inline-flex",
                       alignItems: "center",

@@ -23,7 +23,7 @@ function highlightText(text: string, query: string) {
     <>
       {parts.map((part, i) =>
         part.toLowerCase() === query.toLowerCase() ? (
-          <mark key={i} style={{ background: "#C5A059", color: "#050C18", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
+          <mark key={i} style={{ background: "#1E40AF", color: "#050C18", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
             {part}
           </mark>
         ) : (
@@ -61,14 +61,14 @@ export default async function SearchPage({ searchParams }: Props) {
         {/* Search Form */}
         <form action="/search" style={{ marginBottom: "32px" }}>
           <div style={{ display: "flex", gap: "12px", background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "12px", padding: "10px 16px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
-            <SearchIcon size={20} style={{ color: "#C5A059", alignSelf: "center" }} />
+            <SearchIcon size={20} style={{ color: "#1E40AF", alignSelf: "center" }} />
             <input
               name="q"
               defaultValue={query}
               placeholder="Search stories, topics, executives..."
               style={{ flex: 1, border: "none", outline: "none", fontSize: "16px", background: "none" }}
             />
-            <button type="submit" className="btn btn-gold-gradient btn-sm">
+            <button type="submit" className="btn btn-blue-gradient btn-sm">
               Search
             </button>
           </div>
@@ -85,7 +85,7 @@ export default async function SearchPage({ searchParams }: Props) {
                       <Image src={article.image} alt={article.title} fill className="object-cover" unoptimized />
                     </div>
                   )}
-                  <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#C5A059" }}>
+                  <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#1E40AF" }}>
                     {highlightText(article.category || "Article", query)}
                   </span>
                   <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#0A192F", margin: "6px 0 8px", lineHeight: 1.3 }}>

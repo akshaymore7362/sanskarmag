@@ -73,7 +73,7 @@ export function FooterMagazineBookWidget() {
           fontSize: "12px",
           fontWeight: 900,
           letterSpacing: "1.5px",
-          color: "#C5A059",
+          color: "#1E40AF",
           textTransform: "uppercase",
           marginBottom: "14px",
           display: "flex",
@@ -82,7 +82,7 @@ export function FooterMagazineBookWidget() {
         }}
       >
         <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-          <Sparkles size={14} style={{ color: "#C5A059" }} />
+          <Sparkles size={14} style={{ color: "#1E40AF" }} />
           OPEN MAGAZINE BOOK
         </span>
 
@@ -151,7 +151,7 @@ export function FooterMagazineBookWidget() {
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#C5A059", fontWeight: 900, fontSize: "11px", padding: "6px", textAlign: "center" }}>
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#1E40AF", fontWeight: 900, fontSize: "11px", padding: "6px", textAlign: "center" }}>
                 COVER PAGE
               </div>
             )}
@@ -170,7 +170,7 @@ export function FooterMagazineBookWidget() {
             }}
           >
             <div>
-              <div style={{ fontSize: "9px", fontWeight: 900, color: "#C5A059", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+              <div style={{ fontSize: "9px", fontWeight: 900, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
                 {currentMag.date}
               </div>
 
@@ -213,7 +213,7 @@ export function FooterMagazineBookWidget() {
                     gap: "4px",
                     width: "100%",
                     padding: "6px",
-                    background: "#C5A059",
+                    background: "#1E40AF",
                     color: "#FFFFFF",
                     borderRadius: "4px",
                     fontSize: "10px",
@@ -235,7 +235,7 @@ export function FooterMagazineBookWidget() {
                     gap: "4px",
                     width: "100%",
                     padding: "6px",
-                    background: "#C5A059",
+                    background: "#1E40AF",
                     color: "#FFFFFF",
                     borderRadius: "4px",
                     fontSize: "10px",

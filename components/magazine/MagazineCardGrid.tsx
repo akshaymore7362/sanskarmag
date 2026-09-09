@@ -45,7 +45,7 @@ export function MagazineCardGrid({ issues }: Props) {
     return (
       <section style={{ width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "40px 6vw", textAlign: "center" }}>
         <div style={{ padding: "40px 20px" }}>
-          <Calendar size={32} style={{ color: "#C5A059", marginBottom: "12px" }} />
+          <Calendar size={32} style={{ color: "#1E40AF", marginBottom: "12px" }} />
           <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#0A192F", margin: "0 0 6px" }}>No Magazines Found</h3>
           <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>Try clearing search or switching publication year filters.</p>
         </div>
@@ -100,7 +100,7 @@ export function MagazineCardGrid({ issues }: Props) {
               style={{
                 fontSize: "13px",
                 fontWeight: 800,
-                color: "#C5A059",
+                color: "#1E40AF",
                 letterSpacing: "0.5px",
               }}
             >
@@ -224,7 +224,7 @@ export function MagazineCardGrid({ issues }: Props) {
                         style={{
                           fontSize: "11px",
                           fontWeight: 800,
-                          color: "#C5A059",
+                          color: "#1E40AF",
                           letterSpacing: "1px",
                           textTransform: "uppercase",
                           marginBottom: "6px",

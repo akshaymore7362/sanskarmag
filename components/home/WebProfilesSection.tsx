@@ -65,6 +65,8 @@ const defaultLeaders: Leader[] = [
 
 export function WebProfilesSection() {
   const [profiles, setProfiles] = useState<Leader[]>(defaultLeaders);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     leaderService.fetchSanityLeaders().then((items) => {
@@ -74,107 +76,94 @@ export function WebProfilesSection() {
     });
   }, []);
 
-  const displayProfiles = profiles.slice(0, 4);
-  // Ensure we always display 4 items
-  while (displayProfiles.length < 4) {
-    displayProfiles.push(defaultLeaders[displayProfiles.length % 4]);
-  }
+  const displayProfiles = profiles.length > 0 ? profiles : defaultLeaders;
+  const activeLeader = displayProfiles[activeIndex % displayProfiles.length] || displayProfiles[0];
+
+  const handleSelectLeader = (idx: number) => {
+    setActiveIndex(idx);
+    setIsExpanded(false);
+  };
 
   return (
     <section
       style={{
-        background: "#F3F4F6",
+        background: "linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%)",
         position: "relative",
-        padding: "32px 0 36px",
+        padding: "50px 0 70px",
         overflow: "hidden",
       }}
     >
-      {/* Background Graphic Lines (Bottom Right Decorative Wave) */}
+      {/* Background Decorative Metallic Graphic Lines */}
       <svg
         style={{
           position: "absolute",
           bottom: 0,
           right: 0,
-          width: "450px",
-          height: "180px",
-          opacity: 0.35,
+          width: "500px",
+          height: "220px",
+          opacity: 0.25,
           pointerEvents: "none",
           zIndex: 1,
         }}
-        viewBox="0 0 450 180"
+        viewBox="0 0 500 220"
         fill="none"
       >
-        <path d="M0,180 Q225,90 450,150 T900,100" stroke="#C5A059" strokeWidth="1" fill="none" />
-        <path d="M0,180 Q225,110 450,165 T900,120" stroke="#C5A059" strokeWidth="1" fill="none" />
-        <path d="M0,180 Q225,130 450,180 T900,140" stroke="#C5A059" strokeWidth="1" fill="none" />
+        <path d="M0,220 Q250,110 500,180 T1000,120" stroke="#1E40AF" strokeWidth="1.5" fill="none" />
+        <path d="M0,220 Q250,130 500,195 T1000,140" stroke="#1E40AF" strokeWidth="1" fill="none" />
       </svg>
 
-      {/* Background Graphic Wave (Bottom Left Dark Burgundy Accent) */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          width: "320px",
-          height: "110px",
-          background: "linear-gradient(135deg, #0A192F 0%, #C5A059 100%)",
-          borderTopRightRadius: "100%",
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      />
-
       <div className="site-shell" style={{ position: "relative", zIndex: 2 }}>
-        {/* Header Row matching reference design */}
+        {/* SECTION HEADER */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            marginBottom: "24px",
+            marginBottom: "36px",
             flexWrap: "wrap",
-            gap: "16px",
+            gap: "20px",
           }}
         >
           <div>
             <div
               style={{
-                fontSize: "11px",
+                fontSize: "12px",
                 fontWeight: 800,
-                letterSpacing: "2px",
-                color: "#C5A059",
+                letterSpacing: "2.5px",
+                color: "#1E40AF",
                 textTransform: "uppercase",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "6px",
+                gap: "8px",
                 marginBottom: "8px",
               }}
             >
-              <Crown size={14} style={{ color: "#C5A059" }} />
-              EXECUTIVE DIRECTORY
+              <Crown size={15} style={{ color: "#1E40AF" }} />
+              GLOBAL EXECUTIVE SPOTLIGHT
             </div>
             <h2
               className="font-serif"
               style={{
-                fontSize: "44px",
+                fontSize: "clamp(28px, 4vw, 44px)",
                 fontWeight: 900,
                 color: "#0A192F",
                 lineHeight: 1.1,
                 margin: "0 0 10px",
+                letterSpacing: "-0.5px",
               }}
             >
-              Web <span style={{ color: "#C5A059" }}>Profiles</span> Wall
+              Web <span style={{ color: "#1E40AF" }}>Profiles</span> Wall
             </h2>
             <p
               style={{
                 fontSize: "15px",
                 color: "#4B5563",
                 margin: 0,
-                maxWidth: "520px",
-                lineHeight: 1.5,
+                maxWidth: "560px",
+                lineHeight: 1.6,
               }}
             >
-              Discover the digital presence of our visionary leaders driving innovation and shaping the future.
+              Discover the inspiring journeys and visionary impact of world-class executives.
             </p>
           </div>
 
@@ -183,113 +172,342 @@ export function WebProfilesSection() {
             style={{
               fontSize: "13px",
               fontWeight: 800,
-              letterSpacing: "1px",
-              color: "#C5A059",
+              letterSpacing: "1.2px",
+              color: "#0A192F",
               textTransform: "uppercase",
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
-              gap: "6px",
-              borderBottom: "2px solid #C5A059",
-              paddingBottom: "4px",
-              transition: "opacity 0.2s ease",
+              gap: "8px",
+              background: "#FFFFFF",
+              border: "1.5px solid #1E40AF",
+              padding: "10px 20px",
+              borderRadius: "30px",
+              boxShadow: "0 4px 14px rgba(197, 160, 89, 0.15)",
+              transition: "all 0.25s ease",
             }}
           >
             <span>VIEW ALL ({profiles.length})</span>
-            <ArrowRight size={15} />
+            <ArrowRight size={15} style={{ color: "#1E40AF" }} />
           </Link>
         </div>
 
-        {/* 4 Leader Cards Grid with Vertical Separators */}
+        {/* SINGLE FULL-SECTION WEB PROFILE SHOWCASE CARD */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "0",
-            position: "relative",
+            background: "#FFFFFF",
+            borderRadius: "20px",
+            border: "1px solid #E2E8F0",
+            boxShadow: "0 20px 45px rgba(10, 25, 47, 0.07)",
+            padding: "clamp(24px, 3.5vw, 40px)",
+            marginBottom: "36px",
           }}
         >
-          {displayProfiles.map((leader, idx) => {
-            const IconComp = badgeIcons[idx % badgeIcons.length];
-
-            return (
-              <div
-                key={leader.slug || String(idx)}
-                style={{
-                  padding: "0 24px 30px",
-                  textAlign: "center",
-                  position: "relative",
-                  borderRight: idx < 3 ? "1px solid #E5E7EB" : "none",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                {/* Small Diamond Node on Vertical Separator Line */}
-                {idx < 3 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: "-5px",
-                      top: "50%",
-                      width: "8px",
-                      height: "8px",
-                      background: "#C5A059",
-                      transform: "translateY(-50%) rotate(45deg)",
-                      zIndex: 3,
-                    }}
-                  />
-                )}
-
-                {/* Circular Portrait Avatar Container with Arc Ring (Enlarged 185px for full photo fit) */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "36px",
+              alignItems: "center",
+            }}
+          >
+            {/* LEFT: Full Uncropped Portrait Image Container (100% full view) */}
+            <div
+              style={{
+                width: "100%",
+                height: "480px",
+                borderRadius: "16px",
+                overflow: "hidden",
+                border: "1px solid #E2E8F0",
+                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.08)",
+                position: "relative",
+                background: "#0F172A",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "12px",
+              }}
+            >
+              {activeLeader.image ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={activeLeader.image}
+                  alt={activeLeader.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              ) : (
                 <div
                   style={{
-                    position: "relative",
-                    width: "185px",
-                    height: "185px",
-                    margin: "0 auto 20px",
+                    height: "100%",
+                    width: "100%",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "#1E40AF",
+                    fontWeight: 900,
+                    fontSize: "72px",
+                    background: "linear-gradient(135deg, #0A192F 0%, #1E293B 100%)",
                   }}
                 >
-                  {/* Outer Golden/Burgundy Thin Arc Ring */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: "-8px",
-                      borderRadius: "50%",
-                      border: "2px solid #C5A059",
-                      borderLeftColor: "transparent",
-                      borderBottomColor: "#C5A059",
-                      transform: "rotate(-35deg)",
-                      pointerEvents: "none",
-                    }}
-                  />
+                  {activeLeader.name.charAt(0)}
+                </div>
+              )}
 
-                  {/* Dotted Accent Matrix on Right */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: "-18px",
-                      top: "30%",
-                      width: "16px",
-                      height: "36px",
-                      background: "radial-gradient(#C5A059 1.5px, transparent 1.5px)",
-                      backgroundSize: "6px 6px",
-                      opacity: 0.7,
-                      pointerEvents: "none",
-                    }}
-                  />
+              {/* Executive Accent Tag */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "14px",
+                  left: "14px",
+                  background: "rgba(10, 25, 47, 0.85)",
+                  backdropFilter: "blur(8px)",
+                  color: "#1E40AF",
+                  padding: "6px 14px",
+                  borderRadius: "20px",
+                  fontSize: "11px",
+                  fontWeight: 800,
+                  letterSpacing: "1px",
+                  border: "1px solid rgba(197, 160, 89, 0.4)",
+                  textTransform: "uppercase",
+                }}
+              >
+                FEATURED SPOTLIGHT
+              </div>
+            </div>
 
-                  {/* Main Portrait Circle */}
+            {/* RIGHT: Leader Info & Details */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 900,
+                  letterSpacing: "2px",
+                  color: "#1E40AF",
+                  textTransform: "uppercase",
+                }}
+              >
+                EXECUTIVE PROFILE &bull; 0{activeIndex + 1} OF {displayProfiles.length}
+              </div>
+
+              <h3
+                className="font-serif"
+                style={{
+                  fontSize: "clamp(30px, 3.5vw, 40px)",
+                  fontWeight: 900,
+                  color: "#0A192F",
+                  margin: 0,
+                  lineHeight: 1.15,
+                }}
+              >
+                {activeLeader.name}
+              </h3>
+
+              <div
+                style={{
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  color: "#1E40AF",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                {activeLeader.role || "EXECUTIVE LEADER"}{" "}
+                {activeLeader.company ? <span style={{ color: "#64748B" }}>&bull; {activeLeader.company}</span> : ""}
+              </div>
+
+              {/* Bio description with Read More toggle */}
+              <div style={{ position: "relative" }}>
+                <p
+                  style={{
+                    fontSize: "15px",
+                    color: "#475569",
+                    lineHeight: 1.65,
+                    margin: 0,
+                    display: "-webkit-box",
+                    WebkitLineClamp: isExpanded ? "none" : 4,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {activeLeader.bio ||
+                    "Driving visionary leadership, international enterprise growth, digital innovation, and transformation across worldwide markets."}
+                </p>
+
+                {/* Read More inline toggle */}
+                <button
+                  type="button"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: "6px 0 0",
+                    color: "#1E40AF",
+                    fontSize: "13px",
+                    fontWeight: 800,
+                    letterSpacing: "0.5px",
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    textDecoration: "underline",
+                    textUnderlineOffset: "3px",
+                  }}
+                >
+                  {isExpanded ? "Read Less ▲" : "Read More ▶"}
+                </button>
+              </div>
+
+              {/* Milestone chips */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "10px",
+                  marginTop: "4px",
+                }}
+              >
+                <span
+                  style={{
+                    background: "rgba(197, 160, 89, 0.12)",
+                    color: "#0A192F",
+                    padding: "6px 14px",
+                    borderRadius: "20px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    border: "1px solid rgba(197, 160, 89, 0.3)",
+                  }}
+                >
+                  Enterprise Leadership
+                </span>
+                <span
+                  style={{
+                    background: "#F1F5F9",
+                    color: "#475569",
+                    padding: "6px 14px",
+                    borderRadius: "20px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                  }}
+                >
+                  Global Growth
+                </span>
+                <span
+                  style={{
+                    background: "#F1F5F9",
+                    color: "#475569",
+                    padding: "6px 14px",
+                    borderRadius: "20px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                  }}
+                >
+                  Digital Transformation
+                </span>
+              </div>
+
+              {/* Action Buttons */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "14px",
+                  flexWrap: "wrap",
+                  marginTop: "12px",
+                }}
+              >
+                <Link
+                  href={`/leaders/${activeLeader.slug}`}
+                  style={{
+                    background: "linear-gradient(135deg, #0A192F 0%, #1E293B 100%)",
+                    color: "#FFFFFF",
+                    fontSize: "12px",
+                    fontWeight: 800,
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    padding: "13px 26px",
+                    borderRadius: "8px",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    boxShadow: "0 6px 18px rgba(10, 25, 47, 0.18)",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <span>VIEW FULL WEB PROFILE</span>
+                  <ArrowRight size={15} style={{ color: "#1E40AF" }} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM EXECUTIVE SELECTOR (Click to Redirect Direct to Profile Page) */}
+        <div>
+          <div
+            style={{
+              fontSize: "12px",
+              fontWeight: 800,
+              color: "#0A192F",
+              letterSpacing: "1.8px",
+              textTransform: "uppercase",
+              marginBottom: "14px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <span>EXECUTIVE DIRECTORY ({displayProfiles.length})</span>
+            <span style={{ color: "#1E40AF", fontSize: "11px" }}>CLICK TO VIEW PROFILE</span>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "14px",
+              overflowX: "auto",
+              paddingBottom: "12px",
+              scrollbarWidth: "thin",
+            }}
+          >
+            {displayProfiles.map((leader, idx) => {
+              const isActive = idx === activeIndex;
+
+              return (
+                <Link
+                  key={leader.slug || String(idx)}
+                  href={`/leaders/${leader.slug}`}
+                  style={{
+                    flex: "0 0 160px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    padding: "10px 14px",
+                    background: isActive ? "#FFFFFF" : "rgba(255, 255, 255, 0.7)",
+                    border: isActive ? "2px solid #1E40AF" : "1px solid #E2E8F0",
+                    borderRadius: "12px",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    transition: "all 0.25s ease",
+                    boxShadow: isActive ? "0 8px 20px rgba(10, 25, 47, 0.09)" : "0 2px 6px rgba(0, 0, 0, 0.02)",
+                  }}
+                >
+                  {/* Thumbnail Image */}
                   <div
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "50%",
+                      width: "48px",
+                      height: "60px",
+                      borderRadius: "8px",
                       overflow: "hidden",
-                      background: "#F3F4F6",
-                      border: "3.5px solid #FFFFFF",
-                      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.12)",
-                      position: "relative",
+                      background: "#0F172A",
+                      flexShrink: 0,
+                      border: isActive ? "1px solid #1E40AF" : "1px solid #CBD5E1",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     {leader.image ? (
@@ -297,142 +515,54 @@ export function WebProfilesSection() {
                       <img
                         src={leader.image}
                         alt={leader.name}
-                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                        style={{ width: "100%", height: "100%", objectFit: "contain" }}
                       />
                     ) : (
-                      <div
-                        style={{
-                          height: "100%",
-                          display: "grid",
-                          placeItems: "center",
-                          color: "#C5A059",
-                          fontWeight: 900,
-                          fontSize: "44px",
-                          background: "#E5E7EB",
-                        }}
-                      >
-                        {leader.name.charAt(0)}
-                      </div>
+                      <div style={{ color: "#1E40AF", fontWeight: 800 }}>{leader.name.charAt(0)}</div>
                     )}
                   </div>
 
-                  {/* Bottom-Right Category Badge Icon */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "4px",
-                      right: "4px",
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "50%",
-                      background: "#C5A059",
-                      color: "#FFFFFF",
-                      border: "2.5px solid #FFFFFF",
-                      boxShadow: "0 4px 12px rgba(10, 25, 47, 0.3)",
-                      display: "grid",
-                      placeItems: "center",
-                      zIndex: 4,
-                    }}
-                  >
-                    <IconComp size={17} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 800,
+                        color: "#0A192F",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {leader.name}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        color: "#64748B",
+                        fontWeight: 600,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        marginTop: "2px",
+                      }}
+                    >
+                      {leader.role || "EXECUTIVE"}
+                    </div>
                   </div>
-                </div>
-
-                {/* Leader Name */}
-                <h3
-                  className="font-serif"
-                  style={{
-                    fontSize: "22px",
-                    fontWeight: 800,
-                    color: "#0A192F",
-                    margin: "0 0 6px",
-                    lineHeight: 1.25,
-                  }}
-                >
-                  {leader.name}
-                </h3>
-
-                {/* Role Badge */}
-                <div
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: 900,
-                    letterSpacing: "1.5px",
-                    color: "#C5A059",
-                    textTransform: "uppercase",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {leader.role || "EXECUTIVE LEADER"}
-                </div>
-
-                {/* Diamond Line Divider Accent */}
-                <div
-                  style={{
-                    width: "24px",
-                    height: "1px",
-                    background: "#C5A059",
-                    margin: "0 auto 12px",
-                    position: "relative",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "5px",
-                      height: "5px",
-                      background: "#C5A059",
-                      transform: "translate(-50%, -50%) rotate(45deg)",
-                      position: "absolute",
-                      left: "50%",
-                      top: "50%",
-                    }}
-                  />
-                </div>
-
-                {/* Short Bio / Tagline */}
-                <p
-                  style={{
-                    fontSize: "13px",
-                    color: "#6B7280",
-                    lineHeight: 1.5,
-                    margin: "0 0 20px",
-                    maxWidth: "220px",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}
-                >
-                  {leader.bio || "Leading enterprise transformation and global market expansion."}
-                </p>
-
-                {/* View Profile CTA Link */}
-                <Link
-                  href={`/leaders/${leader.slug}`}
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 800,
-                    letterSpacing: "1px",
-                    color: "#C5A059",
-                    textTransform: "uppercase",
-                    textDecoration: "none",
-                    borderBottom: "1.5px solid #C5A059",
-                    paddingBottom: "2px",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "5px",
-                    marginTop: "auto",
-                    transition: "opacity 0.2s ease",
-                  }}
-                >
-                  <span>VIEW PROFILE</span>
-                  <ArrowRight size={14} />
                 </Link>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+
+
+
+
+
+
+

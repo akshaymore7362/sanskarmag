@@ -40,8 +40,12 @@ export default async function IssueDetailPage({ params }: Props) {
           <h1>{issue.title}</h1>
           <p>{issue.description}</p>
           <div className="issue-detail-actions">
-            <Link href="#">Read Online</Link>
-            <Link href="#">Download PDF</Link>
+            <Link href={`/magazines/${issue.slug}`}>Read Online</Link>
+            {issue.pdfUrl ? (
+              <a href={issue.pdfUrl} target="_blank" rel="noopener noreferrer">Download PDF</a>
+            ) : (
+              <Link href={`/magazines/${issue.slug}`}>View Magazine</Link>
+            )}
           </div>
           <h2>Table of Contents</h2>
           <div className="toc-list">

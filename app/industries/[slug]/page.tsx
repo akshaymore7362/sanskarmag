@@ -186,7 +186,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                 fontSize: "10px",
                 fontWeight: 800,
                 letterSpacing: "1.8px",
-                color: "#C5A059",
+                color: "#1E40AF",
                 textTransform: "uppercase",
                 display: "block",
                 marginBottom: "4px",
@@ -274,7 +274,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                   color: "#FFFFFF",
                 }}
               >
-                <span style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1.5px" }}>
+                <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px" }}>
                   EXECUTIVE BRIEFING
                 </span>
                 <h3 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, margin: "2px 0 0", color: "#FFFFFF" }}>
@@ -345,7 +345,7 @@ export default async function IndustryDetailPage({ params }: Props) {
             <div>
               <Link
                 href={`/blogs/${leadStory.slug}`}
-                className="btn btn-gold-gradient"
+                className="btn btn-blue-gradient"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -423,7 +423,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                 )}
 
                 <div>
-                  <div style={{ fontSize: "22px", fontWeight: 900, color: "#C5A059", fontFamily: "serif", lineHeight: 1 }}>{ew.num}</div>
+                  <div style={{ fontSize: "22px", fontWeight: 900, color: "#1E40AF", fontFamily: "serif", lineHeight: 1 }}>{ew.num}</div>
                   <span style={{ fontSize: "10px", fontWeight: 800, color: "#0A192F", letterSpacing: "1.2px", textTransform: "uppercase", display: "block", margin: "2px 0" }}>
                     {ew.tag}
                   </span>
@@ -476,7 +476,7 @@ export default async function IndustryDetailPage({ params }: Props) {
           }}
         >
           <div>
-            <span style={{ fontSize: "10px", fontWeight: 800, color: "#C5A059", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px", textTransform: "uppercase" }}>
               EXECUTIVE BRIEFING
             </span>
             <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#0A192F", margin: "3px 0 4px" }}>
@@ -504,7 +504,7 @@ export default async function IndustryDetailPage({ params }: Props) {
             />
             <button
               type="button"
-              className="btn btn-gold-gradient"
+              className="btn btn-blue-gradient"
               style={{ padding: "9px 20px", fontSize: "12px", fontWeight: 800, borderRadius: "6px", border: "none", flexShrink: 0 }}
             >
               Subscribe Now

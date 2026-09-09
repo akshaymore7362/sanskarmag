@@ -58,7 +58,7 @@ export function MarketTicker() {
       {/* Far Left Live Badge */}
       <div className="market-ticker-badge">
         <span className="live-dot" />
-        <Activity size={13} style={{ color: "#C5A059" }} />
+        <Activity size={13} style={{ color: "#1E40AF" }} />
         <span>LIVE MARKET</span>
       </div>
 

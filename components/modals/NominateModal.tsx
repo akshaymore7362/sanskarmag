@@ -83,7 +83,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
         {/* Header Bar */}
         <div
           style={{
-            background: "linear-gradient(135deg, #0A192F 0%, #050C18 100%)",
+            background: "linear-gradient(135deg, #102A43 0%, #0B1E30 100%)",
             color: "#FFFFFF",
             padding: "24px 28px",
             position: "relative",
@@ -116,7 +116,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
               fontSize: "10px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#1E40AF",
+              color: "#102A43",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "4px",
@@ -153,7 +153,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                 <CheckCircle2 size={32} />
               </div>
 
-              <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 900, color: "#0A192F", margin: "0 0 8px" }}>
+              <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 900, color: "#102A43", margin: "0 0 8px" }}>
                 Nomination Submitted!
               </h3>
 
@@ -174,7 +174,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
               {/* Full Name Input */}
               <div>
-                <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
+                <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
                   Full Name *
                 </label>
                 <div style={{ position: "relative" }}>
@@ -190,7 +190,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                       border: "1px solid #E5E7EB",
                       borderRadius: "6px",
                       fontSize: "13px",
-                      color: "#0A192F",
+                      color: "#102A43",
                       outline: "none",
                     }}
                   />
@@ -201,7 +201,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
               {/* Email & Phone Grid */}
               <div className="grid-split-layout" style={{ gap: "12px" }}>
                 <div>
-                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
                     Work Email *
                   </label>
                   <div style={{ position: "relative" }}>
@@ -217,7 +217,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                         border: "1px solid #E5E7EB",
                         borderRadius: "6px",
                         fontSize: "13px",
-                        color: "#0A192F",
+                        color: "#102A43",
                         outline: "none",
                       }}
                     />
@@ -226,7 +226,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
                     Phone / WhatsApp *
                   </label>
                   <div style={{ position: "relative" }}>
@@ -242,7 +242,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                         border: "1px solid #E5E7EB",
                         borderRadius: "6px",
                         fontSize: "13px",
-                        color: "#0A192F",
+                        color: "#102A43",
                         outline: "none",
                       }}
                     />
@@ -254,7 +254,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
               {/* Company & Industry Grid */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                 <div>
-                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
                     Company & Designation
                   </label>
                   <div style={{ position: "relative" }}>
@@ -269,7 +269,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                         border: "1px solid #E5E7EB",
                         borderRadius: "6px",
                         fontSize: "13px",
-                        color: "#0A192F",
+                        color: "#102A43",
                         outline: "none",
                       }}
                     />
@@ -278,7 +278,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
                     Sector / Industry
                   </label>
                   <div style={{ position: "relative" }}>
@@ -291,7 +291,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                         border: "1px solid #E5E7EB",
                         borderRadius: "6px",
                         fontSize: "13px",
-                        color: "#0A192F",
+                        color: "#102A43",
                         outline: "none",
                         background: "#FFFFFF",
                         cursor: "pointer",
@@ -313,7 +313,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
 
               {/* Message / Bio */}
               <div>
-                <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
+                <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "4px" }}>
                   Publication Interest / Brief Note
                 </label>
                 <textarea
@@ -327,7 +327,7 @@ export function NominateModal({ isOpen, onClose }: Props) {
                     border: "1px solid #E5E7EB",
                     borderRadius: "6px",
                     fontSize: "12px",
-                    color: "#0A192F",
+                    color: "#102A43",
                     outline: "none",
                     resize: "none",
                   }}

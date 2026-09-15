@@ -30,14 +30,14 @@ export default async function LeaderProfilePage({ params }: Props) {
   const articles = await articleService.fetchSanityArticles();
 
   return (
-    <main className="site-shell inner-shell" style={{ background: "#F8FAFC", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="site-shell inner-shell" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "60px" }}>
       {/* Back Navigation Bar */}
-      <div style={{ background: "#0A192F", color: "#ffffff", padding: "14px 24px", boxShadow: "0 2px 10px rgba(0,0,0,0.15)" }}>
-        <div style={{ maxWidth: "1400px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "#102A43", color: "#ffffff", padding: "14px 24px", boxShadow: "0 2px 10px rgba(0,0,0,0.15)" }}>
+        <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link
             href="/leaders"
             style={{
-              color: "#1E40AF",
+              color: "#102A43",
               fontSize: "12px",
               fontWeight: 800,
               letterSpacing: "1.2px",
@@ -56,7 +56,7 @@ export default async function LeaderProfilePage({ params }: Props) {
       </div>
 
       {/* Centered Grand Leader Profile Card */}
-      <section style={{ width: "100%", maxWidth: "1400px", margin: "36px auto", padding: "0 24px", boxSizing: "border-box" }}>
+      <section style={{ width: "100%", maxWidth: "100%", margin: "36px auto", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
         <div
           style={{
             background: "#ffffff",
@@ -83,7 +83,7 @@ export default async function LeaderProfilePage({ params }: Props) {
               borderRadius: "24px",
               overflow: "hidden",
               background: "radial-gradient(circle at center, #1E293B 0%, #0F172A 100%)",
-              border: "3.5px solid #1E40AF",
+              border: "3.5px solid #102A43",
               boxShadow: "0 25px 60px rgba(10, 25, 47, 0.28)",
               marginBottom: "36px",
               display: "flex",
@@ -106,7 +106,7 @@ export default async function LeaderProfilePage({ params }: Props) {
                 }}
               />
             ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#1E40AF", fontSize: "96px", fontWeight: 900 }}>
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#102A43", fontSize: "96px", fontWeight: 900 }}>
                 {leader.name.charAt(0)}
               </div>
             )}
@@ -119,14 +119,14 @@ export default async function LeaderProfilePage({ params }: Props) {
                 right: "20px",
                 background: "rgba(10, 25, 47, 0.92)",
                 backdropFilter: "blur(10px)",
-                color: "#1E40AF",
+                color: "#102A43",
                 fontSize: "11px",
                 fontWeight: 800,
                 letterSpacing: "1.8px",
                 textTransform: "uppercase",
                 padding: "10px 20px",
                 borderRadius: "30px",
-                border: "1.5px solid rgba(197, 160, 89, 0.6)",
+                border: "1.5px solid rgba(147, 197, 253, 0.6)",
                 boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
               }}
             >
@@ -135,19 +135,19 @@ export default async function LeaderProfilePage({ params }: Props) {
           </div>
 
           {/* Header Credentials */}
-          <span style={{ fontSize: "12px", fontWeight: 800, color: "#1E40AF", letterSpacing: "2.5px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-            <Award size={16} style={{ color: "#1E40AF" }} /> OFFICIAL EXECUTIVE WEB PROFILE
+          <span style={{ fontSize: "12px", fontWeight: 800, color: "#102A43", letterSpacing: "2.5px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+            <Award size={16} style={{ color: "#102A43" }} /> OFFICIAL EXECUTIVE WEB PROFILE
           </span>
 
-          <h1 className="font-serif" style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, color: "#0A192F", margin: "0 0 14px", lineHeight: 1.1, letterSpacing: "-0.5px" }}>
+          <h1 className="font-serif" style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, color: "#102A43", margin: "0 0 14px", lineHeight: 1.1, letterSpacing: "-0.5px" }}>
             {leader.name}
           </h1>
 
-          <div style={{ fontSize: "17px", fontWeight: 700, color: "#1E40AF", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap", marginBottom: "36px" }}>
+          <div style={{ fontSize: "17px", fontWeight: 700, color: "#102A43", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap", marginBottom: "36px" }}>
             <span>{leader.role || "EXECUTIVE LEADER"}</span>
             <span style={{ color: "#94A3B8" }}>&bull;</span>
             <span style={{ color: "#4B5563", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              <Building size={18} style={{ color: "#1E40AF" }} /> {leader.company || "Leadership & Innovation"}
+              <Building size={18} style={{ color: "#102A43" }} /> {leader.company || "Leadership & Innovation"}
             </span>
           </div>
 
@@ -163,7 +163,7 @@ export default async function LeaderProfilePage({ params }: Props) {
             <Link
               href="/contact"
               style={{
-                background: "linear-gradient(135deg, #0A192F 0%, #1E293B 100%)",
+                background: "linear-gradient(135deg, #102A43 0%, #1E293B 100%)",
                 color: "#FFFFFF",
                 fontWeight: 800,
                 fontSize: "13px",
@@ -176,24 +176,24 @@ export default async function LeaderProfilePage({ params }: Props) {
                 alignItems: "center",
                 gap: "12px",
                 boxShadow: "0 8px 25px rgba(10, 25, 47, 0.22)",
-                border: "1px solid rgba(197, 160, 89, 0.3)",
+                border: "1px solid rgba(147, 197, 253, 0.3)",
                 transition: "all 0.25s ease",
               }}
             >
               <span>Request Executive Interview</span>
-              <UserCheck size={18} style={{ color: "#1E40AF" }} />
+              <UserCheck size={18} style={{ color: "#102A43" }} />
             </Link>
           </div>
         </div>
       </section>
 
       {/* Related Executive Features */}
-      <section style={{ width: "100%", maxWidth: "1400px", margin: "48px auto 0", padding: "0 24px", boxSizing: "border-box" }}>
-        <div style={{ borderBottom: "2px solid #1E40AF", paddingBottom: "12px", marginBottom: "28px" }}>
-          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#1E40AF", textTransform: "uppercase" }}>
+      <section style={{ width: "100%", maxWidth: "100%", margin: "48px auto 0", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
+        <div style={{ borderBottom: "2px solid #102A43", paddingBottom: "12px", marginBottom: "28px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2px", color: "#102A43", textTransform: "uppercase" }}>
             EXECUTIVE INSIGHTS
           </span>
-          <h2 className="font-serif" style={{ fontSize: "30px", fontWeight: 900, color: "#0A192F", margin: "4px 0 0" }}>
+          <h2 className="font-serif" style={{ fontSize: "30px", fontWeight: 900, color: "#102A43", margin: "4px 0 0" }}>
             Related Market Stories &amp; Articles
           </h2>
         </div>
@@ -207,9 +207,9 @@ export default async function LeaderProfilePage({ params }: Props) {
                   <img src={art.image} alt={art.title} style={{ width: "100%", height: "100%", objectFit: "contain", padding: "6px" }} />
                 </div>
               )}
-              <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase" }}>{art.category || "EXECUTIVE FEATURE"}</span>
-              <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#0A192F", margin: 0, lineHeight: 1.35 }}>
-                <Link href={`/blogs/${art.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>{art.title}</Link>
+              <span style={{ fontSize: "10px", fontWeight: 800, color: "#102A43", letterSpacing: "1px", textTransform: "uppercase" }}>{art.category || "EXECUTIVE FEATURE"}</span>
+              <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#102A43", margin: 0, lineHeight: 1.35 }}>
+                <Link href={`/blogs/${art.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>{art.title}</Link>
               </h3>
             </div>
           ))}

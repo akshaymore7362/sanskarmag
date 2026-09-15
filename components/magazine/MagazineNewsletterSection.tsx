@@ -17,14 +17,14 @@ export function MagazineNewsletterSection() {
   };
 
   return (
-    <section style={{ width: "100%", maxWidth: "1440px", margin: "0 auto 60px", padding: "0 6vw" }}>
+    <section style={{ width: "100%", maxWidth: "100%", margin: "0 auto 60px", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
       <div
         className="grid-sidebar-layout magazine-newsletter-card"
         style={{
-          background: "linear-gradient(135deg, #050C18 0%, #0A192F 60%, #050C18 100%)",
-          border: "1px solid rgba(212, 154, 36, 0.35)",
+          background: "linear-gradient(135deg, #0B1E30 0%, #102A43 60%, #0B1E30 100%)",
+          border: "1px solid rgba(30, 64, 175, 0.35)",
           borderRadius: "20px",
-          boxShadow: "0 20px 50px rgba(0, 0, 0, 0.4), 0 0 25px rgba(212, 154, 36, 0.12)",
+          boxShadow: "0 20px 50px rgba(0, 0, 0, 0.4), 0 0 25px rgba(30, 64, 175, 0.12)",
           alignItems: "center",
         }}
       >
@@ -38,15 +38,15 @@ export function MagazineNewsletterSection() {
               height: "300px",
               borderRadius: "14px",
               overflow: "hidden",
-              border: "1px solid rgba(212, 154, 36, 0.4)",
+              border: "1px solid rgba(30, 64, 175, 0.4)",
               boxShadow: "0 20px 40px rgba(0, 0, 0, 0.8)",
               transform: "rotate(-4deg)",
-              background: "linear-gradient(135deg, #0A192F 0%, #0A192F 100%)",
+              background: "linear-gradient(135deg, #102A43 0%, #102A43 100%)",
             }}
           >
             <div style={{ padding: "24px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               <div>
-                <div className="font-serif" style={{ fontSize: "18px", fontWeight: 900, color: "#1E40AF" }}>
+                <div className="font-serif" style={{ fontSize: "18px", fontWeight: 900, color: "#102A43" }}>
                   THE SUCCESS WORLD
                 </div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)", marginTop: "4px", letterSpacing: "1.5px" }}>
@@ -70,7 +70,7 @@ export function MagazineNewsletterSection() {
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#1E40AF",
+              color: "#102A43",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "8px",
@@ -128,7 +128,7 @@ export function MagazineNewsletterSection() {
           {/* 3 Feature Indicators Row (Matching reference image) */}
           <div style={{ display: "flex", gap: "28px", alignItems: "center", flexWrap: "wrap", paddingTop: "16px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Award size={16} style={{ color: "#1E40AF" }} />
+              <Award size={16} style={{ color: "#102A43" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Exclusive Editions</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>Straight to you</div>
@@ -136,7 +136,7 @@ export function MagazineNewsletterSection() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Sparkles size={16} style={{ color: "#1E40AF" }} />
+              <Sparkles size={16} style={{ color: "#102A43" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Inspiring Leaders</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>Real stories, real impact</div>
@@ -144,7 +144,7 @@ export function MagazineNewsletterSection() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <TrendingUp size={16} style={{ color: "#1E40AF" }} />
+              <TrendingUp size={16} style={{ color: "#102A43" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Business Insights</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>That drive growth</div>

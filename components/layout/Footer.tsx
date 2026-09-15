@@ -1,12 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { SuccessWorldMagazineBook } from "@/components/layout/SuccessWorldMagazineBook";
 import {
-  Sparkles,
-  ArrowRight,
-  CheckCircle2,
   Mail,
   ChevronUp,
   ExternalLink,
@@ -15,16 +11,6 @@ import {
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail("");
-    }
-  };
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
@@ -34,56 +20,18 @@ export function Footer() {
 
   return (
     <footer className="footer-dark" aria-label="Global Executive Footer">
-      <div className="footer-container site-shell" style={{ width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 6vw" }}>
+      <div className="footer-container site-shell" style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
         
-        {/* 1. TOP EXECUTIVE NEWSLETTER BRIEFING BANNER */}
-        <div className="footer-newsletter-banner">
-          <div className="footer-newsletter-info">
-            <div className="footer-newsletter-eyebrow">
-              <Sparkles size={13} />
-              EXECUTIVE INTELLIGENCE BRIEFING
-            </div>
-            <h3 className="font-serif footer-newsletter-title">
-              Stay Ahead of Global Markets &amp; Visionary Insights
-            </h3>
-            <p className="footer-newsletter-desc">
-              Join 25,000+ C-suite executives, global leaders, and investors receiving our weekly digital edition.
-            </p>
-          </div>
-
-          {subscribed ? (
-            <div style={{ padding: "12px 20px", background: "rgba(34, 197, 94, 0.12)", border: "1px solid rgba(34, 197, 94, 0.3)", borderRadius: "8px", color: "#15803D", fontWeight: 700, fontSize: "13px", display: "flex", alignItems: "center", gap: "8px" }}>
-              <CheckCircle2 size={16} />
-              <span>Subscribed! Check your inbox for your executive briefing.</span>
-            </div>
-          ) : (
-            <form onSubmit={handleSubscribe} className="footer-newsletter-form">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your executive email..."
-                className="footer-newsletter-input"
-              />
-              <button type="submit" className="footer-newsletter-btn">
-                <span>Subscribe</span>
-                <ArrowRight size={14} />
-              </button>
-            </form>
-          )}
-        </div>
-
-        {/* 2. 5-COLUMN MAIN FOOTER CONTENT GRID */}
+        {/* 5-COLUMN MAIN FOOTER CONTENT GRID */}
         <div className="footer-top-grid">
           {/* Column 1: Brand Info, Tagline & Socials */}
           <div className="footer-brand-col">
-            <Link href="/" className="footer-logo" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "12px" }}>
+            <Link href="/" className="footer-logo" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo-dark-text.png"
                 alt="The Success World Executive Magazine Logo"
-                style={{ height: "38px", maxWidth: "220px", width: "auto", objectFit: "contain" }}
+                style={{ height: "54px", maxWidth: "250px", width: "auto", objectFit: "contain" }}
               />
             </Link>
             <div className="footer-tagline">INSPIRED. INFORMED. EMPOWERED.</div>
@@ -172,7 +120,7 @@ export function Footer() {
               <h4 className="footer-col-title font-serif" style={{ margin: 0 }}>
                 3D SHOWCASE
               </h4>
-              <span style={{ fontSize: "9px", fontWeight: 800, background: "#0A192F", color: "#FFFFFF", padding: "2px 6px", borderRadius: "4px", letterSpacing: "1px" }}>
+              <span style={{ fontSize: "9px", fontWeight: 800, background: "#102A43", color: "#FFFFFF", padding: "2px 6px", borderRadius: "4px", letterSpacing: "1px" }}>
                 2026 EDITION
               </span>
             </div>

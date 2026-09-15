@@ -8,8 +8,6 @@ import type { Article } from "@/types";
 
 export function IntelligenceBrief() {
   const [articles, setArticles] = useState<Article[]>([]);
-  const [subscribed, setSubscribed] = useState(false);
-  const [email, setEmail] = useState("");
 
   useEffect(() => {
     articleService.fetchIntelligenceBriefArticles().then((items) => {
@@ -28,14 +26,6 @@ export function IntelligenceBrief() {
   const secondFeature = articles[1];
   const sidebarBriefing = articles[2];
   const numberedList = articles.slice(3, 7); // 01, 02, 03, 04
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail("");
-    }
-  };
 
   return (
     <section className="tsw-section">
@@ -91,30 +81,6 @@ export function IntelligenceBrief() {
               </Link>
             </div>
           )}
-          <div>
-            <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--ink)", marginBottom: "4px" }}>
-              Stay informed in strategy
-            </div>
-            <p style={{ fontSize: "11.5px", color: "var(--ink-soft)", lineHeight: 1.45, margin: "0 0 12px" }}>
-              Exclusive C-suite market briefings, delivered weekly.
-            </p>
-            {subscribed ? (
-              <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--accent)" }}>
-                ✓ Subscription confirmed. Welcome to The Intelligence Brief.
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="tsw-brief-form">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <button type="submit">Join</button>
-              </form>
-            )}
-          </div>
         </aside>
       </div>
 

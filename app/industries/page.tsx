@@ -9,7 +9,7 @@ import { IndustryValueStrip } from "@/components/industry/IndustryValueStrip";
 
 export default function IndustriesPage() {
   return (
-    <main style={{ background: "#FFFFFF", minHeight: "100vh", paddingBottom: "24px" }}>
+    <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "24px" }}>
       {/* 1. Compact Explore Industries Hero (300-350px high) */}
       <IndustryHero />
 
@@ -24,9 +24,9 @@ export default function IndustriesPage() {
         className="grid-sidebar-layout"
         style={{
           width: "100%",
-          maxWidth: "1280px",
+          maxWidth: "100%",
           margin: "0 auto",
-          padding: "0 6vw 40px",
+          padding: "0 clamp(16px, 2.5vw, 40px) 40px",
         }}
       >
         <LatestIndustryIntelligence />

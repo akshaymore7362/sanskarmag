@@ -87,7 +87,7 @@ export function WebProfilesSection() {
   return (
     <section
       style={{
-        background: "linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%)",
+        background: "var(--editorial-ivory, #F7F5EF)",
         position: "relative",
         padding: "50px 0 70px",
         overflow: "hidden",
@@ -108,8 +108,8 @@ export function WebProfilesSection() {
         viewBox="0 0 500 220"
         fill="none"
       >
-        <path d="M0,220 Q250,110 500,180 T1000,120" stroke="#1E40AF" strokeWidth="1.5" fill="none" />
-        <path d="M0,220 Q250,130 500,195 T1000,140" stroke="#1E40AF" strokeWidth="1" fill="none" />
+        <path d="M0,220 Q250,110 500,180 T1000,120" stroke="#102A43" strokeWidth="1.5" fill="none" />
+        <path d="M0,220 Q250,130 500,195 T1000,140" stroke="#102A43" strokeWidth="1" fill="none" />
       </svg>
 
       <div className="site-shell" style={{ position: "relative", zIndex: 2 }}>
@@ -130,7 +130,7 @@ export function WebProfilesSection() {
                 fontSize: "12px",
                 fontWeight: 800,
                 letterSpacing: "2.5px",
-                color: "#1E40AF",
+                color: "#102A43",
                 textTransform: "uppercase",
                 display: "inline-flex",
                 alignItems: "center",
@@ -138,7 +138,7 @@ export function WebProfilesSection() {
                 marginBottom: "8px",
               }}
             >
-              <Crown size={15} style={{ color: "#1E40AF" }} />
+              <Crown size={15} style={{ color: "#102A43" }} />
               GLOBAL EXECUTIVE SPOTLIGHT
             </div>
             <h2
@@ -146,13 +146,13 @@ export function WebProfilesSection() {
               style={{
                 fontSize: "clamp(28px, 4vw, 44px)",
                 fontWeight: 900,
-                color: "#0A192F",
+                color: "#102A43",
                 lineHeight: 1.1,
                 margin: "0 0 10px",
                 letterSpacing: "-0.5px",
               }}
             >
-              Web <span style={{ color: "#1E40AF" }}>Profiles</span> Wall
+              Web <span style={{ color: "#102A43" }}>Profiles</span> Wall
             </h2>
             <p
               style={{
@@ -173,22 +173,22 @@ export function WebProfilesSection() {
               fontSize: "13px",
               fontWeight: 800,
               letterSpacing: "1.2px",
-              color: "#0A192F",
+              color: "#102A43",
               textTransform: "uppercase",
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
               background: "#FFFFFF",
-              border: "1.5px solid #1E40AF",
+              border: "1.5px solid #102A43",
               padding: "10px 20px",
               borderRadius: "30px",
-              boxShadow: "0 4px 14px rgba(197, 160, 89, 0.15)",
+              boxShadow: "0 4px 14px rgba(147, 197, 253, 0.15)",
               transition: "all 0.25s ease",
             }}
           >
             <span>VIEW ALL ({profiles.length})</span>
-            <ArrowRight size={15} style={{ color: "#1E40AF" }} />
+            <ArrowRight size={15} style={{ color: "#102A43" }} />
           </Link>
         </div>
 
@@ -211,8 +211,10 @@ export function WebProfilesSection() {
               alignItems: "center",
             }}
           >
-            {/* LEFT: Full Uncropped Portrait Image Container (100% full view) */}
-            <div
+            {/* LEFT: Full Uncropped Portrait Image Container (100% full view) — clickable through to the profile */}
+            <Link
+              href={`/leaders/${activeLeader.slug}`}
+              aria-label={`View full profile for ${activeLeader.name}`}
               style={{
                 width: "100%",
                 height: "480px",
@@ -226,6 +228,7 @@ export function WebProfilesSection() {
                 alignItems: "center",
                 justifyContent: "center",
                 padding: "12px",
+                cursor: "pointer",
               }}
             >
               {activeLeader.image ? (
@@ -246,10 +249,10 @@ export function WebProfilesSection() {
                     width: "100%",
                     display: "grid",
                     placeItems: "center",
-                    color: "#1E40AF",
+                    color: "#102A43",
                     fontWeight: 900,
                     fontSize: "72px",
-                    background: "linear-gradient(135deg, #0A192F 0%, #1E293B 100%)",
+                    background: "linear-gradient(135deg, #102A43 0%, #1E293B 100%)",
                   }}
                 >
                   {activeLeader.name.charAt(0)}
@@ -264,19 +267,19 @@ export function WebProfilesSection() {
                   left: "14px",
                   background: "rgba(10, 25, 47, 0.85)",
                   backdropFilter: "blur(8px)",
-                  color: "#1E40AF",
+                  color: "#B7C4CD",
                   padding: "6px 14px",
                   borderRadius: "20px",
                   fontSize: "11px",
                   fontWeight: 800,
                   letterSpacing: "1px",
-                  border: "1px solid rgba(197, 160, 89, 0.4)",
+                  border: "1px solid rgba(147, 197, 253, 0.35)",
                   textTransform: "uppercase",
                 }}
               >
                 FEATURED SPOTLIGHT
               </div>
-            </div>
+            </Link>
 
             {/* RIGHT: Leader Info & Details */}
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -285,7 +288,7 @@ export function WebProfilesSection() {
                   fontSize: "11px",
                   fontWeight: 900,
                   letterSpacing: "2px",
-                  color: "#1E40AF",
+                  color: "#102A43",
                   textTransform: "uppercase",
                 }}
               >
@@ -297,7 +300,7 @@ export function WebProfilesSection() {
                 style={{
                   fontSize: "clamp(30px, 3.5vw, 40px)",
                   fontWeight: 900,
-                  color: "#0A192F",
+                  color: "#102A43",
                   margin: 0,
                   lineHeight: 1.15,
                 }}
@@ -309,7 +312,7 @@ export function WebProfilesSection() {
                 style={{
                   fontSize: "15px",
                   fontWeight: 700,
-                  color: "#1E40AF",
+                  color: "#102A43",
                   letterSpacing: "0.5px",
                 }}
               >
@@ -344,7 +347,7 @@ export function WebProfilesSection() {
                     background: "none",
                     border: "none",
                     padding: "6px 0 0",
-                    color: "#1E40AF",
+                    color: "#102A43",
                     fontSize: "13px",
                     fontWeight: 800,
                     letterSpacing: "0.5px",
@@ -371,13 +374,13 @@ export function WebProfilesSection() {
               >
                 <span
                   style={{
-                    background: "rgba(197, 160, 89, 0.12)",
-                    color: "#0A192F",
+                    background: "rgba(147, 197, 253, 0.12)",
+                    color: "#102A43",
                     padding: "6px 14px",
                     borderRadius: "20px",
                     fontSize: "12px",
                     fontWeight: 700,
-                    border: "1px solid rgba(197, 160, 89, 0.3)",
+                    border: "1px solid rgba(147, 197, 253, 0.3)",
                   }}
                 >
                   Enterprise Leadership
@@ -420,7 +423,7 @@ export function WebProfilesSection() {
                 <Link
                   href={`/leaders/${activeLeader.slug}`}
                   style={{
-                    background: "linear-gradient(135deg, #0A192F 0%, #1E293B 100%)",
+                    background: "linear-gradient(135deg, #102A43 0%, #1E293B 100%)",
                     color: "#FFFFFF",
                     fontSize: "12px",
                     fontWeight: 800,
@@ -437,7 +440,7 @@ export function WebProfilesSection() {
                   }}
                 >
                   <span>VIEW FULL WEB PROFILE</span>
-                  <ArrowRight size={15} style={{ color: "#1E40AF" }} />
+                  <ArrowRight size={15} style={{ color: "#FFFFFF" }} />
                 </Link>
               </div>
             </div>
@@ -450,7 +453,7 @@ export function WebProfilesSection() {
             style={{
               fontSize: "12px",
               fontWeight: 800,
-              color: "#0A192F",
+              color: "#102A43",
               letterSpacing: "1.8px",
               textTransform: "uppercase",
               marginBottom: "14px",
@@ -460,7 +463,12 @@ export function WebProfilesSection() {
             }}
           >
             <span>EXECUTIVE DIRECTORY ({displayProfiles.length})</span>
-            <span style={{ color: "#1E40AF", fontSize: "11px" }}>CLICK TO VIEW PROFILE</span>
+            <Link
+              href={`/leaders/${activeLeader.slug}`}
+              style={{ color: "#102A43", fontSize: "11px", textDecoration: "none", cursor: "pointer" }}
+            >
+              CLICK TO VIEW PROFILE
+            </Link>
           </div>
 
           <div
@@ -486,7 +494,7 @@ export function WebProfilesSection() {
                     gap: "12px",
                     padding: "10px 14px",
                     background: isActive ? "#FFFFFF" : "rgba(255, 255, 255, 0.7)",
-                    border: isActive ? "2px solid #1E40AF" : "1px solid #E2E8F0",
+                    border: isActive ? "2px solid #102A43" : "1px solid #E2E8F0",
                     borderRadius: "12px",
                     textDecoration: "none",
                     cursor: "pointer",
@@ -504,7 +512,7 @@ export function WebProfilesSection() {
                       overflow: "hidden",
                       background: "#0F172A",
                       flexShrink: 0,
-                      border: isActive ? "1px solid #1E40AF" : "1px solid #CBD5E1",
+                      border: isActive ? "1px solid #102A43" : "1px solid #CBD5E1",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -518,7 +526,7 @@ export function WebProfilesSection() {
                         style={{ width: "100%", height: "100%", objectFit: "contain" }}
                       />
                     ) : (
-                      <div style={{ color: "#1E40AF", fontWeight: 800 }}>{leader.name.charAt(0)}</div>
+                      <div style={{ color: "#102A43", fontWeight: 800 }}>{leader.name.charAt(0)}</div>
                     )}
                   </div>
 
@@ -527,7 +535,7 @@ export function WebProfilesSection() {
                       style={{
                         fontSize: "13px",
                         fontWeight: 800,
-                        color: "#0A192F",
+                        color: "#102A43",
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",

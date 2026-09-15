@@ -78,7 +78,7 @@ const defaultLeaders: Leader[] = [
 export const leaderService = {
   all: (): Leader[] => defaultLeaders,
   featured: (): Leader | undefined => defaultLeaders[0],
-  bySlug: (slug: string): Leader | undefined => defaultLeaders.find((l) => l.slug === slug) || defaultLeaders[0],
+  bySlug: (slug: string): Leader | undefined => defaultLeaders.find((l) => l.slug === slug),
 
   fetchSanityLeaders: async (): Promise<Leader[]> => {
     try {

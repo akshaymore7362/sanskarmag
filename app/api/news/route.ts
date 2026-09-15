@@ -14,7 +14,7 @@ const categoryImages: Record<string, string[]> = {
     "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80",
   ],
   "AI & INNOVATION": [
-    "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
   ],
@@ -167,7 +167,7 @@ export async function GET() {
         date: "Today",
         category: "AI & INNOVATION",
         snippet: "Chip fabricators announce multi-billion dollar capital expansions across North American and Asian hubs.",
-        image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+        image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: "fb-5",

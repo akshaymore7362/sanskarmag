@@ -18,7 +18,7 @@ export function ArticleCard({ article, compact = false }: Props) {
         {article.image ? (
           <Image src={article.image} alt={article.imageAlt || article.title} fill className="object-cover" unoptimized />
         ) : (
-          <div style={{ width: "100%", height: "100%", background: "#050C18" }} />
+          <div style={{ width: "100%", height: "100%", background: "#0B1E30" }} />
         )}
       </Link>
       <div>
@@ -32,7 +32,7 @@ export function ArticleCard({ article, compact = false }: Props) {
         <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9CA3AF" }}>
           <span>{article.author || "Editorial"}</span>
           <span>•</span>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#1E40AF" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#102A43" }}>
             <Clock size={12} /> {article.readTime}
           </span>
         </div>

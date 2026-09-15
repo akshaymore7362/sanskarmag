@@ -51,35 +51,41 @@ export function MarketTicker() {
     return () => clearInterval(interval);
   }, []);
 
-  const displayItems = [...items, ...items];
+  // One repeatable loop unit = all quotes + all signal lines. Rendered twice so the
+  // CSS marquee (translateX 0 -> -50%) loops seamlessly with no mid-content jump.
+  const loopUnit = (copy: number) => (
+    <>
+      {items.map((item, idx) => (
+        <div className="ticker-item" key={`q-${copy}-${item.symbol}-${idx}`}>
+          <span className="ticker-symbol">{item.symbol}</span>
+          <span className="ticker-price">{item.price}</span>
+          <span className={`ticker-change ${item.isPositive ? "positive" : "negative"}`}>
+            {item.isPositive ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
+            {item.change}
+          </span>
+        </div>
+      ))}
+      {signalItems.map((sig, sIdx) => (
+        <div className="ticker-item signal-item" key={`sig-${copy}-${sIdx}`}>
+          <span style={{ fontSize: "11px", fontWeight: 600, color: "rgba(255, 255, 255, 0.85)", letterSpacing: "0.5px" }}>{sig}</span>
+        </div>
+      ))}
+    </>
+  );
 
   return (
     <div className="market-ticker-bar" suppressHydrationWarning aria-label="Live Market Ticker">
       {/* Far Left Live Badge */}
       <div className="market-ticker-badge">
         <span className="live-dot" />
-        <Activity size={13} style={{ color: "#1E40AF" }} />
+        <Activity size={13} style={{ color: "#AFC0CB" }} />
         <span>LIVE MARKET</span>
       </div>
 
       <div className="market-ticker-track-wrap">
         <div className="market-ticker-track">
-          {displayItems.map((item, idx) => (
-            <div className="ticker-item" key={`${item.symbol}-${idx}`}>
-              <span className="ticker-symbol">{item.symbol}</span>
-              <span className="ticker-price">{item.price}</span>
-              <span className={`ticker-change ${item.isPositive ? "positive" : "negative"}`}>
-                {item.isPositive ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
-                {item.change}
-              </span>
-            </div>
-          ))}
-
-          {signalItems.map((sig, sIdx) => (
-            <div className="ticker-item signal-item" key={`sig-${sIdx}`}>
-              <span style={{ fontSize: "11px", fontWeight: 600, color: "rgba(255, 255, 255, 0.85)", letterSpacing: "0.5px" }}>{sig}</span>
-            </div>
-          ))}
+          {loopUnit(0)}
+          {loopUnit(1)}
         </div>
       </div>
     </div>

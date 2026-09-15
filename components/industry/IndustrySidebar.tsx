@@ -60,7 +60,7 @@ export function IndustrySidebar() {
           boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", fontWeight: 800, fontSize: "14px", color: "#0A192F", marginBottom: "12px", paddingBottom: "10px", borderBottom: "1px solid #E5E7EB" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", fontWeight: 800, fontSize: "14px", color: "#102A43", marginBottom: "12px", paddingBottom: "10px", borderBottom: "1px solid #E5E7EB" }}>
           <Flame size={15} style={{ color: "#E11D48" }} />
           <span>Trending Industry Story</span>
         </div>
@@ -68,17 +68,17 @@ export function IndustrySidebar() {
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {trendingIndustryArticles.map((item, idx) => (
             <div key={item.slug || String(idx)} style={{ display: "grid", gridTemplateColumns: "18px 56px 1fr", gap: "10px", alignItems: "center" }}>
-              <span style={{ fontSize: "11px", fontWeight: 900, color: "#0A192F", width: "18px", height: "18px", borderRadius: "50%", background: "rgba(80, 7, 28, 0.08)", display: "grid", placeItems: "center" }}>
+              <span style={{ fontSize: "11px", fontWeight: 900, color: "#102A43", width: "18px", height: "18px", borderRadius: "50%", background: "rgba(80, 7, 28, 0.08)", display: "grid", placeItems: "center" }}>
                 {idx + 1}
               </span>
 
-              <div style={{ position: "relative", width: "56px", height: "42px", borderRadius: "5px", overflow: "hidden", background: "#050C18", flexShrink: 0 }}>
+              <div style={{ position: "relative", width: "56px", height: "42px", borderRadius: "5px", overflow: "hidden", background: "#0B1E30", flexShrink: 0 }}>
                 <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
               </div>
 
               <div>
-                <h4 className="font-serif" style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", margin: "0 0 2px", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                  <Link href={`/blogs/${item.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
+                <h4 className="font-serif" style={{ fontSize: "12px", fontWeight: 700, color: "#102A43", margin: "0 0 2px", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                  <Link href={`/blogs/${item.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                     {item.title}
                   </Link>
                 </h4>
@@ -94,8 +94,8 @@ export function IndustrySidebar() {
       {/* 2. WEEKLY BRIEFING (Burgundy Newsletter Box) */}
       <div
         style={{
-          background: "linear-gradient(135deg, #0A192F 0%, #050C18 100%)",
-          border: "1px solid rgba(212, 154, 36, 0.3)",
+          background: "linear-gradient(135deg, #102A43 0%, #0B1E30 100%)",
+          border: "1px solid rgba(30, 64, 175, 0.3)",
           borderRadius: "14px",
           padding: "20px",
           color: "#FFFFFF",
@@ -104,7 +104,7 @@ export function IndustrySidebar() {
           overflow: "hidden",
         }}
       >
-        <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1.5px", color: "#1E40AF", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+        <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1.5px", color: "#102A43", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
           WEEKLY BRIEFING
         </span>
 
@@ -135,7 +135,7 @@ export function IndustrySidebar() {
                 border: "none",
                 borderRadius: "6px",
                 fontSize: "11px",
-                color: "#0A192F",
+                color: "#102A43",
                 outline: "none",
               }}
             />
@@ -151,7 +151,7 @@ export function IndustrySidebar() {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "10px", color: "rgba(255, 255, 255, 0.5)", marginTop: "6px" }}>
           <span>No spam. Unsubscribe at any time.</span>
-          <Mail size={13} style={{ color: "#1E40AF", opacity: 0.6 }} />
+          <Mail size={13} style={{ color: "#102A43", opacity: 0.6 }} />
         </div>
       </div>
     </aside>

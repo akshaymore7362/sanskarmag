@@ -12,7 +12,7 @@ export function IndustryHero() {
         borderBottom: "1px solid #E5E7EB",
         position: "relative",
         overflow: "hidden",
-        padding: "32px 6vw 28px",
+        padding: "32px clamp(16px, 2.5vw, 40px) 28px",
       }}
     >
       {/* Background Subtle Wave Pattern */}
@@ -35,8 +35,8 @@ export function IndustryHero() {
         />
         <defs>
           <linearGradient id="industryWave" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#1E40AF" />
-            <stop offset="100%" stopColor="#0A192F" />
+            <stop offset="0%" stopColor="#102A43" />
+            <stop offset="100%" stopColor="#102A43" />
           </linearGradient>
         </defs>
       </svg>
@@ -45,7 +45,7 @@ export function IndustryHero() {
         className="hero-grid-split"
         style={{
           width: "100%",
-          maxWidth: "1280px",
+          maxWidth: "100%",
           margin: "0 auto",
           position: "relative",
           zIndex: 2,
@@ -58,7 +58,7 @@ export function IndustryHero() {
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#1E40AF",
+              color: "#102A43",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "6px",
@@ -72,7 +72,7 @@ export function IndustryHero() {
             style={{
               fontSize: "clamp(34px, 4.2vw, 50px)",
               fontWeight: 900,
-              color: "#0A192F",
+              color: "#102A43",
               margin: "0 0 10px",
               lineHeight: 1.1,
             }}
@@ -99,30 +99,30 @@ export function IndustryHero() {
               alignItems: "center",
               gap: "32px",
               paddingTop: "16px",
-              borderTop: "1px solid rgba(212, 154, 36, 0.25)",
+              borderTop: "1px solid rgba(30, 64, 175, 0.25)",
               flexWrap: "wrap",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <Layers size={18} style={{ color: "#0A192F" }} />
+              <Layers size={18} style={{ color: "#102A43" }} />
               <div>
-                <div style={{ fontSize: "17px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>12+</div>
+                <div style={{ fontSize: "17px", fontWeight: 900, color: "#102A43", lineHeight: 1.1 }}>12+</div>
                 <div style={{ fontSize: "11px", color: "#4B5563" }}>Industries Covered</div>
               </div>
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <Users size={18} style={{ color: "#0A192F" }} />
+              <Users size={18} style={{ color: "#102A43" }} />
               <div>
-                <div style={{ fontSize: "17px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>5000+</div>
+                <div style={{ fontSize: "17px", fontWeight: 900, color: "#102A43", lineHeight: 1.1 }}>5000+</div>
                 <div style={{ fontSize: "11px", color: "#4B5563" }}>Expert Contributors</div>
               </div>
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <Globe2 size={18} style={{ color: "#0A192F" }} />
+              <Globe2 size={18} style={{ color: "#102A43" }} />
               <div>
-                <div style={{ fontSize: "17px", fontWeight: 900, color: "#0A192F", lineHeight: 1.1 }}>1M+</div>
+                <div style={{ fontSize: "17px", fontWeight: 900, color: "#102A43", lineHeight: 1.1 }}>1M+</div>
                 <div style={{ fontSize: "11px", color: "#4B5563" }}>Monthly Readers</div>
               </div>
             </div>
@@ -162,7 +162,7 @@ export function IndustryHero() {
                 color: "#FFFFFF",
               }}
             >
-              <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px" }}>
+              <span style={{ fontSize: "10px", fontWeight: 800, color: "#102A43", letterSpacing: "1.5px" }}>
                 GLOBAL INTELLIGENCE
               </span>
               <h4 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, margin: "2px 0 0", color: "#FFFFFF" }}>

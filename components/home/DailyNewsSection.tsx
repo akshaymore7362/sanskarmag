@@ -58,7 +58,7 @@ const fallbackNews: NewsItem[] = [
     date: "Today",
     category: "AI & INNOVATION",
     snippet: "Chip fabricators announce multi-billion dollar capital expansions across North American and Asian hubs.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "fb-5",
@@ -78,6 +78,7 @@ export function DailyNewsSection() {
   const [loading, setLoading] = useState(false);
 
   async function loadLiveNews() {
+    setLoading(true);
     try {
       const res = await fetch("/api/news");
       if (res.ok) {
@@ -88,6 +89,8 @@ export function DailyNewsSection() {
       }
     } catch {
       // Retain fallback state
+    } finally {
+      setLoading(false);
     }
   }
 

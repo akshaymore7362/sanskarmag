@@ -24,9 +24,9 @@ export function LeadersSection() {
   const supporting = leaders.slice(1, 3);
 
   return (
-    <section className="py-12 lg:py-16 px-4 md:px-12 max-w-[1280px] mx-auto w-full">
+    <section className="py-12 lg:py-16 px-4 sm:px-6 lg:px-10 w-full max-w-none">
       {/* Header Row */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-[#3B82F6] pb-4 mb-8 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-[#6F8498] pb-4 mb-8 gap-4">
         <div>
           <span className="text-[#1E3A8A] text-xs font-bold tracking-widest uppercase mb-2 block">
             WEB PROFILES
@@ -59,7 +59,7 @@ export function LeadersSection() {
                   unoptimized
                 />
               ) : (
-                <div className="w-full h-full bg-[#0a192f] text-[#3B82F6] flex items-center justify-center font-serif text-2xl font-bold">
+                <div className="w-full h-full bg-[#102A43] text-[#6F8498] flex items-center justify-center font-serif text-2xl font-bold">
                   {featured.name.charAt(0)}
                 </div>
               )}
@@ -75,7 +75,7 @@ export function LeadersSection() {
               </h3>
 
               <div className="text-gray-600 text-sm font-semibold mb-3">
-                {featured.role} &bull; <span className="text-[#0a192f]">{featured.company}</span>
+                {featured.role} &bull; <span className="text-[#102A43]">{featured.company}</span>
               </div>
 
               {featured.bio && (
@@ -86,7 +86,7 @@ export function LeadersSection() {
 
               <Link
                 href={`/leaders/${featured.slug}`}
-                className="text-[#0a192f] font-bold text-xs tracking-wider uppercase hover:text-[#1E3A8A] flex items-center gap-1 mt-auto"
+                className="text-[#102A43] font-bold text-xs tracking-wider uppercase hover:text-[#1E3A8A] flex items-center gap-1 mt-auto"
               >
                 <span>View Full Profile</span>
                 <ArrowRight size={14} />

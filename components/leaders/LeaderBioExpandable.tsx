@@ -22,11 +22,11 @@ export function LeaderBioExpandable({ bio }: Props) {
         border: "1px solid #E2E8F0",
         borderRadius: "12px",
         padding: "20px 24px",
-        borderLeft: "4px solid #1E40AF",
+        borderLeft: "4px solid #102A43",
         position: "relative",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px", color: "#1E40AF" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px", color: "#102A43" }}>
         <Quote size={18} />
         <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase" }}>
           Executive Biography &amp; Profile Summary
@@ -76,9 +76,9 @@ export function LeaderBioExpandable({ bio }: Props) {
           style={{
             marginTop: "12px",
             background: "transparent",
-            border: "1px solid #1E40AF",
+            border: "1px solid #102A43",
             borderRadius: "20px",
-            color: "#0A192F",
+            color: "#102A43",
             padding: "6px 16px",
             fontSize: "12px",
             fontWeight: 800,
@@ -90,7 +90,7 @@ export function LeaderBioExpandable({ bio }: Props) {
           }}
         >
           <span>{isExpanded ? "Show Less" : "Read Full Profile"}</span>
-          {isExpanded ? <ChevronUp size={14} style={{ color: "#1E40AF" }} /> : <ChevronDown size={14} style={{ color: "#1E40AF" }} />}
+          {isExpanded ? <ChevronUp size={14} style={{ color: "#102A43" }} /> : <ChevronDown size={14} style={{ color: "#102A43" }} />}
         </button>
       )}
     </div>

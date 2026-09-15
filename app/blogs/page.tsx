@@ -51,7 +51,7 @@ export default function BlogsPage() {
   const visibleArticles = filteredArticles.slice(0, visibleCount);
 
   return (
-    <main style={{ background: "#FFFFFF", minHeight: "100vh", paddingBottom: "24px" }}>
+    <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "24px" }}>
       {/* 1. Hero Banner */}
       <BlogHeroBanner />
 
@@ -69,9 +69,9 @@ export default function BlogsPage() {
         className="grid-sidebar-layout"
         style={{
           width: "100%",
-          maxWidth: "1440px",
+          maxWidth: "100%",
           margin: "0 auto",
-          padding: "0 6vw 24px",
+          padding: "0 clamp(16px, 2.5vw, 40px) 24px",
         }}
       >
         {/* Left Column: Numbered Editorial Article Feed */}
@@ -94,18 +94,18 @@ export default function BlogsPage() {
                   gap: "6px",
                   padding: "9px 24px",
                   background: "#FFFFFF",
-                  border: "2px solid #0A192F",
+                  border: "2px solid #102A43",
                   borderRadius: "20px",
                   fontSize: "12px",
                   fontWeight: 800,
-                  color: "#0A192F",
+                  color: "#102A43",
                   cursor: "pointer",
                   boxShadow: "0 2px 8px rgba(80, 7, 28, 0.05)",
                   transition: "all 0.2s ease",
                 }}
               >
                 <span>Load More Articles</span>
-                <span style={{ color: "#1E40AF", fontWeight: 900 }}>↓</span>
+                <span style={{ color: "#102A43", fontWeight: 900 }}>↓</span>
               </button>
             </div>
           )}

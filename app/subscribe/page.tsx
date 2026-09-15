@@ -40,23 +40,23 @@ const tiers = [
 
 export default function SubscribePage() {
   return (
-    <main className="site-shell inner-shell" style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="site-shell inner-shell" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "60px" }}>
       <PageIntro
         title="Subscribe to The Success World"
         intro="Get full access to print issues, digital archives, quarterly magazines and exclusive executive briefings."
         eyebrow="Membership & Access"
       />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto" }}>
         <section style={{ marginBottom: "48px" }}>
           <div className="grid-responsive-2" style={{ maxWidth: "960px", margin: "0 auto" }}>
             {tiers.map((tier) => (
               <div
                 key={tier.name}
                 style={{
-                  background: tier.popular ? "#0A192F" : "#FFFFFF",
-                  border: tier.popular ? "2px solid #1E40AF" : "1px solid #E5E7EB",
-                  color: tier.popular ? "#FFFFFF" : "#0A192F",
+                  background: tier.popular ? "#102A43" : "#FFFFFF",
+                  border: tier.popular ? "2px solid #102A43" : "1px solid #E5E7EB",
+                  color: tier.popular ? "#FFFFFF" : "#102A43",
                   borderRadius: "20px",
                   padding: "36px",
                   display: "flex",
@@ -67,7 +67,7 @@ export default function SubscribePage() {
                 }}
               >
                 {tier.popular && (
-                  <span style={{ position: "absolute", top: "-12px", right: "24px", background: "#1E40AF", color: "#050C18", fontSize: "10px", fontWeight: 800, padding: "4px 12px", borderRadius: "12px", letterSpacing: "1px" }}>
+                  <span style={{ position: "absolute", top: "-12px", right: "24px", background: "#102A43", color: "#0B1E30", fontSize: "10px", fontWeight: 800, padding: "4px 12px", borderRadius: "12px", letterSpacing: "1px" }}>
                     RECOMMENDED
                   </span>
                 )}
@@ -75,31 +75,33 @@ export default function SubscribePage() {
                 <div>
                   <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, marginBottom: "8px" }}>{tier.name}</h3>
                   <div style={{ display: "flex", alignItems: "baseline", gap: "4px", marginBottom: "24px" }}>
-                    <span className="font-serif" style={{ fontSize: "44px", fontWeight: 900, color: "#1E40AF" }}>{tier.price}</span>
+                    <span className="font-serif" style={{ fontSize: "44px", fontWeight: 900, color: "#102A43" }}>{tier.price}</span>
                     <span style={{ fontSize: "14px", color: tier.popular ? "#94A3B8" : "#4B5563" }}>{tier.period}</span>
                   </div>
 
                   <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px 0", display: "flex", flexDirection: "column", gap: "12px" }}>
                     {tier.features.map((feat) => (
-                      <li key={feat} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: tier.popular ? "#F8FAFC" : "#0A192F" }}>
-                        <Check size={16} style={{ color: "#1E40AF", flexShrink: 0 }} />
+                      <li key={feat} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: tier.popular ? "#F8FAFC" : "#102A43" }}>
+                        <Check size={16} style={{ color: "#102A43", flexShrink: 0 }} />
                         <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <button type="button" className="btn btn-blue-gradient" style={{ width: "100%", justifyContent: "center" }}>
+                <a href="#newsletter-signup" className="btn btn-blue-gradient" style={{ width: "100%", justifyContent: "center", textDecoration: "none" }}>
                   <Sparkles size={16} />
                   <span>{tier.cta}</span>
-                </button>
+                </a>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Newsletter Section */}
-        <NewsletterSection />
+        {/* Newsletter Section — the tier CTAs above scroll to this signup form */}
+        <div id="newsletter-signup">
+          <NewsletterSection />
+        </div>
       </div>
     </main>
   );

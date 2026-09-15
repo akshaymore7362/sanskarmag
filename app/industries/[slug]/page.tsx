@@ -10,6 +10,7 @@ import {
 import { industryService } from "@/services/industryService";
 import { articleService } from "@/services/articleService";
 import { SectorArticleFeed } from "@/components/industry/SectorArticleFeed";
+import { IndustryBriefingForm } from "@/components/industry/IndustryBriefingForm";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -137,7 +138,7 @@ export default async function IndustryDetailPage({ params }: Props) {
   ];
 
   return (
-    <main style={{ background: "#F9FAFB", minHeight: "100vh", paddingBottom: "24px", color: "#0A192F" }}>
+    <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "24px", color: "#102A43" }}>
       {/* 1. HERO — ART-DIRECTED LUXURY MAGAZINE COMPOSITION */}
       <section
         style={{
@@ -152,8 +153,9 @@ export default async function IndustryDetailPage({ params }: Props) {
         <div
           style={{
             width: "100%",
-            maxWidth: "1280px",
+            maxWidth: "100%",
             margin: "0 auto",
+            padding: "0 clamp(16px, 2.5vw, 40px)",
             display: "grid",
             gridTemplateColumns: "1.1fr 0.9fr",
             gap: "36px",
@@ -169,7 +171,7 @@ export default async function IndustryDetailPage({ params }: Props) {
               style={{
                 fontSize: "11px",
                 fontWeight: 700,
-                color: "#0A192F",
+                color: "#102A43",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "5px",
@@ -186,7 +188,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                 fontSize: "10px",
                 fontWeight: 800,
                 letterSpacing: "1.8px",
-                color: "#1E40AF",
+                color: "#102A43",
                 textTransform: "uppercase",
                 display: "block",
                 marginBottom: "4px",
@@ -200,7 +202,7 @@ export default async function IndustryDetailPage({ params }: Props) {
               style={{
                 fontSize: "clamp(36px, 4.5vw, 56px)",
                 fontWeight: 900,
-                color: "#0A192F",
+                color: "#102A43",
                 margin: "0 0 8px",
                 lineHeight: 1.05,
               }}
@@ -233,7 +235,7 @@ export default async function IndustryDetailPage({ params }: Props) {
               }}
             >
               <Activity size={13} style={{ color: "#22C55E" }} />
-              <span style={{ fontSize: "11px", fontWeight: 700, color: "#0A192F" }}>
+              <span style={{ fontSize: "11px", fontWeight: 700, color: "#102A43" }}>
                 Market Signal: <span style={{ color: "#22C55E", fontWeight: 800 }}>+14% Market Activity</span>
               </span>
             </div>
@@ -274,7 +276,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                   color: "#FFFFFF",
                 }}
               >
-                <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px" }}>
+                <span style={{ fontSize: "10px", fontWeight: 800, color: "#102A43", letterSpacing: "1.5px" }}>
                   EXECUTIVE BRIEFING
                 </span>
                 <h3 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, margin: "2px 0 0", color: "#FFFFFF" }}>
@@ -287,7 +289,7 @@ export default async function IndustryDetailPage({ params }: Props) {
       </section>
 
       {/* 2. DRAMATIC FEATURED STORY SPREAD */}
-      <section style={{ width: "100%", maxWidth: "1280px", margin: "24px auto 28px", padding: "0 6vw" }}>
+      <section style={{ width: "100%", maxWidth: "100%", margin: "24px auto 28px", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
         <div
           style={{
             background: "linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%)",
@@ -306,7 +308,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                 fontSize: "10px",
                 fontWeight: 800,
                 letterSpacing: "1.5px",
-                color: "#0A192F",
+                color: "#102A43",
                 textTransform: "uppercase",
                 display: "block",
                 marginBottom: "6px",
@@ -320,12 +322,12 @@ export default async function IndustryDetailPage({ params }: Props) {
               style={{
                 fontSize: "clamp(22px, 2.5vw, 30px)",
                 fontWeight: 900,
-                color: "#0A192F",
+                color: "#102A43",
                 margin: "0 0 10px",
                 lineHeight: 1.2,
               }}
             >
-              <Link href={`/blogs/${leadStory.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
+              <Link href={`/blogs/${leadStory.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                 {leadStory.title}
               </Link>
             </h2>
@@ -363,7 +365,7 @@ export default async function IndustryDetailPage({ params }: Props) {
             </div>
           </div>
 
-          <div style={{ position: "relative", minHeight: "260px", background: "#0A192F" }}>
+          <div style={{ position: "relative", minHeight: "260px", background: "#102A43" }}>
             <Image
               src={leadStory.image || config.heroImage}
               alt={leadStory.title}
@@ -380,7 +382,7 @@ export default async function IndustryDetailPage({ params }: Props) {
                 top: 0,
                 bottom: 0,
                 width: "80px",
-                background: "linear-gradient(180deg, #0A192F 0%, #050C18 100%)",
+                background: "linear-gradient(180deg, #102A43 0%, #0B1E30 100%)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
@@ -400,7 +402,7 @@ export default async function IndustryDetailPage({ params }: Props) {
       </section>
 
       {/* 3. THREE LARGE EDITORIAL WORLDS (Magazine Spreads) */}
-      <section style={{ width: "100%", maxWidth: "1280px", margin: "0 auto 32px", padding: "0 6vw" }}>
+      <section style={{ width: "100%", maxWidth: "100%", margin: "0 auto 32px", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
           {editorialWorlds.map((ew, ewIdx) => {
             const isEven = ewIdx % 2 === 1;
@@ -417,32 +419,32 @@ export default async function IndustryDetailPage({ params }: Props) {
                 }}
               >
                 {!isEven && (
-                  <div style={{ position: "relative", width: "100%", height: "140px", borderRadius: "10px", overflow: "hidden", background: "#050C18" }}>
+                  <div style={{ position: "relative", width: "100%", height: "140px", borderRadius: "10px", overflow: "hidden", background: "#0B1E30" }}>
                     <Image src={ew.image} alt={ew.title} fill className="object-cover" unoptimized />
                   </div>
                 )}
 
                 <div>
-                  <div style={{ fontSize: "22px", fontWeight: 900, color: "#1E40AF", fontFamily: "serif", lineHeight: 1 }}>{ew.num}</div>
-                  <span style={{ fontSize: "10px", fontWeight: 800, color: "#0A192F", letterSpacing: "1.2px", textTransform: "uppercase", display: "block", margin: "2px 0" }}>
+                  <div style={{ fontSize: "22px", fontWeight: 900, color: "#102A43", fontFamily: "serif", lineHeight: 1 }}>{ew.num}</div>
+                  <span style={{ fontSize: "10px", fontWeight: 800, color: "#102A43", letterSpacing: "1.2px", textTransform: "uppercase", display: "block", margin: "2px 0" }}>
                     {ew.tag}
                   </span>
-                  <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#0A192F", margin: "0 0 6px" }}>
-                    <Link href={`/blogs/${ew.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
+                  <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#102A43", margin: "0 0 6px" }}>
+                    <Link href={`/blogs/${ew.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                       {ew.title}
                     </Link>
                   </h3>
                   <p style={{ fontSize: "13px", color: "#6B7280", lineHeight: 1.5, maxWidth: "680px", marginBottom: "8px" }}>
                     {ew.desc}
                   </p>
-                  <Link href={`/blogs/${ew.slug}`} style={{ fontSize: "12px", fontWeight: 800, color: "#0A192F", display: "inline-flex", alignItems: "center", gap: "5px", textDecoration: "none" }}>
+                  <Link href={`/blogs/${ew.slug}`} style={{ fontSize: "12px", fontWeight: 800, color: "#102A43", display: "inline-flex", alignItems: "center", gap: "5px", textDecoration: "none" }}>
                     <span>Explore Intelligence</span>
                     <ArrowRight size={13} />
                   </Link>
                 </div>
 
                 {isEven && (
-                  <div style={{ position: "relative", width: "100%", height: "140px", borderRadius: "10px", overflow: "hidden", background: "#050C18" }}>
+                  <div style={{ position: "relative", width: "100%", height: "140px", borderRadius: "10px", overflow: "hidden", background: "#0B1E30" }}>
                     <Image src={ew.image} alt={ew.title} fill className="object-cover" unoptimized />
                   </div>
                 )}
@@ -460,7 +462,7 @@ export default async function IndustryDetailPage({ params }: Props) {
       />
 
       {/* 5. EDITORIAL NEWSLETTER INVITATION */}
-      <section style={{ width: "100%", maxWidth: "1280px", margin: "0 auto", padding: "0 6vw" }}>
+      <section style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
         <div
           style={{
             background: "linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%)",
@@ -476,10 +478,10 @@ export default async function IndustryDetailPage({ params }: Props) {
           }}
         >
           <div>
-            <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "10px", fontWeight: 800, color: "#102A43", letterSpacing: "1.5px", textTransform: "uppercase" }}>
               EXECUTIVE BRIEFING
             </span>
-            <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#0A192F", margin: "3px 0 4px" }}>
+            <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#102A43", margin: "3px 0 4px" }}>
               Stay Ahead in {industry.name}
             </h3>
             <p style={{ fontSize: "12px", color: "#6B7280", margin: 0, maxWidth: "480px" }}>
@@ -487,29 +489,7 @@ export default async function IndustryDetailPage({ params }: Props) {
             </p>
           </div>
 
-          <div style={{ display: "flex", gap: "8px", width: "100%", maxWidth: "380px" }}>
-            <input
-              type="email"
-              placeholder="Enter work email address"
-              style={{
-                flex: 1,
-                padding: "9px 12px",
-                background: "#FFFFFF",
-                border: "1px solid #E5E7EB",
-                borderRadius: "6px",
-                fontSize: "12px",
-                outline: "none",
-                color: "#0A192F",
-              }}
-            />
-            <button
-              type="button"
-              className="btn btn-blue-gradient"
-              style={{ padding: "9px 20px", fontSize: "12px", fontWeight: 800, borderRadius: "6px", border: "none", flexShrink: 0 }}
-            >
-              Subscribe Now
-            </button>
-          </div>
+          <IndustryBriefingForm industryName={industry.name} />
         </div>
       </section>
     </main>

@@ -167,7 +167,7 @@ export function GlobalChatWidget() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Chat & Suggestion Box"
           style={{
-            background: "linear-gradient(135deg, #0A192F 0%, #1E40AF 100%)",
+            background: "linear-gradient(135deg, #102A43 0%, #102A43 100%)",
             color: "#FFFFFF",
             border: "1px solid rgba(255, 255, 255, 0.2)",
             borderRadius: "30px",
@@ -176,7 +176,7 @@ export function GlobalChatWidget() {
             alignItems: "center",
             gap: "10px",
             cursor: "pointer",
-            boxShadow: "0 8px 24px rgba(139, 16, 41, 0.4)",
+            boxShadow: "0 8px 24px rgba(30, 64, 175, 0.4)",
             transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
@@ -198,7 +198,7 @@ export function GlobalChatWidget() {
                     height: "9px",
                     background: "#22C55E",
                     borderRadius: "50%",
-                    border: "2px solid #0A192F",
+                    border: "2px solid #102A43",
                   }}
                 />
               </div>
@@ -233,13 +233,13 @@ export function GlobalChatWidget() {
           {/* Header Bar */}
           <div
             style={{
-              background: "linear-gradient(135deg, #0A192F 0%, #0A192F 100%)",
+              background: "linear-gradient(135deg, #102A43 0%, #102A43 100%)",
               color: "#FFFFFF",
               padding: "16px 20px",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              borderBottom: "1px solid rgba(139, 16, 41, 0.4)",
+              borderBottom: "1px solid rgba(30, 64, 175, 0.4)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -248,10 +248,10 @@ export function GlobalChatWidget() {
                   width: "36px",
                   height: "36px",
                   borderRadius: "50%",
-                  background: "#1E40AF",
+                  background: "#102A43",
                   display: "grid",
                   placeItems: "center",
-                  boxShadow: "0 4px 10px rgba(139, 16, 41, 0.4)",
+                  boxShadow: "0 4px 10px rgba(30, 64, 175, 0.4)",
                 }}
               >
                 <Bot size={20} style={{ color: "#FFFFFF" }} />
@@ -298,7 +298,7 @@ export function GlobalChatWidget() {
                 fontWeight: 800,
                 cursor: "pointer",
                 background: activeTab === "chat" ? "#FFFFFF" : "transparent",
-                color: activeTab === "chat" ? "#1E40AF" : "#4B5563",
+                color: activeTab === "chat" ? "#102A43" : "#4B5563",
                 boxShadow: activeTab === "chat" ? "0 2px 6px rgba(0,0,0,0.05)" : "none",
                 display: "inline-flex",
                 alignItems: "center",
@@ -322,7 +322,7 @@ export function GlobalChatWidget() {
                 fontWeight: 800,
                 cursor: "pointer",
                 background: activeTab === "suggestion" ? "#FFFFFF" : "transparent",
-                color: activeTab === "suggestion" ? "#1E40AF" : "#4B5563",
+                color: activeTab === "suggestion" ? "#102A43" : "#4B5563",
                 boxShadow: activeTab === "suggestion" ? "0 2px 6px rgba(0,0,0,0.05)" : "none",
                 display: "inline-flex",
                 alignItems: "center",
@@ -364,7 +364,7 @@ export function GlobalChatWidget() {
                     style={{
                       fontSize: "11px",
                       fontWeight: 700,
-                      color: "#0A192F",
+                      color: "#102A43",
                       background: "#FFFFFF",
                       border: "1px solid #E5E7EB",
                       borderRadius: "14px",
@@ -404,8 +404,8 @@ export function GlobalChatWidget() {
                         maxWidth: "85%",
                         padding: "12px 14px",
                         borderRadius: msg.sender === "user" ? "14px 14px 2px 14px" : "14px 14px 14px 2px",
-                        background: msg.sender === "user" ? "#1E40AF" : "#FFFFFF",
-                        color: msg.sender === "user" ? "#FFFFFF" : "#0A192F",
+                        background: msg.sender === "user" ? "#102A43" : "#FFFFFF",
+                        color: msg.sender === "user" ? "#FFFFFF" : "#102A43",
                         border: msg.sender === "user" ? "none" : "1px solid #E5E7EB",
                         boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
                         fontSize: "13px",
@@ -425,9 +425,9 @@ export function GlobalChatWidget() {
                             gap: "4px",
                             fontSize: "11px",
                             fontWeight: 800,
-                            color: "#1E40AF",
+                            color: "#102A43",
                             textDecoration: "none",
-                            background: "rgba(139, 16, 41, 0.08)",
+                            background: "rgba(30, 64, 175, 0.08)",
                             padding: "4px 10px",
                             borderRadius: "6px",
                           }}
@@ -445,7 +445,7 @@ export function GlobalChatWidget() {
 
                 {isTyping && (
                   <div style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 12px", background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "12px", width: "max-content" }}>
-                    <Sparkles size={14} style={{ color: "#1E40AF" }} />
+                    <Sparkles size={14} style={{ color: "#102A43" }} />
                     <span style={{ fontSize: "11px", fontWeight: 700, color: "#4B5563" }}>Assistant is typing...</span>
                   </div>
                 )}
@@ -485,7 +485,7 @@ export function GlobalChatWidget() {
                 <button
                   type="submit"
                   style={{
-                    background: "#1E40AF",
+                    background: "#102A43",
                     color: "#FFFFFF",
                     border: "none",
                     borderRadius: "8px",
@@ -507,7 +507,7 @@ export function GlobalChatWidget() {
               {sugSubmitted ? (
                 <div style={{ textAlign: "center", padding: "30px 10px" }}>
                   <CheckCircle2 size={48} style={{ color: "#22C55E", margin: "0 auto 14px" }} />
-                  <h4 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#0A192F", margin: "0 0 8px" }}>
+                  <h4 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#102A43", margin: "0 0 8px" }}>
                     Thank You for Your Suggestion!
                   </h4>
                   <p style={{ fontSize: "13px", color: "#4B5563", lineHeight: 1.6, margin: "0 0 20px" }}>
@@ -521,7 +521,7 @@ export function GlobalChatWidget() {
                       setActiveTab("chat");
                     }}
                     style={{
-                      background: "#0A192F",
+                      background: "#102A43",
                       color: "#FFFFFF",
                       border: "none",
                       padding: "10px 20px",
@@ -536,7 +536,7 @@ export function GlobalChatWidget() {
                 </div>
               ) : (
                 <form onSubmit={handleSuggestionSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ fontSize: "11px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "-4px" }}>
+                  <div style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "-4px" }}>
                     SHARE YOUR IDEAS &amp; FEEDBACK
                   </div>
 
@@ -545,7 +545,7 @@ export function GlobalChatWidget() {
                   </p>
 
                   <div>
-                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", display: "block", marginBottom: "4px" }}>
+                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", display: "block", marginBottom: "4px" }}>
                       Suggestion Category
                     </label>
                     <select
@@ -561,7 +561,7 @@ export function GlobalChatWidget() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", display: "block", marginBottom: "4px" }}>
+                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", display: "block", marginBottom: "4px" }}>
                       Your Name
                     </label>
                     <input
@@ -575,7 +575,7 @@ export function GlobalChatWidget() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", display: "block", marginBottom: "4px" }}>
+                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", display: "block", marginBottom: "4px" }}>
                       Your Corporate Email
                     </label>
                     <input
@@ -589,7 +589,7 @@ export function GlobalChatWidget() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F", display: "block", marginBottom: "4px" }}>
+                    <label style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", display: "block", marginBottom: "4px" }}>
                       Your Suggestion / Feedback Details
                     </label>
                     <textarea
@@ -605,7 +605,7 @@ export function GlobalChatWidget() {
                   <button
                     type="submit"
                     style={{
-                      background: "#1E40AF",
+                      background: "#102A43",
                       color: "#FFFFFF",
                       border: "none",
                       padding: "11px 20px",
@@ -616,7 +616,7 @@ export function GlobalChatWidget() {
                       textTransform: "uppercase",
                       cursor: "pointer",
                       marginTop: "6px",
-                      boxShadow: "0 4px 12px rgba(139, 16, 41, 0.3)",
+                      boxShadow: "0 4px 12px rgba(30, 64, 175, 0.3)",
                     }}
                   >
                     Submit Suggestion

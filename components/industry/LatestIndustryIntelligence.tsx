@@ -55,11 +55,11 @@ export const industryArticlesList = [
 export function LatestIndustryIntelligence() {
   return (
     <div>
-      <div style={{ marginBottom: "16px", paddingBottom: "10px", borderBottom: "2px solid #0A192F", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#0A192F", margin: 0 }}>
+      <div style={{ marginBottom: "16px", paddingBottom: "10px", borderBottom: "2px solid #102A43", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h2 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#102A43", margin: 0 }}>
           Latest Industry Intelligence
         </h2>
-        <Link href="/blogs" style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", textDecoration: "none" }}>
+        <Link href="/blogs" style={{ fontSize: "12px", fontWeight: 700, color: "#102A43", textDecoration: "none" }}>
           View All Articles →
         </Link>
       </div>
@@ -83,7 +83,7 @@ export function LatestIndustryIntelligence() {
                   aspectRatio: "16 / 10",
                   borderRadius: "8px",
                   overflow: "hidden",
-                  background: "#050C18",
+                  background: "#0B1E30",
                   border: "1px solid #E5E7EB",
                 }}
               >
@@ -99,7 +99,7 @@ export function LatestIndustryIntelligence() {
                   fontWeight: 800,
                   letterSpacing: "1.2px",
                   textTransform: "uppercase",
-                  color: "#0A192F",
+                  color: "#102A43",
                   display: "block",
                   marginBottom: "3px",
                 }}
@@ -112,12 +112,12 @@ export function LatestIndustryIntelligence() {
                 style={{
                   fontSize: "16px",
                   fontWeight: 800,
-                  color: "#0A192F",
+                  color: "#102A43",
                   margin: "0 0 4px",
                   lineHeight: 1.25,
                 }}
               >
-                <Link href={`/blogs/${item.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
+                <Link href={`/blogs/${item.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                   {item.title}
                 </Link>
               </h3>
@@ -155,7 +155,7 @@ export function LatestIndustryIntelligence() {
                   background: "rgba(80, 7, 28, 0.06)",
                   display: "grid",
                   placeItems: "center",
-                  color: "#0A192F",
+                  color: "#102A43",
                   textDecoration: "none",
                 }}
               >

@@ -41,21 +41,21 @@ export function TheBriefingSection() {
       style={{
         width: "100%",
         background: "#F9FAFB",
-        color: "#0A192F",
+        color: "#102A43",
         padding: "56px 20px",
         borderTop: "1px solid #EAE6DF",
         borderBottom: "1px solid #EAE6DF",
       }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
         {/* Section Header */}
-        <div style={{ borderBottom: "2px solid #0A192F", paddingBottom: "12px", marginBottom: "32px" }}>
+        <div style={{ borderBottom: "2px solid #102A43", paddingBottom: "12px", marginBottom: "32px" }}>
           <span
             style={{
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#0A192F",
+              color: "#102A43",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "4px",
@@ -68,7 +68,7 @@ export function TheBriefingSection() {
             style={{
               fontSize: "clamp(28px, 3.2vw, 42px)",
               fontWeight: 900,
-              color: "#0a192f",
+              color: "#102A43",
               margin: 0,
               lineHeight: 1.1,
             }}
@@ -97,7 +97,7 @@ export function TheBriefingSection() {
                   height: "250px",
                   borderRadius: "4px",
                   overflow: "hidden",
-                  background: "#0a192f",
+                  background: "#102A43",
                 }}
               >
                 {mainFeature.image ? (
@@ -113,7 +113,7 @@ export function TheBriefingSection() {
                       height: "100%",
                       display: "grid",
                       placeItems: "center",
-                      color: "#3B82F6",
+                      color: "#6F8498",
                       fontWeight: 800,
                       fontSize: "18px",
                       padding: "20px",
@@ -130,7 +130,7 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "10px",
                     fontWeight: 800,
-                    color: "#0A192F",
+                    color: "#102A43",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
                     display: "block",
@@ -145,12 +145,12 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "20px",
                     fontWeight: 900,
-                    color: "#0a192f",
+                    color: "#102A43",
                     margin: "0 0 8px",
                     lineHeight: 1.3,
                   }}
                 >
-                  <Link href={`/blogs/${mainFeature.slug}`} style={{ color: "#0a192f", textDecoration: "none" }}>
+                  <Link href={`/blogs/${mainFeature.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                     {mainFeature.title}
                   </Link>
                 </h3>
@@ -189,7 +189,7 @@ export function TheBriefingSection() {
                   height: "250px",
                   borderRadius: "4px",
                   overflow: "hidden",
-                  background: "#0a192f",
+                  background: "#102A43",
                 }}
               >
                 {secondFeature.image ? (
@@ -205,7 +205,7 @@ export function TheBriefingSection() {
                       height: "100%",
                       display: "grid",
                       placeItems: "center",
-                      color: "#3B82F6",
+                      color: "#6F8498",
                       fontWeight: 800,
                       fontSize: "18px",
                       padding: "20px",
@@ -222,7 +222,7 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "10px",
                     fontWeight: 800,
-                    color: "#0A192F",
+                    color: "#102A43",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
                     display: "block",
@@ -237,12 +237,12 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "20px",
                     fontWeight: 900,
-                    color: "#0a192f",
+                    color: "#102A43",
                     margin: "0 0 8px",
                     lineHeight: 1.3,
                   }}
                 >
-                  <Link href={`/blogs/${secondFeature.slug}`} style={{ color: "#0a192f", textDecoration: "none" }}>
+                  <Link href={`/blogs/${secondFeature.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                     {secondFeature.title}
                   </Link>
                 </h3>
@@ -289,7 +289,7 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "10px",
                     fontWeight: 800,
-                    color: "#0A192F",
+                    color: "#102A43",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
                     display: "block",
@@ -304,12 +304,12 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "18px",
                     fontWeight: 900,
-                    color: "#0a192f",
+                    color: "#102A43",
                     margin: "0 0 8px",
                     lineHeight: 1.35,
                   }}
                 >
-                  <Link href={`/blogs/${sidebarBriefing.slug}`} style={{ color: "#0a192f", textDecoration: "none" }}>
+                  <Link href={`/blogs/${sidebarBriefing.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                     {sidebarBriefing.title}
                   </Link>
                 </h4>
@@ -325,7 +325,7 @@ export function TheBriefingSection() {
                   style={{
                     fontSize: "11px",
                     fontWeight: 800,
-                    color: "#0A192F",
+                    color: "#102A43",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
                     textDecoration: "none",
@@ -342,7 +342,7 @@ export function TheBriefingSection() {
 
             {/* Newsletter Subscription Area */}
             <div>
-              <div style={{ fontSize: "13px", fontWeight: 800, color: "#0a192f", marginBottom: "4px" }}>
+              <div style={{ fontSize: "13px", fontWeight: 800, color: "#102A43", marginBottom: "4px" }}>
                 Stay Informed in Strategy
               </div>
               <p style={{ fontSize: "11px", color: "#6B7280", lineHeight: 1.4, margin: "0 0 12px" }}>
@@ -350,7 +350,7 @@ export function TheBriefingSection() {
               </p>
 
               {subscribed ? (
-                <div style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", background: "#E5E7EB", padding: "10px 12px", borderRadius: "4px" }}>
+                <div style={{ fontSize: "12px", fontWeight: 700, color: "#102A43", background: "#E5E7EB", padding: "10px 12px", borderRadius: "4px" }}>
                   ✓ Subscription confirmed. Welcome to The Briefing.
                 </div>
               ) : (
@@ -374,7 +374,7 @@ export function TheBriefingSection() {
                   <button
                     type="submit"
                     style={{
-                      background: "#0A192F",
+                      background: "#102A43",
                       color: "#ffffff",
                       border: "none",
                       padding: "8px 14px",
@@ -395,7 +395,7 @@ export function TheBriefingSection() {
 
         {/* BOTTOM ROW: Numbered Editorial Story List (01, 02, 03, 04...) */}
         {numberedList.length > 0 && (
-          <div style={{ borderTop: "1px solid #0A192F", paddingTop: "28px" }}>
+          <div style={{ borderTop: "1px solid #102A43", paddingTop: "28px" }}>
             <div
               style={{
                 display: "grid",
@@ -419,7 +419,7 @@ export function TheBriefingSection() {
                     style={{
                       fontSize: "28px",
                       fontWeight: 300,
-                      color: "#0A192F",
+                      color: "#102A43",
                       lineHeight: 1,
                     }}
                   >
@@ -430,7 +430,7 @@ export function TheBriefingSection() {
                     style={{
                       fontSize: "10px",
                       fontWeight: 800,
-                      color: "#0A192F",
+                      color: "#102A43",
                       letterSpacing: "1.5px",
                       textTransform: "uppercase",
                     }}
@@ -443,12 +443,12 @@ export function TheBriefingSection() {
                     style={{
                       fontSize: "16px",
                       fontWeight: 800,
-                      color: "#0a192f",
+                      color: "#102A43",
                       margin: 0,
                       lineHeight: 1.35,
                     }}
                   >
-                    <Link href={`/blogs/${story.slug}`} style={{ color: "#0a192f", textDecoration: "none" }}>
+                    <Link href={`/blogs/${story.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                       {story.title}
                     </Link>
                   </h4>
@@ -479,7 +479,7 @@ export function TheBriefingSection() {
                 style={{
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#0A192F",
+                  color: "#102A43",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
                   textDecoration: "none",

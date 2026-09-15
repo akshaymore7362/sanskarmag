@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronDown, Menu, Search, X, ArrowUpRight, Sparkles, Clock, Award } from "lucide-react";
-import { useState, useRef, useEffect, useMemo } from "react";
-import { MarketTicker } from "@/components/layout/MarketTicker";
+import { useState, useRef, useEffect, useMemo, useLayoutEffect } from "react";
+import { createPortal } from "react-dom";
 import { NominateModal } from "@/components/modals/NominateModal";
 import { articleService } from "@/services/articleService";
 import type { Article } from "@/types";
@@ -55,7 +55,7 @@ function highlightMatch(text: string, query: string) {
     <>
       {parts.map((part, i) =>
         part.toLowerCase() === query.toLowerCase() ? (
-          <mark key={i} style={{ background: "#1E40AF", color: "#050C18", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
+          <mark key={i} style={{ background: "#102A43", color: "#FFFFFF", padding: "0 3px", borderRadius: "3px", fontWeight: 800 }}>
             {part}
           </mark>
         ) : (
@@ -76,7 +76,34 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [allArticles, setAllArticles] = useState<Article[]>([]);
   const dropdownTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(96);
+  // Portals need `document`, which doesn't exist during SSR — render the
+  // portal only once mounted on the client.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
+  // Track the real rendered header height so the mobile menu panel can sit
+  // flush beneath it at any breakpoint, without hardcoding per-breakpoint
+  // pixel values that can drift out of sync with the CSS.
+  useLayoutEffect(() => {
+    if (typeof window === "undefined" || !headerRef.current) return;
+    const update = () => setHeaderHeight(headerRef.current?.offsetHeight || 96);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Safety: never leave the page scroll-locked if the header unmounts while a
+  // drawer or the search overlay is still open (e.g. a route change).
+  useEffect(() => {
+    return () => {
+      if (typeof document !== "undefined") document.body.style.overflow = "";
+    };
+  }, []);
+
+  // Toggling the menu only ever changes `overflow` — never scroll position —
+  // so the page stays exactly where the user was when they tapped the icon.
   const toggleMenu = (open: boolean) => {
     setMenuOpen(open);
     if (typeof document !== "undefined") {
@@ -97,12 +124,13 @@ export function Header() {
 
   // Fetch Sanity articles for instant search
   useEffect(() => {
+    if (!searchOpen || allArticles.length > 0) return;
     articleService.fetchSanityArticles().then((items) => {
       if (items && items.length > 0) {
         setAllArticles(items);
       }
     });
-  }, []);
+  }, [searchOpen, allArticles.length]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -149,11 +177,8 @@ export function Header() {
   };
 
   return (
-    <header className="header" suppressHydrationWarning style={{ background: "#0A192F", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
-      {/* 1. Live Market Ticker */}
-      <MarketTicker />
-
-      {/* 2. Main Navigation Bar */}
+    <header ref={headerRef} className="header tsw-in-header" suppressHydrationWarning style={{ background: "#102A43", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
+      {/* Main Navigation Bar */}
       <nav className="mainnav" aria-label="Main Navigation">
         {/* Brand Logo & Title Stacked (Executive Logo) */}
         <Link href="/" className="nav-logo" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0, padding: "3px 0" }}>
@@ -161,14 +186,18 @@ export function Header() {
           <img
             src="/logo-white-text.png"
             alt="The Success World Executive Magazine Logo"
-            style={{ height: "38px", maxWidth: "220px", width: "auto", objectFit: "contain", flexShrink: 0 }}
+            style={{ height: "56px", maxWidth: "260px", width: "auto", objectFit: "contain", flexShrink: 0 }}
           />
         </Link>
 
         {/* Desktop Navigation Links */}
         <div className="navlinks">
           {nav.map((item) => {
-            const isActive = pathname === item.href || (item.href !== "/" && item.href !== "#" && pathname.startsWith(item.href));
+            const isDirectMatch = pathname === item.href || (item.href !== "/" && item.href !== "#" && pathname.startsWith(item.href));
+            const isSubItemMatch = Boolean(
+              item.subItems?.some((sub) => pathname === sub.href || pathname.startsWith(sub.href + "/"))
+            );
+            const isActive = isDirectMatch || isSubItemMatch;
             const isDropdownOpen = activeDropdown === item.label;
 
             return (
@@ -185,7 +214,6 @@ export function Header() {
                   style={{
                     fontSize: "14px",
                     fontWeight: 700,
-                    color: isActive ? "#1E40AF" : "#FFFFFF",
                     position: "relative",
                     padding: "24px 0",
                     display: "flex",
@@ -198,11 +226,10 @@ export function Header() {
                     <ChevronDown
                       size={13}
                       className={`dropdown-chevron ${isDropdownOpen ? "open" : ""}`}
-                      style={{ color: isActive ? "#1E40AF" : "rgba(255, 255, 255, 0.6)" }}
                     />
                   )}
                   {isActive && (
-                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#1E40AF", borderRadius: "2px", boxShadow: "0 0 8px rgba(197, 160, 89, 0.6)" }} />
+                    <div style={{ position: "absolute", bottom: "0", left: 0, right: 0, height: "3px", background: "#6F8498", borderRadius: "2px", boxShadow: "0 0 8px rgba(111, 132, 152, 0.45)" }} />
                   )}
                 </Link>
 
@@ -219,20 +246,26 @@ export function Header() {
                         <span className="dropdown-header-badge">{item.subItems.length} Categories</span>
                       </div>
                       <div className="dropdown-items-grid">
-                        {item.subItems.map((sub) => (
-                          <Link
-                            key={sub.label}
-                            href={sub.href}
-                            className="dropdown-item"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            <div className="dropdown-item-header">
-                              <span className="dropdown-item-title">{sub.label}</span>
-                              <ArrowUpRight size={13} className="dropdown-icon" />
-                            </div>
-                            {sub.desc && <p className="dropdown-item-desc">{sub.desc}</p>}
-                          </Link>
-                        ))}
+                        {item.subItems.map((sub) => {
+                          const isSubActive = pathname === sub.href || pathname.startsWith(sub.href + "/");
+                          return (
+                            <Link
+                              key={sub.label}
+                              href={sub.href}
+                              className={`dropdown-item ${isSubActive ? "active" : ""}`}
+                              onClick={() => setActiveDropdown(null)}
+                              style={isSubActive ? { borderColor: "var(--nav-gold-dim)", background: "var(--nav-gold-bg-hover)" } : undefined}
+                            >
+                              <div className="dropdown-item-header">
+                                <span className="dropdown-item-title" style={isSubActive ? { color: "#AFC0CB" } : undefined}>
+                                  {sub.label}
+                                </span>
+                                <ArrowUpRight size={13} className="dropdown-icon" />
+                              </div>
+                              {sub.desc && <p className="dropdown-item-desc">{sub.desc}</p>}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -269,19 +302,15 @@ export function Header() {
           <button
             type="button"
             onClick={() => setNominateOpen(true)}
+            className="btn btn-nominate"
             style={{
               display: "flex",
               alignItems: "center",
               gap: "6px",
               padding: "8px 14px",
-              background: "transparent",
-              border: "1px solid #1E40AF",
               borderRadius: "6px",
-              color: "#1E40AF",
               fontSize: "13px",
-              fontWeight: 700,
               cursor: "pointer",
-              transition: "all 0.2s ease",
             }}
           >
             <Award size={14} />
@@ -291,34 +320,30 @@ export function Header() {
           {/* Subscribe Button */}
           <Link
             href="/subscribe"
+            className="btn btn-subscribe"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
               padding: "8px 16px",
-              background: "#1E40AF",
-              border: "1px solid #1E40AF",
               borderRadius: "6px",
-              color: "#0A192F",
               fontSize: "13px",
-              fontWeight: 700,
               textDecoration: "none",
               cursor: "pointer",
-              transition: "all 0.2s ease",
             }}
           >
             <span>Subscribe</span>
           </Link>
 
-          {/* Mobile Hamburger Trigger */}
+          {/* Mobile Hamburger Trigger — stays put in the fixed navbar, icon morphs ☰ ↔ ✕ */}
           <button
             type="button"
             className="mobile-trigger"
-            aria-label="Toggle navigation menu"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
-            onClick={() => toggleMenu(true)}
+            onClick={() => toggleMenu(!menuOpen)}
           >
-            <Menu size={22} />
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </nav>
@@ -329,7 +354,7 @@ export function Header() {
           <div className="search-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "680px", maxHeight: "85vh", display: "flex", flexDirection: "column" }}>
             <form onSubmit={handleSearchSubmit} className="search-modal-header">
               <div className="search-input-wrap">
-                <Search size={20} className="search-modal-icon" style={{ color: "#1E40AF" }} />
+                <Search size={20} className="search-modal-icon" style={{ color: "#AFC0CB" }} />
                 <input
                   name="q"
                   value={searchQuery}
@@ -360,7 +385,7 @@ export function Header() {
                 <div>
                   <div className="search-modal-label" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span>FOUND {liveResults.length} MATCHING STORIES</span>
-                    <button type="button" onClick={handleSearchSubmit} style={{ color: "#1E40AF", fontWeight: 700, fontSize: "11px", background: "none", border: "none", cursor: "pointer" }}>
+                    <button type="button" onClick={handleSearchSubmit} style={{ color: "#AFC0CB", fontWeight: 700, fontSize: "11px", background: "none", border: "none", cursor: "pointer" }}>
                       View Full Results Page →
                     </button>
                   </div>
@@ -391,7 +416,7 @@ export function Header() {
                             </div>
                           )}
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", textTransform: "uppercase" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#AFC0CB", textTransform: "uppercase" }}>
                               {highlightMatch(item.category || "Story", searchQuery)}
                             </div>
                             <h4 className="font-serif" style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF", margin: "2px 0", lineHeight: 1.3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
@@ -436,69 +461,69 @@ export function Header() {
         </div>
       )}
 
-      {/* 4. Full-Screen Mobile Drawer Navigation */}
-      {menuOpen && (
-        <div className="mobile-drawer-overlay" onClick={() => toggleMenu(false)}>
-          <div className="mobile-drawer" onClick={(e) => e.stopPropagation()}>
-            <div className="mobile-drawer-header">
-              <div style={{ display: "flex", alignItems: "center" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo-white-text.png"
-                  alt="The Success World"
-                  style={{ height: "28px", maxWidth: "160px", width: "auto", objectFit: "contain" }}
-                />
-              </div>
+      {/* 4. Mobile Navigation — opens as a dropdown panel directly beneath the
+          fixed navbar, at whatever scroll position the user is already at.
+          Never touches window.scrollTo / scroll position.
+          Rendered through a portal straight into <body>: position:fixed only
+          tracks the true viewport when nothing between it and <body> sets a
+          transform/filter/perspective. Keeping it inside <header> risked
+          exactly that (the header used backdrop-filter), which is what made
+          the menu appear to "jump" — it was fixed to the header box, not the
+          viewport. Portaling removes that ancestor chain entirely. */}
+      {mounted && menuOpen && createPortal(
+        <>
+          <div className="mobile-menu-backdrop" style={{ top: headerHeight }} onClick={() => toggleMenu(false)} />
+          <div className="mobile-menu-panel" style={{ top: headerHeight, maxHeight: `calc(100dvh - ${headerHeight}px)` }}>
+            <div className="mobile-menu-list">
+              {nav.map((item) => {
+                const isDirectMatch = pathname === item.href || (item.href !== "/" && item.href !== "#" && pathname.startsWith(item.href));
+                const isSubItemMatch = Boolean(item.subItems?.some((sub) => pathname === sub.href || pathname.startsWith(sub.href + "/")));
+                const isActive = isDirectMatch || isSubItemMatch;
 
-              <button
-                type="button"
-                className="drawer-close-btn"
-                onClick={() => toggleMenu(false)}
-                aria-label="Close mobile navigation"
-              >
-                <X size={22} />
-              </button>
-            </div>
-
-            <div className="mobile-drawer-body">
-              <div className="mobile-nav-list">
-                {nav.map((item) => (
-                  <div key={item.label} className="mobile-nav-item">
-                    <Link
-                      href={item.href}
-                      className="mobile-nav-link"
-                      onClick={() => toggleMenu(false)}
-                    >
-                      <span>{item.label}</span>
-                      <ArrowUpRight size={16} />
-                    </Link>
-
-                    {item.subItems && (
-                      <div className="mobile-subnav-list">
-                        {item.subItems.map((sub) => (
+                if (item.dropdown && item.subItems) {
+                  return (
+                    <div key={item.label} className="mobile-menu-group">
+                      <span className="mobile-menu-group-label">{item.label}</span>
+                      {item.subItems.map((sub) => {
+                        const isSubActive = pathname === sub.href || pathname.startsWith(sub.href + "/");
+                        return (
                           <Link
                             key={sub.label}
                             href={sub.href}
-                            className="mobile-subnav-link"
+                            className={`mobile-menu-link ${isSubActive ? "active" : ""}`}
                             onClick={() => toggleMenu(false)}
                           >
-                            {sub.label}
+                            <span>{sub.label}</span>
+                            <ArrowUpRight size={15} />
                           </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
 
-              <div className="mobile-drawer-footer">
-                <Link href="/subscribe" className="btn btn-blue-gradient w-full text-center" onClick={() => toggleMenu(false)}>
-                  <Sparkles size={16} /> Subscribe to Magazine
-                </Link>
-              </div>
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={`mobile-menu-link ${isActive ? "active" : ""}`}
+                    onClick={() => toggleMenu(false)}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight size={15} />
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="mobile-menu-footer">
+              <Link href="/subscribe" className="btn btn-subscribe w-full text-center" onClick={() => toggleMenu(false)}>
+                <Sparkles size={16} /> Subscribe to Magazine
+              </Link>
             </div>
           </div>
-        </div>
+        </>,
+        document.body
       )}
 
       {/* 5. Executive Nominate Modal Dialog */}

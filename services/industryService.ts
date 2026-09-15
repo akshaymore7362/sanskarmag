@@ -115,8 +115,8 @@ const defaultIndustries: Industry[] = [
 export const industryService = {
   all: (): Industry[] => defaultIndustries,
 
-  bySlug: (slug: string): Industry => {
-    if (!slug) return defaultIndustries[0];
+  bySlug: (slug: string): Industry | undefined => {
+    if (!slug) return undefined;
     const s = slug.toLowerCase().trim();
 
     // 1. Direct match
@@ -125,54 +125,40 @@ export const industryService = {
 
     // 2. Alias mapping
     if (s.includes("tech") || s.includes("ai") || s.includes("software")) {
-      return defaultIndustries.find((i) => i.slug === "tech-ai") || defaultIndustries[0];
+      return defaultIndustries.find((i) => i.slug === "tech-ai");
     }
     if (s.includes("health") || s.includes("bio") || s.includes("pharma") || s.includes("med")) {
-      return defaultIndustries.find((i) => i.slug === "healthcare") || defaultIndustries[1];
+      return defaultIndustries.find((i) => i.slug === "healthcare");
     }
     if (s.includes("fin") || s.includes("bank") || s.includes("market") || s.includes("crypto")) {
-      return defaultIndustries.find((i) => i.slug === "finance") || defaultIndustries[2];
+      return defaultIndustries.find((i) => i.slug === "finance");
     }
     if (s.includes("real") || s.includes("estate") || s.includes("prop") || s.includes("property")) {
-      return defaultIndustries.find((i) => i.slug === "real-estate") || defaultIndustries[3];
+      return defaultIndustries.find((i) => i.slug === "real-estate");
     }
     if (s.includes("energy") || s.includes("solar") || s.includes("climate") || s.includes("power")) {
-      return defaultIndustries.find((i) => i.slug === "energy") || defaultIndustries[4];
+      return defaultIndustries.find((i) => i.slug === "energy");
     }
     if (s.includes("trans") || s.includes("ev") || s.includes("auto") || s.includes("logistics") || s.includes("mobility")) {
-      return defaultIndustries.find((i) => i.slug === "transportation") || defaultIndustries[5];
+      return defaultIndustries.find((i) => i.slug === "transportation");
     }
     if (s.includes("manufactur") || s.includes("factory") || s.includes("industrial")) {
-      return defaultIndustries.find((i) => i.slug === "manufacturing") || defaultIndustries[6];
+      return defaultIndustries.find((i) => i.slug === "manufacturing");
     }
     if (s.includes("edu") || s.includes("learn")) {
-      return defaultIndustries.find((i) => i.slug === "education") || defaultIndustries[7];
+      return defaultIndustries.find((i) => i.slug === "education");
     }
     if (s.includes("retail") || s.includes("shop") || s.includes("commerce")) {
-      return defaultIndustries.find((i) => i.slug === "retail") || defaultIndustries[8];
+      return defaultIndustries.find((i) => i.slug === "retail");
     }
     if (s.includes("media") || s.includes("content") || s.includes("film")) {
-      return defaultIndustries.find((i) => i.slug === "media") || defaultIndustries[9];
+      return defaultIndustries.find((i) => i.slug === "media");
     }
     if (s.includes("law") || s.includes("legal")) {
-      return defaultIndustries.find((i) => i.slug === "legal") || defaultIndustries[10];
+      return defaultIndustries.find((i) => i.slug === "legal");
     }
 
-    // 3. Dynamic Fallback
-    const formattedTitle = s
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-
-    return {
-      slug: s,
-      name: formattedTitle || "Industry Sector",
-      descriptor: "Executive Intelligence",
-      overview: `Sector analysis, market shifts, and executive perspectives defining the future of ${formattedTitle}.`,
-      marketSignal: "+15% Market Growth",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
-      imageAlt: formattedTitle,
-    };
+    return undefined;
   },
 
   fetchSanityIndustries: async (): Promise<Industry[]> => {

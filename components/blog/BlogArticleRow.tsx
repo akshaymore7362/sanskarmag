@@ -28,7 +28,7 @@ export function BlogArticleRow({ article, index }: Props) {
         style={{
           fontSize: "26px",
           fontWeight: 800,
-          color: "#1E40AF",
+          color: "#102A43",
           opacity: 0.95,
         }}
       >
@@ -44,14 +44,14 @@ export function BlogArticleRow({ article, index }: Props) {
             aspectRatio: "16 / 10",
             borderRadius: "8px",
             overflow: "hidden",
-            background: "#050C18",
+            background: "#0B1E30",
             border: "1px solid #E5E7EB",
           }}
         >
           {article.image ? (
             <Image src={article.image} alt={article.title} fill className="object-cover" unoptimized />
           ) : (
-            <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#0A192F", color: "#1E40AF", fontWeight: 800, fontSize: "14px" }}>
+            <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#102A43", color: "#102A43", fontWeight: 800, fontSize: "14px" }}>
               TSW
             </div>
           )}
@@ -66,7 +66,7 @@ export function BlogArticleRow({ article, index }: Props) {
             fontWeight: 800,
             letterSpacing: "1.2px",
             textTransform: "uppercase",
-            color: "#0A192F",
+            color: "#102A43",
             display: "block",
             marginBottom: "3px",
           }}
@@ -79,12 +79,12 @@ export function BlogArticleRow({ article, index }: Props) {
           style={{
             fontSize: "18px",
             fontWeight: 800,
-            color: "#0A192F",
+            color: "#102A43",
             margin: "0 0 4px",
             lineHeight: 1.25,
           }}
         >
-          <Link href={`/blogs/${article.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
+          <Link href={`/blogs/${article.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
             {article.title}
           </Link>
         </h3>
@@ -106,7 +106,7 @@ export function BlogArticleRow({ article, index }: Props) {
 
         {/* Meta Author & Publication Date Row */}
         <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#4B5563" }}>
-          <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: "#E5E7EB", display: "grid", placeItems: "center", color: "#0A192F" }}>
+          <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: "#E5E7EB", display: "grid", placeItems: "center", color: "#102A43" }}>
             <User size={10} />
           </div>
           <span style={{ fontWeight: 600, color: "#4B5563" }}>{article.author || "Editorial Board"}</span>
@@ -117,7 +117,7 @@ export function BlogArticleRow({ article, index }: Props) {
 
       {/* 4. Read Time Vertical Badge (Bold 5 on top, MIN READ below) */}
       <div style={{ textAlign: "right" }}>
-        <div style={{ fontSize: "20px", fontWeight: 900, color: "#0A192F", lineHeight: 1 }}>
+        <div style={{ fontSize: "20px", fontWeight: 900, color: "#102A43", lineHeight: 1 }}>
           {article.readTime ? article.readTime.replace(/[^0-9]/g, "") || "5" : "5"}
         </div>
         <div style={{ fontSize: "8px", fontWeight: 800, color: "#94A3B8", letterSpacing: "0.8px", textTransform: "uppercase", marginTop: "2px" }}>

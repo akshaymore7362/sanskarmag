@@ -9,6 +9,7 @@ interface Props {
   searchQuery: string;
   onSearchChange: (q: string) => void;
   totalFilteredCount: number;
+  yearCounts?: Record<string, number>;
 }
 
 export function MagazineFilterBar({
@@ -18,14 +19,15 @@ export function MagazineFilterBar({
   searchQuery,
   onSearchChange,
   totalFilteredCount,
+  yearCounts = {},
 }: Props) {
   return (
     <div
       style={{
         width: "100%",
-        maxWidth: "1440px",
+        maxWidth: "100%",
         margin: "0 auto",
-        padding: "24px 6vw 12px",
+        padding: "24px clamp(16px, 2.5vw, 40px) 12px",
         display: "flex",
         flexDirection: "column",
         gap: "16px",
@@ -41,12 +43,12 @@ export function MagazineFilterBar({
           gap: "16px",
         }}
       >
-        {/* Direct Year Buttons: All Years, 2026, 2025, 2024 */}
+        {/* Direct Year Buttons: ALL (23), 2026 (6), 2025 (10), 2024 (7) */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px", marginRight: "4px" }}>
-            <Calendar size={18} style={{ color: "#1E40AF" }} />
-            <span style={{ fontSize: "13px", fontWeight: 800, color: "#0A192F", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-              Year:
+            <Calendar size={18} style={{ color: "#102A43" }} />
+            <span style={{ fontSize: "13px", fontWeight: 800, color: "#102A43", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Filter:
             </span>
           </div>
 
@@ -60,19 +62,22 @@ export function MagazineFilterBar({
           >
             {availableYears.map((yr) => {
               const isSelected = selectedYear === yr;
+              const count = yearCounts[yr];
+              const label = count !== undefined ? (yr === "All Years" ? `ALL (${count})` : `${yr} (${count})`) : yr;
+
               return (
                 <button
                   key={yr}
                   type="button"
                   onClick={() => onSelectYear(yr)}
                   style={{
-                    padding: "9px 20px",
+                    padding: "9px 18px",
                     borderRadius: "8px",
                     fontSize: "13px",
                     fontWeight: 800,
                     whiteSpace: "nowrap",
-                    border: isSelected ? "2px solid #0A192F" : "1px solid #CBD5E1",
-                    background: isSelected ? "#0A192F" : "#FFFFFF",
+                    border: isSelected ? "2px solid #102A43" : "1px solid #CBD5E1",
+                    background: isSelected ? "#102A43" : "#FFFFFF",
                     color: isSelected ? "#FFFFFF" : "#334155",
                     cursor: "pointer",
                     transition: "all 0.2s ease",
@@ -80,7 +85,7 @@ export function MagazineFilterBar({
                     flexShrink: 0,
                   }}
                 >
-                  {yr}
+                  {label}
                 </button>
               );
             })}
@@ -110,7 +115,7 @@ export function MagazineFilterBar({
               borderRadius: "8px",
               fontSize: "13px",
               outline: "none",
-              color: "#0A192F",
+              color: "#102A43",
               boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
             }}
           />
@@ -126,13 +131,13 @@ export function MagazineFilterBar({
           alignItems: "center",
           fontSize: "13px",
           fontWeight: 700,
-          color: "#0A192F",
+          color: "#102A43",
           borderTop: "1px solid var(--editorial-border, #DDD5CC)",
           paddingTop: "12px",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <Sparkles size={14} style={{ color: "#1E40AF" }} />
+          <Sparkles size={14} style={{ color: "#102A43" }} />
           <span>
             {selectedYear === "All Years" ? "All Publication Years" : `${selectedYear} Published Magazines`}{" "}
             <span style={{ color: "#55545A", fontWeight: 600 }}>({totalFilteredCount} Issues)</span>
@@ -151,7 +156,7 @@ export function MagazineFilterBar({
               border: "none",
               fontSize: "12px",
               fontWeight: 800,
-              color: "#0A192F",
+              color: "#102A43",
               textDecoration: "underline",
               cursor: "pointer",
             }}

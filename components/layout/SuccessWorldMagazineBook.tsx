@@ -7,7 +7,7 @@ import { magazineService } from "@/services/magazineService";
 import type { MagazineIssue } from "@/types";
 
 export function SuccessWorldMagazineBook() {
-  const [magazines, setMagazines] = useState<MagazineIssue[]>([]);
+  const [magazines, setMagazines] = useState<MagazineIssue[]>(() => magazineService.all().slice(0, 6));
   const [activeIdx, setActiveIdx] = useState(0);
   const [bookState, setBookState] = useState<"CLOSED" | "OPEN" | "FLIPPING">("OPEN");
 
@@ -48,15 +48,7 @@ export function SuccessWorldMagazineBook() {
     }, 450);
   }
 
-  const currentMag = magazines[activeIdx] || {
-    title: "Executive Edition 2026",
-    issue: "Edition 01",
-    date: "May 2026",
-    cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
-    pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
-    slug: "executive-magazine-2026",
-  };
-
+  const currentMag = magazines[activeIdx] || magazines[0];
   const nextMag = magazines[(activeIdx + 1) % (magazines.length || 1)] || currentMag;
   const targetLink = currentMag.pdfUrl || `/magazines/${currentMag.slug}`;
   const isExternal = Boolean(currentMag.pdfUrl && currentMag.pdfUrl.startsWith("http"));
@@ -67,8 +59,8 @@ export function SuccessWorldMagazineBook() {
         width: "100%",
         maxWidth: "280px",
         margin: "0 auto",
-        background: "#0A192F",
-        border: "1px solid rgba(197, 160, 89, 0.3)",
+        background: "#102A43",
+        border: "1px solid rgba(147, 197, 253, 0.3)",
         borderRadius: "14px",
         padding: "12px 14px",
         boxShadow: "0 10px 28px rgba(0, 0, 0, 0.25)",
@@ -85,7 +77,7 @@ export function SuccessWorldMagazineBook() {
           marginBottom: "10px",
           fontSize: "10px",
           fontWeight: 800,
-          color: "#1E40AF",
+          color: "#102A43",
           letterSpacing: "1px",
           textTransform: "uppercase",
         }}
@@ -136,7 +128,7 @@ export function SuccessWorldMagazineBook() {
               left: "50%",
               transform: "translateX(-50%)",
               width: "12px",
-              background: "linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(197,160,89,0.3) 50%, rgba(0,0,0,0.6) 100%)",
+              background: "linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(147, 197, 253,0.3) 50%, rgba(0,0,0,0.6) 100%)",
               zIndex: 20,
               pointerEvents: "none",
             }}
@@ -147,7 +139,7 @@ export function SuccessWorldMagazineBook() {
             style={{
               position: "relative",
               height: "100%",
-              background: "#0A192F",
+              background: "#102A43",
               borderRight: "1px solid rgba(255, 255, 255, 0.08)",
               overflow: "hidden",
             }}
@@ -165,7 +157,7 @@ export function SuccessWorldMagazineBook() {
                   height: "100%",
                   display: "grid",
                   placeItems: "center",
-                  color: "#1E40AF",
+                  color: "#102A43",
                   fontSize: "10px",
                   fontWeight: 800,
                   textAlign: "center",
@@ -201,7 +193,7 @@ export function SuccessWorldMagazineBook() {
             }}
           >
             <div>
-              <div style={{ fontSize: "9px", fontWeight: 800, color: "#1E40AF", marginBottom: "3px" }}>
+              <div style={{ fontSize: "9px", fontWeight: 800, color: "#102A43", marginBottom: "3px" }}>
                 {currentMag.date || "2026"}
               </div>
               <div
@@ -250,8 +242,8 @@ export function SuccessWorldMagazineBook() {
                   gap: "4px",
                   width: "100%",
                   padding: "5px 6px",
-                  background: "#1E40AF",
-                  color: "#0A192F",
+                  background: "#102A43",
+                  color: "#102A43",
                   borderRadius: "5px",
                   fontSize: "9.5px",
                   fontWeight: 900,
@@ -260,7 +252,7 @@ export function SuccessWorldMagazineBook() {
                   boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
                 }}
               >
-                <span>Read PDF</span>
+                <span>Read Digital Edition</span>
                 <ExternalLink size={10} />
               </a>
             ) : (
@@ -274,8 +266,8 @@ export function SuccessWorldMagazineBook() {
                   gap: "4px",
                   width: "100%",
                   padding: "5px 6px",
-                  background: "#1E40AF",
-                  color: "#0A192F",
+                  background: "#102A43",
+                  color: "#102A43",
                   borderRadius: "5px",
                   fontSize: "9.5px",
                   fontWeight: 900,
@@ -284,7 +276,7 @@ export function SuccessWorldMagazineBook() {
                   boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
                 }}
               >
-                <span>Open Issue</span>
+                <span>Read Digital Edition</span>
                 <BookOpen size={10} />
               </Link>
             )}
@@ -336,7 +328,7 @@ export function SuccessWorldMagazineBook() {
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
-                background: "#0A192F",
+                background: "#102A43",
                 overflow: "hidden",
               }}
             >

@@ -59,8 +59,8 @@ export function BlogFilterBar({
                 fontSize: "12px",
                 fontWeight: 700,
                 whiteSpace: "nowrap",
-                border: isActive ? "1px solid #0A192F" : "1px solid #E5E7EB",
-                background: isActive ? "#0A192F" : "#FFFFFF",
+                border: isActive ? "1px solid #102A43" : "1px solid #E5E7EB",
+                background: isActive ? "#102A43" : "#FFFFFF",
                 color: isActive ? "#FFFFFF" : "#4B5563",
                 cursor: "pointer",
                 transition: "all 0.2s ease",
@@ -88,7 +88,7 @@ export function BlogFilterBar({
             borderRadius: "6px",
             fontSize: "12px",
             outline: "none",
-            color: "#0A192F",
+            color: "#102A43",
           }}
         />
         <Search size={15} style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8", pointerEvents: "none" }} />

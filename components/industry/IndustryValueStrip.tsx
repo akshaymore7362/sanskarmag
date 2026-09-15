@@ -17,7 +17,7 @@ export function IndustryValueStrip() {
         background: "#F9FAFB",
         borderTop: "1px solid #E5E7EB",
         borderBottom: "1px solid #E5E7EB",
-        padding: "16px 6vw",
+        padding: "16px clamp(16px, 2.5vw, 40px)",
         margin: "24px 0 0",
       }}
     >
@@ -25,7 +25,7 @@ export function IndustryValueStrip() {
         className="grid-responsive-4"
         style={{
           width: "100%",
-          maxWidth: "1280px",
+          maxWidth: "100%",
           margin: "0 auto",
           alignItems: "center",
         }}
@@ -42,14 +42,14 @@ export function IndustryValueStrip() {
                   background: "rgba(80, 7, 28, 0.08)",
                   display: "grid",
                   placeItems: "center",
-                  color: "#0A192F",
+                  color: "#102A43",
                   flexShrink: 0,
                 }}
               >
                 <IconComp size={16} />
               </div>
               <div>
-                <div style={{ fontSize: "12px", fontWeight: 800, color: "#0A192F" }}>{item.title}</div>
+                <div style={{ fontSize: "12px", fontWeight: 800, color: "#102A43" }}>{item.title}</div>
                 <div style={{ fontSize: "10px", color: "#4B5563" }}>{item.subtitle}</div>
               </div>
             </div>

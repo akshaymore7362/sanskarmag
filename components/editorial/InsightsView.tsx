@@ -70,7 +70,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
         eyebrow="Voices & Analysis"
       />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto" }}>
         {/* Navigation Category Bar */}
         <div style={{ display: "flex", gap: "20px", borderBottom: "2px solid #E5E7EB", marginBottom: "28px", overflowX: "auto" }}>
           {filterCategories.map((cat) => (
@@ -81,8 +81,8 @@ export function InsightsView({ initialCategory = "All" }: Props) {
                 padding: "10px 0",
                 fontSize: "14px",
                 fontWeight: 700,
-                color: selectedCategory === cat ? "#0A192F" : "#4B5563",
-                borderBottom: selectedCategory === cat ? "3px solid #1E40AF" : "none",
+                color: selectedCategory === cat ? "#102A43" : "#4B5563",
+                borderBottom: selectedCategory === cat ? "3px solid #102A43" : "none",
                 marginBottom: "-2px",
                 cursor: "pointer",
                 whiteSpace: "nowrap",
@@ -96,9 +96,9 @@ export function InsightsView({ initialCategory = "All" }: Props) {
         {/* Featured Insight */}
         {featured && (
           <section style={{ marginBottom: "40px" }}>
-            <div style={{ background: "#0A192F", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "20px", overflow: "hidden", display: "grid", gridTemplateColumns: "1.2fr 1fr" }}>
+            <div style={{ background: "#102A43", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "20px", overflow: "hidden", display: "grid", gridTemplateColumns: "1.2fr 1fr" }}>
               <div style={{ padding: "40px", color: "#FFFFFF", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <span className="hero-gold-pill-sm" style={{ background: "#1E40AF", color: "#050C18", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, width: "fit-content", marginBottom: "12px" }}>
+                <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#0B1E30", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, width: "fit-content", marginBottom: "12px" }}>
                   FEATURED INSIGHT
                 </span>
                 <h2 className="font-serif" style={{ fontSize: "32px", fontWeight: 900, color: "#FFFFFF", marginBottom: "14px", lineHeight: 1.2 }}>
@@ -131,7 +131,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
         {/* 3-Column White Grid */}
         <section style={{ marginBottom: "48px" }}>
           <div className="section-header-row" style={{ marginBottom: "20px" }}>
-            <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F" }}>More Strategic Essays</h2>
+            <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#102A43" }}>More Strategic Essays</h2>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
@@ -143,7 +143,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
                   </div>
                 )}
                 <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#7C3AED" }}>{article.category || "Insight"}</span>
-                <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#0A192F", margin: "6px 0 8px", lineHeight: 1.3 }}>
+                <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#102A43", margin: "6px 0 8px", lineHeight: 1.3 }}>
                   <Link href={`/blogs/${article.slug}`}>{article.title}</Link>
                 </h3>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#4B5563" }}>

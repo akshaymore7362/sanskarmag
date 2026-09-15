@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { MagazineHeroBanner } from "@/components/magazine/MagazineHeroBanner";
 import { MagazineFilterBar } from "@/components/magazine/MagazineFilterBar";
 import { MagazineCardGrid } from "@/components/magazine/MagazineCardGrid";
 import { MagazineNewsletterSection } from "@/components/magazine/MagazineNewsletterSection";
@@ -8,13 +9,17 @@ import { magazineService } from "@/services/magazineService";
 import type { MagazineIssue } from "@/types";
 
 export default function MagazinesPage() {
-  const [sanityIssues, setSanityIssues] = useState<MagazineIssue[]>([]);
+  const [sanityIssues, setSanityIssues] = useState<MagazineIssue[]>(() => magazineService.all());
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState("All Years");
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     magazineService.fetchSanityMagazines().then((data) => {
-      if (data && data.length > 0) setSanityIssues(data);
+      if (data && data.length > 0) {
+        setSanityIssues(data);
+      }
+      setIsLoading(false);
     });
   }, []);
 
@@ -32,6 +37,16 @@ export default function MagazinesPage() {
 
     const sortedYears = Array.from(yearsSet).sort((a, b) => Number(b) - Number(a));
     return ["All Years", ...sortedYears];
+  }, [sanityIssues]);
+
+  // Calculate publication count per year tab
+  const yearCounts = useMemo(() => {
+    const counts: Record<string, number> = { "All Years": sanityIssues.length };
+    sanityIssues.forEach((issue) => {
+      const yr = issue.year || issue.date?.match(/\b(19\d{2}|20\d{2})\b/)?.[1];
+      if (yr) counts[yr] = (counts[yr] || 0) + 1;
+    });
+    return counts;
   }, [sanityIssues]);
 
   // Filter Sanity Magazines by selected year & search query, preserving published sequence (latest first)
@@ -53,8 +68,11 @@ export default function MagazinesPage() {
   }, [sanityIssues, selectedYear, searchQuery]);
 
   return (
-    <main style={{ background: "var(--editorial-ivory, #F5F1EA)", minHeight: "100vh", paddingBottom: "40px" }}>
-      {/* 1. Filter & Search Bar with Clean Direct Year Selector */}
+    <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "40px" }}>
+      {/* 1. Hero 3D Featured Magazine Stack Banner */}
+      {sanityIssues.length > 0 && <MagazineHeroBanner issues={sanityIssues.slice(0, 6)} />}
+
+      {/* 2. Filter & Search Bar with Dynamic Year Selector */}
       <MagazineFilterBar
         availableYears={availableYears}
         selectedYear={selectedYear}
@@ -62,13 +80,15 @@ export default function MagazinesPage() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         totalFilteredCount={filteredCards.length}
+        yearCounts={yearCounts}
       />
 
-      {/* 2. Authentic Sanity Magazine Cards Grid in Published Sequence */}
+      {/* 3. Dynamic Sanity Magazine Library Grid */}
       <MagazineCardGrid issues={filteredCards} />
 
-      {/* 3. Stay Inspired Newsletter Section */}
+      {/* 4. Executive Newsletter Subscription */}
       <MagazineNewsletterSection />
     </main>
   );
 }
+

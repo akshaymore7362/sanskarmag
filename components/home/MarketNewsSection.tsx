@@ -36,14 +36,14 @@ export function MarketNewsSection() {
   const sideList = stories.slice(0, 3);
 
   return (
-    <section style={{ width: "100%", maxWidth: "1280px", margin: "16px auto", padding: "24px 20px", background: "#f3f4f5", borderRadius: "12px", minHeight: "510px" }}>
+    <section style={{ width: "100%", maxWidth: "100%", margin: "16px 0", padding: "24px clamp(16px, 2.5vw, 40px)", background: "#f3f4f5", borderRadius: "12px", minHeight: "510px" }}>
       {/* Header Row */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-end",
-          borderBottom: "2px solid #3B82F6",
+          borderBottom: "2px solid #6F8498",
           paddingBottom: "10px",
           marginBottom: "16px",
           flexWrap: "wrap",
@@ -54,7 +54,7 @@ export function MarketNewsSection() {
           <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "2px", color: "#1E3A8A", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
             BUSINESS INTELLIGENCE &amp; MARKET DYNAMICS
           </span>
-          <h2 className="font-serif" style={{ fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 900, color: "#0A192F", margin: 0 }}>
+          <h2 className="font-serif" style={{ fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 900, color: "#102A43", margin: 0 }}>
             Market News &amp; Economic Dynamics
           </h2>
         </div>
@@ -82,7 +82,7 @@ export function MarketNewsSection() {
         {/* LEFT COLUMN: Auto-Sliding Market Feature (Fixed Bounds = ZERO Shifting) */}
         {lead && (
           <div style={{ display: "flex", flexDirection: "column", gap: "12px", height: "420px", overflow: "hidden" }}>
-            <div style={{ position: "relative", width: "100%", height: "260px", borderRadius: "10px", overflow: "hidden", background: "#0a192f", flexShrink: 0 }}>
+            <div style={{ position: "relative", width: "100%", height: "260px", borderRadius: "10px", overflow: "hidden", background: "#102A43", flexShrink: 0 }}>
               {lead.image && (
                 <Image
                   src={lead.image}
@@ -98,7 +98,7 @@ export function MarketNewsSection() {
                   position: "absolute",
                   top: "12px",
                   left: "12px",
-                  background: "#0a192f",
+                  background: "#102A43",
                   color: "#ffffff",
                   padding: "5px 12px",
                   fontSize: "10px",
@@ -112,7 +112,7 @@ export function MarketNewsSection() {
                   boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
                 }}
               >
-                <TrendingUp size={13} style={{ color: "#3B82F6" }} />
+                <TrendingUp size={13} style={{ color: "#6F8498" }} />
                 <span>{lead.category || "STOCK MARKET"}</span>
               </div>
             </div>
@@ -128,8 +128,8 @@ export function MarketNewsSection() {
                 </span>
               </div>
 
-              <h3 className="font-serif" style={{ fontSize: "19px", fontWeight: 900, color: "#0A192F", margin: "0 0 4px", lineHeight: 1.3, height: "50px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                <Link href={`/blogs/${lead.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>{lead.title}</Link>
+              <h3 className="font-serif" style={{ fontSize: "19px", fontWeight: 900, color: "#102A43", margin: "0 0 4px", lineHeight: 1.3, height: "50px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                <Link href={`/blogs/${lead.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>{lead.title}</Link>
               </h3>
 
               <p style={{ fontSize: "13px", color: "#4B5563", lineHeight: 1.45, margin: "0 0 8px", height: "38px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
@@ -142,7 +142,7 @@ export function MarketNewsSection() {
                   fontSize: "11px",
                   fontWeight: 800,
                   letterSpacing: "1px",
-                  color: "#0a192f",
+                  color: "#102A43",
                   textTransform: "uppercase",
                   textDecoration: "none",
                   display: "inline-flex",
@@ -198,8 +198,8 @@ export function MarketNewsSection() {
                     {item.category || "MARKET INTELLIGENCE"}
                   </span>
 
-                  <h4 className="font-serif" style={{ fontSize: "13px", fontWeight: 700, color: "#0A192F", margin: "2px 0", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "34px" }}>
-                    <Link href={`/blogs/${item.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>{item.title}</Link>
+                  <h4 className="font-serif" style={{ fontSize: "13px", fontWeight: 700, color: "#102A43", margin: "2px 0", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "34px" }}>
+                    <Link href={`/blogs/${item.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>{item.title}</Link>
                   </h4>
 
                   <span style={{ fontSize: "10px", color: "#6B7280", fontWeight: 600, display: "flex", alignItems: "center", gap: "3px", marginTop: "auto" }}>

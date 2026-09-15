@@ -69,12 +69,12 @@ export default function AdminSuggestionsPage() {
       {/* Top Banner */}
       <div
         style={{
-          background: "linear-gradient(135deg, #0A192F 0%, #0A192F 100%)",
+          background: "linear-gradient(135deg, #102A43 0%, #102A43 100%)",
           color: "#FFFFFF",
           padding: "32px 28px",
           borderRadius: "20px",
           marginBottom: "32px",
-          border: "1px solid rgba(139, 16, 41, 0.4)",
+          border: "1px solid rgba(30, 64, 175, 0.4)",
           boxShadow: "0 12px 36px rgba(0,0,0,0.2)",
           display: "flex",
           justifyContent: "space-between",
@@ -84,8 +84,8 @@ export default function AdminSuggestionsPage() {
         }}
       >
         <div>
-          <div style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "2.5px", color: "#1E40AF", textTransform: "uppercase", marginBottom: "8px", display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(139, 16, 41, 0.15)", padding: "4px 12px", borderRadius: "4px" }}>
-            <ShieldCheck size={14} style={{ color: "#1E40AF" }} /> EDITORIAL BOARD ADMIN PORTAL
+          <div style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "2.5px", color: "#102A43", textTransform: "uppercase", marginBottom: "8px", display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(30, 64, 175, 0.15)", padding: "4px 12px", borderRadius: "4px" }}>
+            <ShieldCheck size={14} style={{ color: "#102A43" }} /> EDITORIAL BOARD ADMIN PORTAL
           </div>
           <h1 className="font-serif" style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, margin: "0 0 6px", color: "#FFFFFF" }}>
             Reader Suggestions &amp; Inbox
@@ -100,7 +100,7 @@ export default function AdminSuggestionsPage() {
           onClick={loadSuggestions}
           disabled={loading}
           style={{
-            background: "#1E40AF",
+            background: "#102A43",
             color: "#FFFFFF",
             border: "none",
             borderRadius: "8px",
@@ -113,7 +113,7 @@ export default function AdminSuggestionsPage() {
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
-            boxShadow: "0 4px 14px rgba(139, 16, 41, 0.35)",
+            boxShadow: "0 4px 14px rgba(30, 64, 175, 0.35)",
           }}
         >
           <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
@@ -127,15 +127,15 @@ export default function AdminSuggestionsPage() {
           <div style={{ fontSize: "11px", fontWeight: 800, color: "#4B5563", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
             Total Suggestions
           </div>
-          <div style={{ fontSize: "28px", fontWeight: 900, color: "#0A192F" }}>{totalCount}</div>
+          <div style={{ fontSize: "28px", fontWeight: 900, color: "#102A43" }}>{totalCount}</div>
         </div>
 
         <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-          <div style={{ fontSize: "11px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px", display: "flex", alignItems: "center", gap: "4px" }}>
-            <span style={{ width: "8px", height: "8px", background: "#1E40AF", borderRadius: "50%" }} />
+          <div style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px", display: "flex", alignItems: "center", gap: "4px" }}>
+            <span style={{ width: "8px", height: "8px", background: "#102A43", borderRadius: "50%" }} />
             New Unreviewed
           </div>
-          <div style={{ fontSize: "28px", fontWeight: 900, color: "#1E40AF" }}>{newCount}</div>
+          <div style={{ fontSize: "28px", fontWeight: 900, color: "#102A43" }}>{newCount}</div>
         </div>
 
         <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
@@ -162,7 +162,7 @@ export default function AdminSuggestionsPage() {
 
         {/* Topic Filter */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Filter size={14} style={{ color: "#1E40AF" }} />
+          <Filter size={14} style={{ color: "#102A43" }} />
           <select
             value={selectedTopic}
             onChange={(e) => setSelectedTopic(e.target.value)}
@@ -195,8 +195,8 @@ export default function AdminSuggestionsPage() {
       <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
         {filteredSuggestions.length === 0 ? (
           <div style={{ padding: "48px 20px", textAlign: "center", color: "#4B5563" }}>
-            <Lightbulb size={36} style={{ color: "#1E40AF", margin: "0 auto 12px", opacity: 0.6 }} />
-            <h4 style={{ fontSize: "16px", fontWeight: 800, color: "#0A192F", margin: "0 0 4px" }}>
+            <Lightbulb size={36} style={{ color: "#102A43", margin: "0 auto 12px", opacity: 0.6 }} />
+            <h4 style={{ fontSize: "16px", fontWeight: 800, color: "#102A43", margin: "0 0 4px" }}>
               No Suggestions Found
             </h4>
             <p style={{ fontSize: "13px", margin: 0 }}>
@@ -224,7 +224,7 @@ export default function AdminSuggestionsPage() {
                         fontSize: "10px",
                         fontWeight: 900,
                         color: "#FFFFFF",
-                        background: "#1E40AF",
+                        background: "#102A43",
                         padding: "3px 10px",
                         borderRadius: "4px",
                         letterSpacing: "1px",
@@ -234,7 +234,7 @@ export default function AdminSuggestionsPage() {
                       {item.topic}
                     </span>
 
-                    <span style={{ fontSize: "14px", fontWeight: 900, color: "#0A192F" }}>
+                    <span style={{ fontSize: "14px", fontWeight: 900, color: "#102A43" }}>
                       {item.name}
                     </span>
 
@@ -242,7 +242,7 @@ export default function AdminSuggestionsPage() {
                       href={`mailto:${item.email}`}
                       style={{ fontSize: "12px", color: "#4B5563", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px" }}
                     >
-                      <Mail size={12} style={{ color: "#1E40AF" }} />
+                      <Mail size={12} style={{ color: "#102A43" }} />
                       <span>{item.email}</span>
                     </a>
                   </div>
@@ -263,8 +263,8 @@ export default function AdminSuggestionsPage() {
                         border: "1px solid #E5E7EB",
                         fontSize: "11px",
                         fontWeight: 800,
-                        background: item.status === "new" ? "rgba(139,16,41,0.1)" : item.status === "reviewed" ? "rgba(34,197,94,0.1)" : "#F3F4F6",
-                        color: item.status === "new" ? "#1E40AF" : item.status === "reviewed" ? "#22C55E" : "#4B5563",
+                        background: item.status === "new" ? "rgba(30, 64, 175,0.1)" : item.status === "reviewed" ? "rgba(34,197,94,0.1)" : "#F3F4F6",
+                        color: item.status === "new" ? "#102A43" : item.status === "reviewed" ? "#22C55E" : "#4B5563",
                         cursor: "pointer",
                       }}
                     >
@@ -275,7 +275,7 @@ export default function AdminSuggestionsPage() {
                   </div>
                 </div>
 
-                <p style={{ fontSize: "14px", color: "#0A192F", lineHeight: 1.5, margin: 0, background: "#F3F4F6", padding: "12px 16px", borderRadius: "8px", border: "1px solid #E5E7EB" }}>
+                <p style={{ fontSize: "14px", color: "#102A43", lineHeight: 1.5, margin: 0, background: "#F3F4F6", padding: "12px 16px", borderRadius: "8px", border: "1px solid #E5E7EB" }}>
                   &ldquo;{item.message}&rdquo;
                 </p>
               </div>

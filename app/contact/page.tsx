@@ -14,50 +14,50 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="contact-page site-shell inner-shell" style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="contact-page site-shell inner-shell" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "60px" }}>
       <PageIntro
         title="Contact Us"
         intro="Reach out to our newsroom, press office, commercial partnerships desk, or executive editorial team."
         eyebrow="Get In Touch"
       />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto" }}>
         <div className="grid-split-layout" style={{ alignItems: "start" }}>
           {/* Left Column: Get In Touch */}
           <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "20px", padding: "36px", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
-            <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "#0A192F", marginBottom: "10px" }}>Get In Touch</h2>
+            <h2 className="font-serif" style={{ fontSize: "28px", fontWeight: 900, color: "#102A43", marginBottom: "10px" }}>Get In Touch</h2>
             <p style={{ color: "#4B5563", fontSize: "14px", lineHeight: 1.6, marginBottom: "32px" }}>
               Have a question or want to work together? We'd love to hear from you.
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#1E40AF", display: "grid", placeItems: "center" }}>
+                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(30, 64, 175, 0.12)", color: "#102A43", display: "grid", placeItems: "center" }}>
                   <Phone size={20} />
                 </div>
                 <div>
                   <div style={{ fontSize: "11px", fontWeight: 800, color: "#4B5563", textTransform: "uppercase" }}>Phone</div>
-                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#0A192F" }}>+1 (212) 555-0199</div>
+                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#102A43" }}>+1 (212) 555-0199</div>
                 </div>
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#1E40AF", display: "grid", placeItems: "center" }}>
+                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(30, 64, 175, 0.12)", color: "#102A43", display: "grid", placeItems: "center" }}>
                   <Mail size={20} />
                 </div>
                 <div>
                   <div style={{ fontSize: "11px", fontWeight: 800, color: "#4B5563", textTransform: "uppercase" }}>Email</div>
-                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#0A192F" }}>hello@thesuccessworld.com</div>
+                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#102A43" }}>hello@thesuccessworld.com</div>
                 </div>
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(212, 154, 36, 0.12)", color: "#1E40AF", display: "grid", placeItems: "center" }}>
+                <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(30, 64, 175, 0.12)", color: "#102A43", display: "grid", placeItems: "center" }}>
                   <MapPin size={20} />
                 </div>
                 <div>
                   <div style={{ fontSize: "11px", fontWeight: 800, color: "#4B5563", textTransform: "uppercase" }}>Office HQ</div>
-                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#0A192F" }}>The Success World HQ, New York, USA</div>
+                  <div style={{ fontSize: "15px", fontWeight: 700, color: "#102A43" }}>The Success World HQ, New York, USA</div>
                 </div>
               </div>
             </div>
@@ -68,13 +68,13 @@ export default function ContactPage() {
             {submitted ? (
               <div style={{ textAlign: "center", padding: "40px 20px" }}>
                 <CheckCircle2 size={48} style={{ color: "#22C55E", margin: "0 auto 16px" }} />
-                <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F" }}>Message Sent!</h3>
+                <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#102A43" }}>Message Sent!</h3>
                 <p style={{ color: "#4B5563", fontSize: "14px", marginTop: "8px" }}>Thank you for reaching out. Our team will get back to you shortly.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
                 <div>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", display: "block", marginBottom: "6px" }}>Your Name</label>
+                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#102A43", display: "block", marginBottom: "6px" }}>Your Name</label>
                   <input
                     type="text"
                     required
@@ -86,7 +86,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", display: "block", marginBottom: "6px" }}>Your Email</label>
+                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#102A43", display: "block", marginBottom: "6px" }}>Your Email</label>
                   <input
                     type="email"
                     required
@@ -98,7 +98,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", display: "block", marginBottom: "6px" }}>Subject</label>
+                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#102A43", display: "block", marginBottom: "6px" }}>Subject</label>
                   <input
                     type="text"
                     required
@@ -110,7 +110,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#0A192F", display: "block", marginBottom: "6px" }}>Your Message</label>
+                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#102A43", display: "block", marginBottom: "6px" }}>Your Message</label>
                   <textarea
                     required
                     rows={4}

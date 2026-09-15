@@ -6,21 +6,21 @@ import { ArrowRight } from "lucide-react";
 
 export function FeaturedIndustryCard() {
   return (
-    <section style={{ width: "100%", maxWidth: "1280px", margin: "0 auto 36px", padding: "0 6vw" }}>
+    <section style={{ width: "100%", maxWidth: "100%", margin: "0 auto 36px", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
       <div
         className="grid-split-layout"
         style={{
           minHeight: "320px",
           borderRadius: "16px",
           overflow: "hidden",
-          border: "1px solid rgba(212, 154, 36, 0.3)",
+          border: "1px solid rgba(30, 64, 175, 0.3)",
           boxShadow: "0 12px 36px rgba(15, 23, 42, 0.25)",
         }}
       >
         {/* LEFT: Burgundy / Navy Panel */}
         <div
           style={{
-            background: "linear-gradient(135deg, #0A192F 0%, #050C18 60%, #0A192F 100%)",
+            background: "linear-gradient(135deg, #102A43 0%, #0B1E30 60%, #102A43 100%)",
             padding: "36px 40px",
             display: "flex",
             flexDirection: "column",
@@ -33,7 +33,7 @@ export function FeaturedIndustryCard() {
               fontSize: "10px",
               fontWeight: 800,
               letterSpacing: "1.5px",
-              color: "#1E40AF",
+              color: "#102A43",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "8px",
@@ -89,7 +89,7 @@ export function FeaturedIndustryCard() {
         </div>
 
         {/* RIGHT: Large Healthcare Tech Image */}
-        <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "320px", background: "#0A192F" }}>
+        <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "320px", background: "#102A43" }}>
           <Image
             src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80"
             alt="Healthcare Technology & AI Diagnostics"

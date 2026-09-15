@@ -16,16 +16,18 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const issue = magazineService.bySlug(slug);
+  const issues = await magazineService.fetchSanityMagazines();
+  const issue = issues.find((item) => item.slug === slug) || magazineService.bySlug(slug);
   if (!issue) return {};
   return { title: `${issue.title} | The Success World`, description: issue.description };
 }
 
 export default async function IssueDetailPage({ params }: Props) {
   const { slug } = await params;
-  const issue = magazineService.bySlug(slug);
+  const issues = await magazineService.fetchSanityMagazines();
+  const issue = issues.find((item) => item.slug === slug) || magazineService.bySlug(slug);
   if (!issue) notFound();
-  const issueArticles = issue.stories
+  const issueArticles = (issue.stories || [])
     .map((story) => articleService.bySlug(story.articleSlug))
     .filter((article): article is NonNullable<typeof article> => Boolean(article));
 

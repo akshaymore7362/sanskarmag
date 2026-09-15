@@ -96,7 +96,7 @@ export function MagazineHeroBanner({ issues }: Props) {
       className="magazine-hero-banner-section"
       style={{
         width: "100%",
-        background: "var(--editorial-ivory, #F5F1EA)",
+        background: "var(--editorial-ivory, #F7F5EF)",
         position: "relative",
         overflow: "hidden",
         borderBottom: "1px solid var(--editorial-border, #DDD5CC)",
@@ -106,8 +106,9 @@ export function MagazineHeroBanner({ issues }: Props) {
       <div
         style={{
           width: "100%",
-          maxWidth: "1440px",
+          maxWidth: "100%",
           margin: "0 auto",
+          padding: "32px clamp(16px, 2.5vw, 40px) 40px",
           position: "relative",
           zIndex: 2,
         }}
@@ -117,7 +118,7 @@ export function MagazineHeroBanner({ issues }: Props) {
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <span
               style={{
-                background: "#0A192F",
+                background: "#102A43",
                 color: "#FFFFFF",
                 fontSize: "10px",
                 fontWeight: 800,
@@ -142,7 +143,7 @@ export function MagazineHeroBanner({ issues }: Props) {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "11px", fontWeight: 800, color: "#0A192F" }}>
+            <span style={{ fontSize: "11px", fontWeight: 800, color: "#102A43" }}>
               0{activeIndex + 1} <span style={{ color: "#55545A" }}>/ 0{issues.length}</span>
             </span>
 
@@ -155,7 +156,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                     background: "#FFFFFF",
                     border: "1px solid #CBD5E1",
                     borderRadius: "50%",
-                    color: "#0A192F",
+                    color: "#102A43",
                     width: "28px",
                     height: "28px",
                     cursor: "pointer",
@@ -170,8 +171,8 @@ export function MagazineHeroBanner({ issues }: Props) {
                   type="button"
                   onClick={handleNext}
                   style={{
-                    background: "#0A192F",
-                    border: "1px solid #0A192F",
+                    background: "#102A43",
+                    border: "1px solid #102A43",
                     borderRadius: "50%",
                     color: "#FFFFFF",
                     width: "28px",
@@ -200,9 +201,9 @@ export function MagazineHeroBanner({ issues }: Props) {
               animate="animate"
               exit="exit"
               transition={{ duration: 0.35, ease: "easeOut" }}
+              className="hero-grid-responsive"
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 480px",
                 gap: "36px",
                 alignItems: "center",
               }}
@@ -210,7 +211,7 @@ export function MagazineHeroBanner({ issues }: Props) {
               {/* LEFT COLUMN: Compact Content (Reflects ONLY Front Active Magazine) */}
               <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "560px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "11px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", letterSpacing: "1px", textTransform: "uppercase" }}>
                     {issueTag} &bull; {issueDate}
                   </span>
                 </div>
@@ -268,7 +269,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        background: "#0A192F",
+                        background: "#102A43",
                         color: "#FFFFFF",
                         fontSize: "12px",
                         fontWeight: 800,
@@ -290,7 +291,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                     <Link
                       href={targetPdfUrl}
                       style={{
-                        background: "#0A192F",
+                        background: "#102A43",
                         color: "#FFFFFF",
                         fontSize: "12px",
                         fontWeight: 800,
@@ -317,8 +318,8 @@ export function MagazineHeroBanner({ issues }: Props) {
                 <div
                   style={{
                     position: "relative",
-                    width: "440px",
-                    height: "500px",
+                    width: "clamp(220px, 74vw, 440px)",
+                    height: "clamp(250px, 84vw, 500px)",
                     maxWidth: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -332,8 +333,8 @@ export function MagazineHeroBanner({ issues }: Props) {
                         position: "absolute",
                         top: "20px",
                         right: "10px",
-                        width: "295px",
-                        aspectRatio: "3 / 4",
+                        width: "clamp(148px, 50vw, 295px)",
+                        aspectRatio: "8 / 10.5",
                         borderRadius: "12px",
                         overflow: "hidden",
                         border: "1px solid #DDD5CC",
@@ -348,7 +349,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img src={behind2.cover} alt={behind2.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       ) : (
-                        <div style={{ height: "100%", background: "#0A192F" }} />
+                        <div style={{ height: "100%", background: "#102A43" }} />
                       )}
                     </div>
                   )}
@@ -360,8 +361,8 @@ export function MagazineHeroBanner({ issues }: Props) {
                         position: "absolute",
                         top: "10px",
                         left: "10px",
-                        width: "310px",
-                        aspectRatio: "3 / 4",
+                        width: "clamp(155px, 52vw, 310px)",
+                        aspectRatio: "8 / 10.5",
                         borderRadius: "12px",
                         overflow: "hidden",
                         border: "1px solid #DDD5CC",
@@ -376,7 +377,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img src={behind1.cover} alt={behind1.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       ) : (
-                        <div style={{ height: "100%", background: "#0A192F" }} />
+                        <div style={{ height: "100%", background: "#102A43" }} />
                       )}
                     </div>
                   )}
@@ -385,11 +386,11 @@ export function MagazineHeroBanner({ issues }: Props) {
                   <div
                     style={{
                       position: "relative",
-                      width: "330px",
-                      aspectRatio: "3 / 4",
+                      width: "clamp(165px, 56vw, 330px)",
+                      aspectRatio: "8 / 10.5",
                       borderRadius: "14px",
                       overflow: "hidden",
-                      borderLeft: "6px solid #0A192F",
+                      borderLeft: "6px solid #102A43",
                       background: "#FCFAF6",
                       boxShadow: "0 24px 60px rgba(10, 25, 47, 0.32)",
                       zIndex: 3,
@@ -401,7 +402,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img src={active.cover} alt={active.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         ) : (
-                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
+                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#102A43", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
                             THE SUCCESS WORLD
                           </div>
                         )}
@@ -412,7 +413,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img src={active.cover} alt={active.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         ) : (
-                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#0A192F", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
+                          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#102A43", fontWeight: 900, fontSize: "18px", padding: "16px", textAlign: "center" }}>
                             THE SUCCESS WORLD
                           </div>
                         )}
@@ -451,14 +452,14 @@ export function MagazineHeroBanner({ issues }: Props) {
                     alignItems: "center",
                     gap: "8px",
                     background: "#FFFFFF",
-                    border: idx === activeIndex ? "2px solid #0A192F" : "1px solid #CBD5E1",
+                    border: idx === activeIndex ? "2px solid #102A43" : "1px solid #CBD5E1",
                     borderRadius: "6px",
                     padding: "4px 8px 4px 4px",
                     cursor: "pointer",
                     transition: "all 0.2s ease",
                   }}
                 >
-                  <div style={{ width: "24px", height: "32px", borderRadius: "3px", overflow: "hidden", position: "relative", background: "#0A192F", flexShrink: 0 }}>
+                  <div style={{ width: "24px", height: "32px", borderRadius: "3px", overflow: "hidden", position: "relative", background: "#102A43", flexShrink: 0 }}>
                     {item.cover ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={item.cover} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -467,7 +468,7 @@ export function MagazineHeroBanner({ issues }: Props) {
                     )}
                   </div>
                   <div style={{ textAlign: "left" }}>
-                    <div style={{ fontSize: "9px", fontWeight: 800, color: idx === activeIndex ? "#0A192F" : "#55545A" }}>
+                    <div style={{ fontSize: "9px", fontWeight: 800, color: idx === activeIndex ? "#102A43" : "#55545A" }}>
                       {item.issue || `ED. 0${idx + 1}`}
                     </div>
                     <div style={{ fontSize: "11px", fontWeight: 700, color: "#101722", maxWidth: "100px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
@@ -480,11 +481,11 @@ export function MagazineHeroBanner({ issues }: Props) {
 
             <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Award size={14} style={{ color: "#0A192F" }} />
+                <Award size={14} style={{ color: "#102A43" }} />
                 <span style={{ fontSize: "11px", color: "#101722", fontWeight: 700 }}>80+ Editions</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Users size={14} style={{ color: "#0A192F" }} />
+                <Users size={14} style={{ color: "#102A43" }} />
                 <span style={{ fontSize: "11px", color: "#101722", fontWeight: 700 }}>500+ Leaders</span>
               </div>
             </div>

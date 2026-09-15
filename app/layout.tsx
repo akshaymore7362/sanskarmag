@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GlobalChatWidget } from "@/components/common/GlobalChatWidget";
+import { ScrollRevealObserver } from "@/components/common/ScrollRevealObserver";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thesuccessworld.com"),
@@ -46,6 +47,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
         {/* Global Fixed Position Chatbot & Reader Suggestion Widget (Appears on EVERY page) */}
         <GlobalChatWidget />
+
+        {/* Drives the .tsw-reveal / .tsw-reveal-stagger scroll-in animations site-wide */}
+        <ScrollRevealObserver />
       </body>
     </html>
   );

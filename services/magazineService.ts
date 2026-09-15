@@ -55,7 +55,7 @@ const defaultMagazines: MagazineIssue[] = [
 export const magazineService = {
   all: (): MagazineIssue[] => defaultMagazines,
   current: (): MagazineIssue | undefined => defaultMagazines[0],
-  bySlug: (slug: string): MagazineIssue | undefined => defaultMagazines.find((m) => m.slug === slug) || defaultMagazines[0],
+  bySlug: (slug: string): MagazineIssue | undefined => defaultMagazines.find((m) => m.slug === slug),
 
   fetchSanityMagazines: async (): Promise<MagazineIssue[]> => {
     try {
@@ -125,9 +125,9 @@ export const magazineService = {
               }
             }
 
-            // Extract four-digit year from title or date if not explicitly set
+            // Extract four-digit year from title, date, slug, or description if not explicitly set
             const fullText = `${dateStr} ${item.title || ""} ${itemSlug} ${item.description || ""}`;
-            const yearMatch4 = fullText.match(/\b(202[0-5]|20[0-1]\d|19\d\d)\b/);
+            const yearMatch4 = fullText.match(/\b(19\d{2}|20\d{2})\b/);
             if (yearMatch4) {
               yearVal = yearMatch4[1];
             } else if (!yearVal) {
@@ -136,12 +136,11 @@ export const magazineService = {
                 try {
                   const cDate = new Date(item._createdAt);
                   yearVal = cDate.getFullYear().toString();
-                  if (yearVal === "2026") yearVal = "2025"; // Fallback to 2025 if environment clock reports 2026
                 } catch {
-                  yearVal = "2025";
+                  yearVal = "2026";
                 }
               } else {
-                yearVal = "2025";
+                yearVal = "2026";
               }
             }
 

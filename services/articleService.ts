@@ -133,7 +133,7 @@ const defaultArticles: Article[] = [
     authorId: "5",
     date: "Mar 2026",
     readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Quantum Tech",
     description: "Banking and government systems begin migrating core data infrastructure to post-quantum cryptography.",
     industrySlug: "innovation",
@@ -165,7 +165,7 @@ export const articleService = {
   featured: (): Article | undefined => defaultArticles[1],
   secondary: (): Article[] => defaultArticles.slice(1, 4),
   latest: (): Article[] => defaultArticles,
-  bySlug: (slug: string): Article | undefined => defaultArticles.find((a) => a.slug === slug) || defaultArticles[0],
+  bySlug: (slug: string): Article | undefined => defaultArticles.find((a) => a.slug === slug),
   byIndustry: (industrySlug: string): Article[] => defaultArticles,
   related: (slug: string): Article[] => defaultArticles.slice(1, 4),
   trending: (): Article[] => defaultArticles.slice(0, 4),
@@ -209,7 +209,7 @@ export const articleService = {
     } catch (e) {
       console.warn(`Sanity article fetch warning for slug ${slug}:`, e);
     }
-    return defaultArticles.find((a) => a.slug === slug) || defaultArticles[0];
+    return defaultArticles.find((a) => a.slug === slug);
   },
 
   // Fetch 100% pure live published post & industryPost documents from Sanity

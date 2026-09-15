@@ -30,23 +30,24 @@ export function MagazineCardGrid({ issues }: Props) {
 
     const sortedYears = Array.from(map.keys()).sort((a, b) => Number(b) - Number(a));
 
-    return sortedYears.map((yr) => {
-      const yearIssues = map.get(yr)!;
-      // Sort issues within each year so latest edition shows first (descending sequence / edition)
-      yearIssues.sort((a, b) => (b.sequenceNum || 1) - (a.sequenceNum || 1));
-      return {
-        year: yr,
-        items: yearIssues,
-      };
-    });
+    // Do NOT re-sort issues within a year by `sequenceNum` — that field is often
+    // guessed from numbers inside the title (e.g. "Top 10 CEOs" -> 10, "5 Most
+    // Inspiring..." -> 5) and does not reflect upload order. `issues` already
+    // arrives newest-upload-first from magazineService (Sanity `_createdAt desc`),
+    // and `Array.forEach` above preserves that order per year group, so we just
+    // use it as-is.
+    return sortedYears.map((yr) => ({
+      year: yr,
+      items: map.get(yr)!,
+    }));
   }, [issues]);
 
   if (issues.length === 0) {
     return (
-      <section style={{ width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "40px 6vw", textAlign: "center" }}>
+      <section style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "40px clamp(16px, 2.5vw, 40px)", textAlign: "center" }}>
         <div style={{ padding: "40px 20px" }}>
-          <Calendar size={32} style={{ color: "#1E40AF", marginBottom: "12px" }} />
-          <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#0A192F", margin: "0 0 6px" }}>No Magazines Found</h3>
+          <Calendar size={32} style={{ color: "#102A43", marginBottom: "12px" }} />
+          <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#102A43", margin: "0 0 6px" }}>No Magazines Found</h3>
           <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>Try clearing search or switching publication year filters.</p>
         </div>
       </section>
@@ -54,7 +55,7 @@ export function MagazineCardGrid({ issues }: Props) {
   }
 
   return (
-    <section style={{ width: "100%", maxWidth: "1440px", margin: "0 auto", padding: "0 6vw 60px" }}>
+    <section style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px) 60px" }}>
       {groupedByYear.map(({ year, items }) => (
         <div key={year} style={{ marginBottom: "60px" }}>
           {/* Year Section Title Banner */}
@@ -65,13 +66,13 @@ export function MagazineCardGrid({ issues }: Props) {
               justifyContent: "space-between",
               marginBottom: "32px",
               paddingBottom: "12px",
-              borderBottom: "2px solid #0A192F",
+              borderBottom: "2px solid #102A43",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <span
                 style={{
-                  background: "#0A192F",
+                  background: "#102A43",
                   color: "#FFFFFF",
                   padding: "4px 12px",
                   borderRadius: "4px",
@@ -87,7 +88,7 @@ export function MagazineCardGrid({ issues }: Props) {
                 style={{
                   fontSize: "26px",
                   fontWeight: 900,
-                  color: "#0A192F",
+                  color: "#102A43",
                   margin: 0,
                   lineHeight: 1.2,
                 }}
@@ -100,7 +101,7 @@ export function MagazineCardGrid({ issues }: Props) {
               style={{
                 fontSize: "13px",
                 fontWeight: 800,
-                color: "#1E40AF",
+                color: "#102A43",
                 letterSpacing: "0.5px",
               }}
             >
@@ -140,7 +141,7 @@ export function MagazineCardGrid({ issues }: Props) {
                     style={{
                       position: "relative",
                       width: "100%",
-                      aspectRatio: "3 / 4",
+                      aspectRatio: "8 / 10.5",
                       overflow: "hidden",
                       borderRadius: "8px",
                       boxShadow: "0 12px 30px rgba(10, 25, 47, 0.12)",
@@ -167,7 +168,7 @@ export function MagazineCardGrid({ issues }: Props) {
                               alignItems: "center",
                               padding: "20px",
                               textAlign: "center",
-                              background: "#0A192F",
+                              background: "#102A43",
                             }}
                           >
                             <div className="font-serif" style={{ fontSize: "18px", fontWeight: 900, color: "#FFFFFF" }}>
@@ -195,7 +196,7 @@ export function MagazineCardGrid({ issues }: Props) {
                               alignItems: "center",
                               padding: "20px",
                               textAlign: "center",
-                              background: "#0A192F",
+                              background: "#102A43",
                             }}
                           >
                             <div className="font-serif" style={{ fontSize: "18px", fontWeight: 900, color: "#FFFFFF" }}>
@@ -223,8 +224,8 @@ export function MagazineCardGrid({ issues }: Props) {
                       <div
                         style={{
                           fontSize: "11px",
-                          fontWeight: 800,
-                          color: "#1E40AF",
+                          fontWeight: 500,
+                          color: "#102A43",
                           letterSpacing: "1px",
                           textTransform: "uppercase",
                           marginBottom: "6px",
@@ -237,11 +238,11 @@ export function MagazineCardGrid({ issues }: Props) {
                       <h3
                         className="font-serif"
                         style={{
-                          fontSize: "18px",
-                          fontWeight: 800,
+                          fontSize: "17px",
+                          fontWeight: 400,
                           color: "#101722",
                           margin: "0 0 8px",
-                          lineHeight: 1.3,
+                          lineHeight: 1.35,
                           display: "-webkit-box",
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: "vertical",
@@ -249,11 +250,11 @@ export function MagazineCardGrid({ issues }: Props) {
                         }}
                       >
                         {isExternalPdf ? (
-                          <a href={targetUrl} target="_blank" rel="noopener noreferrer" style={{ color: "#101722", textDecoration: "none" }}>
+                          <a href={targetUrl} target="_blank" rel="noopener noreferrer" style={{ color: "#101722", textDecoration: "none", fontWeight: 400 }}>
                             {item.title}
                           </a>
                         ) : (
-                          <Link href={targetUrl} style={{ color: "#101722", textDecoration: "none" }}>
+                          <Link href={targetUrl} style={{ color: "#101722", textDecoration: "none", fontWeight: 400 }}>
                             {item.title}
                           </Link>
                         )}
@@ -263,6 +264,7 @@ export function MagazineCardGrid({ issues }: Props) {
                       <p
                         style={{
                           fontSize: "13px",
+                          fontWeight: 400,
                           color: "#55545A",
                           lineHeight: 1.5,
                           margin: "0 0 14px",
@@ -292,8 +294,8 @@ export function MagazineCardGrid({ issues }: Props) {
                           rel="noopener noreferrer"
                           style={{
                             fontSize: "13px",
-                            fontWeight: 800,
-                            color: "#0A192F",
+                            fontWeight: 500,
+                            color: "#102A43",
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "6px",
@@ -308,8 +310,8 @@ export function MagazineCardGrid({ issues }: Props) {
                           href={targetUrl}
                           style={{
                             fontSize: "13px",
-                            fontWeight: 800,
-                            color: "#0A192F",
+                            fontWeight: 500,
+                            color: "#102A43",
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "6px",
@@ -327,13 +329,13 @@ export function MagazineCardGrid({ issues }: Props) {
                         style={{
                           background: "none",
                           border: "none",
-                          color: isBookmarked ? "#0A192F" : "#94A3B8",
+                          color: isBookmarked ? "#102A43" : "#94A3B8",
                           cursor: "pointer",
                           padding: "4px",
                         }}
                         aria-label="Bookmark edition"
                       >
-                        <Bookmark size={15} fill={isBookmarked ? "#0A192F" : "none"} />
+                        <Bookmark size={15} fill={isBookmarked ? "#102A43" : "none"} />
                       </button>
                     </div>
                   </div>

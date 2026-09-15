@@ -73,7 +73,7 @@ export function FooterMagazineBookWidget() {
           fontSize: "12px",
           fontWeight: 900,
           letterSpacing: "1.5px",
-          color: "#1E40AF",
+          color: "#102A43",
           textTransform: "uppercase",
           marginBottom: "14px",
           display: "flex",
@@ -82,7 +82,7 @@ export function FooterMagazineBookWidget() {
         }}
       >
         <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-          <Sparkles size={14} style={{ color: "#1E40AF" }} />
+          <Sparkles size={14} style={{ color: "#102A43" }} />
           OPEN MAGAZINE BOOK
         </span>
 
@@ -103,7 +103,7 @@ export function FooterMagazineBookWidget() {
           style={{
             position: "relative",
             width: "100%",
-            background: "#0A192F",
+            background: "#102A43",
             border: "1px solid rgba(255, 255, 255, 0.15)",
             borderRadius: "10px",
             padding: "8px",
@@ -135,9 +135,9 @@ export function FooterMagazineBookWidget() {
           {/* LEFT PAGE: Magazine Cover Photo */}
           <div
             style={{
-              background: "#0A192F",
+              background: "#102A43",
               borderRadius: "6px 0 0 6px",
-              aspectRatio: "3 / 4",
+              aspectRatio: "8 / 10.5",
               overflow: "hidden",
               position: "relative",
               borderRight: "1px solid rgba(255,255,255,0.08)",
@@ -151,7 +151,7 @@ export function FooterMagazineBookWidget() {
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#1E40AF", fontWeight: 900, fontSize: "11px", padding: "6px", textAlign: "center" }}>
+              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#102A43", fontWeight: 900, fontSize: "11px", padding: "6px", textAlign: "center" }}>
                 COVER PAGE
               </div>
             )}
@@ -160,7 +160,7 @@ export function FooterMagazineBookWidget() {
           {/* RIGHT PAGE: Page Details & Issue Contents */}
           <div
             style={{
-              background: "#0A192F",
+              background: "#102A43",
               borderRadius: "0 6px 6px 0",
               padding: "10px 8px",
               display: "flex",
@@ -170,7 +170,7 @@ export function FooterMagazineBookWidget() {
             }}
           >
             <div>
-              <div style={{ fontSize: "9px", fontWeight: 900, color: "#1E40AF", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+              <div style={{ fontSize: "9px", fontWeight: 900, color: "#102A43", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
                 {currentMag.date}
               </div>
 
@@ -213,7 +213,7 @@ export function FooterMagazineBookWidget() {
                     gap: "4px",
                     width: "100%",
                     padding: "6px",
-                    background: "#1E40AF",
+                    background: "#102A43",
                     color: "#FFFFFF",
                     borderRadius: "4px",
                     fontSize: "10px",
@@ -235,7 +235,7 @@ export function FooterMagazineBookWidget() {
                     gap: "4px",
                     width: "100%",
                     padding: "6px",
-                    background: "#1E40AF",
+                    background: "#102A43",
                     color: "#FFFFFF",
                     borderRadius: "4px",
                     fontSize: "10px",

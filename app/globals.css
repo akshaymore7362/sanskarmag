@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-navy: #0A192F;
-  --color-brand-dark: #050C18;
-  --color-brand-gold: #1E40AF;
-  --color-brand-gold-light: #3B82F6;
-  --color-brand-gray: #F9FAFB;
+  --color-brand-navy: #102A43;
+  --color-brand-dark: #0B1E30;
+  --color-brand-blue: #102A43;
+  --color-brand-blue-light: #6F8498;
+  --color-brand-gray: #F7F5EF;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* ============================================================
-   THE SUCCESS WORLD — EXECUTIVE NAVY & LUXURY GOLD DESIGN SYSTEM
-   Visual Identity: Primary Navy (#0A192F), Deep Dark Navy (#050C18), Luxury Gold (#1E40AF), Light Gold (#3B82F6), Light Canvas (#F3F4F6 / #F9FAFB), White (#FFFFFF)
+   THE SUCCESS WORLD — PREMIUM EDITORIAL DESIGN SYSTEM
+   Restrained 3-color palette: Deep Navy (#102A43), Warm Ivory (#F7F5EF),
+   Muted Steel Blue (#6F8498, used sparingly for tiny accents/borders/highlights).
+   Navy carries nav/headings/footer/labels/selected-states/buttons; steel is
+   reserved for thin borders, subtle icons and secondary UI only.
    ============================================================ */
 
 /* ============================================================
@@ -20,66 +23,88 @@
    ============================================================ */
 :root {
   /* Editorial Luxury Color System */
-  --editorial-ivory:          #F5F1EA;
-  --editorial-surface:        #FCFAF6;
-  --editorial-burgundy:       #8B0F2F;
-  --editorial-burgundy-dark:  #780D29;
-  --editorial-burgundy-hover: #700B25;
-  --editorial-navy:           #101722;
+  --editorial-ivory:          #F7F5EF;
+  --editorial-surface:        #FCFBF8;
+  /* Legacy "burgundy" names retained for back-compat; now mapped to deep navy */
+  --editorial-burgundy:       #102A43;
+  --editorial-burgundy-dark:  #0B1E30;
+  --editorial-burgundy-hover: #081627;
+  --editorial-navy:           #102A43;
   --editorial-charcoal:       #55545A;
-  --editorial-border:         #DDD5CC;
+  --editorial-border:         #DCD6C9;
   --editorial-cream-text:     #F7F2EA;
   --editorial-muted-cream:    #DCCFC5;
 
   /* Global Light Page Canvas & Dark Section Tokens */
-  --bg-page:            #F3F4F6;
-  --bg-midnight:        #0A192F;
-  --bg-royal:           #050C18;
-  --bg-purple-deep:     #050C18;
-  --brand-navy:         #0A192F;
-  --brand-dark:         #050C18;
+  --bg-page:            #F7F5EF;
+  --bg-midnight:        #102A43;
+  --bg-royal:           #0B1E30;
+  --bg-purple-deep:     #0B1E30;
+  --brand-navy:         #102A43;
+  --brand-dark:         #0B1E30;
 
   /* Card Surfaces & Neutrals */
-  --bg-light-canvas:    #F9FAFB;
+  --bg-light-canvas:    #F7F5EF;
   --bg-white-card:      #FFFFFF;
-  --off-white:          #F3F4F6;
+  --off-white:          #F7F5EF;
   --white:              #FFFFFF;
-  --black:              #050C18;
+  --black:              #0B1E30;
 
-  /* Executive Accent System — Navy & Luxury Gold */
-  --blue-primary:       #1E40AF;
-  --blue-warm:          #3B82F6;
-  --blue-light:         #3B82F6;
-  --blue-accent:               #1E40AF;
-  --accent:             #1E40AF;
-  --accent-dark:        #1E3A8A;
+  /* Executive Accent System — Deep Navy primary, Muted Steel Blue secondary */
+  --blue-primary:       #102A43;
+  --blue-warm:          #6F8498;
+  --blue-light:         #6F8498;
+  --blue-on-dark:       #B7C4CD;
+
+  /* Navbar accent — muted steel blue, used only for tiny highlights/borders on
+     the dark navy header; text/labels on the header stay white or steel-tinted. */
+  --nav-gold:           #6F8498;
+  --nav-gold-soft:      #AFC0CB;
+  --nav-gold-dim:       rgba(111, 132, 152, 0.4);
+  --nav-gold-bg-hover:  rgba(111, 132, 152, 0.14);
+  --nav-ink-on-gold:    #FFFFFF;
+  --blue-accent:               #102A43;
+  --accent:             #102A43;
+  --accent-dark:        #0B1E30;
   --accent-tint:        #FAF6EE;
 
+  /* Logo blue — the muted royal/cornflower blue used in the "WORLD" wordmark
+     of the actual logo (public/logo-full.jpg). Reserved for primary CTA
+     buttons specifically — not sky blue, not the near-black navy above. */
+  --logo-blue:          #4472C4;
+  --logo-blue-dark:     #35588F;
+
+  /* Hover-state backgrounds — every interactive surface gets one of these on
+     hover, always visibly different from its resting background. */
+  --hover-blue-gray:    #E3EAEF;
+  --hover-cool-gray:    #EEF2F4;
+  --hover-steel:        #6F8498;
+
   /* Editorial Ink Scale */
-  --ink:                #0A192F;
+  --ink:                #102A43;
   --ink-soft:           #4B5563;
   --ink-faint:          #6B7280;
 
   /* Typography Colors */
-  --text-dark:          #0A192F;
+  --text-dark:          #102A43;
   --text-grey:          #4B5563;
   --text-muted:         #6B7280;
   --text-offwhite:      #F9FAFB;
   --text-muted-light:   #9CA3AF;
 
   /* Borders & Dividers */
-  --border-grey:        #E5E7EB;
-  --border-purple:      #E5E7EB;
-  --border-light:       #E5E7EB;
-  --hairline:           #E5E7EB;
+  --border-grey:        #E4E6E8;
+  --border-purple:      #E4E6E8;
+  --border-light:       #E4E6E8;
+  --hairline:           #E4E6E8;
   --border-dark:        #1F2937;
 
-  /* Categories Accent Colors */
-  --startups:           #1E40AF;
-  --tech:               #1E40AF;
-  --finance:            #1E40AF;
-  --leadership:         #1E40AF;
-  --strategy:           #1E40AF;
+  /* Categories Accent Colors — small labels stay navy (restrained palette) */
+  --startups:           #102A43;
+  --tech:               #102A43;
+  --finance:            #102A43;
+  --leadership:         #102A43;
+  --strategy:           #102A43;
 
   /* Spacing Tokens */
   --sp-8:  8px;  --sp-16: 16px; --sp-24: 24px; --sp-32: 32px;
@@ -102,8 +127,15 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* `clip` (not `hidden`) — hidden on only one axis forces the browser to
+     compute the other axis as `auto`, which turns html/body into a real
+     scroll container and breaks position:sticky for the header. `clip`
+     hides horizontal overflow without that side effect. */
+  overflow-x: clip;
   max-width: 100vw;
+  /* Reserves the scrollbar's width permanently so locking body scroll (e.g.
+     opening the mobile menu) never shifts the layout sideways. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -114,7 +146,7 @@ body {
   line-height: 1.6;
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 p, h1, h2, h3, h4, h5, h6, span, a, label {
@@ -140,16 +172,227 @@ button {
   font-family: var(--sans);
 }
 
+/* ============================================================
+   GLOBAL INTERACTIVE HOVER / PRESS SYSTEM
+   Applies to every native <button> on the site (regardless of any inline
+   styles it also carries — inline styles can't set :hover, so this always
+   layers on top) plus the shared button-link classes used for CTAs. Placed
+   early in the cascade so any later, more specific :hover rule for a given
+   button (color/background changes etc.) still wins for those properties;
+   this only adds the motion. Every hover below changes to a background
+   that's visibly different from rest state — never the same color.
+   ============================================================ */
+:root {
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+button:not(:disabled),
+a.btn,
+.btn,
+.tsw-btn,
+.btn-primary,
+.btn-secondary,
+.btn-subscribe,
+.footer-3d-btn,
+.lead-action-btn,
+.tsw-mag-btn,
+[role="button"] {
+  transition: transform 0.25s var(--ease-premium), box-shadow 0.25s ease, filter 0.25s ease, opacity 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+button:not(:disabled):hover,
+a.btn:hover,
+.btn:hover,
+.tsw-btn:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-subscribe:hover,
+.footer-3d-btn:hover,
+.lead-action-btn:hover,
+.tsw-mag-btn:hover,
+[role="button"]:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 10px 24px -12px rgba(16, 42, 67, 0.35);
+}
+
+/* Primary CTA: deep navy -> muted steel blue on hover, per the hover-colour rule */
+.btn-primary:hover,
+.tsw-btn-primary:hover,
+.btn-blue-gradient:hover {
+  background: var(--hover-steel) !important;
+  border-color: var(--hover-steel) !important;
+}
+
+/* Secondary/ghost CTA: transparent/ivory -> soft blue-gray on hover */
+.btn-secondary:hover,
+.tsw-btn-ghost:hover,
+.btn-outline-violet:hover,
+.btn-outline-dark:hover,
+.about-cta-ghost:hover {
+  background: var(--hover-blue-gray) !important;
+}
+
+button:not(:disabled):active,
+a.btn:active,
+.btn:active,
+.tsw-btn:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-subscribe:active,
+.footer-3d-btn:active,
+.lead-action-btn:active,
+.tsw-mag-btn:active,
+[role="button"]:active {
+  transform: translateY(0) scale(0.97);
+  filter: brightness(0.97);
+  transition-duration: 0.1s;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Catch-all: every remaining clickable link on the site — nav items, footer
+   links, "read more" links, social icons, dropdown rows, card links, CTAs
+   built from a bare inline-styled <a>/<Link> with no button class — gets a
+   gentle hover lift too, so nothing clickable is left without feedback.
+   Kept subtle (1px, no scale) so it doesn't disrupt running text links. */
+a[href] {
+  transition: transform 0.25s var(--ease-premium), filter 0.25s ease, opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+a[href]:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+a[href]:active {
+  transform: translateY(0);
+  filter: brightness(0.97);
+  transition-duration: 0.1s;
+}
+/* Buttons/CTA-style links get the stronger lift defined above, not this one */
+a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hover,
+.btn-subscribe:hover, .footer-3d-btn:hover, .lead-action-btn:hover, .tsw-mag-btn:hover {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  button, a[href], .btn, .tsw-btn, .btn-primary, .btn-secondary, .btn-subscribe, .footer-3d-btn, .lead-action-btn, .tsw-mag-btn, [role="button"] {
+    transition: none !important;
+  }
+  button:hover, a[href]:hover, .btn:hover, .tsw-btn:hover, [role="button"]:hover,
+  button:active, a[href]:active, .btn:active, .tsw-btn:active, [role="button"]:active {
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
 .font-serif {
   font-family: var(--serif);
+}
+
+/* ============================================================
+   PAGE-LOAD ENTRANCE ANIMATIONS
+   Subtle fade + rise, staggered. Applied once on mount, not scroll-linked.
+   ============================================================ */
+@keyframes tswFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes tswScaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.tsw-in-header { animation: tswFadeUp 0.5s var(--ease-premium) both; }
+.tsw-in-1 { animation: tswFadeUp 0.55s var(--ease-premium) 0.05s both; }
+.tsw-in-2 { animation: tswFadeUp 0.55s var(--ease-premium) 0.15s both; }
+.tsw-in-3 { animation: tswFadeUp 0.55s var(--ease-premium) 0.25s both; }
+.tsw-in-4 { animation: tswFadeUp 0.55s var(--ease-premium) 0.35s both; }
+.tsw-in-scale { animation: tswScaleIn 0.6s var(--ease-premium) 0.2s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tsw-in-header, .tsw-in-1, .tsw-in-2, .tsw-in-3, .tsw-in-4, .tsw-in-scale {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   SCROLL-REVEAL (Intersection Observer driven — see ScrollReveal component)
+   Element starts hidden/offset; JS adds .is-visible once it enters view.
+   ============================================================ */
+.tsw-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-premium), transform 0.6s var(--ease-premium);
+}
+.tsw-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tsw-reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease-premium), transform 0.5s var(--ease-premium);
+}
+.tsw-reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tsw-reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.03s; }
+.tsw-reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+.tsw-reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.13s; }
+.tsw-reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.18s; }
+.tsw-reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.23s; }
+.tsw-reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 0.28s; }
+.tsw-reveal-stagger.is-visible > *:nth-child(n+7) { transition-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tsw-reveal, .tsw-reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-decor { display: none; }
+}
+
+/* Alternating section band — gives the homepage visual rhythm instead of a
+   flat run of identical ivory sections, per the "light section" tone (#EEF2F4). */
+.tsw-band-light {
+  background: var(--hover-cool-gray, #EEF2F4);
+}
+
+.hero-stat-tile {
+  border-radius: 10px;
+  padding: 6px 8px;
+  transition: background-color 0.25s var(--ease-premium);
+}
+.hero-stat-tile:hover {
+  background: var(--hover-blue-gray);
+}
+.hero-stat-tile > div:first-child {
+  transition: transform 0.25s var(--ease-premium);
+  display: inline-block;
+}
+.hero-stat-tile:hover > div:first-child {
+  transform: scale(1.08);
 }
 
 /* Global Container Specification */
 .site-shell, .inner-shell {
   width: 100%;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 clamp(16px, 2.5vw, 40px);
   box-sizing: border-box;
 }
 
@@ -193,12 +436,31 @@ button {
   font-size: 13px;
   font-weight: 700;
   color: var(--blue-primary);
-  transition: all 0.2s ease;
+  transition: color 0.25s var(--ease-premium), gap 0.25s var(--ease-premium);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.section-viewall-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-premium);
 }
 
 .section-viewall-link:hover {
   color: var(--text-dark);
-  transform: translateX(3px);
+  gap: 10px;
+}
+
+.section-viewall-link:hover::after {
+  transform: scaleX(1);
 }
 
 /* ============================================================
@@ -206,9 +468,10 @@ button {
    ============================================================ */
 .tsw-section {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 64px 40px;
+  padding: 48px clamp(16px, 2.5vw, 40px);
+  box-sizing: border-box;
 }
 .tsw-section + .tsw-section { padding-top: 0; }
 
@@ -263,7 +526,7 @@ button {
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--accent);
-  transition: gap 0.2s ease, color 0.2s ease;
+  transition: gap 0.25s var(--ease-premium), color 0.25s var(--ease-premium);
   white-space: nowrap;
 }
 .tsw-link:hover { color: var(--accent-dark); gap: 10px; }
@@ -272,12 +535,19 @@ button {
   background: var(--white);
   border: 1px solid var(--hairline);
   border-radius: 12px;
-  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s var(--ease-premium), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 .tsw-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: 0 14px 32px -18px rgba(23,21,18,0.28);
   border-color: #E5E7EB;
+  background: var(--hover-cool-gray);
+}
+.tsw-card:hover img {
+  transform: scale(1.03);
+}
+.tsw-card img {
+  transition: transform 0.35s var(--ease-premium);
 }
 
 .tsw-eyebrow-sm {
@@ -317,7 +587,7 @@ button {
 .tsw-hero {
   width: 100%;
   background:
-    radial-gradient(1200px 420px at 78% -10%, rgba(139,16,41,0.05), transparent 60%),
+    radial-gradient(1200px 420px at 78% -10%, rgba(30, 64, 175,0.05), transparent 60%),
     var(--bg-page);
   border-bottom: 1px solid var(--hairline);
 }
@@ -359,7 +629,7 @@ button {
 .tsw-hero-cover-link {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 8 / 10.5;
   overflow: hidden;
   background: #141414;
 }
@@ -505,16 +775,16 @@ button {
 }
 
 .btn-blue-gradient {
-  background: #1E40AF;
+  background: var(--logo-blue);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(139, 16, 41, 0.25);
+  box-shadow: 0 4px 14px rgba(68, 114, 196, 0.28);
 }
 
 .btn-blue-gradient:hover {
-  background: #6B0C1F;
+  background: var(--logo-blue-dark);
   color: #FFFFFF;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(139, 16, 41, 0.4);
+  box-shadow: 0 6px 20px rgba(68, 114, 196, 0.42);
 }
 
 .btn-outline-violet, .btn-outline-dark {
@@ -542,7 +812,7 @@ button {
   display: flex;
   align-items: center;
   height: 42px;
-  background: #050C18;
+  background: #0B1E30;
   color: #ffffff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
@@ -557,12 +827,12 @@ button {
   gap: 8px;
   padding: 0 18px;
   height: 100%;
-  background: #0A192F;
+  background: #102A43;
   border-right: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--blue-primary);
+  color: var(--nav-gold-soft);
   flex-shrink: 0;
   z-index: 2;
 }
@@ -595,6 +865,12 @@ button {
 
 .market-ticker-track:hover {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .market-ticker-track { animation: none; transform: none; }
+  .live-dot { animation: none; }
+  html { scroll-behavior: auto; }
 }
 
 @keyframes marquee {
@@ -638,9 +914,12 @@ button {
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 2000;
   background: rgba(15, 19, 31, 0.96);
-  backdrop-filter: blur(12px);
+  /* No backdrop-filter here: a filter/transform/perspective on this element
+     would create a new containing block for any position:fixed descendant
+     (like the mobile menu), silently detaching it from the real viewport —
+     that was the actual cause of the menu appearing to "jump to the top". */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -648,10 +927,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
-  max-width: 1360px;
+  height: 96px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 clamp(16px, 2.5vw, 40px);
+  box-sizing: border-box;
 }
 
 .logo-brand-block {
@@ -663,7 +944,7 @@ button {
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--blue-primary);
+  color: var(--nav-gold);
   margin-bottom: -2px;
 }
 
@@ -675,14 +956,14 @@ button {
 }
 
 .logo-highlight {
-  color: var(--blue-primary);
+  color: var(--nav-gold);
 }
 
 .logo-slogan {
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: var(--blue-primary);
+  color: var(--nav-gold);
   margin-top: 3px;
 }
 
@@ -704,12 +985,35 @@ button {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.85);
   padding: 24px 0;
-  transition: all 0.2s ease;
+  transition: color 0.25s var(--ease-premium);
   position: relative;
 }
 
 .nav-link:hover, .nav-link.active {
-  color: var(--blue-primary);
+  color: var(--nav-gold-soft);
+}
+
+/* Animated underline: expands from 0 -> 100% width on hover */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--nav-gold-soft);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-premium);
+  pointer-events: none;
+}
+
+.nav-link:hover::before {
+  transform: scaleX(1);
+}
+
+.nav-link.active::before {
+  display: none;
 }
 
 .nav-link.active::after {
@@ -719,18 +1023,23 @@ button {
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--blue-primary);
-  box-shadow: 0 0 8px var(--blue-primary);
+  background: var(--nav-gold);
+  box-shadow: 0 0 8px rgba(201, 163, 75, 0.45);
 }
 
 .dropdown-chevron {
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
   color: rgba(255, 255, 255, 0.5);
+}
+
+.dropdown-chevron.open,
+.nav-link:hover .dropdown-chevron,
+.nav-link.active .dropdown-chevron {
+  color: var(--nav-gold-soft);
 }
 
 .dropdown-chevron.open {
   transform: rotate(180deg);
-  color: var(--blue-primary);
 }
 
 .nav-dropdown-menu {
@@ -739,7 +1048,7 @@ button {
   left: 50%;
   transform: translateX(-50%);
   width: 360px;
-  background: #0A192F;
+  background: #102A43;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   padding: 16px;
@@ -757,7 +1066,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--blue-primary);
+  color: var(--nav-gold);
 }
 
 .dropdown-items-grid {
@@ -775,8 +1084,8 @@ button {
 }
 
 .dropdown-item:hover {
-  background: rgba(212, 154, 36, 0.12);
-  border-color: rgba(212, 154, 36, 0.3);
+  background: var(--nav-gold-bg-hover);
+  border-color: rgba(201, 163, 75, 0.3);
 }
 
 .dropdown-item-header {
@@ -823,7 +1132,7 @@ button {
   padding: 2px 6px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  color: var(--blue-primary);
+  color: var(--nav-gold);
 }
 
 .nav-divider {
@@ -842,7 +1151,7 @@ button {
 }
 
 .nav-signin-link:hover {
-  color: var(--blue-primary);
+  color: var(--nav-gold);
 }
 
 .mobile-trigger {
@@ -867,7 +1176,7 @@ button {
 
 @media (max-width: 1050px) {
   .mainnav {
-    height: 64px;
+    height: 76px;
     padding: 0 16px;
   }
   .navlinks {
@@ -888,7 +1197,7 @@ button {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
-    color: var(--blue-primary);
+    color: var(--nav-gold);
     cursor: pointer;
   }
 }
@@ -899,7 +1208,7 @@ button {
     display: none !important;
   }
   .nav-logo img {
-    height: 44px !important;
+    height: 48px !important;
   }
   .logo-title {
     font-size: 11px !important;
@@ -907,7 +1216,119 @@ button {
 }
 
 /* ============================================================
-   MOBILE DRAWER NAVIGATION STYLES
+   MOBILE NAVIGATION MENU — dropdown panel beneath the fixed navbar
+   Opens at the user's current scroll position (the header stays sticky, the
+   panel is positioned relative to the header's own height, not the page).
+   ============================================================ */
+.mobile-menu-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(16, 42, 67, 0.12);
+  z-index: 999;
+  animation: mobileMenuFadeBackdrop 0.25s ease-out;
+}
+
+@keyframes mobileMenuFadeBackdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.mobile-menu-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: var(--editorial-ivory, #F7F5EF);
+  z-index: 1000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 20px 44px rgba(16, 42, 67, 0.18);
+  border-bottom: 1px solid var(--hairline);
+  animation: mobileMenuSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes mobileMenuSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu-backdrop, .mobile-menu-panel {
+    animation: none !important;
+  }
+}
+
+.mobile-menu-list {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.mobile-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #102A43;
+  background: var(--editorial-ivory, #F7F5EF);
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.mobile-menu-link svg {
+  color: #6F8498;
+  flex-shrink: 0;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link:active,
+.mobile-menu-link.active {
+  background: #E3EAEF;
+  border-left-color: #102A43;
+}
+
+.mobile-menu-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu-group-label {
+  display: block;
+  padding: 14px 24px 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #6F8498;
+}
+
+.mobile-menu-group .mobile-menu-link {
+  padding-left: 36px;
+}
+
+.mobile-menu-footer {
+  padding: 16px 24px 26px;
+  border-top: 1px solid var(--hairline);
+  margin-top: 8px;
+}
+
+/* This menu only exists for the hamburger breakpoints — hidden whenever the
+   full desktop nav is showing, so it can never appear stacked under it. */
+@media (min-width: 1051px) {
+  .mobile-menu-backdrop,
+  .mobile-menu-panel {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   MOBILE DRAWER NAVIGATION STYLES (legacy — superseded by
+   .mobile-menu-* above; kept only in case anything else references it)
    ============================================================ */
 .mobile-drawer-overlay {
   position: fixed !important;
@@ -934,7 +1355,7 @@ button {
   width: 280px !important;
   max-width: 80vw !important;
   height: 100vh !important;
-  background: #0A192F !important;
+  background: #102A43 !important;
   border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
   display: flex !important;
   flex-direction: column !important;
@@ -956,7 +1377,7 @@ button {
   align-items: center;
   padding: 16px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: #0A192F;
+  background: #102A43;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -965,7 +1386,7 @@ button {
 .drawer-close-btn {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--blue-primary);
+  color: var(--nav-gold);
   border-radius: 8px;
   padding: 8px;
   display: flex;
@@ -1006,7 +1427,7 @@ button {
 }
 
 .mobile-nav-link:hover {
-  color: var(--blue-primary);
+  color: var(--nav-gold);
 }
 
 .mobile-subnav-list {
@@ -1015,7 +1436,7 @@ button {
   gap: 6px;
   padding-left: 12px;
   margin-top: 4px;
-  border-left: 2px solid rgba(212, 154, 36, 0.3);
+  border-left: 2px solid rgba(201, 163, 75, 0.3);
 }
 
 .mobile-subnav-link {
@@ -1027,7 +1448,7 @@ button {
 }
 
 .mobile-subnav-link:hover {
-  color: var(--blue-primary);
+  color: var(--nav-gold);
 }
 
 .mobile-drawer-footer {
@@ -1050,7 +1471,7 @@ button {
 .search-modal {
   width: 100%;
   max-width: 600px;
-  background: #0A192F;
+  background: #102A43;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   padding: 24px;
@@ -1096,7 +1517,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: var(--blue-primary);
+  color: var(--nav-gold);
   margin-bottom: 12px;
 }
 
@@ -1111,16 +1532,16 @@ button {
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: rgba(212, 154, 36, 0.12);
-  border: 1px solid rgba(212, 154, 36, 0.25);
+  background: var(--nav-gold-bg-hover);
+  border: 1px solid rgba(201, 163, 75, 0.25);
   border-radius: 6px;
   font-size: 12px;
   color: #F8FAFC;
 }
 
 .search-chip:hover {
-  border-color: var(--blue-primary);
-  color: var(--blue-primary);
+  border-color: var(--nav-gold);
+  color: var(--nav-gold);
 }
 
 /* Mobile Drawer Navigation */
@@ -1137,7 +1558,7 @@ button {
   width: 100%;
   max-width: 380px;
   height: 100%;
-  background: #0A192F;
+  background: #102A43;
   border-left: 1px solid rgba(255, 255, 255, 0.12);
   padding: 28px;
   display: flex;
@@ -1203,7 +1624,7 @@ button {
   width: 100% !important;
   max-width: none !important;
   min-height: 380px;
-  background: #050C18 !important;
+  background: #0B1E30 !important;
   box-sizing: border-box;
   margin: 0 !important;
   padding: 20px 0 24px !important;
@@ -1313,21 +1734,21 @@ button {
   position: relative;
   width: 100%;
   max-width: 250px;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 8 / 10.5;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid rgba(212, 154, 36, 0.4);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(212, 154, 36, 0.15);
+  border: 1px solid rgba(30, 64, 175, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(30, 64, 175, 0.15);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .hero-magazine-cover-box:hover {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 154, 36, 0.25);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(30, 64, 175, 0.25);
 }
 
 .hero-cover-placeholder {
-  background: linear-gradient(135deg, #050C18 0%, #0A192F 100%);
+  background: linear-gradient(135deg, #0B1E30 0%, #102A43 100%);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1341,8 +1762,8 @@ button {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: #1E40AF;
-  color: #050C18;
+  background: #102A43;
+  color: #FFFFFF;
   padding: 3px 8px;
   border-radius: 5px;
   font-size: 10px;
@@ -1379,9 +1800,9 @@ button {
 }
 
 .hero-arrow-btn.active, .hero-arrow-btn:hover {
-  background: rgba(212, 154, 36, 0.25);
-  border-color: rgba(212, 154, 36, 0.5);
-  color: #1E40AF;
+  background: rgba(30, 64, 175, 0.25);
+  border-color: rgba(30, 64, 175, 0.5);
+  color: #102A43;
 }
 
 .hero-main-title {
@@ -1412,7 +1833,7 @@ button {
   height: 44px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #1E40AF;
+  border: 2px solid #102A43;
   flex-shrink: 0;
 }
 
@@ -1423,7 +1844,7 @@ button {
   line-height: 1.4;
   margin-top: 6px;
   padding-left: 10px;
-  border-left: 2px solid #1E40AF;
+  border-left: 2px solid #102A43;
 }
 
 .hero-topic-pill {
@@ -1460,7 +1881,7 @@ button {
 
 .hero-dot.active {
   width: 24px;
-  background: #1E40AF;
+  background: #102A43;
 }
 
 /* RESPONSIVE HERO BREAKPOINTS */
@@ -1529,7 +1950,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: #050C18;
+  color: #FFFFFF;
   background: var(--blue-primary);
   padding: 4px 12px;
   border-radius: 4px;
@@ -1604,7 +2025,7 @@ button {
   background: var(--blue-primary);
   display: grid;
   placeItems: center;
-  color: #050C18;
+  color: #0B1E30;
 }
 
 /* Right Sidebar: Current Issue Card */
@@ -1645,7 +2066,7 @@ button {
   overflow: hidden;
   margin-bottom: 18px;
   border: 1px solid #E5E7EB;
-  background: #0A192F;
+  background: #102A43;
 }
 
 .issue-placeholder-graphic {
@@ -1656,7 +2077,7 @@ button {
   align-items: center;
   padding: 24px;
   text-align: center;
-  background: #0A192F;
+  background: #102A43;
 }
 
 .graphic-brand {
@@ -1679,7 +2100,7 @@ button {
 .issue-title {
   font-size: 20px;
   font-weight: 800;
-  color: #0A192F;
+  color: #102A43;
 }
 
 .issue-edition-text {
@@ -1724,7 +2145,7 @@ button {
 
 .topic-name {
   font-weight: 600;
-  color: #0A192F;
+  color: #102A43;
 }
 
 /* ============================================================
@@ -1769,7 +2190,7 @@ button {
   top: 16px;
   left: 16px;
   background: var(--blue-primary);
-  color: #050C18;
+  color: #FFFFFF;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -1785,7 +2206,7 @@ button {
   font-size: 24px;
   font-weight: 800;
   line-height: 1.25;
-  color: #0A192F;
+  color: #102A43;
   margin-bottom: 10px;
 }
 
@@ -1863,7 +2284,7 @@ button {
   font-size: 14px;
   font-weight: 700;
   line-height: 1.3;
-  color: #0A192F;
+  color: #102A43;
   margin: 3px 0 4px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1940,7 +2361,7 @@ button {
 
 .partner-brand-card:hover {
   border-color: var(--blue-primary);
-  box-shadow: 0 4px 14px rgba(212, 154, 36, 0.2);
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.2);
   transform: translateY(-2px);
 }
 
@@ -1964,7 +2385,7 @@ button {
 .partner-name {
   font-size: 13px;
   font-weight: 800;
-  color: #0A192F;
+  color: #102A43;
 }
 
 .partner-tagline {
@@ -1982,7 +2403,7 @@ button {
 }
 
 .main-featured-leader-card {
-  background: #0A192F;
+  background: #102A43;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 32px;
@@ -2004,7 +2425,7 @@ button {
   height: 100%;
   display: grid;
   placeItems: center;
-  background: #0A192F;
+  background: #102A43;
   color: var(--blue-primary);
   font-size: 20px;
 }
@@ -2073,7 +2494,7 @@ button {
 .supporting-name {
   font-size: 17px;
   font-weight: 800;
-  color: #0A192F;
+  color: #102A43;
   margin: 2px 0;
 }
 
@@ -2134,7 +2555,7 @@ button {
   flex-shrink: 0;
   border-radius: 14px;
   overflow: hidden;
-  background: #050C18;
+  background: #0B1E30;
   border: none;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -2144,7 +2565,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #050C18 0%, #050C18 100%);
+  background: linear-gradient(135deg, #0B1E30 0%, #0B1E30 100%);
   color: var(--blue-primary);
   font-size: 20px;
   font-weight: 900;
@@ -2154,7 +2575,7 @@ button {
   position: absolute;
   top: 14px;
   left: 14px;
-  background: #0A192F;
+  background: #102A43;
   color: #FFFFFF;
   font-size: 10px;
   font-weight: 800;
@@ -2197,7 +2618,7 @@ button {
   font-size: clamp(19px, 2.1vw, 22px);
   font-weight: 900;
   line-height: 1.3;
-  color: #0A192F;
+  color: #102A43;
   margin: 4px 0 6px;
   min-height: 55px;
   max-height: 55px;
@@ -2208,13 +2629,13 @@ button {
 }
 
 .market-borderless-title a {
-  color: #0A192F;
+  color: #102A43;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .market-borderless-title a:hover {
-  color: #0A192F;
+  color: #102A43;
 }
 
 .market-borderless-desc {
@@ -2257,16 +2678,16 @@ button {
 
 .market-borderless-side-item:hover {
   border-color: #E5E7EB;
-  border-left-color: rgba(212, 154, 36, 0.6);
+  border-left-color: rgba(30, 64, 175, 0.6);
   transform: translateX(3px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .market-borderless-side-item.active-borderless {
-  background: rgba(212, 154, 36, 0.08);
+  background: rgba(30, 64, 175, 0.08);
   border-color: #E5E7EB;
   border-left-color: var(--blue-primary);
-  box-shadow: 0 0 16px rgba(212, 154, 36, 0.15);
+  box-shadow: 0 0 16px rgba(30, 64, 175, 0.15);
 }
 
 .market-borderless-thumb {
@@ -2288,7 +2709,7 @@ button {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: #0A192F;
+  color: #102A43;
   text-transform: uppercase;
 }
 
@@ -2296,7 +2717,7 @@ button {
   font-size: 14px;
   font-weight: 700;
   line-height: 1.35;
-  color: #0A192F;
+  color: #102A43;
   margin: 3px 0 4px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -2406,11 +2827,11 @@ button {
 .magazine-cover-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 8 / 10.5;
   max-height: 242px;
   border-radius: 8px;
   overflow: hidden;
-  background: #0A192F;
+  background: #102A43;
   border: 1px solid #E5E7EB;
   margin: 0 auto;
 }
@@ -2423,7 +2844,7 @@ button {
   align-items: center;
   padding: 16px;
   text-align: center;
-  background: #0A192F;
+  background: #102A43;
 }
 
 .placeholder-brand {
@@ -2449,13 +2870,13 @@ button {
 .magazine-edition-tag {
   font-size: 11px;
   font-weight: 800;
-  color: #0A192F;
+  color: #102A43;
 }
 
 .magazine-card-title {
   font-size: 14px;
   font-weight: 800;
-  color: #0A192F;
+  color: #102A43;
   margin: 3px 0;
   line-height: 1.3;
   display: -webkit-box;
@@ -2547,9 +2968,9 @@ button {
   border: 2px solid #FFFFFF;
   display: grid;
   placeItems: center;
-  box-shadow: 0 0 16px rgba(212, 154, 36, 0.4);
+  box-shadow: 0 0 16px rgba(30, 64, 175, 0.4);
   transition: transform 0.25s ease;
-  color: #050C18;
+  color: #0B1E30;
 }
 
 .master-talk-card:hover .play-button-ring {
@@ -2571,7 +2992,7 @@ button {
   font-size: 17px;
   font-weight: 800;
   line-height: 1.3;
-  color: #0A192F;
+  color: #102A43;
   margin: 4px 0 8px;
 }
 
@@ -2599,7 +3020,7 @@ button {
 }
 
 .newsletter-card-primary {
-  background: #0a192f;
+  background: #102A43;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   padding: 56px 36px;
@@ -2632,7 +3053,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2.5px;
-  color: #3B82F6;
+  color: #6F8498;
   margin-bottom: 12px;
   text-transform: uppercase;
 }
@@ -2675,12 +3096,12 @@ button {
 }
 
 .newsletter-input:focus {
-  border-color: #3B82F6;
+  border-color: #6F8498;
 }
 
 .newsletter-submit-btn {
-  background: #3B82F6;
-  color: #0a192f;
+  background: #FFFFFF;
+  color: #102A43;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -2694,7 +3115,7 @@ button {
 }
 
 .newsletter-submit-btn:hover {
-  background: #3B82F6;
+  background: #EDEAE1;
 }
 
 .newsletter-success-badge {
@@ -2754,7 +3175,7 @@ button {
   left: 0;
   width: 4px;
   height: 100%;
-  background: #0A192F;
+  background: #102A43;
 }
 
 .footer-newsletter-info {
@@ -2765,7 +3186,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #0A192F;
+  background: #102A43;
   color: #FFFFFF;
   font-size: 10px;
   font-weight: 800;
@@ -2813,13 +3234,13 @@ button {
 }
 
 .footer-newsletter-input:focus {
-  border-color: #0A192F;
+  border-color: #102A43;
   box-shadow: 0 0 0 3px rgba(10, 25, 47, 0.1);
 }
 
 .footer-newsletter-btn {
   padding: 12px 22px;
-  background: #0A192F;
+  background: #102A43;
   color: #FFFFFF;
   border: none;
   border-radius: 8px;
@@ -2894,11 +3315,11 @@ button {
 }
 
 .footer-socials a:hover {
-  background: #0A192F;
+  background: var(--hover-steel);
   color: #FFFFFF;
-  border-color: #0A192F;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(10, 25, 47, 0.25);
+  border-color: var(--hover-steel);
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 6px 16px rgba(16, 42, 67, 0.25);
 }
 
 .footer-col-title {
@@ -2958,9 +3379,13 @@ button {
 }
 
 .footer-3d-btn:hover {
-  background: #0A192F;
-  color: #FFFFFF;
-  border-color: #0A192F;
+  /* !important because `.footer-links-col a:hover` (higher specificity — an
+     extra element selector) would otherwise win and force navy text back on,
+     which is invisible against this button's own navy hover background. */
+  background: #102A43 !important;
+  color: #FFFFFF !important;
+  border-color: #102A43 !important;
+  transform: translateY(-2px) !important;
 }
 
 .footer-bottom-bar {
@@ -3009,9 +3434,9 @@ button {
 }
 
 .footer-back-to-top:hover {
-  background: #0A192F;
+  background: #102A43;
   color: #FFFFFF;
-  border-color: #0A192F;
+  border-color: #102A43;
   transform: translateY(-2px);
 }
 
@@ -3044,9 +3469,9 @@ button {
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 2000;
   width: 100%;
-  background: #0A192F;
+  background: #102A43;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -3055,10 +3480,10 @@ button {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 40px;
-  height: 70px;
+  padding: 0 clamp(16px, 2.5vw, 40px);
+  height: 96px;
   box-sizing: border-box;
 }
 
@@ -3090,7 +3515,7 @@ button {
 @media (max-width: 992px) {
   .mainnav {
     padding: 0 20px;
-    height: 60px;
+    height: 76px;
   }
   .navlinks {
     display: none !important;
@@ -3103,7 +3528,7 @@ button {
 @media (max-width: 640px) {
   .mainnav {
     padding: 0 16px;
-    height: 54px;
+    height: 68px;
     gap: 8px;
   }
   .nav-actions button span,
@@ -3132,8 +3557,8 @@ button {
 .search-modal {
   width: 100%;
   max-width: 680px;
-  background: #0A192F;
-  border: 1px solid rgba(197, 160, 89, 0.3);
+  background: #102A43;
+  border: 1px solid rgba(147, 197, 253, 0.3);
   border-radius: 16px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
   padding: 24px;
@@ -3183,7 +3608,7 @@ button {
 .search-modal-label {
   font-size: 11px;
   font-weight: 800;
-  color: #1E40AF;
+  color: var(--nav-gold);
   letter-spacing: 1px;
   margin-bottom: 12px;
 }
@@ -3208,8 +3633,8 @@ button {
 }
 
 .search-chip:hover {
-  background: #1E40AF;
-  color: #050C18;
+  background: var(--nav-gold);
+  color: #0B1E30;
 }
 
 /* MOBILE DRAWER NAVIGATION */
@@ -3227,8 +3652,8 @@ button {
   width: 100%;
   max-width: 360px;
   height: 100%;
-  background: #050C18;
-  border-left: 1px solid rgba(197, 160, 89, 0.25);
+  background: #0B1E30;
+  border-left: 1px solid var(--nav-gold-dim);
   display: flex;
   flex-direction: column;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
@@ -3282,7 +3707,7 @@ button {
 }
 
 .mobile-nav-link:hover {
-  color: #1E40AF;
+  color: var(--nav-gold);
 }
 
 .mobile-subnav-list {
@@ -3301,7 +3726,7 @@ button {
 }
 
 .mobile-subnav-link:hover {
-  color: #1E40AF;
+  color: var(--nav-gold);
 }
 
 .mobile-drawer-footer {
@@ -3329,6 +3754,12 @@ button {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
+}
+
+@media (min-width: 1600px) {
+  .grid-responsive-4 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }
 
 .grid-sidebar-layout {
@@ -3364,7 +3795,7 @@ button {
   height: 400px;
   border-radius: 14px;
   overflow: hidden;
-  background: #0A192F;
+  background: #102A43;
 }
 
 .article-feed-row {
@@ -3389,16 +3820,16 @@ button {
 }
 
 .nav-logo img {
-  height: 38px;
-  max-width: 220px;
+  height: 56px;
+  max-width: 260px;
   width: auto;
   object-fit: contain;
   transition: all 0.2s ease;
 }
 
 .footer-logo img {
-  height: 38px;
-  max-width: 220px;
+  height: 54px;
+  max-width: 250px;
   width: auto;
   object-fit: contain;
   transition: all 0.2s ease;
@@ -3539,8 +3970,8 @@ button {
     padding: 0 16px;
   }
   .nav-logo img {
-    height: 28px !important;
-    max-width: 160px !important;
+    height: 48px !important;
+    max-width: 210px !important;
   }
   .hero-headline {
     font-size: 28px !important;
@@ -3608,7 +4039,7 @@ button {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: #0A192F;
+  color: #102A43;
   text-transform: uppercase;
   margin-bottom: 12px;
 }
@@ -3617,7 +4048,7 @@ button {
   font-size: clamp(32px, 3.6vw, 50px);
   font-weight: 900;
   line-height: 1.1;
-  color: #0A192F;
+  color: #102A43;
   margin: 0 0 14px;
 }
 
@@ -3635,10 +4066,10 @@ button {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1px;
-  color: #0A192F;
+  color: #102A43;
   text-decoration: none;
   padding-bottom: 2px;
-  border-bottom: 2px solid #0A192F;
+  border-bottom: 2px solid #102A43;
   transition: all 0.2s ease;
   width: fit-content;
 }
@@ -3671,27 +4102,27 @@ button {
 .master-talk-ep-card:hover {
   background: #FFFFFF;
   border-color: #E5E7EB;
-  border-left-color: rgba(212, 154, 36, 0.6);
+  border-left-color: rgba(30, 64, 175, 0.6);
 }
 
 .master-talk-ep-card.active-ep {
-  background: rgba(212, 154, 36, 0.08);
+  background: rgba(30, 64, 175, 0.08);
   border-color: #E5E7EB;
   border-left-color: var(--blue-primary);
-  box-shadow: 0 2px 10px rgba(212, 154, 36, 0.1);
+  box-shadow: 0 2px 10px rgba(30, 64, 175, 0.1);
 }
 
 .ep-num {
   font-size: 11px;
   font-weight: 900;
-  color: #0A192F;
+  color: #102A43;
   flex-shrink: 0;
 }
 
 .ep-title {
   font-size: 13px;
   font-weight: 700;
-  color: #0A192F;
+  color: #102A43;
   line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -3711,7 +4142,7 @@ button {
   height: 480px;
   border-radius: 16px;
   overflow: hidden;
-  background: #050C18;
+  background: #0B1E30;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
 
@@ -3758,12 +4189,12 @@ button {
   background: var(--blue-primary);
   border-color: var(--blue-primary);
   transform: scale(1.12);
-  box-shadow: 0 10px 30px rgba(212, 154, 36, 0.5);
+  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.5);
 }
 
 .video-card-play-button:hover .play-icon-bold {
-  fill: #050C18;
-  color: #050C18;
+  fill: #0B1E30;
+  color: #0B1E30;
 }
 
 .play-icon-bold {
@@ -3905,11 +4336,11 @@ button {
   flex-wrap: wrap;
   gap: 12px;
 }
-.tsw-section { max-width: 1240px; margin: 0 auto; padding: 24px 24px; }
+.tsw-section { width: 100%; max-width: 100%; margin: 0 auto; padding: 24px clamp(16px, 2.5vw, 40px); box-sizing: border-box; }
 .tsw-band { width: 100%; }
 .tsw-band--paper { background: var(--off-white); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
-.tsw-band--dark { background: #0A192F; }
-.tsw-band-inner { max-width: 1240px; margin: 0 auto; padding: 24px 24px; }
+.tsw-band--dark { background: #102A43; }
+.tsw-band-inner { width: 100%; max-width: 100%; margin: 0 auto; padding: 24px clamp(16px, 2.5vw, 40px); box-sizing: border-box; }
 @media (max-width: 640px) {
   .tsw-section { padding: 18px 16px; }
   .tsw-band-inner { padding: 18px 16px; }
@@ -4130,7 +4561,7 @@ button {
 .tsw-mag-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .tsw-mag-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
 .tsw-mag-cover {
-  position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
+  position: relative; width: 100%; aspect-ratio: 8 / 10.5; overflow: hidden;
   background: #141414; border: 1px solid var(--hairline);
   box-shadow: 0 20px 40px -26px rgba(23,21,18,0.5);
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
@@ -4178,7 +4609,7 @@ button {
 }
 .tsw-talks-ep:not(.is-active) .tsw-talks-ep-num { color: var(--ink-faint); }
 .tsw-talks-video {
-  position: relative; width: 100%; height: 420px; border-radius: 4px; overflow: hidden; background: #050C18;
+  position: relative; width: 100%; height: 420px; border-radius: 4px; overflow: hidden; background: #0B1E30;
 }
 .tsw-talks-video-grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,9,16,0.92) 0%, rgba(7,9,16,0.15) 62%, transparent 100%); z-index: 2; }
 .tsw-talks-play {
@@ -4236,28 +4667,29 @@ button {
    ============================================================ */
 .btn-nominate {
   background: transparent !important;
-  color: #1E40AF !important;
-  border: 1.5px solid #1E40AF !important;
+  color: var(--nav-gold-soft) !important;
+  border: 1.5px solid var(--nav-gold) !important;
   font-weight: 800 !important;
   transition: all 0.25s ease !important;
 }
 
 .btn-nominate:hover {
-  background: #1E40AF !important;
-  color: #0A192F !important;
+  background: var(--nav-gold) !important;
+  color: var(--nav-ink-on-gold) !important;
 }
 
 .btn-subscribe {
-  background: #1E40AF !important;
-  color: #0A192F !important;
-  border: 1.5px solid #1E40AF !important;
+  background: var(--logo-blue) !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid var(--logo-blue) !important;
   font-weight: 800 !important;
   transition: all 0.25s ease !important;
 }
 
 .btn-subscribe:hover {
-  background: #1E3A8A !important;
+  background: var(--logo-blue-dark) !important;
   color: #FFFFFF !important;
+  border-color: var(--logo-blue-dark) !important;
 }
 
 

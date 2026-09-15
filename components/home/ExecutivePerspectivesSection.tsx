@@ -28,20 +28,20 @@ export function ExecutivePerspectivesSection() {
       style={{
         width: "100%",
         background: "#F9FAFB",
-        color: "#0A192F",
+        color: "#102A43",
         padding: "56px 20px",
         borderBottom: "1px solid #EAE6DF",
       }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
         {/* Section Header */}
-        <div style={{ borderBottom: "2px solid #0A192F", paddingBottom: "12px", marginBottom: "36px" }}>
+        <div style={{ borderBottom: "2px solid #102A43", paddingBottom: "12px", marginBottom: "36px" }}>
           <span
             style={{
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#0A192F",
+              color: "#102A43",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "4px",
@@ -54,7 +54,7 @@ export function ExecutivePerspectivesSection() {
             style={{
               fontSize: "clamp(28px, 3.2vw, 42px)",
               fontWeight: 900,
-              color: "#0a192f",
+              color: "#102A43",
               margin: 0,
               lineHeight: 1.1,
             }}
@@ -82,7 +82,7 @@ export function ExecutivePerspectivesSection() {
                 height: "320px",
                 borderRadius: "4px",
                 overflow: "hidden",
-                background: "#0a192f",
+                background: "#102A43",
               }}
             >
               {featureStory.image ? (
@@ -98,7 +98,7 @@ export function ExecutivePerspectivesSection() {
                     height: "100%",
                     display: "grid",
                     placeItems: "center",
-                    color: "#3B82F6",
+                    color: "#6F8498",
                     fontWeight: 800,
                     fontSize: "22px",
                     padding: "20px",
@@ -116,7 +116,7 @@ export function ExecutivePerspectivesSection() {
                 style={{
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#0A192F",
+                  color: "#102A43",
                   letterSpacing: "1.5px",
                   textTransform: "uppercase",
                 }}
@@ -129,12 +129,12 @@ export function ExecutivePerspectivesSection() {
                 style={{
                   fontSize: "clamp(22px, 2.5vw, 32px)",
                   fontWeight: 900,
-                  color: "#0a192f",
+                  color: "#102A43",
                   margin: 0,
                   lineHeight: 1.2,
                 }}
               >
-                <Link href={`/blogs/${featureStory.slug}`} style={{ color: "#0a192f", textDecoration: "none" }}>
+                <Link href={`/blogs/${featureStory.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                   {featureStory.title}
                 </Link>
               </h3>
@@ -155,7 +155,7 @@ export function ExecutivePerspectivesSection() {
                   style={{
                     fontSize: "12px",
                     fontWeight: 800,
-                    color: "#0A192F",
+                    color: "#102A43",
                     letterSpacing: "1px",
                     textTransform: "uppercase",
                     textDecoration: "none",
@@ -174,7 +174,7 @@ export function ExecutivePerspectivesSection() {
 
         {/* Numbered Editorial Grid Below Feature (01, 02, 03, 04 across 4 Columns) */}
         {numberedGrid.length > 0 && (
-          <div style={{ borderTop: "1px solid #0A192F", paddingTop: "32px" }}>
+          <div style={{ borderTop: "1px solid #102A43", paddingTop: "32px" }}>
             <div
               style={{
                 display: "grid",
@@ -198,14 +198,14 @@ export function ExecutivePerspectivesSection() {
                     style={{
                       fontSize: "36px",
                       fontWeight: 300,
-                      color: "#0A192F",
+                      color: "#102A43",
                       lineHeight: 1,
                     }}
                   >
                     {String(idx + 1).padStart(2, "0")}
                   </div>
 
-                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#0A192F", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#102A43", letterSpacing: "1.5px", textTransform: "uppercase" }}>
                     {item.category || "PERSPECTIVE"} &bull; {item.date}
                   </div>
 
@@ -214,12 +214,12 @@ export function ExecutivePerspectivesSection() {
                     style={{
                       fontSize: "16px",
                       fontWeight: 800,
-                      color: "#0a192f",
+                      color: "#102A43",
                       margin: 0,
                       lineHeight: 1.35,
                     }}
                   >
-                    <Link href={`/blogs/${item.slug}`} style={{ color: "#0a192f", textDecoration: "none" }}>
+                    <Link href={`/blogs/${item.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                       {item.title}
                     </Link>
                   </h4>
@@ -250,7 +250,7 @@ export function ExecutivePerspectivesSection() {
                 style={{
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#0A192F",
+                  color: "#102A43",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
                   textDecoration: "none",

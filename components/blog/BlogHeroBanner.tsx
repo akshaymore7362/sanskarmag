@@ -17,7 +17,7 @@ export function BlogHeroBanner() {
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: "radial-gradient(#1E40AF 0.6px, transparent 0.6px)",
+          backgroundImage: "radial-gradient(#102A43 0.6px, transparent 0.6px)",
           backgroundSize: "20px 20px",
           opacity: 0.1,
           pointerEvents: "none",
@@ -42,7 +42,7 @@ export function BlogHeroBanner() {
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#1E40AF",
+              color: "#102A43",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "6px",
@@ -56,7 +56,7 @@ export function BlogHeroBanner() {
             style={{
               fontSize: "clamp(34px, 4.2vw, 52px)",
               fontWeight: 900,
-              color: "#0A192F",
+              color: "#102A43",
               margin: "0 0 10px",
               lineHeight: 1.1,
             }}
@@ -81,7 +81,7 @@ export function BlogHeroBanner() {
             style={{
               width: "56px",
               height: "3px",
-              background: "#1E40AF",
+              background: "#102A43",
               borderRadius: "2px",
             }}
           />
@@ -107,10 +107,10 @@ export function BlogHeroBanner() {
             }}
           >
             <div>
-              <span style={{ fontSize: "10px", fontWeight: 800, color: "#1E40AF", letterSpacing: "1.5px" }}>
+              <span style={{ fontSize: "10px", fontWeight: 800, color: "#102A43", letterSpacing: "1.5px" }}>
                 THE SUCCESS WORLD
               </span>
-              <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 900, color: "#0A192F", margin: "4px 0 6px" }}>
+              <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 900, color: "#102A43", margin: "4px 0 6px" }}>
                 Leadership
               </h3>
               <p style={{ fontSize: "12px", color: "#6B7280", margin: 0, maxWidth: "220px", lineHeight: 1.4 }}>
@@ -123,7 +123,7 @@ export function BlogHeroBanner() {
                 width: "84px",
                 height: "84px",
                 borderRadius: "50%",
-                background: "radial-gradient(circle, #1E40AF 0%, #0A192F 100%)",
+                background: "radial-gradient(circle, #102A43 0%, #102A43 100%)",
                 boxShadow: "0 8px 20px rgba(80, 7, 28, 0.2)",
                 display: "grid",
                 placeItems: "center",

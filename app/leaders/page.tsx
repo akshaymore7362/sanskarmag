@@ -90,14 +90,14 @@ export default function LeadersPage() {
   }, [leaders, searchQuery]);
 
   return (
-    <main style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "80px" }}>
+    <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "80px" }}>
       <PageIntro
         title="Web Profiles Wall"
         intro="Discover the digital presence of our visionary leaders driving innovation and shaping the future."
         eyebrow="Executive Directory"
       />
 
-      <div style={{ width: "100%", maxWidth: "1400px", margin: "0 auto", padding: "0 24px", boxSizing: "border-box" }}>
+      <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
         {/* Executive Directory Container */}
         <section
           style={{
@@ -126,9 +126,9 @@ export default function LeadersPage() {
             viewBox="0 0 450 180"
             fill="none"
           >
-            <path d="M0,180 Q225,90 450,150 T900,100" stroke="#1E40AF" strokeWidth="1" fill="none" />
-            <path d="M0,180 Q225,110 450,165 T900,120" stroke="#1E40AF" strokeWidth="1" fill="none" />
-            <path d="M0,180 Q225,130 450,180 T900,140" stroke="#1E40AF" strokeWidth="1" fill="none" />
+            <path d="M0,180 Q225,90 450,150 T900,100" stroke="#102A43" strokeWidth="1" fill="none" />
+            <path d="M0,180 Q225,110 450,165 T900,120" stroke="#102A43" strokeWidth="1" fill="none" />
+            <path d="M0,180 Q225,130 450,180 T900,140" stroke="#102A43" strokeWidth="1" fill="none" />
           </svg>
 
           {/* Section Header with Search Bar */}
@@ -150,7 +150,7 @@ export default function LeadersPage() {
                   fontSize: "11px",
                   fontWeight: 800,
                   letterSpacing: "2px",
-                  color: "#1E40AF",
+                  color: "#102A43",
                   textTransform: "uppercase",
                   display: "inline-flex",
                   alignItems: "center",
@@ -158,7 +158,7 @@ export default function LeadersPage() {
                   marginBottom: "6px",
                 }}
               >
-                <Crown size={14} style={{ color: "#1E40AF" }} />
+                <Crown size={14} style={{ color: "#102A43" }} />
                 EXECUTIVE DIRECTORY
               </div>
               <h2
@@ -166,12 +166,12 @@ export default function LeadersPage() {
                 style={{
                   fontSize: "32px",
                   fontWeight: 900,
-                  color: "#0A192F",
+                  color: "#102A43",
                   margin: 0,
                   lineHeight: 1.2,
                 }}
               >
-                All Web <span style={{ color: "#1E40AF" }}>Profiles</span> ({filteredLeaders.length})
+                All Web <span style={{ color: "#102A43" }}>Profiles</span> ({filteredLeaders.length})
               </h2>
             </div>
 
@@ -196,7 +196,7 @@ export default function LeadersPage() {
                   borderRadius: "10px",
                   fontSize: "13px",
                   outline: "none",
-                  color: "#0A192F",
+                  color: "#102A43",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
                 }}
               />
@@ -248,9 +248,9 @@ export default function LeadersPage() {
                         position: "absolute",
                         inset: "-8px",
                         borderRadius: "50%",
-                        border: "2px solid #1E40AF",
+                        border: "2px solid #102A43",
                         borderLeftColor: "transparent",
-                        borderBottomColor: "#1E40AF",
+                        borderBottomColor: "#102A43",
                         transform: "rotate(-35deg)",
                         pointerEvents: "none",
                       }}
@@ -264,7 +264,7 @@ export default function LeadersPage() {
                         top: "30%",
                         width: "16px",
                         height: "36px",
-                        background: "radial-gradient(#1E40AF 1.5px, transparent 1.5px)",
+                        background: "radial-gradient(#102A43 1.5px, transparent 1.5px)",
                         backgroundSize: "6px 6px",
                         opacity: 0.7,
                         pointerEvents: "none",
@@ -297,7 +297,7 @@ export default function LeadersPage() {
                             height: "100%",
                             display: "grid",
                             placeItems: "center",
-                            color: "#1E40AF",
+                            color: "#102A43",
                             fontWeight: 900,
                             fontSize: "44px",
                             background: "#E5E7EB",
@@ -317,7 +317,7 @@ export default function LeadersPage() {
                         width: "36px",
                         height: "36px",
                         borderRadius: "50%",
-                        background: "#1E40AF",
+                        background: "#102A43",
                         color: "#FFFFFF",
                         border: "2.5px solid #FFFFFF",
                         boxShadow: "0 4px 12px rgba(10, 25, 47, 0.3)",
@@ -336,12 +336,12 @@ export default function LeadersPage() {
                     style={{
                       fontSize: "22px",
                       fontWeight: 800,
-                      color: "#0A192F",
+                      color: "#102A43",
                       margin: "0 0 6px",
                       lineHeight: 1.25,
                     }}
                   >
-                    <Link href={`/leaders/${leader.slug}`} style={{ color: "#0A192F", textDecoration: "none" }}>
+                    <Link href={`/leaders/${leader.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
                       {leader.name}
                     </Link>
                   </h3>
@@ -352,7 +352,7 @@ export default function LeadersPage() {
                       fontSize: "11px",
                       fontWeight: 900,
                       letterSpacing: "1.5px",
-                      color: "#1E40AF",
+                      color: "#102A43",
                       textTransform: "uppercase",
                       marginBottom: "8px",
                     }}
@@ -365,7 +365,7 @@ export default function LeadersPage() {
                     style={{
                       width: "24px",
                       height: "1px",
-                      background: "#1E40AF",
+                      background: "#102A43",
                       margin: "0 auto 12px",
                       position: "relative",
                     }}
@@ -374,7 +374,7 @@ export default function LeadersPage() {
                       style={{
                         width: "5px",
                         height: "5px",
-                        background: "#1E40AF",
+                        background: "#102A43",
                         transform: "translate(-50%, -50%) rotate(45deg)",
                         position: "absolute",
                         left: "50%",
@@ -407,10 +407,10 @@ export default function LeadersPage() {
                       fontSize: "12px",
                       fontWeight: 800,
                       letterSpacing: "1px",
-                      color: "#1E40AF",
+                      color: "#102A43",
                       textTransform: "uppercase",
                       textDecoration: "none",
-                      borderBottom: "1.5px solid #1E40AF",
+                      borderBottom: "1.5px solid #102A43",
                       paddingBottom: "2px",
                       display: "inline-flex",
                       alignItems: "center",

@@ -12,35 +12,35 @@ import { NewsletterSection } from "@/components/home/NewsletterSection";
 export default function Home() {
   return (
     <main className="home-page" style={{ width: "100%", overflowX: "hidden" }}>
-      {/* 1. HERO */}
+      {/* 1. HERO — plays its own load-in animation, not scroll-triggered */}
       <HeroSection />
 
       {/* 2. BUSINESS BULLETIN */}
-      <BusinessBulletinSection />
+      <div className="tsw-reveal"><BusinessBulletinSection /></div>
 
       {/* 3. EXECUTIVE DIRECTORY */}
-      <WebProfilesSection />
+      <div className="tsw-reveal"><WebProfilesSection /></div>
 
       {/* 4. DAILY LIVE NEWS */}
-      <DailyNewsSection />
+      <div className="tsw-reveal"><DailyNewsSection /></div>
 
       {/* 5. THE INTELLIGENCE BRIEF */}
-      <IntelligenceBrief />
+      <div className="tsw-reveal"><IntelligenceBrief /></div>
 
       {/* 6. LEADERSHIP LENS */}
-      <LeadershipLens />
+      <div className="tsw-reveal"><LeadershipLens /></div>
 
       {/* 7. PARTNER BRANDS */}
-      <PartnerBrandsSection />
+      <div className="tsw-reveal"><PartnerBrandsSection /></div>
 
       {/* 8. LATEST MAGAZINE ISSUES */}
-      <MagazineSection />
+      <div className="tsw-reveal"><MagazineSection /></div>
 
       {/* 9. MASTER TALKS & INTERVIEWS */}
-      <MasterTalksSection />
+      <div className="tsw-reveal"><MasterTalksSection /></div>
 
       {/* 10. EXECUTIVE BRIEFING NEWSLETTER */}
-      <NewsletterSection />
+      <div className="tsw-reveal"><NewsletterSection /></div>
     </main>
   );
 }

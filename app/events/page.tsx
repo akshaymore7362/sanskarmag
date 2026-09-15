@@ -18,28 +18,28 @@ const pastEvents = [
 
 export default function EventsPage() {
   return (
-    <main className="events-page site-shell inner-shell" style={{ background: "#F3F4F6", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main className="events-page site-shell inner-shell" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "60px" }}>
       <PageIntro
         title="Events"
         intro="Global business forums, technology summits, leadership keynotes and executive networking."
         eyebrow="Conferences & Summits"
       />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto" }}>
         {/* Upcoming Events Section */}
         <section style={{ marginBottom: "48px" }}>
-          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F", marginBottom: "20px" }}>Upcoming Events</h2>
+          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#102A43", marginBottom: "20px" }}>Upcoming Events</h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {upcomingEvents.map((ev) => (
               <div key={ev.name} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "16px", padding: "20px 24px", display: "flex", flexWrap: "wrap", gap: "16px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 10px rgba(0,0,0,0.03)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                  <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#0A192F", color: "#1E40AF", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#102A43", color: "#102A43", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                     <span style={{ fontSize: "18px", fontWeight: 900, lineHeight: 1 }}>{ev.day}</span>
                     <span style={{ fontSize: "9px", fontWeight: 800, letterSpacing: "1px" }}>{ev.month}</span>
                   </div>
                   <div>
-                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#0A192F", margin: "0 0 2px" }}>{ev.name}</h3>
+                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 800, color: "#102A43", margin: "0 0 2px" }}>{ev.name}</h3>
                     <div style={{ fontSize: "13px", color: "#4B5563" }}>{ev.location}</div>
                   </div>
                 </div>
@@ -54,7 +54,7 @@ export default function EventsPage() {
 
         {/* Past Events Section */}
         <section style={{ marginBottom: "48px" }}>
-          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#0A192F", marginBottom: "20px" }}>Past Events</h2>
+          <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#102A43", marginBottom: "20px" }}>Past Events</h2>
 
           <div className="grid-responsive-2">
             {pastEvents.map((item) => (
@@ -63,7 +63,7 @@ export default function EventsPage() {
                   <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
                 </div>
                 <div style={{ padding: "20px" }}>
-                  <h4 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, color: "#0A192F", margin: "0 0 4px" }}>{item.title}</h4>
+                  <h4 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, color: "#102A43", margin: "0 0 4px" }}>{item.title}</h4>
                   <div style={{ fontSize: "13px", color: "#4B5563" }}>{item.location}</div>
                 </div>
               </div>

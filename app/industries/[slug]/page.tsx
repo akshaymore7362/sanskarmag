@@ -409,9 +409,9 @@ export default async function IndustryDetailPage({ params }: Props) {
             return (
               <div
                 key={ewIdx}
+                className={`editorial-world-row${isEven ? " is-reversed" : ""}`}
                 style={{
                   display: "grid",
-                  gridTemplateColumns: isEven ? "1fr 200px" : "200px 1fr",
                   gap: "28px",
                   alignItems: "center",
                   paddingBottom: "20px",

@@ -41,18 +41,37 @@ export function MagazineNewsletterSection() {
               border: "1px solid rgba(30, 64, 175, 0.4)",
               boxShadow: "0 20px 40px rgba(0, 0, 0, 0.8)",
               transform: "rotate(-4deg)",
-              background: "linear-gradient(135deg, #102A43 0%, #102A43 100%)",
+              background: "linear-gradient(135deg, #0B1E30 0%, #102A43 100%)",
             }}
           >
-            <div style={{ padding: "24px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div style={{ padding: "22px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               <div>
-                <div className="font-serif" style={{ fontSize: "18px", fontWeight: 900, color: "#102A43" }}>
-                  THE SUCCESS WORLD
-                </div>
-                <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)", marginTop: "4px", letterSpacing: "1.5px" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-white-text.png"
+                  alt="The Success World"
+                  style={{ height: "26px", width: "auto", maxWidth: "100%", objectFit: "contain" }}
+                />
+                <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.55)", marginTop: "8px", letterSpacing: "1.5px" }}>
                   SPECIAL EDITION
                 </div>
               </div>
+
+              {/* Tagline — fills the middle instead of leaving it empty */}
+              <p
+                className="font-serif"
+                style={{
+                  fontSize: "13px",
+                  fontStyle: "italic",
+                  color: "rgba(255, 255, 255, 0.55)",
+                  lineHeight: 1.5,
+                  margin: 0,
+                  borderLeft: "2px solid rgba(147, 197, 253, 0.4)",
+                  paddingLeft: "12px",
+                }}
+              >
+                &ldquo;The stories shaping tomorrow&apos;s leaders.&rdquo;
+              </p>
 
               <div>
                 <h4 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#FFFFFF", lineHeight: 1.2, margin: 0 }}>
@@ -70,7 +89,7 @@ export function MagazineNewsletterSection() {
               fontSize: "11px",
               fontWeight: 800,
               letterSpacing: "2px",
-              color: "#102A43",
+              color: "#93A9C4",
               textTransform: "uppercase",
               display: "block",
               marginBottom: "8px",
@@ -128,7 +147,7 @@ export function MagazineNewsletterSection() {
           {/* 3 Feature Indicators Row (Matching reference image) */}
           <div style={{ display: "flex", gap: "28px", alignItems: "center", flexWrap: "wrap", paddingTop: "16px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Award size={16} style={{ color: "#102A43" }} />
+              <Award size={16} style={{ color: "#93A9C4" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Exclusive Editions</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>Straight to you</div>
@@ -136,7 +155,7 @@ export function MagazineNewsletterSection() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Sparkles size={16} style={{ color: "#102A43" }} />
+              <Sparkles size={16} style={{ color: "#93A9C4" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Inspiring Leaders</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>Real stories, real impact</div>
@@ -144,7 +163,7 @@ export function MagazineNewsletterSection() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <TrendingUp size={16} style={{ color: "#102A43" }} />
+              <TrendingUp size={16} style={{ color: "#93A9C4" }} />
               <div>
                 <div style={{ fontSize: "12px", fontWeight: 800, color: "#FFFFFF" }}>Business Insights</div>
                 <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.6)" }}>That drive growth</div>

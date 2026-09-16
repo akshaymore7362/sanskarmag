@@ -64,7 +64,7 @@ export default function ArticlesPage() {
 
         {/* Featured Section (Dark Card + Side List) */}
         {featured && (
-          <section style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: "28px", marginBottom: "40px" }}>
+          <section className="featured-split-grid" style={{ marginBottom: "40px" }}>
             <div style={{ background: "#102A43", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "16px", padding: "28px", color: "#FFFFFF", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               {featured.image && (
                 <div style={{ position: "relative", height: "240px", borderRadius: "10px", overflow: "hidden", marginBottom: "18px" }}>
@@ -114,7 +114,7 @@ export default function ArticlesPage() {
             </Link>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
+          <div className="latest-articles-grid">
             {(latestGrid.length > 0 ? latestGrid : articleList).map((article, idx) => (
               <article key={article.slug || String(idx)} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "18px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                 {article.image && (

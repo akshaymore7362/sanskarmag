@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { MagazineHeroBanner } from "@/components/magazine/MagazineHeroBanner";
 import { MagazineFilterBar } from "@/components/magazine/MagazineFilterBar";
 import { MagazineCardGrid } from "@/components/magazine/MagazineCardGrid";
 import { MagazineNewsletterSection } from "@/components/magazine/MagazineNewsletterSection";
@@ -69,9 +68,6 @@ export default function MagazinesPage() {
 
   return (
     <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "40px" }}>
-      {/* 1. Hero 3D Featured Magazine Stack Banner */}
-      {sanityIssues.length > 0 && <MagazineHeroBanner issues={sanityIssues.slice(0, 6)} />}
-
       {/* 2. Filter & Search Bar with Dynamic Year Selector */}
       <MagazineFilterBar
         availableYears={availableYears}

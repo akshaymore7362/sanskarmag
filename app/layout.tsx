@@ -10,9 +10,12 @@ export const metadata: Metadata = {
   title: "The Success World | Ideas. Leaders. Markets. Success.",
   description: "Ideas. Leaders. Markets. Success. Premium editorial coverage for founders, executives, operators, and investors.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
     shortcut: "/icon.png",
-    apple: "/logo-icon.png",
+    apple: "/icon.png",
   },
   openGraph: {
     title: "The Success World",

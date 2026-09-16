@@ -4,9 +4,17 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Crown, Globe, User, Briefcase, TrendingUp } from "lucide-react";
 import { leaderService } from "@/services/leaderService";
+import { useMagazineSync, deriveWebProfile } from "@/components/home/MagazineSyncContext";
 import type { Leader } from "@/types";
 
 const badgeIcons = [Globe, User, Briefcase, TrendingUp];
+
+function normalizeName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/^(dr|mr|mrs|ms|prof)\.?\s+/i, "")
+    .trim();
+}
 
 const defaultLeaders: Leader[] = [
   {
@@ -65,7 +73,12 @@ const defaultLeaders: Leader[] = [
 
 export function WebProfilesSection() {
   const [profiles, setProfiles] = useState<Leader[]>(defaultLeaders);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  // Shared with HeroSection via MagazineSyncProvider — the exact same
+  // selected-issue object the magazine cover slider renders from. The
+  // spotlight below is derived from this one object (deriveWebProfile), so
+  // it is architecturally impossible for it to show a different issue than
+  // the cover: there is only one object, not two independent indexes.
+  const { selectedIssue, selectedIndex, issues } = useMagazineSync();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   useEffect(() => {
@@ -77,12 +90,48 @@ export function WebProfilesSection() {
   }, []);
 
   const displayProfiles = profiles.length > 0 ? profiles : defaultLeaders;
-  const activeLeader = displayProfiles[activeIndex % displayProfiles.length] || displayProfiles[0];
+  const issueProfile = selectedIssue ? deriveWebProfile(selectedIssue) : null;
 
-  const handleSelectLeader = (idx: number) => {
-    setActiveIndex(idx);
+  // Prefer a REAL leader record (real photo, real bio, real role/company)
+  // when this issue's cover subject has one — the magazine cover image is
+  // never used as a stand-in "portrait" here, it's a different kind of
+  // asset (a full page layout, not a headshot) and showing it in a
+  // photo-card looked wrong. Falls back to an initials avatar, never the
+  // cover, when no matching leader record exists.
+  const matchedLeader = issueProfile
+    ? displayProfiles.find((l) => {
+        const a = normalizeName(l.name || "");
+        const b = normalizeName(issueProfile.name);
+        return a === b || (a && b && (a.includes(b) || b.includes(a)));
+      })
+    : undefined;
+
+  const profile = issueProfile
+    ? {
+        name: matchedLeader?.name || issueProfile.name,
+        headline: matchedLeader
+          ? `${matchedLeader.role || "EXECUTIVE LEADER"}${matchedLeader.company ? ` • ${matchedLeader.company}` : ""}`
+          : issueProfile.headline,
+        bio: matchedLeader?.bio || issueProfile.bio,
+        // No cover-image fallback — real photo or nothing (initials avatar).
+        avatar: matchedLeader?.image || "",
+      }
+    : null;
+
+  // "View full profile" link target: a matched leader has a real profile
+  // page; otherwise there's no separate leader page for this cover subject,
+  // so it opens that issue's own reader page instead.
+  const profileHref = matchedLeader?.slug
+    ? `/leaders/${matchedLeader.slug}`
+    : selectedIssue?.pdfUrl || `/magazines/${selectedIssue?.slug || ""}`;
+
+  // Collapse any expanded bio when the selected issue changes (driven by the
+  // Hero slider), so switching covers doesn't leave a stale reader state.
+  useEffect(() => {
     setIsExpanded(false);
-  };
+  }, [selectedIssue?.id]);
+
+  if (!profile) return null;
 
   return (
     <section
@@ -204,20 +253,23 @@ export function WebProfilesSection() {
           }}
         >
           <div
+            className="grid-split-layout"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gridTemplateColumns: "minmax(380px, 1.7fr) minmax(280px, 1fr)",
               gap: "36px",
               alignItems: "center",
             }}
           >
-            {/* LEFT: Full Uncropped Portrait Image Container (100% full view) — clickable through to the profile */}
+            {/* LEFT: Portrait Photo Card — a real headshot, full-bleed like a
+                proper profile card (never the magazine cover graphic) —
+                clickable through to the profile */}
             <Link
-              href={`/leaders/${activeLeader.slug}`}
-              aria-label={`View full profile for ${activeLeader.name}`}
+              href={profileHref}
+              aria-label={`View full profile for ${profile.name}`}
               style={{
                 width: "100%",
-                height: "480px",
+                height: "520px",
                 borderRadius: "16px",
                 overflow: "hidden",
                 border: "1px solid #E2E8F0",
@@ -227,15 +279,14 @@ export function WebProfilesSection() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "12px",
                 cursor: "pointer",
               }}
             >
-              {activeLeader.image ? (
+              {profile.avatar ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
-                  src={activeLeader.image}
-                  alt={activeLeader.name}
+                  src={profile.avatar}
+                  alt={profile.name}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -255,7 +306,7 @@ export function WebProfilesSection() {
                     background: "linear-gradient(135deg, #102A43 0%, #1E293B 100%)",
                   }}
                 >
-                  {activeLeader.name.charAt(0)}
+                  {profile.name.charAt(0)}
                 </div>
               )}
 
@@ -292,7 +343,7 @@ export function WebProfilesSection() {
                   textTransform: "uppercase",
                 }}
               >
-                EXECUTIVE PROFILE &bull; 0{activeIndex + 1} OF {displayProfiles.length}
+                EXECUTIVE PROFILE &bull; 0{selectedIndex + 1} OF {issues.length}
               </div>
 
               <h3
@@ -305,7 +356,7 @@ export function WebProfilesSection() {
                   lineHeight: 1.15,
                 }}
               >
-                {activeLeader.name}
+                {profile.name}
               </h3>
 
               <div
@@ -316,8 +367,7 @@ export function WebProfilesSection() {
                   letterSpacing: "0.5px",
                 }}
               >
-                {activeLeader.role || "EXECUTIVE LEADER"}{" "}
-                {activeLeader.company ? <span style={{ color: "#64748B" }}>&bull; {activeLeader.company}</span> : ""}
+                {profile.headline}
               </div>
 
               {/* Bio description with Read More toggle */}
@@ -335,7 +385,7 @@ export function WebProfilesSection() {
                     textOverflow: "ellipsis",
                   }}
                 >
-                  {activeLeader.bio ||
+                  {profile.bio ||
                     "Driving visionary leadership, international enterprise growth, digital innovation, and transformation across worldwide markets."}
                 </p>
 
@@ -421,7 +471,7 @@ export function WebProfilesSection() {
                 }}
               >
                 <Link
-                  href={`/leaders/${activeLeader.slug}`}
+                  href={profileHref}
                   style={{
                     background: "linear-gradient(135deg, #102A43 0%, #1E293B 100%)",
                     color: "#FFFFFF",
@@ -464,7 +514,7 @@ export function WebProfilesSection() {
           >
             <span>EXECUTIVE DIRECTORY ({displayProfiles.length})</span>
             <Link
-              href={`/leaders/${activeLeader.slug}`}
+              href={profileHref}
               style={{ color: "#102A43", fontSize: "11px", textDecoration: "none", cursor: "pointer" }}
             >
               CLICK TO VIEW PROFILE
@@ -481,7 +531,11 @@ export function WebProfilesSection() {
             }}
           >
             {displayProfiles.map((leader, idx) => {
-              const isActive = idx === activeIndex;
+              // Cosmetic only: highlight this directory card if it happens to
+              // be the same person currently featured in the spotlight above.
+              // The directory itself is a separate real leaders list and is
+              // not driven by the magazine slider.
+              const isActive = leader.name?.trim().toLowerCase() === profile.name.trim().toLowerCase();
 
               return (
                 <Link

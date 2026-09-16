@@ -96,7 +96,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
         {/* Featured Insight */}
         {featured && (
           <section style={{ marginBottom: "40px" }}>
-            <div style={{ background: "#102A43", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "20px", overflow: "hidden", display: "grid", gridTemplateColumns: "1.2fr 1fr" }}>
+            <div className="featured-split-grid" style={{ background: "#102A43", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "20px", overflow: "hidden", gap: 0 }}>
               <div style={{ padding: "40px", color: "#FFFFFF", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                 <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#0B1E30", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, width: "fit-content", marginBottom: "12px" }}>
                   FEATURED INSIGHT
@@ -134,7 +134,7 @@ export function InsightsView({ initialCategory = "All" }: Props) {
             <h2 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#102A43" }}>More Strategic Essays</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
+          <div className="latest-articles-grid">
             {(items.length > 0 ? items : filteredInsights).map((article, idx) => (
               <article key={article.slug || String(idx)} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "18px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                 {article.image && (

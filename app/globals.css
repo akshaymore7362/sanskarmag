@@ -1208,7 +1208,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
     display: none !important;
   }
   .nav-logo img {
-    height: 48px !important;
+    height: 62px !important;
   }
   .logo-title {
     font-size: 11px !important;
@@ -3820,7 +3820,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 }
 
 .nav-logo img {
-  height: 56px;
+  height: 82px;
   max-width: 260px;
   width: auto;
   object-fit: contain;
@@ -3828,7 +3828,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 }
 
 .footer-logo img {
-  height: 54px;
+  height: 78px;
   max-width: 250px;
   width: auto;
   object-fit: contain;
@@ -3848,6 +3848,30 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 
 .magazine-newsletter-card {
   padding: 40px 48px;
+}
+
+.page-intro-header-banner {
+  margin: -20px -40px 32px -40px;
+  padding: 48px 40px 40px 40px;
+}
+
+.editorial-world-row {
+  grid-template-columns: 200px 1fr;
+}
+.editorial-world-row.is-reversed {
+  grid-template-columns: 1fr 200px;
+}
+
+.featured-split-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+}
+
+.latest-articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
 
 @media (max-width: 1024px) {
@@ -3871,6 +3895,19 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   }
   .magazine-newsletter-card {
     padding: 32px 28px !important;
+  }
+  .featured-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .latest-articles-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+  }
+  .editorial-world-row,
+  .editorial-world-row.is-reversed {
+    grid-template-columns: 140px 1fr !important;
+    gap: 18px !important;
   }
 }
 
@@ -3907,6 +3944,18 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   .magazine-newsletter-form {
     flex-direction: column !important;
     width: 100% !important;
+  }
+  .page-intro-header-banner {
+    margin: -16px -16px 24px -16px !important;
+    padding: 28px 16px 24px 16px !important;
+  }
+  .latest-articles-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .editorial-world-row,
+  .editorial-world-row.is-reversed {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
   }
 }
 
@@ -3970,7 +4019,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
     padding: 0 16px;
   }
   .nav-logo img {
-    height: 48px !important;
+    height: 62px !important;
     max-width: 210px !important;
   }
   .hero-headline {

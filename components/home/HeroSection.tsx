@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,45 +13,24 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { magazineService } from "@/services/magazineService";
-import { leaderService } from "@/services/leaderService";
 import { NominateModal } from "@/components/modals/NominateModal";
-import type { MagazineIssue, Leader } from "@/types";
+import { useMagazineSync, deriveWebProfile } from "@/components/home/MagazineSyncContext";
 
 export function HeroSection() {
-  const [magazines, setMagazines] = useState<MagazineIssue[]>([]);
-  const [leaders, setLeaders] = useState<Leader[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [direction, setDirection] = useState<number>(1);
-  const [isPaused, setIsPaused] = useState<boolean>(false);
+  // Single source of truth, shared with WebProfilesSection via
+  // MagazineSyncProvider: the issue list, which issue id is selected, and
+  // the navigation functions used by every input (autoplay, buttons, dots,
+  // swipe). There is no separate local index/state here — the cover below
+  // and WebProfilesSection's spotlight both render from the exact same
+  // `selectedIssue` object, so they cannot drift apart.
+  const { issues, selectedIssue, selectedIndex, direction, goToNext, goToPrev, goToId, isPaused, setPaused } =
+    useMagazineSync();
   const [nominateOpen, setNominateOpen] = useState(false);
 
-  useEffect(() => {
-    magazineService.fetchSanityMagazines().then((issues) => {
-      if (issues && issues.length > 0) {
-        setMagazines(issues.slice(0, 6));
-      }
-    });
-
-    leaderService.fetchSanityLeaders().then((itemLeaders) => {
-      if (itemLeaders && itemLeaders.length > 0) {
-        setLeaders(itemLeaders);
-      }
-    });
-  }, []);
-
-  // Continuous Automatic Slide Timer (3.5s)
-  useEffect(() => {
-    if (magazines.length <= 1 || isPaused) return;
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % magazines.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [magazines.length, isPaused]);
-
-  const activeIssue = magazines.length > 0 ? magazines[currentIndex % magazines.length] : null;
-  const activeLeader = leaders.length > 0 ? leaders[currentIndex % leaders.length] : null;
+  const activeIssue = selectedIssue;
+  // Derived directly from the same issue object as the cover — never from a
+  // separate leaders array — so it can never mismatch.
+  const profile = activeIssue ? deriveWebProfile(activeIssue) : null;
 
   const heroTitle = activeIssue?.title || "International Executive Edition";
   const heroDesc =
@@ -59,30 +38,13 @@ export function HeroSection() {
     activeIssue?.description ||
     "Delivering strategic economic briefings and executive insights for global decision makers.";
   const heroCover = activeIssue?.cover || "";
-  const issueTag = activeIssue?.issue || `EDITION 0${currentIndex + 1}`;
+  const issueTag = activeIssue?.issue || `EDITION 0${selectedIndex + 1}`;
   const issueDate = activeIssue?.date || activeIssue?.year || "";
 
   const targetPdfUrl = activeIssue?.pdfUrl ? activeIssue.pdfUrl : `/magazines/${activeIssue?.slug || ""}`;
   const isExternalPdf = Boolean(
     activeIssue?.pdfUrl && (activeIssue.pdfUrl.startsWith("http://") || activeIssue.pdfUrl.startsWith("https://"))
   );
-
-  const handleNext = () => {
-    if (magazines.length === 0) return;
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % magazines.length);
-  };
-
-  const handlePrev = () => {
-    if (magazines.length === 0) return;
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + magazines.length) % magazines.length);
-  };
-
-  const handleSelect = (idx: number) => {
-    setDirection(idx > currentIndex ? 1 : -1);
-    setCurrentIndex(idx);
-  };
 
   const slideVariants = {
     initial: (dir: number) => ({
@@ -99,13 +61,13 @@ export function HeroSection() {
     }),
   };
 
-  const behind1 = magazines.length > 1 ? magazines[(currentIndex + 1) % magazines.length] : null;
-  const behind2 = magazines.length > 2 ? magazines[(currentIndex + 2) % magazines.length] : null;
+  const behind1 = issues.length > 1 ? issues[(selectedIndex + 1) % issues.length] : null;
+  const behind2 = issues.length > 2 ? issues[(selectedIndex + 2) % issues.length] : null;
 
   return (
     <section
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
       style={{
         backgroundColor: "var(--editorial-ivory, #F7F5EF)",
         background: "var(--editorial-ivory, #F7F5EF)",
@@ -180,16 +142,16 @@ export function HeroSection() {
             </span>
           </div>
 
-          {magazines.length > 1 && (
+          {issues.length > 1 && (
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <span style={{ fontSize: "11px", fontWeight: 800, color: "#102A43" }}>
-                0{currentIndex + 1} <span style={{ color: "#55545A" }}>/ 0{magazines.length}</span>
+                0{selectedIndex + 1} <span style={{ color: "#55545A" }}>/ 0{issues.length}</span>
               </span>
 
               <div style={{ display: "flex", gap: "4px" }}>
                 <button
                   type="button"
-                  onClick={handlePrev}
+                  onClick={goToPrev}
                   style={{
                     background: "#FFFFFF",
                     border: "1px solid #CBD5E1",
@@ -207,7 +169,7 @@ export function HeroSection() {
                 </button>
                 <button
                   type="button"
-                  onClick={handleNext}
+                  onClick={goToNext}
                   style={{
                     background: "#102A43",
                     border: "1px solid #102A43",
@@ -232,7 +194,7 @@ export function HeroSection() {
         <div style={{ position: "relative" }}>
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
-              key={currentIndex}
+              key={selectedIssue?.id ?? selectedIndex}
               custom={direction}
               variants={slideVariants}
               initial="initial"
@@ -278,25 +240,25 @@ export function HeroSection() {
                   </p>
                 </div>
 
-                {/* Executive Profile */}
-                {activeLeader && (
+                {/* Executive Profile — derived from this exact issue, so it can never show a different person than the cover */}
+                {profile && (
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "6px 0" }}>
                     <div style={{ width: "46px", height: "46px", borderRadius: "50%", overflow: "hidden", border: "1.5px solid #102A43", flexShrink: 0 }}>
-                      {activeLeader.image ? (
+                      {profile.avatar ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={activeLeader.image} alt={activeLeader.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <img src={profile.avatar} alt={profile.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       ) : (
                         <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#102A43", color: "#FFFFFF", fontWeight: 800, fontSize: "17px" }}>
-                          {activeLeader.name.charAt(0)}
+                          {profile.name.charAt(0)}
                         </div>
                       )}
                     </div>
                     <div>
                       <div className="font-serif" style={{ fontSize: "15px", fontWeight: 800, color: "#101722", lineHeight: 1.2 }}>
-                        {activeLeader.name}
+                        {profile.name}
                       </div>
                       <div style={{ fontSize: "12px", color: "#55545A", fontWeight: 600 }}>
-                        {activeLeader.role} {activeLeader.company ? `• ${activeLeader.company}` : ""}
+                        {profile.headline}
                       </div>
                     </div>
                   </div>
@@ -498,7 +460,7 @@ export function HeroSection() {
                 </div>
 
                 {/* Thumbnail Switcher */}
-                {magazines.length > 1 && (
+                {issues.length > 1 && (
                   <div
                     style={{
                       display: "flex",
@@ -508,34 +470,38 @@ export function HeroSection() {
                       flexWrap: "wrap",
                     }}
                   >
-                    {magazines.slice(0, 6).map((item, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => handleSelect(idx)}
-                        aria-label={`Switch to magazine ${idx + 1}`}
-                        style={{
-                          width: "36px",
-                          height: "48px",
-                          borderRadius: "4px",
-                          overflow: "hidden",
-                          border: idx === currentIndex ? "2.5px solid #102A43" : "1px solid #CBD5E1",
-                          padding: 0,
-                          background: "#FCFAF6",
-                          cursor: "pointer",
-                          opacity: idx === currentIndex ? 1 : 0.6,
-                          transform: idx === currentIndex ? "scale(1.08)" : "scale(1)",
-                          transition: "all 0.2s ease",
-                        }}
-                      >
-                        {item.cover ? (
-                          /* eslint-disable-next-line @next/next/no-img-element */
-                          <img src={item.cover} alt={`Magazine ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                        ) : (
-                          <span style={{ fontSize: "9px", color: "#102A43", fontWeight: 800 }}>#{idx + 1}</span>
-                        )}
-                      </button>
-                    ))}
+                    {issues.map((item, idx) => {
+                      const isActive = item.id === selectedIssue?.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => goToId(item.id ?? "")}
+                          aria-label={`Switch to magazine ${idx + 1}`}
+                          aria-current={isActive}
+                          style={{
+                            width: "36px",
+                            height: "48px",
+                            borderRadius: "4px",
+                            overflow: "hidden",
+                            border: isActive ? "2.5px solid #102A43" : "1px solid #CBD5E1",
+                            padding: 0,
+                            background: "#FCFAF6",
+                            cursor: "pointer",
+                            opacity: isActive ? 1 : 0.6,
+                            transform: isActive ? "scale(1.08)" : "scale(1)",
+                            transition: "all 0.2s ease",
+                          }}
+                        >
+                          {item.cover ? (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img src={item.cover} alt={`Magazine ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          ) : (
+                            <span style={{ fontSize: "9px", color: "#102A43", fontWeight: 800 }}>#{idx + 1}</span>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
               </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BookOpen, ChevronLeft, ChevronRight, ExternalLink, Sparkles } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { magazineService } from "@/services/magazineService";
 import type { MagazineIssue } from "@/types";
 
@@ -59,38 +59,9 @@ export function SuccessWorldMagazineBook() {
         width: "100%",
         maxWidth: "280px",
         margin: "0 auto",
-        background: "#102A43",
-        border: "1px solid rgba(147, 197, 253, 0.3)",
-        borderRadius: "14px",
-        padding: "12px 14px",
-        boxShadow: "0 10px 28px rgba(0, 0, 0, 0.25)",
         boxSizing: "border-box",
-        overflow: "hidden",
       }}
     >
-      {/* Top Edition & Page Status Header */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "10px",
-          fontSize: "10px",
-          fontWeight: 800,
-          color: "#102A43",
-          letterSpacing: "1px",
-          textTransform: "uppercase",
-        }}
-      >
-        <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-          <Sparkles size={12} />
-          {currentMag.issue || "EDITION 2026"}
-        </span>
-        <span style={{ color: "#94A3B8" }}>
-          {activeIdx + 1} / {magazines.length || 1}
-        </span>
-      </div>
-
       {/* 3D HARDCOVER SPREAD CONTAINER */}
       <div
         onClick={handleNextPage}
@@ -114,7 +85,6 @@ export function SuccessWorldMagazineBook() {
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             borderRadius: "6px",
-            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
             background: "#06101E",
             overflow: "hidden",
           }}
@@ -179,56 +149,50 @@ export function SuccessWorldMagazineBook() {
             />
           </div>
 
-          {/* RIGHT PAGE: Details & Instant CTA */}
+          {/* RIGHT PAGE: Next Edition Cover Art */}
           <div
             style={{
               position: "relative",
               height: "100%",
               background: "#081426",
-              padding: "10px 8px 8px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              boxSizing: "border-box",
+              overflow: "hidden",
             }}
           >
-            <div>
-              <div style={{ fontSize: "9px", fontWeight: 800, color: "#102A43", marginBottom: "3px" }}>
-                {currentMag.date || "2026"}
-              </div>
+            {nextMag.cover ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={nextMag.cover}
+                alt={nextMag.title}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
               <div
-                className="font-serif"
                 style={{
-                  fontSize: "11px",
-                  fontWeight: 800,
+                  height: "100%",
+                  display: "grid",
+                  placeItems: "center",
                   color: "#FFFFFF",
-                  lineHeight: 1.25,
-                  margin: "0 0 4px",
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
+                  fontSize: "10px",
+                  fontWeight: 800,
+                  textAlign: "center",
+                  padding: "6px",
                 }}
               >
-                {currentMag.title}
+                {nextMag.title}
               </div>
-              <p
-                style={{
-                  fontSize: "9px",
-                  color: "#94A3B8",
-                  margin: 0,
-                  lineHeight: 1.3,
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
-                {currentMag.subtitle || "Executive briefing & market analysis."}
-              </p>
-            </div>
+            )}
 
-            {/* Open / Read Button */}
+            {/* Inner Page Crease Gradient */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(270deg, rgba(0,0,0,0) 80%, rgba(0,0,0,0.4) 100%)",
+                pointerEvents: "none",
+              }}
+            />
+
+            {/* Open / Read Button Overlay */}
             {isExternal ? (
               <a
                 href={targetLink}
@@ -236,23 +200,26 @@ export function SuccessWorldMagazineBook() {
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
                 style={{
+                  position: "absolute",
+                  left: "6px",
+                  right: "6px",
+                  bottom: "6px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   gap: "4px",
-                  width: "100%",
                   padding: "5px 6px",
-                  background: "#102A43",
-                  color: "#102A43",
+                  background: "rgba(16, 42, 67, 0.9)",
+                  color: "#FFFFFF",
                   borderRadius: "5px",
-                  fontSize: "9.5px",
+                  fontSize: "9px",
                   fontWeight: 900,
                   textTransform: "uppercase",
                   textDecoration: "none",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
                 }}
               >
-                <span>Read Digital Edition</span>
+                <span>Read Edition</span>
                 <ExternalLink size={10} />
               </a>
             ) : (
@@ -260,29 +227,32 @@ export function SuccessWorldMagazineBook() {
                 href={targetLink}
                 onClick={(e) => e.stopPropagation()}
                 style={{
+                  position: "absolute",
+                  left: "6px",
+                  right: "6px",
+                  bottom: "6px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   gap: "4px",
-                  width: "100%",
                   padding: "5px 6px",
-                  background: "#102A43",
-                  color: "#102A43",
+                  background: "rgba(16, 42, 67, 0.9)",
+                  color: "#FFFFFF",
                   borderRadius: "5px",
-                  fontSize: "9.5px",
+                  fontSize: "9px",
                   fontWeight: 900,
                   textTransform: "uppercase",
                   textDecoration: "none",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
                 }}
               >
-                <span>Read Digital Edition</span>
+                <span>Read Edition</span>
                 <BookOpen size={10} />
               </Link>
             )}
           </div>
 
-          {/* 3D Animated Flip Leaf */}
+          {/* 3D Animated Flip Leaf (only visible mid-turn; otherwise the real right page shows through) */}
           <div
             style={{
               position: "absolute",
@@ -296,6 +266,7 @@ export function SuccessWorldMagazineBook() {
               transform: bookState === "FLIPPING" ? "rotateY(-180deg)" : "rotateY(0deg)",
               zIndex: 15,
               pointerEvents: "none",
+              visibility: bookState === "FLIPPING" ? "visible" : "hidden",
             }}
           >
             {/* Front of leaf */}

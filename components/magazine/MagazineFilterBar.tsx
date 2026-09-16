@@ -62,8 +62,7 @@ export function MagazineFilterBar({
           >
             {availableYears.map((yr) => {
               const isSelected = selectedYear === yr;
-              const count = yearCounts[yr];
-              const label = count !== undefined ? (yr === "All Years" ? `ALL (${count})` : `${yr} (${count})`) : yr;
+              const label = yr === "All Years" ? "ALL" : yr;
 
               return (
                 <button

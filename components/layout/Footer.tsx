@@ -31,7 +31,7 @@ export function Footer() {
               <img
                 src="/logo-dark-text.png"
                 alt="The Success World Executive Magazine Logo"
-                style={{ height: "54px", maxWidth: "250px", width: "auto", objectFit: "contain" }}
+                style={{ height: "78px", maxWidth: "250px", width: "auto", objectFit: "contain" }}
               />
             </Link>
             <div className="footer-tagline">INSPIRED. INFORMED. EMPOWERED.</div>

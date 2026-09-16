@@ -186,7 +186,7 @@ export function Header() {
           <img
             src="/logo-white-text.png"
             alt="The Success World Executive Magazine Logo"
-            style={{ height: "56px", maxWidth: "260px", width: "auto", objectFit: "contain", flexShrink: 0 }}
+            style={{ height: "82px", maxWidth: "260px", width: "auto", objectFit: "contain", flexShrink: 0 }}
           />
         </Link>
 

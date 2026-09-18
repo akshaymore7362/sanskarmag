@@ -8,20 +8,23 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return eventService.all().map((event) => ({ slug: event.slug }));
+export async function generateStaticParams() {
+  const events = await eventService.fetchSanityEvents();
+  return events.map((event) => ({ slug: event.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const event = eventService.bySlug(slug);
+  const events = await eventService.fetchSanityEvents();
+  const event = events.find((e) => e.slug === slug);
   if (!event) return {};
   return { title: `${event.title} | The Success World`, description: event.description };
 }
 
 export default async function EventDetailPage({ params }: Props) {
   const { slug } = await params;
-  const event = eventService.bySlug(slug);
+  const events = await eventService.fetchSanityEvents();
+  const event = events.find((e) => e.slug === slug);
   if (!event) notFound();
 
   return (
@@ -43,7 +46,7 @@ export default async function EventDetailPage({ params }: Props) {
       <section className="related-section">
         <h2>Related Events</h2>
         <div className="event-directory compact">
-          {eventService.all().filter((item) => item.slug !== event.slug).slice(0, 3).map((item) => (
+          {events.filter((item) => item.slug !== event.slug).slice(0, 3).map((item) => (
             <Link href={`/events/${item.slug}`} key={item.slug}><time>{item.day}<span>{item.month}</span></time><div><h3>{item.title}</h3><p>{item.location}</p></div></Link>
           ))}
         </div>

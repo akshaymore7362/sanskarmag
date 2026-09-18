@@ -13,7 +13,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const issues = await magazineService.fetchSanityMagazines();
-  const issue = issues.find((item) => item.slug === slug) || magazineService.bySlug(slug);
+  const issue = issues.find((item) => item.slug === slug);
   if (!issue) return {};
   return { title: `${issue.title} | The Success World Digital Magazine`, description: issue.description };
 }
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function MagazineDetailPage({ params }: Props) {
   const { slug } = await params;
   const issues = await magazineService.fetchSanityMagazines();
-  const issue = issues.find((item) => item.slug === slug) || magazineService.bySlug(slug);
+  const issue = issues.find((item) => item.slug === slug);
   if (!issue) notFound();
 
   const articles = await articleService.fetchSanityArticles();

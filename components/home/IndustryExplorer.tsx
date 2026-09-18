@@ -10,7 +10,7 @@ import type { Industry } from "@/types";
 const icons = [Cpu, BriefcaseBusiness, Landmark, HeartPulse, Building2, GraduationCap, Zap, Factory, Lightbulb, Award];
 
 export function IndustryExplorer() {
-  const [industries, setIndustries] = useState<Industry[]>(industryService.all());
+  const [industries, setIndustries] = useState<Industry[]>([]);
 
   useEffect(() => {
     industryService.fetchSanityIndustries().then((items) => {

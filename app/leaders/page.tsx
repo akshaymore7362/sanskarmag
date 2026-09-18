@@ -10,71 +10,20 @@ import type { Leader } from "@/types";
 
 const badgeIcons = [Globe, User, Briefcase, TrendingUp];
 
-const defaultLeaders: Leader[] = [
-  {
-    id: "1",
-    name: "Iana Abuqulbain",
-    role: "EXECUTIVE LEADER",
-    company: "Global Growth Corp",
-    slug: "iana-abuqulbain",
-    bio: "Driving enterprise growth and global excellence across international markets.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Iana Abuqulbain",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-  {
-    id: "2",
-    name: "Dr. Annalisa Perego",
-    role: "EXECUTIVE LEADER",
-    company: "Sustainable Tech",
-    slug: "dr-annalisa-perego",
-    bio: "Leading strategic initiatives for sustainable growth and digital innovation.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Dr. Annalisa Perego",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-  {
-    id: "3",
-    name: "James Stephens",
-    role: "EXECUTIVE LEADER",
-    company: "Apex Leadership",
-    slug: "james-stephens",
-    bio: "Empowering teams to achieve operational excellence and market leadership.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "James Stephens",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-  {
-    id: "4",
-    name: "Nichole Daher",
-    role: "EXECUTIVE LEADER",
-    company: "Creative Solutions",
-    slug: "nichole-daher",
-    bio: "Championing innovation and creative solutions across global industries.",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Nichole Daher",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-];
-
 export default function LeadersPage() {
-  const [leaders, setLeaders] = useState<Leader[]>(defaultLeaders);
+  const [leaders, setLeaders] = useState<Leader[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    leaderService.fetchSanityLeaders().then((data) => {
-      if (data && data.length > 0) {
-        setLeaders(data);
-      }
-    });
+    leaderService
+      .fetchSanityLeaders()
+      .then((data) => {
+        if (data && data.length > 0) {
+          setLeaders(data);
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const filteredLeaders = useMemo(() => {
@@ -205,6 +154,17 @@ export default function LeadersPage() {
           </div>
 
           {/* Leaders Web Profiles Grid (Homepage Style) */}
+          {isLoading && leaders.length === 0 ? (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "32px 24px" }}>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                  <div className="skeleton-pulse" style={{ width: 225, height: 225, borderRadius: "50%", marginBottom: 20 }} />
+                  <div className="skeleton-pulse" style={{ width: "60%", height: 18, marginBottom: 8 }} />
+                  <div className="skeleton-pulse" style={{ width: "40%", height: 12 }} />
+                </div>
+              ))}
+            </div>
+          ) : (
           <div
             style={{
               display: "grid",
@@ -237,8 +197,8 @@ export default function LeadersPage() {
                   <div
                     style={{
                       position: "relative",
-                      width: "185px",
-                      height: "185px",
+                      width: "225px",
+                      height: "225px",
                       margin: "0 auto 20px",
                     }}
                   >
@@ -260,10 +220,10 @@ export default function LeadersPage() {
                     <div
                       style={{
                         position: "absolute",
-                        right: "-18px",
+                        right: "-22px",
                         top: "30%",
-                        width: "16px",
-                        height: "36px",
+                        width: "18px",
+                        height: "42px",
                         background: "radial-gradient(#102A43 1.5px, transparent 1.5px)",
                         backgroundSize: "6px 6px",
                         opacity: 0.7,
@@ -312,21 +272,21 @@ export default function LeadersPage() {
                     <div
                       style={{
                         position: "absolute",
-                        bottom: "4px",
-                        right: "4px",
-                        width: "36px",
-                        height: "36px",
+                        bottom: "6px",
+                        right: "6px",
+                        width: "42px",
+                        height: "42px",
                         borderRadius: "50%",
                         background: "#102A43",
                         color: "#FFFFFF",
-                        border: "2.5px solid #FFFFFF",
+                        border: "3px solid #FFFFFF",
                         boxShadow: "0 4px 12px rgba(10, 25, 47, 0.3)",
                         display: "grid",
                         placeItems: "center",
                         zIndex: 4,
                       }}
                     >
-                      <IconComp size={17} />
+                      <IconComp size={20} />
                     </div>
                   </div>
 
@@ -426,6 +386,7 @@ export default function LeadersPage() {
               );
             })}
           </div>
+          )}
         </section>
 
         {/* Newsletter Subscription Section */}

@@ -111,7 +111,7 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                 {art.image ? (
                   <Image src={art.image} alt={art.title} fill className="object-cover" unoptimized />
                 ) : (
-                  <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#102A43", color: "#102A43", fontWeight: 800, fontSize: "12px" }}>
+                  <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#102A43", color: "#F7F5EF", fontWeight: 800, fontSize: "12px" }}>
                     TSW
                   </div>
                 )}

@@ -19,7 +19,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const industries = await industryService.fetchSanityIndustries();
-  const industry = industries.find((item) => item.slug === slug) || industryService.bySlug(slug);
+  const industry = industries.find((item) => item.slug === slug);
   if (!industry) return {};
   return { title: `${industry.name} Executive Intelligence | The Success World`, description: industry.overview };
 }
@@ -28,57 +28,57 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const sectorConfig: Record<string, { topics: string[]; heroImage: string; tags: [string, string, string] }> = {
   "tech-ai": {
     topics: ["Artificial Intelligence", "Cloud & Quantum", "Cybersecurity", "DeepTech", "Enterprise Software"],
-    heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+    heroImage: "",
     tags: ["AI & AUTOMATION", "INFRASTRUCTURE", "CYBERSECURITY"],
   },
   healthcare: {
     topics: ["Biotechnology", "Digital MedTech", "Pharma R&D", "Clinical AI", "Healthcare Systems"],
-    heroImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+    heroImage: "",
     tags: ["BIOTECH & MEDTECH", "CLINICAL INNOVATION", "DIGITAL HEALTH"],
   },
   finance: {
     topics: ["Banking & Markets", "Fintech & Crypto", "Venture Capital", "Asset Management", "Global Trade"],
-    heroImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
+    heroImage: "",
     tags: ["CAPITAL MARKETS", "FINTECH & CRYPTO", "GLOBAL BANKING"],
   },
   "real-estate": {
     topics: ["Commercial Property", "PropTech & AI", "Urban Infrastructure", "Capital Valuation", "Housing"],
-    heroImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+    heroImage: "",
     tags: ["COMMERCIAL REALTY", "PROPTECH & SMART CITIES", "GLOBAL MARKETS"],
   },
   energy: {
     topics: ["Renewable Energy", "Solar & Wind", "Grid Modernization", "CleanTech", "Hydrogen Power"],
-    heroImage: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800&q=80",
+    heroImage: "",
     tags: ["CLEANTECH & POWER", "RENEWABLE ENERGY", "GLOBAL TRANSITION"],
   },
   manufacturing: {
     topics: ["Smart Factories", "Industrial IoT", "Robotics", "Predictive Tech", "Supply Chains"],
-    heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    heroImage: "",
     tags: ["INDUSTRIAL IOT", "SMART FACTORIES", "SUPPLY CHAIN TECH"],
   },
   transportation: {
     topics: ["Mobility & EV", "Logistics Tech", "Supply Chains", "Aviation", "Maritime Trade"],
-    heroImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
+    heroImage: "",
     tags: ["EV & INFRASTRUCTURE", "GLOBAL LOGISTICS", "FUTURE MOBILITY"],
   },
   education: {
     topics: ["EdTech Solutions", "Academic AI", "Executive Learning", "Higher Education", "Skills 2026"],
-    heroImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80",
+    heroImage: "",
     tags: ["EDTECH & AI", "EXECUTIVE EDUCATION", "LEARNING INNOVATION"],
   },
   retail: {
     topics: ["E-Commerce Tech", "Consumer Insights", "Supply Chain", "Omnichannel", "Brand Innovation"],
-    heroImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
+    heroImage: "",
     tags: ["E-COMMERCE TECH", "CONSUMER STRATEGY", "RETAIL AUTOMATION"],
   },
   media: {
     topics: ["Digital Media", "Broadcasting", "Content Tech", "Entertainment AI", "Streaming & IP"],
-    heroImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80",
+    heroImage: "",
     tags: ["DIGITAL CONTENT", "BROADCAST TECH", "MEDIA INNOVATION"],
   },
   legal: {
     topics: ["Privacy Law", "AI & Law", "Compliance", "Litigation", "International Law"],
-    heroImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+    heroImage: "",
     tags: ["LAW + TECHNOLOGY", "DATA + PRIVACY", "GLOBAL + BUSINESS"],
   },
 };
@@ -86,17 +86,16 @@ const sectorConfig: Record<string, { topics: string[]; heroImage: string; tags: 
 export default async function IndustryDetailPage({ params }: Props) {
   const { slug } = await params;
   const industries = await industryService.fetchSanityIndustries();
-  const industry = industries.find((item) => item.slug === slug) || industryService.bySlug(slug);
+  const industry = industries.find((item) => item.slug === slug);
   if (!industry) notFound();
 
   // Fetch articles belonging strictly to this Industry from Sanity
-  const fetchedArticles = await articleService.fetchSanityArticlesByIndustry(slug);
-  const articles = fetchedArticles.length > 0 ? fetchedArticles : articleService.trending();
+  const articles = await articleService.fetchSanityArticlesByIndustry(slug);
 
-  // Get sector specific config or fall back safely
+  // Get sector specific config (topics/tags copy only — no stock images)
   const config = sectorConfig[slug] || {
     topics: [`${industry.name} Innovation`, "Executive Strategy", "Market Trends", "Capital Allocation", "Global Outlook"],
-    heroImage: articles[0]?.image || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+    heroImage: articles[0]?.image || "",
     tags: [`${industry.name.toUpperCase()} TECH`, "MARKET STRATEGY", "GLOBAL OUTLOOK"],
   };
 
@@ -107,7 +106,7 @@ export default async function IndustryDetailPage({ params }: Props) {
     image: config.heroImage,
     readTime: "5 min read",
     author: "Editorial Board",
-    date: "May 20, 2026",
+    date: "",
   };
 
   const editorialWorlds = [
@@ -116,7 +115,7 @@ export default async function IndustryDetailPage({ params }: Props) {
       tag: config.tags[0],
       title: articles[0]?.title || `Next-Gen Innovations Reshaping ${industry.name}`,
       desc: articles[0]?.description || `In-depth analysis of emerging technologies, capital investment, and enterprise deployment across global markets.`,
-      image: articles[0]?.image || config.heroImage,
+      image: articles[0]?.image || "",
       slug: articles[0]?.slug || leadStory.slug,
     },
     {
@@ -124,7 +123,7 @@ export default async function IndustryDetailPage({ params }: Props) {
       tag: config.tags[1],
       title: articles[1]?.title || `Strategic Leadership & Market Realignment in ${industry.name}`,
       desc: articles[1]?.description || `Executive insights into market dynamics, regulatory compliance, and high-yield growth frameworks.`,
-      image: articles[1]?.image || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80",
+      image: articles[1]?.image || "",
       slug: articles[1]?.slug || leadStory.slug,
     },
     {
@@ -132,7 +131,7 @@ export default async function IndustryDetailPage({ params }: Props) {
       tag: config.tags[2],
       title: articles[2]?.title || `Global Perspectives & Sovereign Policy Shifts`,
       desc: articles[2]?.description || `Cross-border trade, international benchmarks, and sustainable development driving long-term value.`,
-      image: articles[2]?.image || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80",
+      image: articles[2]?.image || "",
       slug: articles[2]?.slug || leadStory.slug,
     },
   ];
@@ -151,6 +150,7 @@ export default async function IndustryDetailPage({ params }: Props) {
         }}
       >
         <div
+          className="industry-hero-grid"
           style={{
             width: "100%",
             maxWidth: "100%",
@@ -256,14 +256,16 @@ export default async function IndustryDetailPage({ params }: Props) {
                 border: "1px solid #E5E7EB",
               }}
             >
-              <Image
-                src={config.heroImage}
-                alt={industry.name}
-                fill
-                className="object-cover"
-                unoptimized
-                priority
-              />
+              {config.heroImage && (
+                <Image
+                  src={config.heroImage}
+                  alt={industry.name}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                  priority
+                />
+              )}
               <div
                 style={{
                   position: "absolute",
@@ -291,6 +293,7 @@ export default async function IndustryDetailPage({ params }: Props) {
       {/* 2. DRAMATIC FEATURED STORY SPREAD */}
       <section style={{ width: "100%", maxWidth: "100%", margin: "24px auto 28px", padding: "0 clamp(16px, 2.5vw, 40px)" }}>
         <div
+          className="industry-feature-grid"
           style={{
             background: "linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%)",
             borderRadius: "16px",
@@ -366,13 +369,15 @@ export default async function IndustryDetailPage({ params }: Props) {
           </div>
 
           <div style={{ position: "relative", minHeight: "260px", background: "#102A43" }}>
-            <Image
-              src={leadStory.image || config.heroImage}
-              alt={leadStory.title}
-              fill
-              className="object-cover"
-              unoptimized
-            />
+            {(leadStory.image || config.heroImage) && (
+              <Image
+                src={leadStory.image || config.heroImage}
+                alt={leadStory.title}
+                fill
+                className="object-cover"
+                unoptimized
+              />
+            )}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(80,7,28,0.4) 100%)" }} />
 
             <div
@@ -420,7 +425,7 @@ export default async function IndustryDetailPage({ params }: Props) {
               >
                 {!isEven && (
                   <div style={{ position: "relative", width: "100%", height: "140px", borderRadius: "10px", overflow: "hidden", background: "#0B1E30" }}>
-                    <Image src={ew.image} alt={ew.title} fill className="object-cover" unoptimized />
+                    {ew.image && <Image src={ew.image} alt={ew.title} fill className="object-cover" unoptimized />}
                   </div>
                 )}
 
@@ -445,7 +450,7 @@ export default async function IndustryDetailPage({ params }: Props) {
 
                 {isEven && (
                   <div style={{ position: "relative", width: "100%", height: "140px", borderRadius: "10px", overflow: "hidden", background: "#0B1E30" }}>
-                    <Image src={ew.image} alt={ew.title} fill className="object-cover" unoptimized />
+                    {ew.image && <Image src={ew.image} alt={ew.title} fill className="object-cover" unoptimized />}
                   </div>
                 )}
               </div>

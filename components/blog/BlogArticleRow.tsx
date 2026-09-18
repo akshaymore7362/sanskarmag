@@ -51,7 +51,7 @@ export function BlogArticleRow({ article, index }: Props) {
           {article.image ? (
             <Image src={article.image} alt={article.title} fill className="object-cover" unoptimized />
           ) : (
-            <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#102A43", color: "#102A43", fontWeight: 800, fontSize: "14px" }}>
+            <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#102A43", color: "#F7F5EF", fontWeight: 800, fontSize: "14px" }}>
               TSW
             </div>
           )}

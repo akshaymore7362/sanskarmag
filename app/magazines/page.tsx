@@ -8,7 +8,7 @@ import { magazineService } from "@/services/magazineService";
 import type { MagazineIssue } from "@/types";
 
 export default function MagazinesPage() {
-  const [sanityIssues, setSanityIssues] = useState<MagazineIssue[]>(() => magazineService.all());
+  const [sanityIssues, setSanityIssues] = useState<MagazineIssue[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState("All Years");
   const [searchQuery, setSearchQuery] = useState("");

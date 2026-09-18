@@ -184,9 +184,9 @@ export function Header() {
         <Link href="/" className="nav-logo" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0, padding: "3px 0" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo-white-text.png"
-            alt="The Success World Executive Magazine Logo"
-            style={{ height: "82px", maxWidth: "260px", width: "auto", objectFit: "contain", flexShrink: 0 }}
+            src="/brand-wordmark.svg"
+            alt="The Success World"
+            style={{ width: "clamp(180px, 19vw, 250px)", height: "auto", objectFit: "contain", flexShrink: 0 }}
           />
         </Link>
 

@@ -8,12 +8,13 @@ export const metadata: Metadata = {
   description: "Browse premium digital issues of The Success World.",
 };
 
-export default function MagazinePage() {
+export default async function MagazinePage() {
+  const issues = await magazineService.fetchSanityMagazines();
   return (
     <main className="magazine-page site-shell inner-shell">
       <PageIntro title="Magazine" intro="Digital issues, cover stories and editorial packages from The Success World." eyebrow="Archive" dark />
       <section className="issue-grid grid-responsive-4" style={{ margin: "32px 0" }}>
-        {magazineService.all().map((issue) => <IssueCard issue={issue} key={issue.slug} />)}
+        {issues.map((issue) => <IssueCard issue={issue} key={issue.slug} />)}
       </section>
     </main>
   );

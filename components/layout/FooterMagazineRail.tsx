@@ -2,13 +2,22 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MagazineCover } from "@/components/editorial/MagazineCover";
 import { magazineService } from "@/services/magazineService";
+import type { MagazineIssue } from "@/types";
 
 export function FooterMagazineRail() {
   const railRef = useRef<HTMLDivElement>(null);
-  const issues = magazineService.all();
+  const [issues, setIssues] = useState<MagazineIssue[]>([]);
+
+  useEffect(() => {
+    magazineService.fetchSanityMagazines().then((data) => {
+      if (data && data.length > 0) setIssues(data);
+    });
+  }, []);
+
+  if (issues.length === 0) return null;
 
   const scroll = (direction: "prev" | "next") => {
     railRef.current?.scrollBy({

@@ -26,15 +26,26 @@ export function Footer() {
         <div className="footer-top-grid">
           {/* Column 1: Brand Info, Tagline & Socials */}
           <div className="footer-brand-col">
-            <Link href="/" className="footer-logo" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none", marginBottom: "16px" }}>
+            <Link
+              href="/"
+              className="footer-logo"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                textDecoration: "none",
+                marginBottom: "16px",
+                background: "#102A43",
+                borderRadius: "8px",
+                padding: "14px 18px",
+              }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo-dark-text.png"
-                alt="The Success World Executive Magazine Logo"
-                style={{ height: "78px", maxWidth: "250px", width: "auto", objectFit: "contain" }}
+                src="/brand-wordmark.svg"
+                alt="The Success World"
+                style={{ width: "220px", height: "auto", objectFit: "contain" }}
               />
             </Link>
-            <div className="footer-tagline">INSPIRED. INFORMED. EMPOWERED.</div>
             <p className="footer-desc">
               The Success World is a premier international publication delivering executive briefings, technological breakthroughs, and economic insights for operators and global business leaders.
             </p>
@@ -101,20 +112,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: KEY SECTOR BRIEFS */}
-          <div className="footer-links-col">
-            <h4 className="footer-col-title">SECTOR BRIEFS</h4>
-            <ul>
-              <li><Link href="/industries/tech-ai">Tech &amp; AI Revolution</Link></li>
-              <li><Link href="/industries/healthcare">Healthcare &amp; Biotech</Link></li>
-              <li><Link href="/industries/finance">Finance &amp; Fintech</Link></li>
-              <li><Link href="/industries/real-estate">Real Estate &amp; PropTech</Link></li>
-              <li><Link href="/industries/energy">Energy &amp; Climate Action</Link></li>
-              <li><Link href="/industries/transportation">EV &amp; Transportation</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 5: 3D MAGAZINE SHOWCASE */}
+          {/* Column 4: 3D MAGAZINE SHOWCASE */}
           <div className="footer-links-col" style={{ width: "100%", flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
               <h4 className="footer-col-title font-serif" style={{ margin: 0 }}>

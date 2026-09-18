@@ -12,13 +12,17 @@ import type { Article } from "@/types";
 export default function ArticlesPage() {
   const [articleList, setArticleList] = useState<Article[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    articleService.fetchSanityArticles().then((items) => {
-      if (items && items.length > 0) {
-        setArticleList(items);
-      }
-    });
+    articleService
+      .fetchSanityArticles()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setArticleList(items);
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const categories = ["All", "Technology", "Business", "Finance", "Leadership", "Startups", "Healthcare", "Real Estate"];
@@ -62,6 +66,18 @@ export default function ArticlesPage() {
           ))}
         </div>
 
+        {/* Loading Skeleton */}
+        {isLoading && articleList.length === 0 && (
+          <section className="featured-split-grid" style={{ marginBottom: "40px" }}>
+            <div className="skeleton-pulse" style={{ width: "100%", height: 340, borderRadius: 16 }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="skeleton-pulse" style={{ width: "100%", height: 92, borderRadius: 12 }} />
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Featured Section (Dark Card + Side List) */}
         {featured && (
           <section className="featured-split-grid" style={{ marginBottom: "40px" }}>
@@ -72,7 +88,7 @@ export default function ArticlesPage() {
                 </div>
               )}
               <div>
-                <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#0B1E30", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800 }}>FEATURED</span>
+                <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#F7F5EF", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800 }}>FEATURED</span>
                 <h2 className="font-serif" style={{ fontSize: "26px", fontWeight: 800, color: "#FFFFFF", margin: "10px 0 8px", lineHeight: 1.25 }}>
                   <Link href={`/blogs/${featured.slug}`}>{featured.title}</Link>
                 </h2>

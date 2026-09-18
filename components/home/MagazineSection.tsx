@@ -13,8 +13,6 @@ export function MagazineSection() {
     magazineService.fetchSanityMagazines().then((data) => {
       if (data && data.length > 0) {
         setIssues(data.slice(0, 4));
-      } else {
-        setIssues(magazineService.all().slice(0, 4));
       }
     });
   }, []);

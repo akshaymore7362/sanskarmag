@@ -1,62 +1,7 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { MagazineIssue } from "@/types";
 
-const defaultMagazines: MagazineIssue[] = [
-  {
-    id: "mag-1",
-    issue: "Edition 01",
-    sequenceNum: 1,
-    slug: "brian-bouchard-the-best-cyber-security-solution-providers-to-watch-in-2025",
-    date: "Sep 2025",
-    year: "2025",
-    title: "BRIAN BOUCHARD - Cyber Security Solution Providers to Watch in 2025",
-    subtitle: "Shaping Global Cyber Defense & Infrastructure Growth",
-    cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
-    coverAlt: "Brian Bouchard Magazine 2025",
-    contents: ["Cyber Defense Systems", "Enterprise AI & Cloud", "Leadership Insights"],
-    description: "Special release profiling top cyber security innovators and enterprise leaders.",
-    pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
-    stories: [],
-  },
-  {
-    id: "mag-2",
-    issue: "Edition 02",
-    sequenceNum: 2,
-    slug: "kathleen-black-top-10-transformational-ceos-2025",
-    date: "Sep 2025",
-    year: "2025",
-    title: "Kathleen Black - Top 10 Transformational CEOs 2025",
-    subtitle: "Pioneering Strategic Leadership and Executive Growth",
-    cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
-    coverAlt: "Kathleen Black Issue",
-    contents: ["Transformational Leadership", "High-Growth Scaling", "Executive Strategy"],
-    description: "In-depth briefing on executive transformation and organizational performance.",
-    pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
-    stories: [],
-  },
-  {
-    id: "mag-3",
-    issue: "Edition 03",
-    sequenceNum: 3,
-    slug: "graziella-gallelli-5-most-inspiring-business-leaders-to-watch-in-2024",
-    date: "Sep 2024",
-    year: "2024",
-    title: "Graziella Gallelli - Inspiring Business Leaders to Watch in 2024",
-    subtitle: "Global Enterprise Strategy & Innovation",
-    cover: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
-    coverAlt: "Graziella Gallelli Issue",
-    contents: ["Global Expansion", "Sovereign Investment", "Market Leadership"],
-    description: "Highlighting influential global leaders driving international business growth.",
-    pdfUrl: "https://online.pubhtml5.com/jrfny/rcpd/",
-    stories: [],
-  },
-];
-
 export const magazineService = {
-  all: (): MagazineIssue[] => defaultMagazines,
-  current: (): MagazineIssue | undefined => defaultMagazines[0],
-  bySlug: (slug: string): MagazineIssue | undefined => defaultMagazines.find((m) => m.slug === slug),
-
   fetchSanityMagazines: async (): Promise<MagazineIssue[]> => {
     try {
       // Fetch published magazines from Sanity CMS strictly ordered by creation / publication timestamp descending (LATEST PUBLISHED FIRST)
@@ -195,6 +140,6 @@ export const magazineService = {
     } catch (e) {
       console.warn("Sanity magazine fetch warning:", e);
     }
-    return defaultMagazines;
+    return [];
   },
 };

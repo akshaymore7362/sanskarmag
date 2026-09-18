@@ -1,13 +1,7 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
-import { startups as staticStartups } from "@/data/startups";
 import type { Startup } from "@/types";
 
 export const startupService = {
-  all: (): Startup[] => staticStartups,
-  featured: (): Startup[] => staticStartups.slice(0, 4),
-  bySlug: (slug: string): Startup | undefined => staticStartups.find((stp) => stp.slug === slug),
-  bySector: (sector: string): Startup[] => staticStartups.filter((stp) => stp.sector === sector),
-
   fetchSanityStartups: async (): Promise<Startup[]> => {
     try {
       const query = `*[_type == "startup"]{
@@ -34,22 +28,16 @@ export const startupService = {
           location: item.location || "San Francisco",
           summary: item.summary || "",
           founder: item.founder || "Founder",
-          image: item.imageUrl || staticStartups.find(s => s.slug === item.slug)?.image || staticStartups[idx % staticStartups.length]?.image || "",
+          image: item.imageUrl || "",
           imageAlt: item.imageAlt || item.name,
           featuredOnHome: item.featuredOnHome,
         }));
-
-        const sanitySlugs = new Set(sanityStartups.map((stp) => stp.slug));
-        const blended = [
-          ...sanityStartups,
-          ...staticStartups.filter((stp) => !sanitySlugs.has(stp.slug)),
-        ];
-        return blended;
+        return sanityStartups;
       }
     } catch (e) {
       console.warn("Sanity startup fetch warning:", e);
     }
-    return staticStartups;
+    return [];
   },
 
   fetchHomeStartups: async (): Promise<Startup[]> => {
@@ -76,13 +64,13 @@ export const startupService = {
           location: item.location || "San Francisco",
           summary: item.summary || "",
           founder: item.founder || "Founder",
-          image: item.imageUrl || staticStartups[idx % staticStartups.length]?.image || "",
+          image: item.imageUrl || "",
           imageAlt: item.name,
         }));
       }
     } catch (e) {
       console.warn("Sanity home startups fetch warning:", e);
     }
-    return staticStartups.slice(0, 4);
+    return [];
   },
 };

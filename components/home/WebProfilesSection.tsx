@@ -16,63 +16,9 @@ function normalizeName(name: string): string {
     .trim();
 }
 
-const defaultLeaders: Leader[] = [
-  {
-    id: "1",
-    name: "Iana Abuqulbain",
-    role: "EXECUTIVE LEADER",
-    company: "Global Growth Corp",
-    slug: "iana-abuqulbain",
-    bio: "Driving enterprise growth and global excellence across international markets.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Iana Abuqulbain",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-  {
-    id: "2",
-    name: "Dr. Annalisa Perego",
-    role: "EXECUTIVE LEADER",
-    company: "Sustainable Tech",
-    slug: "dr-annalisa-perego",
-    bio: "Leading strategic initiatives for sustainable growth and digital innovation.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Dr. Annalisa Perego",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-  {
-    id: "3",
-    name: "James Stephens",
-    role: "EXECUTIVE LEADER",
-    company: "Apex Leadership",
-    slug: "james-stephens",
-    bio: "Empowering teams to achieve operational excellence and market leadership.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "James Stephens",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-  {
-    id: "4",
-    name: "Nichole Daher",
-    role: "EXECUTIVE LEADER",
-    company: "Creative Solutions",
-    slug: "nichole-daher",
-    bio: "Championing innovation and creative solutions across global industries.",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Nichole Daher",
-    highlights: [],
-    quote: "",
-    industrySlug: "technology",
-  },
-];
-
 export function WebProfilesSection() {
-  const [profiles, setProfiles] = useState<Leader[]>(defaultLeaders);
+  const [profiles, setProfiles] = useState<Leader[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   // Shared with HeroSection via MagazineSyncProvider — the exact same
   // selected-issue object the magazine cover slider renders from. The
   // spotlight below is derived from this one object (deriveWebProfile), so
@@ -82,14 +28,17 @@ export function WebProfilesSection() {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   useEffect(() => {
-    leaderService.fetchSanityLeaders().then((items) => {
-      if (items && items.length > 0) {
-        setProfiles(items);
-      }
-    });
+    leaderService
+      .fetchSanityLeaders()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setProfiles(items);
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
-  const displayProfiles = profiles.length > 0 ? profiles : defaultLeaders;
+  const displayProfiles = profiles;
   const issueProfile = selectedIssue ? deriveWebProfile(selectedIssue) : null;
 
   // Prefer a REAL leader record (real photo, real bio, real role/company)
@@ -130,6 +79,24 @@ export function WebProfilesSection() {
   useEffect(() => {
     setIsExpanded(false);
   }, [selectedIssue?.id]);
+
+  if (isLoading && profiles.length === 0) {
+    return (
+      <section style={{ background: "var(--editorial-ivory, #F7F5EF)", padding: "50px 0 70px" }}>
+        <div className="site-shell">
+          <div className="skeleton-pulse" style={{ width: "40%", height: 14, marginBottom: 16 }} />
+          <div className="grid-split-layout" style={{ display: "grid", gridTemplateColumns: "minmax(380px, 1.7fr) minmax(280px, 1fr)", gap: 36 }}>
+            <div className="skeleton-pulse" style={{ width: "100%", height: 520, borderRadius: 16 }} />
+            <div>
+              <div className="skeleton-pulse" style={{ width: "70%", height: 32, marginBottom: 12 }} />
+              <div className="skeleton-pulse" style={{ width: "50%", height: 16, marginBottom: 20 }} />
+              <div className="skeleton-pulse" style={{ width: "100%", height: 80 }} />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (!profile) return null;
 

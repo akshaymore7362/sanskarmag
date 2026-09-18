@@ -66,8 +66,6 @@ export function HeroSection() {
 
   return (
     <section
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       style={{
         backgroundColor: "var(--editorial-ivory, #F7F5EF)",
         background: "var(--editorial-ivory, #F7F5EF)",
@@ -353,6 +351,8 @@ export function HeroSection() {
               {/* RIGHT COLUMN: Expansive 3D 3-Layer Cross Magazine Fan Showcase */}
               <div className="tsw-in-scale" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div
+                  onMouseEnter={() => setPaused(true)}
+                  onMouseLeave={() => setPaused(false)}
                   style={{
                     position: "relative",
                     width: "clamp(220px, 74vw, 440px)",

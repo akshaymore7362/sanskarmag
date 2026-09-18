@@ -1,12 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Award, Sparkles, TrendingUp } from "lucide-react";
+import { magazineService } from "@/services/magazineService";
+import type { MagazineIssue } from "@/types";
 
 export function MagazineNewsletterSection() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [latestIssue, setLatestIssue] = useState<MagazineIssue | null>(null);
+
+  // Show the actual latest-published magazine cover here, never a mock graphic.
+  useEffect(() => {
+    magazineService.fetchSanityMagazines().then((items) => {
+      if (items && items.length > 0) {
+        setLatestIssue(items[0]);
+      }
+    });
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,9 +45,9 @@ export function MagazineNewsletterSection() {
           <div
             style={{
               position: "relative",
-              width: "220px",
+              width: "300px",
               maxWidth: "100%",
-              height: "300px",
+              height: "410px",
               borderRadius: "14px",
               overflow: "hidden",
               border: "1px solid rgba(30, 64, 175, 0.4)",
@@ -44,41 +56,14 @@ export function MagazineNewsletterSection() {
               background: "linear-gradient(135deg, #0B1E30 0%, #102A43 100%)",
             }}
           >
-            <div style={{ padding: "22px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo-white-text.png"
-                  alt="The Success World"
-                  style={{ height: "26px", width: "auto", maxWidth: "100%", objectFit: "contain" }}
-                />
-                <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.55)", marginTop: "8px", letterSpacing: "1.5px" }}>
-                  SPECIAL EDITION
-                </div>
-              </div>
-
-              {/* Tagline — fills the middle instead of leaving it empty */}
-              <p
-                className="font-serif"
-                style={{
-                  fontSize: "13px",
-                  fontStyle: "italic",
-                  color: "rgba(255, 255, 255, 0.55)",
-                  lineHeight: 1.5,
-                  margin: 0,
-                  borderLeft: "2px solid rgba(147, 197, 253, 0.4)",
-                  paddingLeft: "12px",
-                }}
-              >
-                &ldquo;The stories shaping tomorrow&apos;s leaders.&rdquo;
-              </p>
-
-              <div>
-                <h4 className="font-serif" style={{ fontSize: "20px", fontWeight: 900, color: "#FFFFFF", lineHeight: 1.2, margin: 0 }}>
-                  Vision. Leadership. Impact.
-                </h4>
-              </div>
-            </div>
+            {latestIssue?.cover && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={latestIssue.cover}
+                alt={latestIssue.title}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            )}
           </div>
         </div>
 

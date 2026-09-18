@@ -67,7 +67,7 @@ export default function SubscribePage() {
                 }}
               >
                 {tier.popular && (
-                  <span style={{ position: "absolute", top: "-12px", right: "24px", background: "#102A43", color: "#0B1E30", fontSize: "10px", fontWeight: 800, padding: "4px 12px", borderRadius: "12px", letterSpacing: "1px" }}>
+                  <span style={{ position: "absolute", top: "-12px", right: "24px", background: "#102A43", color: "#F7F5EF", fontSize: "10px", fontWeight: 800, padding: "4px 12px", borderRadius: "12px", letterSpacing: "1px" }}>
                     RECOMMENDED
                   </span>
                 )}

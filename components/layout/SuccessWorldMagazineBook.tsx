@@ -7,7 +7,7 @@ import { magazineService } from "@/services/magazineService";
 import type { MagazineIssue } from "@/types";
 
 export function SuccessWorldMagazineBook() {
-  const [magazines, setMagazines] = useState<MagazineIssue[]>(() => magazineService.all().slice(0, 6));
+  const [magazines, setMagazines] = useState<MagazineIssue[]>([]);
   const [activeIdx, setActiveIdx] = useState(0);
   const [bookState, setBookState] = useState<"CLOSED" | "OPEN" | "FLIPPING">("OPEN");
 
@@ -48,6 +48,8 @@ export function SuccessWorldMagazineBook() {
     }, 450);
   }
 
+  if (magazines.length === 0) return null;
+
   const currentMag = magazines[activeIdx] || magazines[0];
   const nextMag = magazines[(activeIdx + 1) % (magazines.length || 1)] || currentMag;
   const targetLink = currentMag.pdfUrl || `/magazines/${currentMag.slug}`;
@@ -57,7 +59,7 @@ export function SuccessWorldMagazineBook() {
     <div
       style={{
         width: "100%",
-        maxWidth: "280px",
+        maxWidth: "400px",
         margin: "0 auto",
         boxSizing: "border-box",
       }}
@@ -68,10 +70,10 @@ export function SuccessWorldMagazineBook() {
         style={{
           position: "relative",
           width: "100%",
-          height: "145px",
-          perspective: "1000px",
+          height: "320px",
+          perspective: "1200px",
           cursor: "pointer",
-          marginBottom: "10px",
+          marginBottom: "12px",
           userSelect: "none",
         }}
         title="Click to turn page"
@@ -84,9 +86,11 @@ export function SuccessWorldMagazineBook() {
             height: "100%",
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            borderRadius: "6px",
+            borderRadius: "10px",
             background: "#06101E",
             overflow: "hidden",
+            border: "1px solid rgba(147, 197, 253, 0.25)",
+            boxShadow: "0 18px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0,0,0,0.3)",
           }}
         >
           {/* CENTER SPINE CREASE SHADOW */}
@@ -119,7 +123,7 @@ export function SuccessWorldMagazineBook() {
               <img
                 src={currentMag.cover}
                 alt={currentMag.title}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
             ) : (
               <div
@@ -147,6 +151,46 @@ export function SuccessWorldMagazineBook() {
                 pointerEvents: "none",
               }}
             />
+
+            {/* Bottom scrim so the CTA stays legible over any cover art */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: "38%",
+                background: "linear-gradient(0deg, rgba(6,16,30,0.85) 0%, rgba(6,16,30,0) 100%)",
+                pointerEvents: "none",
+              }}
+            />
+
+            <Link
+              href={`/magazines/${currentMag.slug}`}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                position: "absolute",
+                left: "6px",
+                right: "6px",
+                bottom: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "4px",
+                padding: "5px 6px",
+                background: "rgba(16, 42, 67, 0.9)",
+                color: "#FFFFFF",
+                borderRadius: "5px",
+                fontSize: "9px",
+                fontWeight: 900,
+                textTransform: "uppercase",
+                textDecoration: "none",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
+              }}
+            >
+              <span>Read Edition</span>
+              <BookOpen size={10} />
+            </Link>
           </div>
 
           {/* RIGHT PAGE: Next Edition Cover Art */}
@@ -163,7 +207,7 @@ export function SuccessWorldMagazineBook() {
               <img
                 src={nextMag.cover}
                 alt={nextMag.title}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
             ) : (
               <div
@@ -188,6 +232,19 @@ export function SuccessWorldMagazineBook() {
                 position: "absolute",
                 inset: 0,
                 background: "linear-gradient(270deg, rgba(0,0,0,0) 80%, rgba(0,0,0,0.4) 100%)",
+                pointerEvents: "none",
+              }}
+            />
+
+            {/* Bottom scrim so the CTA stays legible over any cover art */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: "38%",
+                background: "linear-gradient(0deg, rgba(6,16,30,0.85) 0%, rgba(6,16,30,0) 100%)",
                 pointerEvents: "none",
               }}
             />
@@ -286,7 +343,7 @@ export function SuccessWorldMagazineBook() {
                 <img
                   src={currentMag.cover}
                   alt="Turning Leaf"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
+                  style={{ width: "100%", height: "100%", objectFit: "contain", opacity: 0.85 }}
                 />
               )}
             </div>
@@ -308,7 +365,7 @@ export function SuccessWorldMagazineBook() {
                 <img
                   src={nextMag.cover}
                   alt="Next Leaf"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
+                  style={{ width: "100%", height: "100%", objectFit: "contain", opacity: 0.85 }}
                 />
               )}
             </div>

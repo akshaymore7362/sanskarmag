@@ -7,7 +7,6 @@ import { Clock, ArrowRight } from "lucide-react";
 import { PageIntro } from "@/components/editorial/PageIntro";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { articleService } from "@/services/articleService";
-import { insights as staticInsights } from "@/data/insights";
 import type { Article } from "@/types";
 
 const filterCategories = ["All", "Opinion", "Analysis", "Strategy", "Culture", "Research"];
@@ -45,14 +44,18 @@ type Props = {
 
 export function InsightsView({ initialCategory = "All" }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
-  const [insightList, setInsightList] = useState<Article[]>(staticInsights);
+  const [insightList, setInsightList] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    articleService.fetchSanityInsights().then((items) => {
-      if (items && items.length > 0) {
-        setInsightList(items);
-      }
-    });
+    articleService
+      .fetchSanityInsights()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setInsightList(items);
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const filteredInsights = useMemo(() => {
@@ -93,12 +96,27 @@ export function InsightsView({ initialCategory = "All" }: Props) {
           ))}
         </div>
 
+        {/* Loading Skeleton */}
+        {isLoading && insightList.length === 0 && (
+          <section style={{ marginBottom: "40px" }}>
+            <div className="skeleton-pulse" style={{ width: "100%", height: 340, borderRadius: 20, marginBottom: 24 }} />
+            <div className="latest-articles-grid">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i}>
+                  <div className="skeleton-pulse" style={{ width: "100%", height: 230, borderRadius: 18, marginBottom: 10 }} />
+                  <div className="skeleton-pulse" style={{ width: "80%", height: 16 }} />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Featured Insight */}
         {featured && (
           <section style={{ marginBottom: "40px" }}>
             <div className="featured-split-grid" style={{ background: "#102A43", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "20px", overflow: "hidden", gap: 0 }}>
               <div style={{ padding: "40px", color: "#FFFFFF", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#0B1E30", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, width: "fit-content", marginBottom: "12px" }}>
+                <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#F7F5EF", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, width: "fit-content", marginBottom: "12px" }}>
                   FEATURED INSIGHT
                 </span>
                 <h2 className="font-serif" style={{ fontSize: "32px", fontWeight: 900, color: "#FFFFFF", marginBottom: "14px", lineHeight: 1.2 }}>
@@ -136,19 +154,96 @@ export function InsightsView({ initialCategory = "All" }: Props) {
 
           <div className="latest-articles-grid">
             {(items.length > 0 ? items : filteredInsights).map((article, idx) => (
-              <article key={article.slug || String(idx)} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "18px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+              <article
+                key={article.slug || String(idx)}
+                className="tsw-card essay-card"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid #E5E7EB",
+                  borderRadius: "18px",
+                  overflow: "hidden",
+                  boxShadow: "0 6px 22px rgba(16, 42, 67, 0.08)",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 {article.image && (
-                  <div style={{ position: "relative", height: "160px", borderRadius: "8px", overflow: "hidden", marginBottom: "12px" }}>
-                    <Image src={article.image} alt={article.title} fill className="object-cover" unoptimized />
+                  <div className="essay-card-media" style={{ position: "relative", height: "230px", overflow: "hidden" }}>
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover essay-card-img"
+                      unoptimized
+                      style={{ transition: "transform 0.5s ease" }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "linear-gradient(180deg, rgba(16,42,67,0) 50%, rgba(16,42,67,0.6) 100%)",
+                      }}
+                    />
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "14px",
+                        left: "14px",
+                        fontSize: "10px",
+                        fontWeight: 800,
+                        letterSpacing: "1px",
+                        textTransform: "uppercase",
+                        color: "#FFFFFF",
+                        background: "rgba(16, 42, 67, 0.85)",
+                        padding: "5px 12px",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      {article.category || "Insight"}
+                    </span>
                   </div>
                 )}
-                <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#7C3AED" }}>{article.category || "Insight"}</span>
-                <h3 className="font-serif" style={{ fontSize: "17px", fontWeight: 800, color: "#102A43", margin: "6px 0 8px", lineHeight: 1.3 }}>
-                  <Link href={`/blogs/${article.slug}`}>{article.title}</Link>
-                </h3>
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#4B5563" }}>
-                  <Clock size={12} />
-                  <span>{article.readTime}</span>
+                <div style={{ padding: "22px", display: "flex", flexDirection: "column", flex: 1 }}>
+                  {!article.image && (
+                    <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "1px", textTransform: "uppercase", color: "#7C3AED", marginBottom: "6px" }}>{article.category || "Insight"}</span>
+                  )}
+                  <h3 className="font-serif" style={{ fontSize: "18px", fontWeight: 800, color: "#102A43", margin: "0 0 12px", lineHeight: 1.35 }}>
+                    <Link href={`/blogs/${article.slug}`}>{article.title}</Link>
+                  </h3>
+                  <div
+                    style={{
+                      marginTop: "auto",
+                      paddingTop: "14px",
+                      borderTop: "1px solid #F1F5F9",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: "10px",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#4B5563", fontWeight: 600 }}>
+                      <Clock size={12} />
+                      <span>{article.readTime}</span>
+                    </div>
+                    <Link
+                      href={`/blogs/${article.slug}`}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        fontSize: "11px",
+                        fontWeight: 800,
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
+                        color: "#102A43",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Read Essay
+                      <ArrowRight size={12} />
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}

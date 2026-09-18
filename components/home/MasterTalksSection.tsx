@@ -10,15 +10,17 @@ import type { Article } from "@/types";
 export function MasterTalksSection() {
   const [talks, setTalks] = useState<Article[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    articleService.fetchSanityArticles().then((items) => {
-      if (items && items.length > 0) {
-        setTalks(items.slice(0, 3));
-      } else {
-        setTalks(articleService.all().slice(0, 3));
-      }
-    });
+    articleService
+      .fetchSanityArticles()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setTalks(items.slice(0, 3));
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   // Continuous Auto-Slide Timer (cycles episode tab every 3 seconds)
@@ -29,6 +31,22 @@ export function MasterTalksSection() {
     }, 3000);
     return () => clearInterval(interval);
   }, [talks.length]);
+
+  if (isLoading && talks.length === 0) {
+    return (
+      <div className="tsw-band tsw-band--paper">
+        <section className="tsw-band-inner">
+          <div className="tsw-talks-grid">
+            <div className="tsw-talks-left">
+              <div className="skeleton-pulse" style={{ width: "40%", height: 14, marginBottom: 10 }} />
+              <div className="skeleton-pulse" style={{ width: "100%", height: 60, marginBottom: 10 }} />
+            </div>
+            <div className="skeleton-pulse" style={{ width: "100%", aspectRatio: "16 / 10", borderRadius: 10 }} />
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   if (talks.length === 0) return null;
 

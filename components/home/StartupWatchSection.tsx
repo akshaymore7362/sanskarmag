@@ -8,16 +8,38 @@ import type { Startup } from "@/types";
 
 export function StartupWatchSection() {
   const [startups, setStartups] = useState<Startup[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    startupService.fetchSanityStartups().then((items) => {
-      if (items && items.length > 0) {
-        setStartups(items.slice(0, 4));
-      } else {
-        setStartups(startupService.all().slice(0, 4));
-      }
-    });
+    startupService
+      .fetchSanityStartups()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setStartups(items.slice(0, 4));
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
+
+  if (isLoading && startups.length === 0) {
+    return (
+      <section className="section section-bg">
+        <div className="section-label">Startup Watch</div>
+        <div className="startup-grid">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="mag-card">
+              <div className="skeleton-pulse" style={{ height: 200, width: "100%" }} />
+              <div className="mag-card-body">
+                <div className="skeleton-pulse" style={{ width: "30%", height: 12, marginBottom: 10 }} />
+                <div className="skeleton-pulse" style={{ width: "80%", height: 16, marginBottom: 10 }} />
+                <div className="skeleton-pulse" style={{ width: "95%", height: 12 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   if (startups.length === 0) return null;
 

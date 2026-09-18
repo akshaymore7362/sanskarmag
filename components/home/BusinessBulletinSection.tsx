@@ -9,16 +9,46 @@ import type { Article } from "@/types";
 
 export function BusinessBulletinSection() {
   const [stories, setStories] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    articleService.fetchSanityArticles().then((items) => {
-      if (items && items.length > 0) {
-        setStories(items.slice(0, 5));
-      } else {
-        setStories(articleService.all().slice(0, 5));
-      }
-    });
+    articleService
+      .fetchSanityArticles()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setStories(items.slice(0, 5));
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
+
+  if (isLoading && stories.length === 0) {
+    return (
+      <section className="tsw-section">
+        <div className="tsw-head">
+          <div>
+            <span className="tsw-kicker">Business Bulletin</span>
+            <h2 className="tsw-title">Enterprise &amp; Market Intelligence</h2>
+          </div>
+        </div>
+        <div className="tsw-bulletin-grid grid-sidebar-layout">
+          <div className="skeleton-pulse" style={{ width: "100%", aspectRatio: "16 / 10", borderRadius: 8 }} />
+          <div className="tsw-bulletin-list">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                <div className="skeleton-pulse" style={{ width: 95, height: 78, flexShrink: 0 }} />
+                <div style={{ flex: 1 }}>
+                  <div className="skeleton-pulse" style={{ width: "60%", height: 12, marginBottom: 8 }} />
+                  <div className="skeleton-pulse" style={{ width: "90%", height: 14, marginBottom: 6 }} />
+                  <div className="skeleton-pulse" style={{ width: "40%", height: 10 }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (stories.length === 0) return null;
 

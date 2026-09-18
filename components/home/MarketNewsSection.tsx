@@ -10,15 +10,17 @@ import type { Article } from "@/types";
 export function MarketNewsSection() {
   const [stories, setStories] = useState<Article[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    articleService.fetchSanityArticles().then((items) => {
-      if (items && items.length > 0) {
-        setStories(items.slice(0, 4));
-      } else {
-        setStories(articleService.all().slice(0, 4));
-      }
-    });
+    articleService
+      .fetchSanityArticles()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setStories(items.slice(0, 4));
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   // Continuous 2-second Auto-Slide Timer
@@ -29,6 +31,21 @@ export function MarketNewsSection() {
     }, 2000);
     return () => clearInterval(interval);
   }, [stories.length]);
+
+  if (isLoading && stories.length === 0) {
+    return (
+      <section style={{ width: "100%", maxWidth: "100%", margin: "16px 0", padding: "24px clamp(16px, 2.5vw, 40px)", background: "#f3f4f5", borderRadius: "12px", minHeight: "510px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "20px" }}>
+          <div className="skeleton-pulse" style={{ width: "100%", height: 420, borderRadius: 10 }} />
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="skeleton-pulse" style={{ width: "100%", height: 128, borderRadius: 8 }} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (stories.length === 0) return null;
 

@@ -9,16 +9,37 @@ import type { EventItem } from "@/types";
 
 export function EventsSection() {
   const [events, setEvents] = useState<EventItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    eventService.fetchSanityEvents().then((items) => {
-      if (items && items.length > 0) {
-        setEvents(items.slice(0, 3));
-      } else {
-        setEvents(eventService.all().slice(0, 3));
-      }
-    });
+    eventService
+      .fetchSanityEvents()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setEvents(items.slice(0, 3));
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
+
+  if (isLoading && events.length === 0) {
+    return (
+      <section className="section section-bg">
+        <div className="section-label">Upcoming Events</div>
+        <div className="trending-grid">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="mag-card">
+              <div className="skeleton-pulse" style={{ height: 200, width: "100%" }} />
+              <div className="mag-card-body">
+                <div className="skeleton-pulse" style={{ width: "40%", height: 12, marginBottom: 10 }} />
+                <div className="skeleton-pulse" style={{ width: "90%", height: 16, marginBottom: 16 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   if (events.length === 0) return null;
 

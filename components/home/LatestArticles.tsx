@@ -9,17 +9,21 @@ import { industryService } from "@/services/industryService";
 import type { Article } from "@/types";
 
 export function LatestArticles() {
-  const [articles, setArticles] = useState<Article[]>(articleService.latest());
+  const [articles, setArticles] = useState<Article[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("All");
-  const [categories, setCategories] = useState<string[]>(["All", "Technology", "Healthcare & Biotech", "Real Estate", "Energy & Climate", "Finance", "Leadership"]);
+  const [categories, setCategories] = useState<string[]>(["All"]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Fetch live published articles from Sanity
-    articleService.fetchSanityArticles().then((items) => {
-      if (items && items.length > 0) {
-        setArticles(items);
-      }
-    });
+    articleService
+      .fetchSanityArticles()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setArticles(items);
+        }
+      })
+      .finally(() => setIsLoading(false));
 
     // Fetch live industry categories from Sanity
     industryService.fetchSanityIndustries().then((inds) => {
@@ -43,6 +47,40 @@ export function LatestArticles() {
 
   const leadArticle = filteredArticles[0] || articles[0];
   const sideArticles = filteredArticles.slice(1, 6);
+
+  if (isLoading && articles.length === 0) {
+    return (
+      <section className="latest-showcase-section" aria-label="Latest Articles Editorial Showcase">
+        <div className="showcase-container">
+          <div className="showcase-header">
+            <div className="showcase-title-wrap">
+              <span className="showcase-eyebrow">
+                <Sparkles size={13} className="sparkle-icon" />
+                CURATED NEWSROOM
+              </span>
+              <h2 className="showcase-title">Latest Articles & Intelligence</h2>
+            </div>
+          </div>
+          <div className="showcase-grid">
+            <div className="skeleton-pulse" style={{ width: "100%", aspectRatio: "16 / 10", borderRadius: 10 }} />
+            <div className="side-story-feed">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} style={{ display: "flex", gap: 12 }}>
+                  <div className="skeleton-pulse" style={{ width: 86, height: 68, flexShrink: 0 }} />
+                  <div style={{ flex: 1 }}>
+                    <div className="skeleton-pulse" style={{ width: "70%", height: 12, marginBottom: 8 }} />
+                    <div className="skeleton-pulse" style={{ width: "95%", height: 14 }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!isLoading && articles.length === 0) return null;
 
   return (
     <section className="latest-showcase-section" aria-label="Latest Articles Editorial Showcase">

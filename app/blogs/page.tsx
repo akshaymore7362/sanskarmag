@@ -16,13 +16,17 @@ export default function BlogsPage() {
   const [activeCategory, setActiveCategory] = useState("All Articles");
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(6);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    articleService.fetchSanityArticles().then((items) => {
-      if (items && items.length > 0) {
-        setSanityArticles(items);
-      }
-    });
+    articleService
+      .fetchSanityArticles()
+      .then((items) => {
+        if (items && items.length > 0) {
+          setSanityArticles(items);
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   // ONLY authentic Sanity published articles uploaded by user
@@ -77,9 +81,20 @@ export default function BlogsPage() {
         {/* Left Column: Numbered Editorial Article Feed */}
         <div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            {visibleArticles.map((article, idx) => (
-              <BlogArticleRow key={article.slug || String(idx)} article={article} index={idx} />
-            ))}
+            {isLoading && visibleArticles.length === 0
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} style={{ display: "flex", gap: 16, padding: "16px 0", borderBottom: "1px solid #E5E7EB" }}>
+                    <div className="skeleton-pulse" style={{ width: 140, height: 100, flexShrink: 0 }} />
+                    <div style={{ flex: 1 }}>
+                      <div className="skeleton-pulse" style={{ width: "30%", height: 12, marginBottom: 10 }} />
+                      <div className="skeleton-pulse" style={{ width: "85%", height: 18, marginBottom: 10 }} />
+                      <div className="skeleton-pulse" style={{ width: "50%", height: 12 }} />
+                    </div>
+                  </div>
+                ))
+              : visibleArticles.map((article, idx) => (
+                  <BlogArticleRow key={article.slug || String(idx)} article={article} index={idx} />
+                ))}
           </div>
 
           {/* Load More Button */}

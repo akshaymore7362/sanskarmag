@@ -134,7 +134,7 @@ export function IndustryDirectoryGrid() {
                   background: isActive ? "rgba(30, 64, 175, 0.2)" : "rgba(80, 7, 28, 0.06)",
                   display: "grid",
                   placeItems: "center",
-                  color: isActive ? "#102A43" : "#102A43",
+                  color: isActive ? "#FFFFFF" : "#102A43",
                   flexShrink: 0,
                 }}
               >
@@ -175,7 +175,7 @@ export function IndustryDirectoryGrid() {
               <ChevronRight
                 size={15}
                 style={{
-                  color: isActive ? "#102A43" : "#94A3B8",
+                  color: isActive ? "#FFFFFF" : "#94A3B8",
                   flexShrink: 0,
                 }}
               />

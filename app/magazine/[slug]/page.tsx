@@ -10,14 +10,15 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return magazineService.all().map((issue) => ({ slug: issue.slug }));
+export async function generateStaticParams() {
+  const issues = await magazineService.fetchSanityMagazines();
+  return issues.map((issue) => ({ slug: issue.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const issues = await magazineService.fetchSanityMagazines();
-  const issue = issues.find((item) => item.slug === slug) || magazineService.bySlug(slug);
+  const issue = issues.find((item) => item.slug === slug);
   if (!issue) return {};
   return { title: `${issue.title} | The Success World`, description: issue.description };
 }
@@ -25,11 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function IssueDetailPage({ params }: Props) {
   const { slug } = await params;
   const issues = await magazineService.fetchSanityMagazines();
-  const issue = issues.find((item) => item.slug === slug) || magazineService.bySlug(slug);
+  const issue = issues.find((item) => item.slug === slug);
   if (!issue) notFound();
-  const issueArticles = (issue.stories || [])
-    .map((story) => articleService.bySlug(story.articleSlug))
-    .filter((article): article is NonNullable<typeof article> => Boolean(article));
+  const storySlugs = new Set((issue.stories || []).map((story) => story.articleSlug));
+  const allArticles = storySlugs.size > 0 ? await articleService.fetchSanityArticles() : [];
+  const issueArticles = allArticles.filter((article) => storySlugs.has(article.slug));
 
   return (
     <main className="site-shell inner-shell">

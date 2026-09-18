@@ -15,7 +15,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const leaders = await leaderService.fetchSanityLeaders();
-  const leader = leaders.find((l) => l.slug === slug) || leaderService.bySlug(slug);
+  const leader = leaders.find((l) => l.slug === slug);
   if (!leader) return {};
   return { title: `${leader.name} | Executive Web Profile & Leader`, description: leader.bio };
 }
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LeaderProfilePage({ params }: Props) {
   const { slug } = await params;
   const leaders = await leaderService.fetchSanityLeaders();
-  const leader = leaders.find((l) => l.slug === slug) || leaderService.bySlug(slug);
+  const leader = leaders.find((l) => l.slug === slug);
 
   if (!leader) notFound();
 
@@ -119,7 +119,7 @@ export default async function LeaderProfilePage({ params }: Props) {
                 right: "20px",
                 background: "rgba(10, 25, 47, 0.92)",
                 backdropFilter: "blur(10px)",
-                color: "#102A43",
+                color: "#FFFFFF",
                 fontSize: "11px",
                 fontWeight: 800,
                 letterSpacing: "1.8px",

@@ -31,7 +31,10 @@ export default async function ArticleDetailPage({ params }: Props) {
   const article = await articleService.fetchSanityArticleBySlug(slug);
   if (!article) notFound();
 
-  const relatedStories = articleService.related(article.slug);
+  const allArticles = await articleService.fetchSanityArticles();
+  const relatedStories = allArticles
+    .filter((a) => a.slug !== article.slug && a.industrySlug === article.industrySlug)
+    .slice(0, 3);
 
   return (
     <main className="blog-detail-page site-shell inner-shell" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "80px" }}>
@@ -47,7 +50,7 @@ export default async function ArticleDetailPage({ params }: Props) {
             <span style={{ color: "#102A43" }}>{article.category || "Article"}</span>
           </div>
 
-          <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#0B1E30", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, textTransform: "uppercase" }}>
+          <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#F7F5EF", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, textTransform: "uppercase" }}>
             {article.category || "FEATURED"}
           </span>
 
@@ -124,7 +127,7 @@ export default async function ArticleDetailPage({ params }: Props) {
         {relatedStories.length > 0 && (
           <section style={{ marginTop: "56px", paddingTop: "36px", borderTop: "2px solid #E5E7EB" }}>
             <h3 className="font-serif" style={{ fontSize: "24px", fontWeight: 800, color: "#102A43", marginBottom: "20px" }}>Related Articles</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
+            <div className="related-articles-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "24px" }}>
               {relatedStories.slice(0, 3).map((item) => (
                 <div key={item.slug} style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "12px", padding: "16px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                   {item.image && (

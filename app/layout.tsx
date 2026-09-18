@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: "Ideas. Leaders. Markets. Success. Premium editorial coverage for founders, executives, operators, and investors.",
   icons: {
     icon: [
+      { url: "/brand-mark.svg", type: "image/svg+xml" },
       { url: "/icon.png", type: "image/png" },
       { url: "/favicon.ico" },
     ],

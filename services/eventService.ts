@@ -1,14 +1,7 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
-import { events as staticEvents } from "@/data/events";
 import type { EventItem } from "@/types";
 
 export const eventService = {
-  all: (): EventItem[] => staticEvents,
-  featured: (): EventItem => staticEvents[0],
-  upcoming: (): EventItem[] => staticEvents,
-  past: (): EventItem[] => [],
-  bySlug: (slug: string): EventItem | undefined => staticEvents.find((evt) => evt.slug === slug),
-
   fetchSanityEvents: async (): Promise<EventItem[]> => {
     try {
       const query = `*[_type == "event"] | order(eventDate asc){
@@ -51,7 +44,7 @@ export const eventService = {
             date: dateStr,
             location: item.location || "San Francisco, CA",
             description: item.description || "",
-            image: item.imageUrl || staticEvents.find(e => e.slug === item.slug)?.image || staticEvents[idx % staticEvents.length]?.image || "",
+            image: item.imageUrl || "",
             imageAlt: item.imageAlt || item.title,
             registrationUrl: item.registrationUrl,
             agenda: [],
@@ -59,18 +52,12 @@ export const eventService = {
             featuredOnHome: item.featuredOnHome,
           };
         });
-
-        const sanitySlugs = new Set(sanityEvents.map((evt) => evt.slug));
-        const blended = [
-          ...sanityEvents,
-          ...staticEvents.filter((evt) => !sanitySlugs.has(evt.slug)),
-        ];
-        return blended;
+        return sanityEvents;
       }
     } catch (e) {
       console.warn("Sanity event fetch warning:", e);
     }
-    return staticEvents;
+    return [];
   },
 
   fetchHomeEvents: async (): Promise<EventItem[]> => {
@@ -113,7 +100,7 @@ export const eventService = {
             date: dateStr,
             location: item.location || "San Francisco, CA",
             description: item.description || "",
-            image: item.imageUrl || staticEvents[idx % staticEvents.length]?.image || "",
+            image: item.imageUrl || "",
             imageAlt: item.title,
             registrationUrl: item.registrationUrl,
             agenda: [],
@@ -124,6 +111,6 @@ export const eventService = {
     } catch (e) {
       console.warn("Sanity home events fetch warning:", e);
     }
-    return staticEvents.slice(0, 4);
+    return [];
   },
 };

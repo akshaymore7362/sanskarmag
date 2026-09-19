@@ -1,58 +1,28 @@
+
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
-
-export const industryArticlesList = [
-  {
-    slug: "rise-generative-ai-business-operations",
-    title: "The Rise of Generative AI in Business Operations",
-    category: "Tech / AI",
-    description: "Enterprise software, autonomous workflows and LLM deployment across Fortune 500 corporate operations.",
-    date: "May 20, 2026",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80",
-  },
-  {
-    slug: "future-smart-manufacturing",
-    title: "The Future of Smart Manufacturing",
-    category: "Manufacturing",
-    description: "Smart factories leveraging robotics, IoT sensing, digital twins and predictive maintenance automation.",
-    date: "May 18, 2026",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
-  },
-  {
-    slug: "sustainable-energy-global-transition",
-    title: "Sustainable Energy and the Global Transition",
-    category: "Energy",
-    description: "Grid modernization, utility-scale solar deployment, offshore wind power and hydrogen infrastructure.",
-    date: "May 16, 2026",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&q=80",
-  },
-  {
-    slug: "digital-healthcare-new-era",
-    title: "Digital Healthcare: A New Era",
-    category: "Healthcare",
-    description: "Telemedicine platforms, AI diagnostics, clinical workflow automation and personalized patient care.",
-    date: "May 14, 2026",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80",
-  },
-  {
-    slug: "global-real-estate-markets-2026",
-    title: "Global Real Estate Markets in 2026",
-    category: "Real Estate",
-    description: "Commercial property valuations, interest rate cycles, proptech adoption and urban office space shifts.",
-    date: "May 12, 2026",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80",
-  },
-];
+import { articleService } from "@/services/articleService";
+import type { Article } from "@/types";
 
 export function LatestIndustryIntelligence() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    articleService
+      .fetchSanityArticles()
+      .then((items) => {
+        if (items && items.length > 0) setArticles(items.slice(0, 5));
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  if (!isLoading && articles.length === 0) return null;
+
   return (
     <div>
       <div style={{ marginBottom: "16px", paddingBottom: "10px", borderBottom: "2px solid #102A43", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -65,7 +35,19 @@ export function LatestIndustryIntelligence() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column" }}>
-        {industryArticlesList.map((item, idx) => (
+        {isLoading && articles.length === 0 &&
+          Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} style={{ padding: "16px 0", borderBottom: "1px solid #E5E7EB" }} className="latest-intelligence-row">
+              <div className="skeleton-pulse" style={{ width: "100%", aspectRatio: "16 / 10", borderRadius: "8px" }} />
+              <div>
+                <div className="skeleton-pulse" style={{ width: "30%", height: 10, marginBottom: 8 }} />
+                <div className="skeleton-pulse" style={{ width: "80%", height: 16, marginBottom: 8 }} />
+                <div className="skeleton-pulse" style={{ width: "50%", height: 12 }} />
+              </div>
+            </div>
+          ))}
+
+        {articles.map((item, idx) => (
           <article
             key={item.slug || String(idx)}
             className="latest-intelligence-row"

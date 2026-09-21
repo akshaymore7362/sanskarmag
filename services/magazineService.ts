@@ -134,7 +134,29 @@ export const magazineService = {
           }
         });
 
-        // PRESERVE SANITY PUBLISHED SEQUENCE: Latest published magazine ALWAYS first
+        // Sort by the real editorial issue date (e.g. "July 2024", "September 2026"),
+        // latest first — NOT by Sanity's _createdAt, which only reflects when the
+        // document was uploaded/imported and can be completely out of order relative
+        // to the actual magazine publication sequence (e.g. after a bulk import).
+        const parseIssueDate = (raw: string): number => {
+          if (!raw) return 0;
+          const direct = Date.parse(raw);
+          if (!Number.isNaN(direct)) return direct;
+          const withDay = Date.parse(`1 ${raw}`);
+          if (!Number.isNaN(withDay)) return withDay;
+          const yearOnly = raw.match(/\b(19\d{2}|20\d{2})\b/);
+          if (yearOnly) return Date.parse(`Jan 1 ${yearOnly[1]}`);
+          return 0;
+        };
+
+        uniqueItems.sort((a, b) => {
+          const timeA = parseIssueDate(a.date);
+          const timeB = parseIssueDate(b.date);
+          if (timeB !== timeA) return timeB - timeA;
+          // Same month/year — fall back to the numeric issue/sequence number.
+          return (b.sequenceNum || 0) - (a.sequenceNum || 0);
+        });
+
         if (uniqueItems.length > 0) return uniqueItems;
       }
     } catch (e) {

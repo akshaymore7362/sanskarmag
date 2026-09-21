@@ -14,7 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { NominateModal } from "@/components/modals/NominateModal";
-import { useMagazineSync, deriveWebProfile } from "@/components/home/MagazineSyncContext";
+import { useMagazineSync } from "@/components/home/MagazineSyncContext";
 
 export function HeroSection() {
   // Single source of truth, shared with WebProfilesSection via
@@ -30,7 +30,6 @@ export function HeroSection() {
   const activeIssue = selectedIssue;
   // Derived directly from the same issue object as the cover — never from a
   // separate leaders array — so it can never mismatch.
-  const profile = activeIssue ? deriveWebProfile(activeIssue) : null;
 
   const heroTitle = activeIssue?.title || "International Executive Edition";
   const heroDesc =
@@ -118,7 +117,7 @@ export function HeroSection() {
 
       <div className="site-shell" style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)", position: "relative", zIndex: 2 }}>
         {/* Top Eyebrow & Navigation Bar */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", flexWrap: "wrap", gap: "8px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <span
               style={{
@@ -204,11 +203,12 @@ export function HeroSection() {
                 display: "grid",
                 gridTemplateColumns: "1fr 480px",
                 gap: "36px",
-                alignItems: "center",
+                alignItems: "start",
+                paddingTop: "clamp(8px, 2vw, 28px)",
               }}
             >
               {/* LEFT COLUMN: Compact Editorial Information (Reflects ONLY Front Magazine) */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px", width: "100%" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
                 {/* Main Headline */}
                 <h1
                   className="font-serif tsw-in-1"
@@ -237,30 +237,6 @@ export function HeroSection() {
                     {heroDesc}
                   </p>
                 </div>
-
-                {/* Executive Profile — derived from this exact issue, so it can never show a different person than the cover */}
-                {profile && (
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "6px 0" }}>
-                    <div style={{ width: "46px", height: "46px", borderRadius: "50%", overflow: "hidden", border: "1.5px solid #102A43", flexShrink: 0 }}>
-                      {profile.avatar ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={profile.avatar} alt={profile.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      ) : (
-                        <div style={{ height: "100%", display: "grid", placeItems: "center", background: "#102A43", color: "#FFFFFF", fontWeight: 800, fontSize: "17px" }}>
-                          {profile.name.charAt(0)}
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      <div className="font-serif" style={{ fontSize: "15px", fontWeight: 800, color: "#101722", lineHeight: 1.2 }}>
-                        {profile.name}
-                      </div>
-                      <div style={{ fontSize: "12px", color: "#55545A", fontWeight: 600 }}>
-                        {profile.headline}
-                      </div>
-                    </div>
-                  </div>
-                )}
 
                 {/* Industry Topics Tag Bar */}
                 <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", fontSize: "12px", fontWeight: 700, color: "#55545A" }}>

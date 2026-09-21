@@ -104,12 +104,18 @@ export function DailyNewsSection() {
   const secondaryStories = news.slice(1, 3);
   const wireHeadlines = news.slice(3, 7);
 
-  const currentDateStr = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  }).toUpperCase();
+  // Computed only on the client, after mount — using `new Date()` directly
+  // during render produces a different value on the server (whenever the
+  // page was generated/cached) than on the client (whenever it's viewed),
+  // which caused a hydration mismatch whenever those moments crossed midnight.
+  const [currentDateStr, setCurrentDateStr] = useState("");
+  useEffect(() => {
+    setCurrentDateStr(
+      new Date()
+        .toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })
+        .toUpperCase()
+    );
+  }, []);
 
   return (
     <section className="tsw-section">

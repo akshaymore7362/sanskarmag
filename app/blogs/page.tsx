@@ -115,7 +115,6 @@ export default function BlogsPage() {
                   fontWeight: 800,
                   color: "#102A43",
                   cursor: "pointer",
-                  boxShadow: "0 2px 8px rgba(80, 7, 28, 0.05)",
                   transition: "all 0.2s ease",
                 }}
               >

@@ -217,7 +217,7 @@ a.btn:hover,
 [role="button"]:hover {
   transform: translateY(-2px);
   filter: brightness(1.04);
-  box-shadow: 0 10px 24px -12px rgba(16, 42, 67, 0.35);
+  box-shadow: none;
 }
 
 /* Unified button/CTA hover: every button-like element uses the same
@@ -803,7 +803,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 .btn-blue-gradient {
   background: var(--logo-blue);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(68, 114, 196, 0.28);
+  box-shadow: none;
 }
 
 .btn-blue-gradient:hover {
@@ -811,14 +811,14 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   color: #FFFFFF;
   transform: translateY(-2px);
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
-  box-shadow: 0 6px 20px rgba(68, 114, 196, 0.42);
+  box-shadow: none;
 }
 
 .btn-outline-violet, .btn-outline-dark {
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   color: var(--text-dark);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  box-shadow: none;
 }
 
 .btn-outline-violet:hover, .btn-outline-dark:hover {
@@ -1241,7 +1241,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
     display: none !important;
   }
   .nav-logo img {
-    width: 190px !important;
+    width: 220px !important;
     height: auto !important;
   }
   .logo-title {
@@ -3293,14 +3293,14 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   align-items: center;
   gap: 6px;
   transition: all 0.25s ease;
-  box-shadow: 0 4px 14px rgba(10, 25, 47, 0.2);
+  box-shadow: none;
   white-space: nowrap;
 }
 
 .footer-newsletter-btn:hover {
   background: var(--button-hover-color);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(10, 25, 47, 0.3);
+  box-shadow: none;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
 }
 
@@ -3352,7 +3352,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   place-items: center;
   color: var(--editorial-navy, #101722);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 6px rgba(16, 23, 34, 0.04);
+  box-shadow: none;
   text-decoration: none;
 }
 
@@ -3361,7 +3361,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   color: #FFFFFF;
   border-color: var(--button-hover-color);
   transform: translateY(-3px) scale(1.08);
-  box-shadow: 0 6px 16px rgba(16, 42, 67, 0.25);
+  box-shadow: none;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
 }
 
@@ -3868,17 +3868,17 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 }
 
 .nav-logo img {
-  width: clamp(180px, 19vw, 250px);
+  width: clamp(210px, 22vw, 290px);
   height: auto;
-  max-width: 250px;
+  max-width: 290px;
   object-fit: contain;
   transition: all 0.2s ease;
 }
 
 .footer-logo img {
-  width: 220px;
+  width: 260px;
   height: auto;
-  max-width: 220px;
+  max-width: 260px;
   object-fit: contain;
   transition: all 0.2s ease;
 }
@@ -4089,9 +4089,9 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
     padding: 0 16px;
   }
   .nav-logo img {
-    width: 170px !important;
+    width: 195px !important;
     height: auto !important;
-    max-width: 170px !important;
+    max-width: 195px !important;
   }
   .hero-headline {
     font-size: 28px !important;

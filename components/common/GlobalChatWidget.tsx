@@ -176,7 +176,6 @@ export function GlobalChatWidget() {
             alignItems: "center",
             gap: "10px",
             cursor: "pointer",
-            boxShadow: "0 8px 24px rgba(30, 64, 175, 0.4)",
             transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
@@ -299,7 +298,6 @@ export function GlobalChatWidget() {
                 cursor: "pointer",
                 background: activeTab === "chat" ? "#FFFFFF" : "transparent",
                 color: activeTab === "chat" ? "#102A43" : "#4B5563",
-                boxShadow: activeTab === "chat" ? "0 2px 6px rgba(0,0,0,0.05)" : "none",
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -323,7 +321,6 @@ export function GlobalChatWidget() {
                 cursor: "pointer",
                 background: activeTab === "suggestion" ? "#FFFFFF" : "transparent",
                 color: activeTab === "suggestion" ? "#102A43" : "#4B5563",
-                boxShadow: activeTab === "suggestion" ? "0 2px 6px rgba(0,0,0,0.05)" : "none",
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -616,7 +613,6 @@ export function GlobalChatWidget() {
                       textTransform: "uppercase",
                       cursor: "pointer",
                       marginTop: "6px",
-                      boxShadow: "0 4px 12px rgba(30, 64, 175, 0.3)",
                     }}
                   >
                     Submit Suggestion

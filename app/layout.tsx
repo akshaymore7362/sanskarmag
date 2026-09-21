@@ -15,8 +15,8 @@ export const metadata: Metadata = {
       { url: "/icon.png", type: "image/png" },
       { url: "/favicon.ico" },
     ],
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    shortcut: "/brand-mark.svg",
+    apple: "/brand-mark.svg",
   },
   openGraph: {
     title: "The Success World",

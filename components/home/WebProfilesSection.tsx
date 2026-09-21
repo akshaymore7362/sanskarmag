@@ -199,7 +199,6 @@ export function WebProfilesSection() {
               border: "1.5px solid #102A43",
               padding: "10px 20px",
               borderRadius: "30px",
-              boxShadow: "0 4px 14px rgba(147, 197, 253, 0.15)",
               transition: "all 0.25s ease",
             }}
           >
@@ -452,7 +451,6 @@ export function WebProfilesSection() {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "10px",
-                    boxShadow: "0 6px 18px rgba(10, 25, 47, 0.18)",
                     transition: "all 0.2s ease",
                   }}
                 >

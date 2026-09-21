@@ -113,7 +113,6 @@ export default function AdminSuggestionsPage() {
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
-            boxShadow: "0 4px 14px rgba(30, 64, 175, 0.35)",
           }}
         >
           <RefreshCw size={14} className={loading ? "animate-spin" : ""} />

@@ -70,7 +70,6 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
                   color: isActive ? "#FFFFFF" : "#4B5563",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
-                  boxShadow: isActive ? "0 2px 8px rgba(80, 7, 28, 0.2)" : "none",
                 }}
               >
                 {topic}
@@ -209,7 +208,6 @@ export function SectorArticleFeed({ industryName, topics, articles }: Props) {
               fontWeight: 800,
               color: "#102A43",
               cursor: "pointer",
-              boxShadow: "0 2px 8px rgba(80, 7, 28, 0.05)",
               transition: "all 0.2s ease",
             }}
           >

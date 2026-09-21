@@ -175,7 +175,6 @@ export default async function LeaderProfilePage({ params }: Props) {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "12px",
-                boxShadow: "0 8px 25px rgba(10, 25, 47, 0.22)",
                 border: "1px solid rgba(147, 197, 253, 0.3)",
                 transition: "all 0.25s ease",
               }}

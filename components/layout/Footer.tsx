@@ -43,7 +43,7 @@ export function Footer() {
               <img
                 src="/brand-wordmark.svg"
                 alt="The Success World"
-                style={{ width: "220px", height: "auto", objectFit: "contain" }}
+                style={{ width: "260px", height: "auto", objectFit: "contain" }}
               />
             </Link>
             <p className="footer-desc">

@@ -13,7 +13,12 @@ export async function GET(request: Request) {
     const data = await sanityClient.fetch(query);
     return NextResponse.json(data, {
       headers: {
-        'Cache-Control': 'no-store, max-age=0',
+        // Every component that needs the same content (articles, magazines,
+        // etc.) issues its own request with an identical query string —
+        // caching here lets the browser/CDN serve repeats of the same query
+        // instantly instead of re-hitting Sanity 15-20+ times per page load.
+        // Short enough that new/edited Sanity content still shows up fast.
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=120',
       },
     });
   } catch (err: any) {

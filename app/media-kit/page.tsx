@@ -29,21 +29,13 @@ function readPrerenderedManifest(): PageManifestEntry[] | null {
 export default async function MediaKitPage() {
   const kit = await mediaKitService.fetchSanityMediaKit();
 
-  // If a real PDF has been uploaded in Sanity, render it live (page-by-page,
-  // client-side) since we can't pre-render an arbitrary upload ahead of time.
-  if (kit?.mediaKitPdfUrl) {
-    const downloadHref = `/api/media-kit-download?url=${encodeURIComponent(kit.mediaKitPdfUrl)}`;
-    return (
-      <main style={{ background: "#FFFFFF", width: "100%" }}>
-        <MediaKitViewer pdfUrl={kit.mediaKitPdfUrl} downloadHref={downloadHref} />
-      </main>
-    );
-  }
-
-  // Otherwise, serve the pre-rendered page images (generated once from the
-  // local PDF) instead of shipping the full multi-megabyte PDF to the
-  // browser and parsing it client-side — this is what actually makes the
-  // page fast, since each page is now a normal lazy-loaded compressed image.
+  // Always prefer the pre-rendered page images (generated once, from
+  // whichever PDF — local fallback or the real Sanity upload — was current
+  // at the time) over shipping the full multi-megabyte PDF to the browser
+  // and parsing it client-side. This is what actually makes the page fast:
+  // each page becomes a normal lazy-loaded compressed image instead of a
+  // 15-30MB document. If the Media Kit PDF is replaced in Sanity later, the
+  // pre-rendered images need regenerating to match (they won't auto-update).
   const pages = readPrerenderedManifest();
 
   if (pages && pages.length > 0) {
@@ -65,10 +57,15 @@ export default async function MediaKitPage() {
     );
   }
 
-  // Last-resort fallback if pre-rendered images are ever missing.
+  // Last-resort fallback if pre-rendered images are ever missing — render
+  // whichever PDF is actually available (real Sanity upload, else local file).
+  const fallbackPdfUrl = kit?.mediaKitPdfUrl || "/media-kit-2026.pdf";
+  const fallbackDownloadHref = kit?.mediaKitPdfUrl
+    ? `/api/media-kit-download?url=${encodeURIComponent(kit.mediaKitPdfUrl)}`
+    : "/media-kit-2026.pdf";
   return (
     <main style={{ background: "#FFFFFF", width: "100%" }}>
-      <MediaKitViewer pdfUrl="/media-kit-2026.pdf" downloadHref="/media-kit-2026.pdf" />
+      <MediaKitViewer pdfUrl={fallbackPdfUrl} downloadHref={fallbackDownloadHref} />
     </main>
   );
 }

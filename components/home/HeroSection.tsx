@@ -203,17 +203,17 @@ export function HeroSection() {
                 display: "grid",
                 gridTemplateColumns: "1fr 480px",
                 gap: "36px",
-                alignItems: "start",
+                alignItems: "center",
                 paddingTop: "clamp(8px, 2vw, 28px)",
               }}
             >
               {/* LEFT COLUMN: Compact Editorial Information (Reflects ONLY Front Magazine) */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "18px", width: "100%" }}>
                 {/* Main Headline */}
                 <h1
                   className="font-serif tsw-in-1"
                   style={{
-                    fontSize: "clamp(28px, 3.4vw, 44px)",
+                    fontSize: "clamp(34px, 4.2vw, 54px)",
                     fontWeight: 900,
                     lineHeight: 1.15,
                     color: "#101722",
@@ -227,28 +227,28 @@ export function HeroSection() {
 
                 {/* Single Combined Featured Coverage Text Block */}
                 <div className="tsw-in-2" style={{ maxWidth: "620px" }}>
-                  <div style={{ fontSize: "11px", fontWeight: 800, color: "#102A43", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "5px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 800, color: "#102A43", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "8px" }}>
                     FEATURED COVERAGE &bull; {issueTag}
                   </div>
-                  <h3 className="font-serif" style={{ fontSize: "19px", fontWeight: 800, color: "#101722", margin: "0 0 6px", lineHeight: 1.3 }}>
+                  <h3 className="font-serif" style={{ fontSize: "23px", fontWeight: 800, color: "#101722", margin: "0 0 10px", lineHeight: 1.3 }}>
                     {heroTitle}
                   </h3>
-                  <p style={{ fontSize: "14.5px", color: "#55545A", margin: 0, lineHeight: 1.6 }}>
+                  <p style={{ fontSize: "16.5px", color: "#55545A", margin: 0, lineHeight: 1.65 }}>
                     {heroDesc}
                   </p>
                 </div>
 
                 {/* Industry Topics Tag Bar */}
-                <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", fontSize: "12px", fontWeight: 700, color: "#55545A" }}>
+                <div style={{ display: "flex", gap: "18px", flexWrap: "wrap", fontSize: "13px", fontWeight: 700, color: "#55545A" }}>
                   {["Enterprise AI & Tech", "Capital Markets", "Executive Leadership"].map((topic) => (
-                    <span key={topic} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                      <CheckCircle size={12} style={{ color: "#059669" }} /> {topic}
+                    <span key={topic} style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                      <CheckCircle size={13} style={{ color: "#059669" }} /> {topic}
                     </span>
                   ))}
                 </div>
 
                 {/* Action Buttons */}
-                <div className="tsw-in-3" style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "4px" }}>
+                <div className="tsw-in-3" style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "6px" }}>
                   {isExternalPdf ? (
                     <a
                       href={targetPdfUrl}

@@ -259,7 +259,8 @@ export function WebProfilesSection() {
               aria-label={`View full profile for ${profile.name}`}
               style={{
                 width: "100%",
-                height: "520px",
+                height: "auto",
+                aspectRatio: "740 / 480",
                 borderRadius: "16px",
                 overflow: "hidden",
                 border: "1px solid #E2E8F0",
@@ -282,7 +283,7 @@ export function WebProfilesSection() {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "contain",
+                    objectFit: "cover",
                   }}
                 />
               ) : (

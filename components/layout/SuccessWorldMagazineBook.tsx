@@ -59,8 +59,8 @@ export function SuccessWorldMagazineBook() {
           width: "100%",
           borderRadius: "10px",
           overflow: "hidden",
-          border: "1px solid rgba(147, 197, 253, 0.25)",
-          boxShadow: "0 18px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0,0,0,0.3)",
+          border: "1px solid rgba(16, 42, 67, 0.15)",
+          boxShadow: "none",
           marginBottom: "12px",
         }}
       >
@@ -172,9 +172,9 @@ export function SuccessWorldMagazineBook() {
             type="button"
             onClick={handlePrevPage}
             style={{
-              background: "rgba(255, 255, 255, 0.08)",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
-              color: "#FFFFFF",
+              background: "transparent",
+              border: "1px solid rgba(16, 42, 67, 0.25)",
+              color: "#102A43",
               borderRadius: "5px",
               padding: "4px 8px",
               fontSize: "9.5px",
@@ -183,13 +183,14 @@ export function SuccessWorldMagazineBook() {
               alignItems: "center",
               gap: "3px",
               cursor: "pointer",
+              boxShadow: "none",
             }}
           >
             <ChevronLeft size={11} />
             <span>Prev</span>
           </button>
 
-          <span style={{ fontSize: "9.5px", color: "#94A3B8", fontWeight: 700 }}>
+          <span style={{ fontSize: "9.5px", color: "#55545A", fontWeight: 700 }}>
             {activeIdx + 1} / {magazines.length}
           </span>
 
@@ -197,9 +198,9 @@ export function SuccessWorldMagazineBook() {
             type="button"
             onClick={handleNextPage}
             style={{
-              background: "rgba(255, 255, 255, 0.08)",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
-              color: "#FFFFFF",
+              background: "transparent",
+              border: "1px solid rgba(16, 42, 67, 0.25)",
+              color: "#102A43",
               borderRadius: "5px",
               padding: "4px 8px",
               fontSize: "9.5px",
@@ -208,6 +209,7 @@ export function SuccessWorldMagazineBook() {
               alignItems: "center",
               gap: "3px",
               cursor: "pointer",
+              boxShadow: "none",
             }}
           >
             <span>Next</span>

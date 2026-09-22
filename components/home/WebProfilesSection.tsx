@@ -13,7 +13,7 @@ const badgeIcons = [Globe, User, Briefcase, TrendingUp];
 // requested — so a raw asset URL can be several MB. Requesting a sized,
 // compressed variant is what actually makes slide switches fast, since the
 // browser downloads a fraction of the bytes (and repeats hit its own cache).
-function sanityImg(url: string, width: number, quality = 70): string {
+function sanityImg(url: string, width: number, quality = 82): string {
   if (!url || !url.includes("cdn.sanity.io")) return url;
   const sep = url.includes("?") ? "&" : "?";
   return `${url}${sep}w=${width}&q=${quality}&auto=format&fit=max`;
@@ -59,7 +59,7 @@ export function WebProfilesSection() {
     profiles.forEach((leader) => {
       if (!leader.image) return;
       const img = new Image();
-      img.src = sanityImg(leader.image, 700);
+      img.src = sanityImg(leader.image, 1200);
     });
   }, [profiles]);
 
@@ -160,6 +160,8 @@ export function WebProfilesSection() {
             marginBottom: "36px",
             flexWrap: "wrap",
             gap: "20px",
+            borderBottom: "3px double #102A43",
+            paddingBottom: "14px",
           }}
         >
           <div>
@@ -273,7 +275,7 @@ export function WebProfilesSection() {
               {profile.avatar ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
-                  src={sanityImg(profile.avatar, 700)}
+                  src={sanityImg(profile.avatar, 1200)}
                   alt={profile.name}
                   loading="eager"
                   fetchPriority="high"

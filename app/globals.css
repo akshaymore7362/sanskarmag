@@ -490,8 +490,8 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   align-items: flex-end;
   gap: 20px 32px;
   flex-wrap: wrap;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 14px;
+  border-bottom: 3px double var(--ink);
   margin-bottom: 36px;
 }
 
@@ -506,6 +506,14 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 10px;
+}
+
+/* Shared newspaper double-rule under a section header row (heading + any
+   badge/link alongside it) — same treatment as the Daily News masthead,
+   applied consistently across homepage sections. */
+.tsw-section-head-rule {
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 14px;
 }
 
 .tsw-title {
@@ -4452,6 +4460,8 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   margin-bottom: 18px;
   flex-wrap: wrap;
   gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 3px double var(--ink);
 }
 .tsw-section { width: 100%; max-width: 100%; margin: 0 auto; padding: 24px clamp(16px, 2.5vw, 40px); box-sizing: border-box; }
 .tsw-band { width: 100%; }

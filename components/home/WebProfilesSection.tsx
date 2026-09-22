@@ -9,6 +9,16 @@ import type { Leader } from "@/types";
 
 const badgeIcons = [Globe, User, Briefcase, TrendingUp];
 
+// Sanity's CDN serves the original, un-resized upload unless a transform is
+// requested — so a raw asset URL can be several MB. Requesting a sized,
+// compressed variant is what actually makes slide switches fast, since the
+// browser downloads a fraction of the bytes (and repeats hit its own cache).
+function sanityImg(url: string, width: number, quality = 70): string {
+  if (!url || !url.includes("cdn.sanity.io")) return url;
+  const sep = url.includes("?") ? "&" : "?";
+  return `${url}${sep}w=${width}&q=${quality}&auto=format&fit=max`;
+}
+
 function normalizeName(name: string): string {
   return name
     .toLowerCase()
@@ -40,6 +50,18 @@ export function WebProfilesSection() {
 
   const displayProfiles = profiles;
   const issueProfile = selectedIssue ? deriveWebProfile(selectedIssue) : null;
+
+  // Warm the browser cache for every leader photo up front, at the sized
+  // variant the spotlight actually renders — so switching to a slide (first
+  // time or repeated) is instant instead of triggering a fresh fetch.
+  useEffect(() => {
+    if (profiles.length === 0) return;
+    profiles.forEach((leader) => {
+      if (!leader.image) return;
+      const img = new Image();
+      img.src = sanityImg(leader.image, 700);
+    });
+  }, [profiles]);
 
   // Prefer a REAL leader record (real photo, real bio, real role/company)
   // when this issue's cover subject has one — the magazine cover image is
@@ -251,8 +273,10 @@ export function WebProfilesSection() {
               {profile.avatar ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
-                  src={profile.avatar}
+                  src={sanityImg(profile.avatar, 700)}
                   alt={profile.name}
+                  loading="eager"
+                  fetchPriority="high"
                   style={{
                     width: "100%",
                     height: "100%",
@@ -540,8 +564,9 @@ export function WebProfilesSection() {
                     {leader.image ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img
-                        src={leader.image}
+                        src={sanityImg(leader.image, 120)}
                         alt={leader.name}
+                        loading="lazy"
                         style={{ width: "100%", height: "100%", objectFit: "contain" }}
                       />
                     ) : (

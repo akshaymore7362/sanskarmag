@@ -112,18 +112,9 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: 3D MAGAZINE SHOWCASE */}
+          {/* Column 4: MAGAZINE SHOWCASE */}
           <div className="footer-links-col" style={{ width: "100%", flexShrink: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
-              <h4 className="footer-col-title font-serif" style={{ margin: 0 }}>
-                3D SHOWCASE
-              </h4>
-              <span style={{ fontSize: "9px", fontWeight: 800, background: "#102A43", color: "#FFFFFF", padding: "2px 6px", borderRadius: "4px", letterSpacing: "1px" }}>
-                2026 EDITION
-              </span>
-            </div>
-
-            {/* 3D Flipbook Magazine Component */}
+            {/* Magazine Cover Component */}
             <SuccessWorldMagazineBook />
 
             <Link href="/magazines" className="footer-3d-btn">

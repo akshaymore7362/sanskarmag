@@ -137,9 +137,6 @@ html {
      hides horizontal overflow without that side effect. */
   overflow-x: clip;
   max-width: 100vw;
-  /* Reserves the scrollbar's width permanently so locking body scroll (e.g.
-     opening the mobile menu) never shifts the layout sideways. */
-  scrollbar-gutter: stable;
 }
 
 body {
@@ -4847,4 +4844,25 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 @keyframes tsw-spin-anim {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* Hide the browser's native scrollbar site-wide while keeping the page
+   fully scrollable (mouse wheel, touch, keyboard all still work). */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge/IE */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Chromium Edge */
+  width: 0;
+  height: 0;
+}
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }

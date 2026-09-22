@@ -186,7 +186,7 @@ export function Header() {
           <img
             src="/brand-wordmark.svg"
             alt="The Success World"
-            style={{ width: "clamp(210px, 22vw, 290px)", height: "auto", objectFit: "contain", flexShrink: 0 }}
+            style={{ width: "clamp(250px, 26vw, 340px)", height: "auto", objectFit: "contain", flexShrink: 0 }}
           />
         </Link>
 

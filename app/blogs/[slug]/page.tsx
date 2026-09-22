@@ -37,58 +37,79 @@ export default async function BlogDetailPage({ params }: Props) {
     .slice(0, 3);
 
   return (
-    <main className="blog-detail-page site-shell inner-shell" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "80px" }}>
-      {/* Top Dark Header Banner */}
-      <section className="article-header-banner" style={{ margin: "-20px -40px 32px -40px", padding: "40px 40px 36px 40px", background: "linear-gradient(135deg, #0B1E30 0%, #102A43 60%, #0B1E30 100%)", borderRadius: "0 0 24px 24px" }}>
-        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-          {/* Breadcrumb */}
-          <div style={{ fontSize: "12px", color: "#A78BFA", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-            <Link href="/" style={{ color: "#9CA3AF" }}>Home</Link>
-            <span>›</span>
-            <Link href="/blogs" style={{ color: "#9CA3AF" }}>Blogs</Link>
-            <span>›</span>
-            <span style={{ color: "#102A43" }}>{article.category || "Article"}</span>
-          </div>
+    <main className="blog-detail-page" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "80px", width: "100%" }}>
+      {/* Full-Screen Article Hero — fills the viewport edge to edge, image
+          behind the title/meta instead of a small boxed thumbnail below it. */}
+      <section
+        className="article-header-banner"
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100vh",
+          minHeight: "560px",
+          overflow: "hidden",
+          background: "linear-gradient(135deg, #0B1E30 0%, #102A43 60%, #0B1E30 100%)",
+        }}
+      >
+        {article.image && (
+          <Image
+            src={article.image}
+            alt={article.imageAlt || article.title}
+            fill
+            className="object-cover"
+            unoptimized
+            priority
+          />
+        )}
 
-          <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#F7F5EF", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, textTransform: "uppercase" }}>
-            {article.category || "FEATURED"}
-          </span>
+        {/* Scrim so the overlaid title/meta stay legible over any photo */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(180deg, rgba(11,30,48,0.55) 0%, rgba(11,30,48,0.35) 40%, rgba(6,16,30,0.95) 100%)",
+            pointerEvents: "none",
+          }}
+        />
 
-          <h1 className="font-serif" style={{ fontSize: "40px", fontWeight: 900, color: "#FFFFFF", margin: "14px 0 16px", lineHeight: 1.15 }}>
-            {article.title}
-          </h1>
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0 clamp(16px, 4vw, 56px) 44px" }}>
+          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+            {/* Breadcrumb */}
+            <div style={{ fontSize: "12px", color: "#A78BFA", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+              <Link href="/" style={{ color: "#9CA3AF" }}>Home</Link>
+              <span>›</span>
+              <Link href="/blogs" style={{ color: "#9CA3AF" }}>Blogs</Link>
+              <span>›</span>
+              <span style={{ color: "#FFFFFF" }}>{article.category || "Article"}</span>
+            </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "13px", color: "rgba(248, 246, 241, 0.8)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: 700, color: "#FFFFFF" }}>
-              <User size={14} style={{ color: "#102A43" }} /> {article.author || "Editorial Team"}
+            <span className="hero-gold-pill-sm" style={{ background: "#102A43", color: "#F7F5EF", padding: "3px 8px", borderRadius: "4px", fontSize: "10px", fontWeight: 800, textTransform: "uppercase" }}>
+              {article.category || "FEATURED"}
             </span>
-            <span>•</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              <Calendar size={14} /> {article.date}
-            </span>
-            <span>•</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "#A78BFA" }}>
-              <Clock size={14} /> {article.readTime}
-            </span>
+
+            <h1 className="font-serif" style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 900, color: "#FFFFFF", margin: "14px 0 16px", lineHeight: 1.15 }}>
+              {article.title}
+            </h1>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "13px", color: "rgba(248, 246, 241, 0.8)", flexWrap: "wrap" }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: 700, color: "#FFFFFF" }}>
+                <User size={14} style={{ color: "#FFFFFF" }} /> {article.author || "Editorial Team"}
+              </span>
+              <span>•</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                <Calendar size={14} /> {article.date}
+              </span>
+              <span>•</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "#A78BFA" }}>
+                <Clock size={14} /> {article.readTime}
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Main Container */}
-      <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-        {/* HERO IMAGE */}
-        {article.image && (
-          <div style={{ position: "relative", height: "420px", borderRadius: "16px", overflow: "hidden", marginBottom: "32px", border: "1px solid #E5E7EB", boxShadow: "0 8px 24px rgba(0,0,0,0.06)" }}>
-            <Image
-              src={article.image}
-              alt={article.imageAlt || article.title}
-              fill
-              className="object-cover"
-              unoptimized
-            />
-          </div>
-        )}
-
+      <div style={{ maxWidth: "860px", margin: "40px auto 0", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
         {/* READING BODY */}
         <article className="article-body-content" style={{ color: "#102A43", fontSize: "17px", lineHeight: 1.75 }}>
           <p style={{ fontSize: "19px", fontWeight: 600, color: "#102A43", lineHeight: 1.6, marginBottom: "24px" }}>

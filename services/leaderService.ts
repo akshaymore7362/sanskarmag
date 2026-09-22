@@ -32,14 +32,14 @@ export const leaderService = {
         category->slug.current == "web-profiles" ||
         magcategory->slug.current == "web-profiles" ||
         category->slug.current == "webprofile"
-      ) && slug.current != "john-intellisys" && name != "John Intellisys" && !(slug.current match "*alex-leveto*") && !(title match "*Alex Leveto*") && name != "Alex Leveto"] | order(_createdAt desc){
+      ) && slug.current != "john-intellisys" && name != "John Intellisys" && !(slug.current match "*alex-leveto*") && !(title match "*Alex Leveto*") && name != "Alex Leveto"] | order(_createdAt desc)[0...40]{
         _id,
         title,
         name,
         "slug": slug.current,
         "role": coalesce(designation, role, "Executive Leader"),
         "company": coalesce(company, organization, "Enterprise Global"),
-        "bio": coalesce(body, description, excerpt, biography, bio, title),
+        "bio": coalesce(body[0...3], description, excerpt, biography, bio, title),
         imageAlt,
         featuredOnHome,
         "imageUrl": coalesce(mainImage.asset->url, image.asset->url, cover.asset->url, profileImage.asset->url)

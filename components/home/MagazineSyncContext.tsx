@@ -28,16 +28,27 @@ interface MagazineSyncValue {
 
 const MagazineSyncContext = createContext<MagazineSyncValue | null>(null);
 
-export function MagazineSyncProvider({ children }: { children: ReactNode }) {
-  const [issues, setIssues] = useState<MagazineIssue[]>([]);
+export function MagazineSyncProvider({
+  children,
+  initialIssues,
+}: {
+  children: ReactNode;
+  /** Server-fetched issues (from app/page.tsx) so the first render already
+   * has data — skips the client mount → fetch → wait round trip that made
+   * the Hero cover and Web Profile spotlight slow to appear. */
+  initialIssues?: MagazineIssue[];
+}) {
+  const [issues, setIssues] = useState<MagazineIssue[]>(initialIssues && initialIssues.length > 0 ? initialIssues.slice(0, 6) : []);
   const [selectedIssueId, setSelectedIssueId] = useState<string | null>(null);
   const [direction, setDirection] = useState(1);
   const [isPaused, setPaused] = useState(false);
 
   // Fetch the issue list exactly once, here — HeroSection and
   // WebProfilesSection both read it from context instead of each fetching
-  // (and each maintaining) their own copy.
+  // (and each maintaining) their own copy. Skipped when server-fetched data
+  // already seeded the initial state above.
   useEffect(() => {
+    if (initialIssues && initialIssues.length > 0) return;
     let cancelled = false;
     magazineService.fetchSanityMagazines().then((data) => {
       if (!cancelled && data && data.length > 0) {
@@ -47,6 +58,7 @@ export function MagazineSyncProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Seed the initial selection once issues load (and re-seed if the

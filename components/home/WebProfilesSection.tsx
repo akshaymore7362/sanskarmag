@@ -26,9 +26,10 @@ function normalizeName(name: string): string {
     .trim();
 }
 
-export function WebProfilesSection() {
-  const [profiles, setProfiles] = useState<Leader[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function WebProfilesSection({ initialProfiles }: { initialProfiles?: Leader[] } = {}) {
+  const hasInitial = Boolean(initialProfiles && initialProfiles.length > 0);
+  const [profiles, setProfiles] = useState<Leader[]>(hasInitial ? (initialProfiles as Leader[]) : []);
+  const [isLoading, setIsLoading] = useState(!hasInitial);
   // Shared with HeroSection via MagazineSyncProvider — the exact same
   // selected-issue object the magazine cover slider renders from. The
   // spotlight below is derived from this one object (deriveWebProfile), so
@@ -37,7 +38,11 @@ export function WebProfilesSection() {
   const { selectedIssue, selectedIndex, issues } = useMagazineSync();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
+  // Server-fetched profiles (from app/page.tsx) already seeded initial state
+  // above — this only refetches when that wasn't available, so the browser
+  // never waits through a mount → fetch → wait round trip to show anything.
   useEffect(() => {
+    if (hasInitial) return;
     leaderService
       .fetchSanityLeaders()
       .then((items) => {
@@ -46,6 +51,7 @@ export function WebProfilesSection() {
         }
       })
       .finally(() => setIsLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const displayProfiles = profiles;

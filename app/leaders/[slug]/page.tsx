@@ -30,9 +30,9 @@ export default async function LeaderProfilePage({ params }: Props) {
   const articles = await articleService.fetchSanityArticles();
 
   return (
-    <main className="site-shell inner-shell" style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "60px" }}>
+    <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "60px", width: "100%" }}>
       {/* Back Navigation Bar */}
-      <div style={{ background: "#102A43", color: "#ffffff", padding: "14px 24px", boxShadow: "0 2px 10px rgba(0,0,0,0.15)" }}>
+      <div style={{ background: "#102A43", color: "#ffffff", padding: "14px 24px", boxShadow: "0 2px 10px rgba(0,0,0,0.15)", position: "relative", zIndex: 3 }}>
         <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "0 clamp(16px, 2.5vw, 40px)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link
             href="/leaders"
@@ -55,8 +55,93 @@ export default async function LeaderProfilePage({ params }: Props) {
         </div>
       </div>
 
-      {/* Centered Grand Leader Profile Card */}
-      <section style={{ width: "100%", maxWidth: "100%", margin: "36px auto", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
+      {/* Full-Screen Executive Photo Hero — fills the viewport edge to edge,
+          not boxed inside the page's normal content width. */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100vh",
+          minHeight: "560px",
+          overflow: "hidden",
+          background: "radial-gradient(circle at center, #1E293B 0%, #0F172A 100%)",
+        }}
+      >
+        {leader.image ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={leader.image}
+            alt={leader.name}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+            }}
+          />
+        ) : (
+          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#FFFFFF", fontSize: "96px", fontWeight: 900 }}>
+            {leader.name.charAt(0)}
+          </div>
+        )}
+
+        {/* Bottom gradient scrim so the name/role stays legible over any photo */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: "45%",
+            background: "linear-gradient(0deg, rgba(6,16,30,0.92) 0%, rgba(6,16,30,0) 100%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        {/* Executive Badge */}
+        <div
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            background: "rgba(10, 25, 47, 0.92)",
+            backdropFilter: "blur(10px)",
+            color: "#FFFFFF",
+            fontSize: "11px",
+            fontWeight: 800,
+            letterSpacing: "1.8px",
+            textTransform: "uppercase",
+            padding: "10px 20px",
+            borderRadius: "30px",
+            border: "1.5px solid rgba(147, 197, 253, 0.6)",
+            boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
+          }}
+        >
+          VERIFIED EXECUTIVE PORTRAIT
+        </div>
+
+        {/* Name & Credentials overlaid at the bottom of the hero */}
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: "0", padding: "0 clamp(16px, 4vw, 56px) 40px", textAlign: "center" }}>
+          <span style={{ fontSize: "12px", fontWeight: 800, color: "#B7C4CD", letterSpacing: "2.5px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+            <Award size={16} style={{ color: "#B7C4CD" }} /> OFFICIAL EXECUTIVE WEB PROFILE
+          </span>
+
+          <h1 className="font-serif" style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, color: "#FFFFFF", margin: "0 0 14px", lineHeight: 1.1, letterSpacing: "-0.5px" }}>
+            {leader.name}
+          </h1>
+
+          <div style={{ fontSize: "17px", fontWeight: 700, color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
+            <span>{leader.role || "EXECUTIVE LEADER"}</span>
+            <span style={{ color: "#94A3B8" }}>&bull;</span>
+            <span style={{ color: "#DDE3E8", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <Building size={18} style={{ color: "#DDE3E8" }} /> {leader.company || "Leadership & Innovation"}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Bio & Details Card, below the full-screen hero */}
+      <section className="site-shell" style={{ width: "100%", maxWidth: "100%", margin: "36px auto", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
         <div
           style={{
             background: "#ffffff",
@@ -72,85 +157,6 @@ export default async function LeaderProfilePage({ params }: Props) {
             boxSizing: "border-box",
           }}
         >
-          {/* Centered Extra Large Executive Photo Frame (100% Uncropped Full View) */}
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              maxWidth: "900px",
-              height: "720px",
-              maxHeight: "82vh",
-              borderRadius: "24px",
-              overflow: "hidden",
-              background: "radial-gradient(circle at center, #1E293B 0%, #0F172A 100%)",
-              border: "3.5px solid #102A43",
-              boxShadow: "0 25px 60px rgba(10, 25, 47, 0.28)",
-              marginBottom: "36px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "20px",
-              boxSizing: "border-box",
-            }}
-          >
-            {leader.image ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={leader.image}
-                alt={leader.name}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  filter: "drop-shadow(0 10px 25px rgba(0,0,0,0.5))",
-                }}
-              />
-            ) : (
-              <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#102A43", fontSize: "96px", fontWeight: 900 }}>
-                {leader.name.charAt(0)}
-              </div>
-            )}
-
-            {/* Executive Badge */}
-            <div
-              style={{
-                position: "absolute",
-                top: "20px",
-                right: "20px",
-                background: "rgba(10, 25, 47, 0.92)",
-                backdropFilter: "blur(10px)",
-                color: "#FFFFFF",
-                fontSize: "11px",
-                fontWeight: 800,
-                letterSpacing: "1.8px",
-                textTransform: "uppercase",
-                padding: "10px 20px",
-                borderRadius: "30px",
-                border: "1.5px solid rgba(147, 197, 253, 0.6)",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
-              }}
-            >
-              VERIFIED EXECUTIVE PORTRAIT
-            </div>
-          </div>
-
-          {/* Header Credentials */}
-          <span style={{ fontSize: "12px", fontWeight: 800, color: "#102A43", letterSpacing: "2.5px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-            <Award size={16} style={{ color: "#102A43" }} /> OFFICIAL EXECUTIVE WEB PROFILE
-          </span>
-
-          <h1 className="font-serif" style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, color: "#102A43", margin: "0 0 14px", lineHeight: 1.1, letterSpacing: "-0.5px" }}>
-            {leader.name}
-          </h1>
-
-          <div style={{ fontSize: "17px", fontWeight: 700, color: "#102A43", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap", marginBottom: "36px" }}>
-            <span>{leader.role || "EXECUTIVE LEADER"}</span>
-            <span style={{ color: "#94A3B8" }}>&bull;</span>
-            <span style={{ color: "#4B5563", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              <Building size={18} style={{ color: "#102A43" }} /> {leader.company || "Leadership & Innovation"}
-            </span>
-          </div>
-
           {/* Full Bio & Main Content Section (Shown 100% Fully) */}
           {leader.bio && (
             <div style={{ width: "100%", maxWidth: "1000px", textAlign: "left", marginBottom: "40px" }}>

@@ -32,8 +32,12 @@ export async function buildSiteKnowledgeSnapshot(): Promise<string> {
     .map((l) => `- ${l.name}, ${l.role || "Executive"}${l.company ? ` at ${l.company}` : ""} (/leaders/${l.slug})`)
     .join("\n");
 
+  // Only industries with a real, working detail page — industryService also
+  // returns internal content-organization categories that share the same
+  // Sanity types but aren't actual industry sectors.
+  const VALID_INDUSTRY_SLUGS = new Set(["healthcare", "legal", "tech-ai", "manufacturing-products", "transportation", "finance"]);
   const industryLines = industries
-    .slice(0, 12)
+    .filter((i) => VALID_INDUSTRY_SLUGS.has(i.slug))
     .map((i) => `- ${i.name} (/industries/${i.slug})`)
     .join("\n");
 

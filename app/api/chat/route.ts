@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildSiteKnowledgeSnapshot } from "@/services/chatContext";
+import { generateLocalAssistantReply } from "@/services/localAssistant";
 
 // This route runs server-side only — the Gemini key never reaches the
 // browser. It is read from process.env, which must be set as a private
@@ -12,8 +13,6 @@ const MAX_MESSAGE_LENGTH = 2000;
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
-const FALLBACK_UNAVAILABLE =
-  "I'm not able to process that right now. You can reach our team directly — [Contact Us](/contact).";
 const FALLBACK_ERROR =
   "Sorry, I'm having trouble responding right now. Please try again.";
 
@@ -48,9 +47,19 @@ export async function POST(req: NextRequest) {
   }
 
   if (!GEMINI_API_KEY) {
-    // Configuration issue, not a content gap — never expose that detail to
-    // the visitor, just hand them a real, working escalation path.
-    return NextResponse.json({ reply: FALLBACK_UNAVAILABLE });
+    // No external AI key configured — fall back to the local, free,
+    // no-account-needed intent engine instead of a static "unavailable"
+    // message, so the chatbot is genuinely usable with zero setup.
+    try {
+      const reply = await generateLocalAssistantReply(
+        cleanMessages[cleanMessages.length - 1].content,
+        cleanMessages.slice(0, -1)
+      );
+      return NextResponse.json({ reply });
+    } catch (err) {
+      console.error("Local assistant error:", err);
+      return NextResponse.json({ error: true, reply: FALLBACK_ERROR }, { status: 500 });
+    }
   }
 
   try {

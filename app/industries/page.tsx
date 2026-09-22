@@ -1,6 +1,7 @@
 "use client";
 
 import { IndustryHero } from "@/components/industry/IndustryHero";
+import { IndustryDirectoryGrid } from "@/components/industry/IndustryDirectoryGrid";
 import { FeaturedIndustryCard } from "@/components/industry/FeaturedIndustryCard";
 import { LatestIndustryIntelligence } from "@/components/industry/LatestIndustryIntelligence";
 import { IndustrySidebar } from "@/components/industry/IndustrySidebar";
@@ -11,6 +12,9 @@ export default function IndustriesPage() {
     <main style={{ background: "var(--editorial-ivory, #F7F5EF)", minHeight: "100vh", paddingBottom: "24px" }}>
       {/* 1. Compact Explore Industries Hero (300-350px high) */}
       <IndustryHero />
+
+      {/* 2. Main Industry Directory (Compact 4-Column Desktop Grid) */}
+      <IndustryDirectoryGrid />
 
       {/* 3. Featured Industry (Horizontal 50/50 Layout) */}
       <FeaturedIndustryCard />

@@ -8,16 +8,16 @@ import {
   Cpu,
   Factory,
   Truck,
-  Building2,
-  Zap,
-  GraduationCap,
-  ShoppingBag,
   Landmark,
-  Tv,
-  Grid,
   ChevronRight,
 } from "lucide-react";
 
+// Only industries that actually exist as an `industryCategory` document in
+// Sanity are listed here — a card whose slug has no matching document 404s
+// on click, so entries with no real content behind them (real estate,
+// energy, education, retail, media, others) are left out rather than shown
+// as dead links. "Manufacturing" is kept under its real Sanity slug
+// (manufacturing-products), not the shorter one that doesn't exist there.
 export const industryList = [
   {
     slug: "healthcare",
@@ -38,7 +38,7 @@ export const industryList = [
     icon: Cpu,
   },
   {
-    slug: "manufacturing",
+    slug: "manufacturing-products",
     name: "Manufacturing",
     desc: "Smart manufacturing and industrial trends",
     icon: Factory,
@@ -50,46 +50,10 @@ export const industryList = [
     icon: Truck,
   },
   {
-    slug: "real-estate",
-    name: "Real Estate",
-    desc: "Property markets and real estate insights",
-    icon: Building2,
-  },
-  {
-    slug: "energy",
-    name: "Energy",
-    desc: "Energy markets and sustainable solutions",
-    icon: Zap,
-  },
-  {
-    slug: "education",
-    name: "Education",
-    desc: "Education trends and learning innovation",
-    icon: GraduationCap,
-  },
-  {
-    slug: "retail",
-    name: "Retail",
-    desc: "Retail strategies and consumer insights",
-    icon: ShoppingBag,
-  },
-  {
     slug: "finance",
     name: "Finance",
     desc: "Markets, banking and financial services",
     icon: Landmark,
-  },
-  {
-    slug: "media",
-    name: "Media & Entertainment",
-    desc: "Media, content and entertainment trends",
-    icon: Tv,
-  },
-  {
-    slug: "others",
-    name: "Others",
-    desc: "Explore other emerging industry sectors",
-    icon: Grid,
   },
 ];
 

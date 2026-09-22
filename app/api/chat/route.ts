@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildSiteKnowledgeSnapshot } from "@/services/chatContext";
 
-// This route runs server-side only — the OpenAI key never reaches the
+// This route runs server-side only — the Gemini key never reaches the
 // browser. It is read from process.env, which must be set as a private
 // (non NEXT_PUBLIC_) environment variable on the server / hosting platform.
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o-mini";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
 
 const MAX_HISTORY_MESSAGES = 16;
 const MAX_MESSAGE_LENGTH = 2000;
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: true, reply: FALLBACK_ERROR }, { status: 400 });
   }
 
-  if (!OPENAI_API_KEY) {
+  if (!GEMINI_API_KEY) {
     // Configuration issue, not a content gap — never expose that detail to
     // the visitor, just hand them a real, working escalation path.
     return NextResponse.json({ reply: FALLBACK_UNAVAILABLE });
@@ -72,27 +72,38 @@ STRICT RULES:
 SITE KNOWLEDGE (current, factual — the only source for specifics):
 ${knowledge}`;
 
-    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: OPENAI_MODEL,
-        temperature: 0.4,
-        max_tokens: 450,
-        messages: [{ role: "system", content: systemPrompt }, ...cleanMessages],
-      }),
-    });
+    // Gemini has no separate "assistant" role — it uses "model" — and no
+    // system-role message in the contents array, so the system prompt is
+    // passed via systemInstruction instead.
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          contents: cleanMessages.map((m) => ({
+            role: m.role === "assistant" ? "model" : "user",
+            parts: [{ text: m.content }],
+          })),
+          generationConfig: {
+            temperature: 0.4,
+            maxOutputTokens: 450,
+          },
+        }),
+      }
+    );
 
-    if (!openaiRes.ok) {
-      console.error("OpenAI chat request failed:", openaiRes.status, await openaiRes.text().catch(() => ""));
+    if (!geminiRes.ok) {
+      console.error("Gemini chat request failed:", geminiRes.status, await geminiRes.text().catch(() => ""));
       return NextResponse.json({ error: true, reply: FALLBACK_ERROR }, { status: 502 });
     }
 
-    const data = await openaiRes.json();
-    const reply: string | undefined = data?.choices?.[0]?.message?.content?.trim();
+    const data = await geminiRes.json();
+    const reply: string | undefined = data?.candidates?.[0]?.content?.parts
+      ?.map((p: { text?: string }) => p.text || "")
+      .join("")
+      .trim();
 
     if (!reply) {
       return NextResponse.json({ error: true, reply: FALLBACK_ERROR }, { status: 502 });

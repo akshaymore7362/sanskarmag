@@ -3303,7 +3303,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 
 .footer-top-grid {
   display: grid;
-  grid-template-columns: 2fr repeat(2, 1fr) 2.2fr;
+  grid-template-columns: 2fr repeat(2, 1fr) 1.3fr;
   gap: 40px;
   margin-bottom: 48px;
 }

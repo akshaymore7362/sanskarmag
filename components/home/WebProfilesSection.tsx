@@ -213,7 +213,7 @@ export function WebProfilesSection() {
             background: "#FFFFFF",
             borderRadius: "20px",
             border: "1px solid #E2E8F0",
-            boxShadow: "0 20px 45px rgba(10, 25, 47, 0.07)",
+            boxShadow: "0 6px 14px rgba(10, 25, 47, 0.05)",
             padding: "clamp(24px, 3.5vw, 40px)",
             marginBottom: "36px",
           }}
@@ -239,7 +239,7 @@ export function WebProfilesSection() {
                 borderRadius: "16px",
                 overflow: "hidden",
                 border: "1px solid #E2E8F0",
-                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.08)",
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.05)",
                 position: "relative",
                 background: "#0F172A",
                 display: "flex",
@@ -519,7 +519,7 @@ export function WebProfilesSection() {
                     cursor: "pointer",
                     textAlign: "left",
                     transition: "all 0.25s ease",
-                    boxShadow: isActive ? "0 8px 20px rgba(10, 25, 47, 0.09)" : "0 2px 6px rgba(0, 0, 0, 0.02)",
+                    boxShadow: isActive ? "0 3px 8px rgba(10, 25, 47, 0.06)" : "0 1px 3px rgba(0, 0, 0, 0.02)",
                   }}
                 >
                   {/* Thumbnail Image */}

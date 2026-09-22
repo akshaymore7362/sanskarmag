@@ -61,8 +61,8 @@ export default async function LeaderProfilePage({ params }: Props) {
         style={{
           position: "relative",
           width: "100%",
-          height: "100vh",
-          minHeight: "560px",
+          height: "120vh",
+          minHeight: "720px",
           overflow: "hidden",
           background: "radial-gradient(circle at center, #1E293B 0%, #0F172A 100%)",
         }}
@@ -140,8 +140,9 @@ export default async function LeaderProfilePage({ params }: Props) {
         </div>
       </div>
 
-      {/* Bio & Details Card, below the full-screen hero */}
-      <section className="site-shell" style={{ width: "100%", maxWidth: "100%", margin: "36px auto", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
+      {/* Bio & Details Card, below the full-screen hero — full page width, not
+          boxed to the site's normal narrower content column. */}
+      <section style={{ width: "100%", maxWidth: "100%", margin: "36px auto", padding: "0 clamp(16px, 2.5vw, 40px)", boxSizing: "border-box" }}>
         <div
           style={{
             background: "#ffffff",
@@ -159,7 +160,7 @@ export default async function LeaderProfilePage({ params }: Props) {
         >
           {/* Full Bio & Main Content Section (Shown 100% Fully) */}
           {leader.bio && (
-            <div style={{ width: "100%", maxWidth: "1000px", textAlign: "left", marginBottom: "40px" }}>
+            <div style={{ width: "100%", maxWidth: "1400px", textAlign: "left", marginBottom: "40px" }}>
               <LeaderBioExpandable bio={leader.bio} />
             </div>
           )}

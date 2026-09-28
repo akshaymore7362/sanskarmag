@@ -476,50 +476,14 @@ export function Header() {
         </div>
       )}
 
-      {/* 4. Mobile Navigation — opens as a dropdown panel directly beneath the
-          fixed navbar, at whatever scroll position the user is already at.
-          Never touches window.scrollTo / scroll position.
-          Rendered through a portal straight into <body>: position:fixed only
-          tracks the true viewport when nothing between it and <body> sets a
-          transform/filter/perspective. Keeping it inside <header> risked
-          exactly that (the header used backdrop-filter), which is what made
-          the menu appear to "jump" — it was fixed to the header box, not the
-          viewport. Portaling removes that ancestor chain entirely. */}
       {/* 4. Mobile Navigation Panel */}
-      {menuOpen && (
+      {mounted && menuOpen && createPortal(
         <>
           <div
             className="mobile-menu-backdrop"
             onClick={() => toggleMenu(false)}
-            style={{
-              position: "fixed",
-              top: headerHeight || 96,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "rgba(10, 25, 41, 0.7)",
-              backdropFilter: "blur(4px)",
-              zIndex: 1999,
-            }}
           />
-          <div
-            className="mobile-menu-panel"
-            style={{
-              position: "fixed",
-              top: headerHeight || 96,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "#102A43",
-              zIndex: 2000,
-              overflowY: "auto",
-              WebkitOverflowScrolling: "touch",
-              borderTop: "1px solid rgba(255, 255, 255, 0.12)",
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.5)",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+          <div className="mobile-menu-panel">
             <div className="mobile-menu-list" style={{ padding: "16px 24px", display: "flex", flexDirection: "column", gap: "4px" }}>
               {nav.map((item) => {
                 const isDirectMatch = pathname === item.href || (item.href !== "/" && item.href !== "#" && pathname.startsWith(item.href));
@@ -612,7 +576,8 @@ export function Header() {
               </Link>
             </div>
           </div>
-        </>
+        </>,
+        document.body
       )}
 
       {/* 5. Executive Nominate Modal Dialog */}

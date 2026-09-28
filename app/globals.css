@@ -1274,11 +1274,13 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
    ============================================================ */
 .mobile-menu-backdrop {
   position: fixed;
+  top: 96px;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(16, 42, 67, 0.12);
-  z-index: 999;
+  background: rgba(10, 25, 41, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1999;
   animation: mobileMenuFadeBackdrop 0.25s ease-out;
 }
 
@@ -1289,15 +1291,26 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 
 .mobile-menu-panel {
   position: fixed;
+  top: 96px;
   left: 0;
   right: 0;
-  background: var(--editorial-ivory, #F7F5EF);
-  z-index: 1000;
+  bottom: 0;
+  background: #102A43;
+  z-index: 2000;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  box-shadow: 0 20px 44px rgba(16, 42, 67, 0.18);
-  border-bottom: 1px solid var(--hairline);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   animation: mobileMenuSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .mobile-menu-backdrop,
+  .mobile-menu-panel {
+    top: 68px !important;
+  }
 }
 
 @keyframes mobileMenuSlideIn {

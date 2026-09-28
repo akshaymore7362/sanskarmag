@@ -1,5 +1,6 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { Startup } from "@/types";
+import { startups } from "@/data/startups";
 
 export const startupService = {
   fetchSanityStartups: async (): Promise<Startup[]> => {
@@ -37,7 +38,7 @@ export const startupService = {
     } catch (e) {
       console.warn("Sanity startup fetch warning:", e);
     }
-    return [];
+    return startups;
   },
 
   fetchHomeStartups: async (): Promise<Startup[]> => {
@@ -71,6 +72,6 @@ export const startupService = {
     } catch (e) {
       console.warn("Sanity home startups fetch warning:", e);
     }
-    return [];
+    return startups.slice(0, 4);
   },
 };

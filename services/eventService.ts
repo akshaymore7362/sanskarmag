@@ -1,5 +1,6 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { EventItem } from "@/types";
+import { events } from "@/data/events";
 
 export const eventService = {
   fetchSanityEvents: async (): Promise<EventItem[]> => {
@@ -57,7 +58,7 @@ export const eventService = {
     } catch (e) {
       console.warn("Sanity event fetch warning:", e);
     }
-    return [];
+    return events;
   },
 
   fetchHomeEvents: async (): Promise<EventItem[]> => {
@@ -111,6 +112,6 @@ export const eventService = {
     } catch (e) {
       console.warn("Sanity home events fetch warning:", e);
     }
-    return [];
+    return events.slice(0, 4);
   },
 };

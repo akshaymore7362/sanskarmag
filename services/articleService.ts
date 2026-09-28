@@ -1,5 +1,6 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { Article } from "@/types";
+import { articles } from "@/data/articles";
 
 const mapSanityDocToArticle = (item: any, idx: number): Article => {
   const catName = item.industryCategory?.name || item.industryCategory?.title || item.primaryIndustry?.name || item.primaryIndustry?.title || item.industryName || item.categoryRef?.title || item.category || (item.categories && item.categories[0]?.title) || "Editorial";
@@ -94,7 +95,7 @@ export const articleService = {
     } catch (e) {
       console.warn(`Sanity article fetch warning for slug ${slug}:`, e);
     }
-    return undefined;
+    return articles.find((a) => a.slug === slug);
   },
 
   // Fetch 100% pure live published post & industryPost documents from Sanity
@@ -133,7 +134,7 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity article fetch warning:", e);
     }
-    return [];
+    return articles;
   },
 
   // Fetch posts strictly belonging to a specific Industry
@@ -182,7 +183,10 @@ export const articleService = {
     } catch (e) {
       console.warn(`Sanity fetch warning for industry ${industrySlug}:`, e);
     }
-    return [];
+    const matched = articles.filter(
+      (a) => a.industrySlug === industrySlug || (a.category && a.category.toLowerCase().includes(industrySlug.toLowerCase()))
+    );
+    return matched.length > 0 ? matched : articles.slice(0, 6);
   },
 
   // Fetch posts for Insights view
@@ -221,7 +225,7 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity insights fetch warning:", e);
     }
-    return [];
+    return articles;
   },
 
   // Fetch articles for "The Intelligence Brief" section
@@ -266,7 +270,7 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity intelligence brief fetch warning:", e);
     }
-    return [];
+    return articles.slice(0, 6);
   },
 
   // Fetch articles for "Leadership Lens" section
@@ -311,6 +315,6 @@ export const articleService = {
     } catch (e) {
       console.warn("Sanity leadership lens fetch warning:", e);
     }
-    return [];
+    return articles.slice(2, 8);
   },
 };

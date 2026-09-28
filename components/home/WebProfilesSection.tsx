@@ -113,7 +113,7 @@ export function WebProfilesSection({ initialProfiles }: { initialProfiles?: Lead
       <section style={{ background: "var(--editorial-ivory, #F7F5EF)", padding: "50px 0 70px" }}>
         <div className="site-shell">
           <div className="skeleton-pulse" style={{ width: "40%", height: 14, marginBottom: 16 }} />
-          <div className="grid-split-layout" style={{ display: "grid", gridTemplateColumns: "minmax(380px, 1.7fr) minmax(280px, 1fr)", gap: 36 }}>
+          <div className="grid-split-layout" style={{ gap: 36 }}>
             <div className="skeleton-pulse" style={{ width: "100%", height: 520, borderRadius: 16 }} />
             <div>
               <div className="skeleton-pulse" style={{ width: "70%", height: 32, marginBottom: 12 }} />
@@ -251,8 +251,6 @@ export function WebProfilesSection({ initialProfiles }: { initialProfiles?: Lead
           <div
             className="grid-split-layout"
             style={{
-              display: "grid",
-              gridTemplateColumns: "minmax(380px, 1.7fr) minmax(280px, 1fr)",
               gap: "36px",
               alignItems: "center",
             }}

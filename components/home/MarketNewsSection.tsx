@@ -35,7 +35,7 @@ export function MarketNewsSection() {
   if (isLoading && stories.length === 0) {
     return (
       <section style={{ width: "100%", maxWidth: "100%", margin: "16px 0", padding: "24px clamp(16px, 2.5vw, 40px)", background: "#f3f4f5", borderRadius: "12px", minHeight: "510px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px" }}>
           <div className="skeleton-pulse" style={{ width: "100%", height: 420, borderRadius: 10 }} />
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {Array.from({ length: 3 }).map((_, i) => (
@@ -95,7 +95,7 @@ export function MarketNewsSection() {
         </Link>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "20px", alignItems: "flex-start" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px", alignItems: "flex-start" }}>
         {/* LEFT COLUMN: Auto-Sliding Market Feature (Fixed Bounds = ZERO Shifting) */}
         {lead && (
           <div style={{ display: "flex", flexDirection: "column", gap: "12px", height: "420px", overflow: "hidden" }}>

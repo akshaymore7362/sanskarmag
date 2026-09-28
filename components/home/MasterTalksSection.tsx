@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Play, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { articleService } from "@/services/articleService";
 import type { Article } from "@/types";
 
@@ -90,9 +90,6 @@ export function MasterTalksSection() {
               <Image src={currentTalk.image} alt={currentTalk.title} fill className="object-cover" unoptimized priority />
             )}
             <div className="tsw-talks-video-grad" />
-            <Link href={`/blogs/${currentTalk?.slug}`} className="tsw-talks-play" aria-label={`Play ${currentTalk?.title}`}>
-              <Play size={26} style={{ color: "#fff", fill: "#fff", marginLeft: "2px" }} />
-            </Link>
             <div className="tsw-talks-caption">
               <span className="tsw-eyebrow-sm">Master Talk / 00{activeIndex + 1}</span>
               <h3>

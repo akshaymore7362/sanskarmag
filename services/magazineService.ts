@@ -1,5 +1,6 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { MagazineIssue } from "@/types";
+import { magazineIssues } from "@/data/magazines";
 
 export const magazineService = {
   fetchSanityMagazines: async (): Promise<MagazineIssue[]> => {
@@ -162,6 +163,6 @@ export const magazineService = {
     } catch (e) {
       console.warn("Sanity magazine fetch warning:", e);
     }
-    return [];
+    return magazineIssues;
   },
 };

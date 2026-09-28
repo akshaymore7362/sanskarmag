@@ -1,5 +1,6 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { Leader } from "@/types";
+import { leaders } from "@/data/leaders";
 
 function toPlainText(val: any): string {
   if (!val) return "";
@@ -92,7 +93,7 @@ export const leaderService = {
     } catch (e) {
       console.warn("Sanity web profiles fetch warning:", e);
     }
-    return [];
+    return leaders;
   },
 
   fetchHomeLeaders: async (): Promise<Leader[]> => {

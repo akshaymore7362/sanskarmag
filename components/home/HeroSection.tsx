@@ -200,9 +200,6 @@ export function HeroSection() {
               transition={{ duration: 0.35, ease: "easeOut" }}
               className="hero-grid-responsive"
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 480px",
-                gap: "36px",
                 alignItems: "center",
                 paddingTop: "clamp(8px, 2vw, 28px)",
               }}

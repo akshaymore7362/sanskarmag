@@ -27,7 +27,7 @@ export function BlogValueStrip() {
           maxWidth: "1440px",
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
           gap: "20px",
           alignItems: "center",
         }}

@@ -1,5 +1,6 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { Industry } from "@/types";
+import { industries } from "@/data/industries";
 
 export const industryService = {
   fetchSanityIndustries: async (): Promise<Industry[]> => {
@@ -29,6 +30,6 @@ export const industryService = {
     } catch (e) {
       console.warn("Sanity industry fetch warning:", e);
     }
-    return [];
+    return industries;
   },
 };

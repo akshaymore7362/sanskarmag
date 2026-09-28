@@ -1237,6 +1237,9 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   .mainnav {
     padding: 0 16px;
   }
+  .nav-logo img {
+    width: clamp(200px, 24vw, 270px) !important;
+  }
   .navlinks {
     display: none !important;
   }
@@ -1247,31 +1250,44 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   .search-btn {
     padding: 8px !important;
   }
+  .btn-nominate {
+    padding: 8px 12px !important;
+  }
+  .btn-subscribe {
+    display: inline-flex !important;
+    padding: 8px 14px !important;
+  }
   .mobile-trigger {
     display: flex !important;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .mainnav {
     padding: 0 12px;
     height: 68px;
     gap: 8px;
   }
   .nav-logo img {
-    width: clamp(170px, 48vw, 230px) !important;
+    width: clamp(160px, 44vw, 210px) !important;
   }
-  .nav-actions button:not(.mobile-trigger):not(.search-btn),
-  .nav-actions a.btn {
+  .btn-subscribe {
+    display: inline-flex !important;
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+  }
+  .mobile-menu-backdrop,
+  .mobile-menu-panel {
+    top: 68px !important;
+  }
+}
+
+@media (max-width: 540px) {
+  .btn-nominate {
     display: none !important;
   }
 }
 
-/* ============================================================
-   MOBILE NAVIGATION MENU — dropdown panel beneath the fixed navbar
-   Opens at the user's current scroll position (the header stays sticky, the
-   panel is positioned relative to the header's own height, not the page).
-   ============================================================ */
 .mobile-menu-backdrop {
   position: fixed;
   top: 96px;
@@ -1304,13 +1320,6 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   animation: mobileMenuSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
-}
-
-@media (max-width: 640px) {
-  .mobile-menu-backdrop,
-  .mobile-menu-panel {
-    top: 68px !important;
-  }
 }
 
 @keyframes mobileMenuSlideIn {

@@ -351,8 +351,14 @@ export function Header() {
             aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
             onClick={() => toggleMenu(!menuOpen)}
+            style={{
+              cursor: "pointer",
+              pointerEvents: "auto",
+              position: "relative",
+              zIndex: 2001,
+            }}
           >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>

@@ -47,15 +47,21 @@ export async function GET() {
   }> = [];
 
   try {
-    const res = await fetch(
-      "https://news.google.com/rss/search?q=business+technology+markets+executive&hl=en-US&gl=US&ceid=US:en",
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        },
+    // Attempt fetching 24h fresh press wire news first
+    let rssUrl = "https://news.google.com/rss/search?q=business+technology+markets+when:24h&hl=en-US&gl=US&ceid=US:en";
+    let res = await fetch(rssUrl, {
+      headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+      // Fallback query if 24h filter returns HTTP error
+      rssUrl = "https://news.google.com/rss/search?q=business+technology+markets&hl=en-US&gl=US&ceid=US:en";
+      res = await fetch(rssUrl, {
+        headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
         next: { revalidate: 60 },
-      }
-    );
+      });
+    }
 
     if (res.ok) {
       const xml = await res.text();
@@ -64,7 +70,7 @@ export async function GET() {
 
       const categories = ["MARKETS", "ENTERPRISE TECH", "AI & INNOVATION", "GLOBAL TRADE", "CAPITAL MARKETS"];
 
-      while ((match = itemRegex.exec(xml)) !== null && newsItems.length < 7) {
+      while ((match = itemRegex.exec(xml)) !== null && newsItems.length < 8) {
         const itemContent = match[1];
         const titleMatch = itemContent.match(/<title>([\s\S]*?)<\/title>/);
         const linkMatch = itemContent.match(/<link>([\s\S]*?)<\/link>/);
@@ -81,7 +87,14 @@ export async function GET() {
             .replace(/&quot;/g, '"')
             .replace(/&#39;/g, "'");
 
+          // Strip source suffix from title if repeated (e.g. "Title - Source.com")
           const cleanSource = sourceMatch ? sourceMatch[1].trim() : "Global Market Wire";
+          if (cleanSource && rawTitle.endsWith(` - ${cleanSource}`)) {
+            rawTitle = rawTitle.slice(0, -(cleanSource.length + 3)).trim();
+          } else {
+            rawTitle = rawTitle.replace(/\s*-\s*[^-]+$/, "").trim();
+          }
+
           const cleanLink = linkMatch ? linkMatch[1].trim() : "#";
           const cat = categories[newsItems.length % categories.length];
 
@@ -90,14 +103,17 @@ export async function GET() {
 
           if (pubDateMatch) {
             const dateObj = new Date(pubDateMatch[1]);
-            const diffMs = Date.now() - dateObj.getTime();
+            const diffMs = Math.max(0, Date.now() - dateObj.getTime());
             const diffMins = Math.floor(diffMs / 60000);
 
             if (diffMins < 60) {
               timeAgo = `${Math.max(1, diffMins)}m ago`;
-            } else {
+            } else if (diffMins < 1440) {
               const diffHours = Math.floor(diffMins / 60);
               timeAgo = `${diffHours}h ago`;
+            } else {
+              const diffDays = Math.floor(diffMins / 1440);
+              timeAgo = `${diffDays}d ago`;
             }
             formattedDate = dateObj.toLocaleDateString("en-US", { month: "short", day: "numeric" });
           }

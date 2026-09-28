@@ -1215,15 +1215,26 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 
 .mobile-trigger {
   display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
   color: #FFFFFF;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 2001;
 }
 
 /* ============================================================
    RESPONSIVE NAVIGATION BAR BREAKPOINTS
    ============================================================ */
-@media (max-width: 1380px) {
+@media (max-width: 1200px) {
   .mainnav {
-    height: 76px;
     padding: 0 16px;
   }
   .navlinks {
@@ -1238,14 +1249,6 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   }
   .mobile-trigger {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    color: var(--nav-gold);
-    cursor: pointer;
   }
 }
 
@@ -1253,13 +1256,6 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   .nav-actions button:not(.mobile-trigger):not(.search-btn),
   .nav-actions a.btn {
     display: none !important;
-  }
-  .nav-logo img {
-    width: 195px !important;
-    height: auto !important;
-  }
-  .logo-title {
-    font-size: 11px !important;
   }
 }
 
@@ -3559,31 +3555,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   gap: 10px;
 }
 
-.mobile-trigger {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-  cursor: pointer;
-}
 
-@media (max-width: 1380px) {
-  .mainnav {
-    padding: 0 20px;
-    height: 76px;
-  }
-  .navlinks {
-    display: none !important;
-  }
-  .mobile-trigger {
-    display: flex !important;
-  }
-}
 
 @media (max-width: 640px) {
   .mainnav {

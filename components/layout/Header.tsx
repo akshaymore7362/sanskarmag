@@ -219,9 +219,11 @@ export function Header() {
                     display: "flex",
                     alignItems: "center",
                     gap: "4px",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                 >
-                  <span className="nav-label-text">{item.label}</span>
+                  <span className="nav-label-text" style={{ whiteSpace: "nowrap" }}>{item.label}</span>
                   {item.dropdown && (
                     <ChevronDown
                       size={13}
@@ -276,7 +278,7 @@ export function Header() {
         </div>
 
         {/* Right Action Buttons */}
-        <div className="nav-actions" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div className="nav-actions" style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0, whiteSpace: "nowrap" }}>
           {/* Search Trigger Icon-Only Button */}
           <button
             type="button"
@@ -293,6 +295,7 @@ export function Header() {
               borderRadius: "6px",
               color: "#FFFFFF",
               cursor: "pointer",
+              flexShrink: 0,
             }}
           >
             <Search size={18} />
@@ -311,10 +314,12 @@ export function Header() {
               borderRadius: "6px",
               fontSize: "13px",
               cursor: "pointer",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
             }}
           >
             <Award size={14} />
-            <span>Nominate Now</span>
+            <span style={{ whiteSpace: "nowrap" }}>Nominate Now</span>
           </button>
 
           {/* Subscribe Button */}
@@ -330,9 +335,11 @@ export function Header() {
               fontSize: "13px",
               textDecoration: "none",
               cursor: "pointer",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
             }}
           >
-            <span>Subscribe</span>
+            <span style={{ whiteSpace: "nowrap" }}>Subscribe</span>
           </Link>
 
           {/* Mobile Hamburger Trigger — stays put in the fixed navbar, icon morphs ☰ ↔ ✕ */}

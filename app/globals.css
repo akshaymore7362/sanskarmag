@@ -1003,12 +1003,16 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 .navlinks {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-left: 24px;
+  gap: 20px;
+  margin-left: 20px;
+  white-space: nowrap !important;
+  flex-shrink: 0;
 }
 
 .nav-item-wrapper {
   position: relative;
+  white-space: nowrap !important;
+  flex-shrink: 0;
 }
 
 .nav-link {
@@ -1021,6 +1025,13 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   padding: 24px 0;
   transition: color 0.25s var(--ease-premium);
   position: relative;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+}
+
+.nav-label-text {
+  white-space: nowrap !important;
+  display: inline-block;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -1143,6 +1154,8 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   display: flex;
   align-items: center;
   gap: 16px;
+  white-space: nowrap !important;
+  flex-shrink: 0;
 }
 
 .search-btn {
@@ -1156,6 +1169,8 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   color: rgba(255, 255, 255, 0.7);
   font-size: 13px;
   transition: all 0.2s ease;
+  white-space: nowrap !important;
+  flex-shrink: 0;
 }
 
 .search-btn:hover {
@@ -1186,6 +1201,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   font-size: 13px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap !important;
 }
 
 .nav-signin-link:hover {
@@ -1200,19 +1216,17 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 /* ============================================================
    RESPONSIVE NAVIGATION BAR BREAKPOINTS
    ============================================================ */
-@media (max-width: 1200px) {
-  .mainnav {
-    padding: 0 20px;
-  }
+@media (max-width: 1380px) {
   .navlinks {
-    gap: 14px;
+    gap: 12px;
+    margin-left: 12px;
   }
   .nav-link {
     font-size: 13px !important;
   }
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1280px) {
   .mainnav {
     height: 76px;
     padding: 0 16px;
@@ -1246,7 +1260,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
     display: none !important;
   }
   .nav-logo img {
-    width: 220px !important;
+    width: 195px !important;
     height: auto !important;
   }
   .logo-title {
@@ -3563,7 +3577,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   cursor: pointer;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1280px) {
   .mainnav {
     padding: 0 20px;
     height: 76px;

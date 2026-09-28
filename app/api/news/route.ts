@@ -70,7 +70,7 @@ export async function GET() {
 
       const categories = ["MARKETS", "ENTERPRISE TECH", "AI & INNOVATION", "GLOBAL TRADE", "CAPITAL MARKETS"];
 
-      while ((match = itemRegex.exec(xml)) !== null && newsItems.length < 8) {
+      while ((match = itemRegex.exec(xml)) !== null && newsItems.length < 12) {
         const itemContent = match[1];
         const titleMatch = itemContent.match(/<title>([\s\S]*?)<\/title>/);
         const linkMatch = itemContent.match(/<link>([\s\S]*?)<\/link>/);

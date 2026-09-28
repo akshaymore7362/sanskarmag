@@ -101,8 +101,8 @@ export function DailyNewsSection() {
   }, []);
 
   const leadStory = news[0];
-  const secondaryStories = news.slice(1, 3);
-  const wireHeadlines = news.slice(3, 8);
+  const secondaryStories = news.slice(1, 5);
+  const wireHeadlines = news.slice(5, 10);
 
   // Computed only on the client, after mount — using `new Date()` directly
   // during render produces a different value on the server (whenever the

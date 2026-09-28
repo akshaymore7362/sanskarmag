@@ -86,7 +86,7 @@ export function Header() {
   // Track the real rendered header height so the mobile menu panel can sit
   // flush beneath it at any breakpoint, without hardcoding per-breakpoint
   // pixel values that can drift out of sync with the CSS.
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === "undefined" || !headerRef.current) return;
     const update = () => setHeaderHeight(headerRef.current?.offsetHeight || 96);
     update();
@@ -485,11 +485,42 @@ export function Header() {
           exactly that (the header used backdrop-filter), which is what made
           the menu appear to "jump" — it was fixed to the header box, not the
           viewport. Portaling removes that ancestor chain entirely. */}
-      {mounted && menuOpen && createPortal(
+      {/* 4. Mobile Navigation Panel */}
+      {menuOpen && (
         <>
-          <div className="mobile-menu-backdrop" style={{ top: headerHeight }} onClick={() => toggleMenu(false)} />
-          <div className="mobile-menu-panel" style={{ top: headerHeight, maxHeight: `calc(100dvh - ${headerHeight}px)` }}>
-            <div className="mobile-menu-list">
+          <div
+            className="mobile-menu-backdrop"
+            onClick={() => toggleMenu(false)}
+            style={{
+              position: "fixed",
+              top: headerHeight || 96,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(10, 25, 41, 0.7)",
+              backdropFilter: "blur(4px)",
+              zIndex: 1999,
+            }}
+          />
+          <div
+            className="mobile-menu-panel"
+            style={{
+              position: "fixed",
+              top: headerHeight || 96,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "#102A43",
+              zIndex: 2000,
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
+              borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <div className="mobile-menu-list" style={{ padding: "16px 24px", display: "flex", flexDirection: "column", gap: "4px" }}>
               {nav.map((item) => {
                 const isDirectMatch = pathname === item.href || (item.href !== "/" && item.href !== "#" && pathname.startsWith(item.href));
                 const isSubItemMatch = Boolean(item.subItems?.some((sub) => pathname === sub.href || pathname.startsWith(sub.href + "/")));
@@ -497,8 +528,10 @@ export function Header() {
 
                 if (item.dropdown && item.subItems) {
                   return (
-                    <div key={item.label} className="mobile-menu-group">
-                      <span className="mobile-menu-group-label">{item.label}</span>
+                    <div key={item.label} className="mobile-menu-group" style={{ margin: "8px 0" }}>
+                      <span className="mobile-menu-group-label" style={{ color: "#AFC0CB", fontSize: "11px", fontWeight: 800, letterSpacing: "1.5px", textTransform: "uppercase", display: "block", padding: "8px 12px 4px" }}>
+                        {item.label} DIRECTORY
+                      </span>
                       {item.subItems.map((sub) => {
                         const isSubActive = pathname === sub.href || pathname.startsWith(sub.href + "/");
                         return (
@@ -507,9 +540,21 @@ export function Header() {
                             href={sub.href}
                             className={`mobile-menu-link ${isSubActive ? "active" : ""}`}
                             onClick={() => toggleMenu(false)}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              padding: "12px 16px",
+                              borderRadius: "8px",
+                              color: isSubActive ? "#FFFFFF" : "rgba(255, 255, 255, 0.85)",
+                              textDecoration: "none",
+                              fontSize: "15px",
+                              fontWeight: 600,
+                              background: isSubActive ? "rgba(255, 255, 255, 0.12)" : "transparent",
+                            }}
                           >
                             <span>{sub.label}</span>
-                            <ArrowUpRight size={15} />
+                            <ArrowUpRight size={16} style={{ color: "#AFC0CB" }} />
                           </Link>
                         );
                       })}
@@ -523,22 +568,51 @@ export function Header() {
                     href={item.href}
                     className={`mobile-menu-link ${isActive ? "active" : ""}`}
                     onClick={() => toggleMenu(false)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "14px 16px",
+                      borderRadius: "8px",
+                      color: isActive ? "#FFFFFF" : "rgba(255, 255, 255, 0.9)",
+                      textDecoration: "none",
+                      fontSize: "16px",
+                      fontWeight: 700,
+                      background: isActive ? "rgba(255, 255, 255, 0.12)" : "transparent",
+                    }}
                   >
                     <span>{item.label}</span>
-                    <ArrowUpRight size={15} />
+                    <ArrowUpRight size={16} style={{ color: "#AFC0CB" }} />
                   </Link>
                 );
               })}
             </div>
 
-            <div className="mobile-menu-footer">
-              <Link href="/subscribe" className="btn btn-subscribe w-full text-center" onClick={() => toggleMenu(false)}>
-                <Sparkles size={16} /> Subscribe to Magazine
+            <div className="mobile-menu-footer" style={{ padding: "20px 24px 32px", borderTop: "1px solid rgba(255, 255, 255, 0.1)", marginTop: "auto" }}>
+              <Link
+                href="/subscribe"
+                className="btn btn-subscribe"
+                onClick={() => toggleMenu(false)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  width: "100%",
+                  padding: "14px 20px",
+                  borderRadius: "8px",
+                  background: "#6F8498",
+                  color: "#FFFFFF",
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                }}
+              >
+                <Sparkles size={18} /> Subscribe to Magazine
               </Link>
             </div>
           </div>
-        </>,
-        document.body
+        </>
       )}
 
       {/* 5. Executive Nominate Modal Dialog */}

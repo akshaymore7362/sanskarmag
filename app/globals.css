@@ -1233,7 +1233,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 /* ============================================================
    RESPONSIVE NAVIGATION BAR BREAKPOINTS
    ============================================================ */
-@media (max-width: 1280px) {
+@media (max-width: 1120px) {
   .mainnav {
     padding: 0 16px;
   }

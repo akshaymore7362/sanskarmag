@@ -191,7 +191,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="navlinks">
+        <div className="navlinks" style={{ flexShrink: 0, minWidth: "max-content", whiteSpace: "nowrap" }}>
           {nav.map((item) => {
             const isDirectMatch = pathname === item.href || (item.href !== "/" && item.href !== "#" && pathname.startsWith(item.href));
             const isSubItemMatch = Boolean(
@@ -206,6 +206,7 @@ export function Header() {
                 className={`nav-item-wrapper ${item.dropdown ? "has-dropdown" : ""}`}
                 onMouseEnter={() => item.dropdown && handleMouseEnter(item.label)}
                 onMouseLeave={handleMouseLeave}
+                style={{ flexShrink: 0, minWidth: "max-content", whiteSpace: "nowrap" }}
               >
                 <Link
                   href={item.href}
@@ -221,9 +222,10 @@ export function Header() {
                     gap: "4px",
                     whiteSpace: "nowrap",
                     flexShrink: 0,
+                    minWidth: "max-content",
                   }}
                 >
-                  <span className="nav-label-text" style={{ whiteSpace: "nowrap" }}>{item.label}</span>
+                  <span className="nav-label-text" style={{ whiteSpace: "nowrap", minWidth: "max-content", display: "inline-block" }}>{item.label}</span>
                   {item.dropdown && (
                     <ChevronDown
                       size={13}

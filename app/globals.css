@@ -1006,13 +1006,15 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   gap: 20px;
   margin-left: 20px;
   white-space: nowrap !important;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  min-width: max-content !important;
 }
 
 .nav-item-wrapper {
   position: relative;
   white-space: nowrap !important;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  min-width: max-content !important;
 }
 
 .nav-link {
@@ -1026,12 +1028,14 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   transition: color 0.25s var(--ease-premium);
   position: relative;
   white-space: nowrap !important;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  min-width: max-content !important;
 }
 
 .nav-label-text {
   white-space: nowrap !important;
   display: inline-block;
+  min-width: max-content !important;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -1155,7 +1159,8 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   align-items: center;
   gap: 16px;
   white-space: nowrap !important;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  min-width: max-content !important;
 }
 
 .search-btn {
@@ -1170,7 +1175,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   font-size: 13px;
   transition: all 0.2s ease;
   white-space: nowrap !important;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
 }
 
 .search-btn:hover {
@@ -1217,16 +1222,6 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
    RESPONSIVE NAVIGATION BAR BREAKPOINTS
    ============================================================ */
 @media (max-width: 1380px) {
-  .navlinks {
-    gap: 12px;
-    margin-left: 12px;
-  }
-  .nav-link {
-    font-size: 13px !important;
-  }
-}
-
-@media (max-width: 1280px) {
   .mainnav {
     height: 76px;
     padding: 0 16px;
@@ -3577,7 +3572,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
   cursor: pointer;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1380px) {
   .mainnav {
     padding: 0 20px;
     height: 76px;
@@ -4086,11 +4081,8 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
 }
 
 @media (max-width: 900px) {
-  .navlinks, .search-kbd, .nav-signin-link {
+  .search-kbd, .nav-signin-link {
     display: none;
-  }
-  .mobile-trigger {
-    display: block;
   }
   .master-talks-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

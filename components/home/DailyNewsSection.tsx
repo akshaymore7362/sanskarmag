@@ -102,7 +102,7 @@ export function DailyNewsSection() {
 
   const leadStory = news[0];
   const secondaryStories = news.slice(1, 3);
-  const wireHeadlines = news.slice(3, 7);
+  const wireHeadlines = news.slice(3, 8);
 
   // Computed only on the client, after mount — using `new Date()` directly
   // during render produces a different value on the server (whenever the
@@ -173,8 +173,29 @@ export function DailyNewsSection() {
 
         {/* Wire */}
         <div className="tsw-news-wire">
-          <div className="tsw-news-wire-h">Real-time press wire</div>
-          {wireHeadlines.map((wire, wIdx) => (
+          <div className="tsw-news-wire-h" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span>Real-time press wire</span>
+            <span style={{ fontSize: "9px", color: "var(--accent)", fontWeight: 800 }}>LIVE FEED</span>
+          </div>
+
+          {/* Featured Press Wire Hero Image Banner */}
+          {wireHeadlines[0] && (
+            <a href={wireHeadlines[0].link} target="_blank" rel="noopener noreferrer" className="tsw-wire-featured-banner" style={{ textDecoration: "none", display: "block", margin: "4px 0 8px" }}>
+              <div style={{ position: "relative", width: "100%", height: "135px", borderRadius: "8px", overflow: "hidden", background: "#141414" }}>
+                {wireHeadlines[0].image && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img src={wireHeadlines[0].image} alt={wireHeadlines[0].title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                )}
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "8px 10px", background: "linear-gradient(to top, rgba(16, 42, 67, 0.95), transparent)" }}>
+                  <div style={{ fontSize: "9px", fontWeight: 800, color: "#AFC0CB", textTransform: "uppercase" }}>{wireHeadlines[0].source} · {wireHeadlines[0].time}</div>
+                  <div style={{ fontSize: "12px", fontWeight: 700, color: "#FFFFFF", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "var(--serif)" }}>{wireHeadlines[0].title}</div>
+                </div>
+              </div>
+            </a>
+          )}
+
+          {/* List of Wire Headlines with Thumbnails */}
+          {wireHeadlines.slice(1).map((wire, wIdx) => (
             <a key={wire.id || String(wIdx)} href={wire.link} target="_blank" rel="noopener noreferrer">
               <div className="tsw-news-wire-thumb">
                 {wire.image ? (

@@ -88,10 +88,23 @@ export function Header() {
   // pixel values that can drift out of sync with the CSS.
   useEffect(() => {
     if (typeof window === "undefined" || !headerRef.current) return;
-    const update = () => setHeaderHeight(headerRef.current?.offsetHeight || 96);
+    const update = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight || 96);
+      }
+    };
     update();
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    if (observer && headerRef.current) {
+      observer.observe(headerRef.current);
+    }
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      if (observer) observer.disconnect();
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+    };
   }, []);
 
   // Safety: never leave the page scroll-locked if the header unmounts while a
@@ -186,7 +199,7 @@ export function Header() {
           <img
             src="/brand-wordmark.svg"
             alt="The Success World"
-            style={{ width: "clamp(250px, 26vw, 340px)", height: "auto", objectFit: "contain", flexShrink: 0 }}
+            style={{ height: "auto", objectFit: "contain", flexShrink: 0 }}
           />
         </Link>
 
@@ -324,25 +337,7 @@ export function Header() {
             <span style={{ whiteSpace: "nowrap" }}>Nominate Now</span>
           </button>
 
-          {/* Subscribe Button */}
-          <Link
-            href="/subscribe"
-            className="btn btn-subscribe"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              padding: "8px 16px",
-              borderRadius: "6px",
-              fontSize: "13px",
-              textDecoration: "none",
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-              flexShrink: 0,
-            }}
-          >
-            <span style={{ whiteSpace: "nowrap" }}>Subscribe</span>
-          </Link>
+
 
           {/* Mobile Hamburger Trigger — stays put in the fixed navbar, icon morphs ☰ ↔ ✕ */}
           <button
@@ -482,8 +477,9 @@ export function Header() {
           <div
             className="mobile-menu-backdrop"
             onClick={() => toggleMenu(false)}
+            style={{ top: `${headerHeight}px` }}
           />
-          <div className="mobile-menu-panel">
+          <div className="mobile-menu-panel" style={{ top: `${headerHeight}px` }}>
             <div className="mobile-menu-list" style={{ padding: "16px 24px", display: "flex", flexDirection: "column", gap: "4px" }}>
               {nav.map((item) => {
                 const isDirectMatch = pathname === item.href || (item.href !== "/" && item.href !== "#" && pathname.startsWith(item.href));

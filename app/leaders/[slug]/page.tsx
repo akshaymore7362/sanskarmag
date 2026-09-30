@@ -7,6 +7,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { articleService } from "@/services/articleService";
 import { leaderService } from "@/services/leaderService";
 import { LeaderBioExpandable } from "@/components/leaders/LeaderBioExpandable";
+import { cleanStarPrimeText } from "@/lib/textUtils";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,15 +18,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const leaders = await leaderService.fetchSanityLeaders();
   const leader = leaders.find((l) => l.slug === slug);
   if (!leader) return {};
-  return { title: `${leader.name} | Executive Web Profile & Leader`, description: leader.bio };
+  return { 
+    title: cleanStarPrimeText(`${leader.name} | Executive Web Profile & Leader`), 
+    description: cleanStarPrimeText(leader.bio) 
+  };
 }
 
 export default async function LeaderProfilePage({ params }: Props) {
   const { slug } = await params;
   const leaders = await leaderService.fetchSanityLeaders();
-  const leader = leaders.find((l) => l.slug === slug);
+  const rawLeader = leaders.find((l) => l.slug === slug);
 
-  if (!leader) notFound();
+  if (!rawLeader) notFound();
+
+  const leader = {
+    ...rawLeader,
+    name: cleanStarPrimeText(rawLeader.name),
+    role: cleanStarPrimeText(rawLeader.role),
+    company: cleanStarPrimeText(rawLeader.company),
+    bio: cleanStarPrimeText(rawLeader.bio),
+  };
 
   const articles = await articleService.fetchSanityArticles();
 
@@ -37,7 +49,7 @@ export default async function LeaderProfilePage({ params }: Props) {
           <Link
             href="/leaders"
             style={{
-              color: "#102A43",
+              color: "#FFFFFF",
               fontSize: "12px",
               fontWeight: 800,
               letterSpacing: "1.2px",
@@ -55,88 +67,119 @@ export default async function LeaderProfilePage({ params }: Props) {
         </div>
       </div>
 
-      {/* Full-Screen Executive Photo Hero — fills the viewport edge to edge,
-          not boxed inside the page's normal content width. */}
+      {/* Executive Web Profile Hero Showcase - Full Uncropped Photo & Complete Title */}
       <div
         style={{
           position: "relative",
           width: "100%",
-          height: "120vh",
-          minHeight: "720px",
-          overflow: "hidden",
-          background: "radial-gradient(circle at center, #1E293B 0%, #0F172A 100%)",
+          background: "linear-gradient(135deg, #0B1E30 0%, #102A43 50%, #0F172A 100%)",
+          padding: "48px clamp(16px, 4vw, 56px) 56px",
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.12)",
         }}
       >
-        {leader.image ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src={leader.image}
-            alt={leader.name}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center top",
-            }}
-          />
-        ) : (
-          <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#FFFFFF", fontSize: "96px", fontWeight: 900 }}>
-            {leader.name.charAt(0)}
-          </div>
-        )}
-
-        {/* Bottom gradient scrim so the name/role stays legible over any photo */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: "45%",
-            background: "linear-gradient(0deg, rgba(6,16,30,0.92) 0%, rgba(6,16,30,0) 100%)",
-            pointerEvents: "none",
-          }}
-        />
-
         {/* Executive Badge */}
         <div
           style={{
-            position: "absolute",
-            top: "20px",
-            right: "20px",
-            background: "rgba(10, 25, 47, 0.92)",
+            background: "rgba(255, 255, 255, 0.08)",
             backdropFilter: "blur(10px)",
-            color: "#FFFFFF",
+            color: "#93A9C4",
             fontSize: "11px",
             fontWeight: 800,
-            letterSpacing: "1.8px",
+            letterSpacing: "2px",
             textTransform: "uppercase",
-            padding: "10px 20px",
+            padding: "8px 20px",
             borderRadius: "30px",
-            border: "1.5px solid rgba(147, 197, 253, 0.6)",
-            boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
+            border: "1px solid rgba(147, 197, 253, 0.3)",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            marginBottom: "16px",
           }}
         >
-          VERIFIED EXECUTIVE PORTRAIT
+          <Award size={15} style={{ color: "#93A9C4" }} />
+          <span>OFFICIAL EXECUTIVE WEB PROFILE</span>
         </div>
 
-        {/* Name & Credentials overlaid at the bottom of the hero */}
-        <div style={{ position: "absolute", left: 0, right: 0, bottom: "0", padding: "0 clamp(16px, 4vw, 56px) 40px", textAlign: "center" }}>
-          <span style={{ fontSize: "12px", fontWeight: 800, color: "#B7C4CD", letterSpacing: "2.5px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-            <Award size={16} style={{ color: "#B7C4CD" }} /> OFFICIAL EXECUTIVE WEB PROFILE
+        {/* Full Leader Name */}
+        <h1
+          className="font-serif"
+          style={{
+            fontSize: "clamp(32px, 5vw, 56px)",
+            fontWeight: 900,
+            color: "#FFFFFF",
+            margin: "0 0 12px",
+            lineHeight: 1.15,
+            letterSpacing: "-0.5px",
+            maxWidth: "1000px",
+            wordBreak: "break-word",
+          }}
+        >
+          {leader.name}
+        </h1>
+
+        {/* Role & Company Credentials */}
+        <div
+          style={{
+            fontSize: "16px",
+            fontWeight: 700,
+            color: "#DDE3E8",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            flexWrap: "wrap",
+            marginBottom: "36px",
+          }}
+        >
+          <span>{leader.role || "EXECUTIVE LEADER"}</span>
+          <span style={{ color: "#64748B" }}>&bull;</span>
+          <span style={{ color: "#DDE3E8", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+            <Building size={16} style={{ color: "#93A9C4" }} /> {leader.company || "Leadership & Innovation"}
           </span>
+        </div>
 
-          <h1 className="font-serif" style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, color: "#FFFFFF", margin: "0 0 14px", lineHeight: 1.1, letterSpacing: "-0.5px" }}>
-            {leader.name}
-          </h1>
-
-          <div style={{ fontSize: "17px", fontWeight: 700, color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
-            <span>{leader.role || "EXECUTIVE LEADER"}</span>
-            <span style={{ color: "#94A3B8" }}>&bull;</span>
-            <span style={{ color: "#DDE3E8", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              <Building size={18} style={{ color: "#DDE3E8" }} /> {leader.company || "Leadership & Innovation"}
-            </span>
-          </div>
+        {/* Full Uncropped Executive Portrait Showcase Container */}
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: "720px",
+            height: "clamp(380px, 55vh, 620px)",
+            borderRadius: "20px",
+            overflow: "hidden",
+            background: "#06101E",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+            boxShadow: "0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(30, 64, 175, 0.2)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "16px",
+            boxSizing: "border-box",
+          }}
+        >
+          {leader.image ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={leader.image}
+              alt={leader.name}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                borderRadius: "10px",
+                filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.7))",
+              }}
+            />
+          ) : (
+            <div style={{ height: "100%", display: "grid", placeItems: "center", color: "#FFFFFF", fontSize: "96px", fontWeight: 900 }}>
+              {leader.name.charAt(0)}
+            </div>
+          )}
         </div>
       </div>
 

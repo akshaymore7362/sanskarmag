@@ -7,6 +7,7 @@ import { PageIntro } from "@/components/editorial/PageIntro";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { leaderService } from "@/services/leaderService";
 import type { Leader } from "@/types";
+import { cleanStarPrimeText } from "@/lib/textUtils";
 
 const badgeIcons = [Globe, User, Briefcase, TrendingUp];
 
@@ -20,7 +21,14 @@ export default function LeadersPage() {
       .fetchSanityLeaders()
       .then((data) => {
         if (data && data.length > 0) {
-          setLeaders(data);
+          const cleaned = data.map((l) => ({
+            ...l,
+            name: cleanStarPrimeText(l.name),
+            role: cleanStarPrimeText(l.role),
+            company: cleanStarPrimeText(l.company),
+            bio: cleanStarPrimeText(l.bio),
+          }));
+          setLeaders(cleaned);
         }
       })
       .finally(() => setIsLoading(false));
@@ -153,14 +161,17 @@ export default function LeadersPage() {
             </div>
           </div>
 
-          {/* Leaders Web Profiles Grid (Homepage Style) */}
+          {/* Leaders Web Profiles Grid (Clean Rectangular Cards - No Circles) */}
           {isLoading && leaders.length === 0 ? (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "32px 24px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "28px 24px" }}>
               {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <div className="skeleton-pulse" style={{ width: 225, height: 225, borderRadius: "50%", marginBottom: 20 }} />
-                  <div className="skeleton-pulse" style={{ width: "60%", height: 18, marginBottom: 8 }} />
-                  <div className="skeleton-pulse" style={{ width: "40%", height: 12 }} />
+                <div key={i} style={{ background: "#FFFFFF", borderRadius: "16px", border: "1px solid #E5E7EB", overflow: "hidden" }}>
+                  <div className="skeleton-pulse" style={{ width: "100%", height: 320 }} />
+                  <div style={{ padding: "20px" }}>
+                    <div className="skeleton-pulse" style={{ width: "70%", height: 20, marginBottom: 10 }} />
+                    <div className="skeleton-pulse" style={{ width: "50%", height: 14, marginBottom: 12 }} />
+                    <div className="skeleton-pulse" style={{ width: "90%", height: 12 }} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -169,7 +180,7 @@ export default function LeadersPage() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-              gap: "32px 24px",
+              gap: "28px 24px",
               position: "relative",
               zIndex: 2,
             }}
@@ -182,206 +193,166 @@ export default function LeadersPage() {
                   key={leader.slug || String(idx)}
                   style={{
                     background: "#FFFFFF",
-                    border: "1px solid #F1F5F9",
-                    borderRadius: "20px",
-                    padding: "28px 20px 24px",
+                    border: "1px solid #E2E8F0",
+                    borderRadius: "16px",
+                    overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    textAlign: "center",
                     boxShadow: "0 4px 18px rgba(10, 25, 47, 0.04)",
                     transition: "transform 0.25s ease, box-shadow 0.25s ease",
                   }}
                 >
-                  {/* Circular Portrait Avatar Container with Arc Ring (185px Homepage Style) */}
+                  {/* Rectangular Executive Portrait Image Container - Full Uncropped View */}
                   <div
                     style={{
                       position: "relative",
-                      width: "225px",
-                      height: "225px",
-                      margin: "0 auto 20px",
-                    }}
-                  >
-                    {/* Outer Sapphire/Burgundy Thin Arc Ring */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: "-8px",
-                        borderRadius: "50%",
-                        border: "2px solid #102A43",
-                        borderLeftColor: "transparent",
-                        borderBottomColor: "#102A43",
-                        transform: "rotate(-35deg)",
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    {/* Dotted Accent Matrix on Right */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: "-22px",
-                        top: "30%",
-                        width: "18px",
-                        height: "42px",
-                        background: "radial-gradient(#102A43 1.5px, transparent 1.5px)",
-                        backgroundSize: "6px 6px",
-                        opacity: 0.7,
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    {/* Main Portrait Circle */}
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: "50%",
-                        overflow: "hidden",
-                        background: "#F3F4F6",
-                        border: "3.5px solid #FFFFFF",
-                        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.12)",
-                        position: "relative",
-                      }}
-                    >
-                      {leader.image ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          src={leader.image}
-                          alt={leader.name}
-                          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
-                        />
-                      ) : (
-                        <div
-                          style={{
-                            height: "100%",
-                            display: "grid",
-                            placeItems: "center",
-                            color: "#102A43",
-                            fontWeight: 900,
-                            fontSize: "44px",
-                            background: "#E5E7EB",
-                          }}
-                        >
-                          {leader.name.charAt(0)}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Bottom-Right Category Badge Icon */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: "6px",
-                        right: "6px",
-                        width: "42px",
-                        height: "42px",
-                        borderRadius: "50%",
-                        background: "#102A43",
-                        color: "#FFFFFF",
-                        border: "3px solid #FFFFFF",
-                        boxShadow: "0 4px 12px rgba(10, 25, 47, 0.3)",
-                        display: "grid",
-                        placeItems: "center",
-                        zIndex: 4,
-                      }}
-                    >
-                      <IconComp size={20} />
-                    </div>
-                  </div>
-
-                  {/* Leader Name */}
-                  <h3
-                    className="font-serif"
-                    style={{
-                      fontSize: "22px",
-                      fontWeight: 800,
-                      color: "#102A43",
-                      margin: "0 0 6px",
-                      lineHeight: 1.25,
-                    }}
-                  >
-                    <Link href={`/leaders/${leader.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
-                      {leader.name}
-                    </Link>
-                  </h3>
-
-                  {/* Role Badge */}
-                  <div
-                    style={{
-                      fontSize: "11px",
-                      fontWeight: 900,
-                      letterSpacing: "1.5px",
-                      color: "#102A43",
-                      textTransform: "uppercase",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {leader.role || "EXECUTIVE LEADER"}{leader.company ? ` • ${leader.company}` : ""}
-                  </div>
-
-                  {/* Diamond Line Divider Accent */}
-                  <div
-                    style={{
-                      width: "24px",
-                      height: "1px",
-                      background: "#102A43",
-                      margin: "0 auto 12px",
-                      position: "relative",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "5px",
-                        height: "5px",
-                        background: "#102A43",
-                        transform: "translate(-50%, -50%) rotate(45deg)",
-                        position: "absolute",
-                        left: "50%",
-                        top: "50%",
-                      }}
-                    />
-                  </div>
-
-                  {/* Short Bio / Tagline */}
-                  <p
-                    style={{
-                      fontSize: "13px",
-                      color: "#6B7280",
-                      lineHeight: 1.5,
-                      margin: "0 0 20px",
-                      maxWidth: "240px",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {leader.bio || "Leading enterprise transformation and global market expansion."}
-                  </p>
-
-                  {/* View Profile CTA Link */}
-                  <Link
-                    href={`/leaders/${leader.slug}`}
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 800,
-                      letterSpacing: "1px",
-                      color: "#102A43",
-                      textTransform: "uppercase",
-                      textDecoration: "none",
-                      borderBottom: "1.5px solid #102A43",
-                      paddingBottom: "2px",
-                      display: "inline-flex",
+                      width: "100%",
+                      height: "360px",
+                      background: "radial-gradient(circle at center, #1E293B 0%, #0F172A 100%)",
+                      display: "flex",
                       alignItems: "center",
-                      gap: "5px",
-                      marginTop: "auto",
-                      transition: "opacity 0.2s ease",
+                      justifyContent: "center",
+                      overflow: "hidden",
+                      padding: "16px",
+                      boxSizing: "border-box",
                     }}
                   >
-                    <span>VIEW PROFILE</span>
-                    <ArrowRight size={14} />
-                  </Link>
+                    {leader.image ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={leader.image}
+                        alt={leader.name}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                          borderRadius: "8px",
+                          filter: "drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6))",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          display: "grid",
+                          placeItems: "center",
+                          color: "#FFFFFF",
+                          fontWeight: 900,
+                          fontSize: "64px",
+                          background: "linear-gradient(135deg, #102A43 0%, #1E293B 100%)",
+                        }}
+                      >
+                        {leader.name.charAt(0)}
+                      </div>
+                    )}
+
+                    {/* Top-Right Category Badge */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "12px",
+                        right: "12px",
+                        background: "rgba(10, 25, 47, 0.88)",
+                        backdropFilter: "blur(8px)",
+                        color: "#FFFFFF",
+                        padding: "6px 12px",
+                        borderRadius: "20px",
+                        fontSize: "10px",
+                        fontWeight: 800,
+                        letterSpacing: "1px",
+                        border: "1px solid rgba(255, 255, 255, 0.25)",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        textTransform: "uppercase",
+                        zIndex: 2,
+                      }}
+                    >
+                      <IconComp size={13} />
+                      <span>WEB PROFILE</span>
+                    </div>
+                  </div>
+
+                  {/* Leader Info Content Body */}
+                  <div
+                    style={{
+                      padding: "20px 20px 22px",
+                      display: "flex",
+                      flexDirection: "column",
+                      flex: 1,
+                      textAlign: "left",
+                    }}
+                  >
+                    {/* Leader Name */}
+                    <h3
+                      className="font-serif"
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: 800,
+                        color: "#102A43",
+                        margin: "0 0 4px",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      <Link href={`/leaders/${leader.slug}`} style={{ color: "#102A43", textDecoration: "none" }}>
+                        {leader.name}
+                      </Link>
+                    </h3>
+
+                    {/* Role & Company */}
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: 800,
+                        letterSpacing: "1.2px",
+                        color: "#64748B",
+                        textTransform: "uppercase",
+                        marginBottom: "12px",
+                      }}
+                    >
+                      {leader.role || "EXECUTIVE LEADER"}{leader.company ? ` • ${leader.company}` : ""}
+                    </div>
+
+                    {/* Short Bio */}
+                    <p
+                      style={{
+                        fontSize: "13px",
+                        color: "#475569",
+                        lineHeight: 1.5,
+                        margin: "0 0 18px",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {leader.bio || "Leading enterprise transformation and global market expansion."}
+                    </p>
+
+                    {/* View Profile CTA Link */}
+                    <Link
+                      href={`/leaders/${leader.slug}`}
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: 800,
+                        letterSpacing: "1px",
+                        color: "#102A43",
+                        textTransform: "uppercase",
+                        textDecoration: "none",
+                        borderBottom: "1.5px solid #102A43",
+                        paddingBottom: "2px",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        marginTop: "auto",
+                        transition: "opacity 0.2s ease",
+                      }}
+                    >
+                      <span>VIEW PROFILE</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  </div>
                 </div>
               );
             })}

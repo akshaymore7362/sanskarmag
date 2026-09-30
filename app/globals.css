@@ -3967,6 +3967,7 @@ a.btn:hover, .btn:hover, .tsw-btn:hover, .btn-primary:hover, .btn-secondary:hove
     gap: 16px !important;
   }
   .magazine-newsletter-card {
+    grid-template-columns: 1fr !important;
     padding: 32px 28px !important;
   }
   .featured-split-grid {

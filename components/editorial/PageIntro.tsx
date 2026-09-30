@@ -13,7 +13,7 @@ export function PageIntro({ eyebrow, title, intro }: Props) {
 
       <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: "100%", margin: "0 auto" }}>
         {eyebrow && (
-          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "#102A43", display: "inline-block", marginBottom: "8px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "2.5px", textTransform: "uppercase", color: "#93A9C4", display: "inline-block", marginBottom: "8px" }}>
             {eyebrow}
           </span>
         )}

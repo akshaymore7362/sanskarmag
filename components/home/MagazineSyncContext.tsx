@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { magazineService } from "@/services/magazineService";
 import type { MagazineIssue } from "@/types";
+import { cleanStarPrimeText } from "@/lib/textUtils";
 
 const AUTOPLAY_MS = 3500;
 
@@ -155,14 +156,14 @@ export function useMagazineSync(): MagazineSyncValue {
  * "NAME - story headline" (e.g. "Dr. Desiree Bartlett - Wellness Leader
  * Transforming Women's Fitness Journeys"). */
 export function deriveWebProfile(issue: MagazineIssue) {
-  const rawTitle = (issue.title || "").trim();
+  const rawTitle = cleanStarPrimeText((issue.title || "").trim());
   const parts = rawTitle.split(/\s[-–—|]\s/);
-  const name = (parts[0] || rawTitle).trim() || "Featured Executive";
-  const headline = parts.length > 1 ? parts.slice(1).join(" - ").trim() : "";
+  const name = cleanStarPrimeText((parts[0] || rawTitle).trim() || "Featured Executive");
+  const headline = cleanStarPrimeText(parts.length > 1 ? parts.slice(1).join(" - ").trim() : "");
   return {
     name,
-    headline: headline || issue.subtitle || "Executive Leader",
-    bio: issue.description || issue.subtitle || "",
+    headline: headline || cleanStarPrimeText(issue.subtitle || "") || "Executive Leader",
+    bio: cleanStarPrimeText(issue.description || issue.subtitle || ""),
     avatar: issue.cover || "",
   };
 }

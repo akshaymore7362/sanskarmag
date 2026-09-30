@@ -1,11 +1,12 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { Article } from "@/types";
 import { articles } from "@/data/articles";
+import { cleanStarPrimeText } from "@/lib/textUtils";
 
 const mapSanityDocToArticle = (item: any, idx: number): Article => {
-  const catName = item.industryCategory?.name || item.industryCategory?.title || item.primaryIndustry?.name || item.primaryIndustry?.title || item.industryName || item.categoryRef?.title || item.category || (item.categories && item.categories[0]?.title) || "Editorial";
+  const catName = cleanStarPrimeText(item.industryCategory?.name || item.industryCategory?.title || item.primaryIndustry?.name || item.primaryIndustry?.title || item.industryName || item.categoryRef?.title || item.category || (item.categories && item.categories[0]?.title) || "Editorial");
   const catSlug = item.industryCategory?.slug || item.primaryIndustry?.slug || (item.industryName ? item.industryName.toLowerCase().replace(/\s+/g, '-') : null) || item.categoryRef?.slug || (item.categories && item.categories[0]?.slug) || (item.category ? item.category.toLowerCase().replace(/\s+/g, '-') : "technology");
-  const authorName = item.authorRef?.name || item.author?.name || item.author || "Editorial Board";
+  const authorName = cleanStarPrimeText(item.authorRef?.name || item.author?.name || item.author || "Editorial Board");
 
   let formattedDate = "May 2026";
   if (item.publishedAt) {
@@ -17,22 +18,27 @@ const mapSanityDocToArticle = (item: any, idx: number): Article => {
     }
   }
 
+  const title = cleanStarPrimeText(item.title || "Sanity Document");
+  const subtitle = cleanStarPrimeText(item.subtitle || item.description || "");
+  const description = cleanStarPrimeText(item.description || item.subtitle || "");
+  const pullQuote = cleanStarPrimeText(item.pullQuote || "");
+
   return {
     id: item._id || String(idx + 1),
     slug: item.slug || `story-${idx + 1}`,
-    title: item.title || "Sanity Document",
-    subtitle: item.subtitle || item.description || "",
+    title,
+    subtitle,
     category: catName,
     author: authorName,
     authorId: "1",
     date: formattedDate,
     readTime: item.readTime || "5 min read",
     image: item.imageUrl || "",
-    imageAlt: item.altText || item.imageAlt || item.title || "Sanity Story Image",
-    description: item.description || item.subtitle || "",
-    pullQuote: item.pullQuote || "",
+    imageAlt: cleanStarPrimeText(item.altText || item.imageAlt || title || "Sanity Story Image"),
+    description,
+    pullQuote,
     industrySlug: catSlug,
-    tags: Array.isArray(item.topics) ? item.topics : Array.isArray(item.categories) ? item.categories.map((c: any) => c.title) : [catName],
+    tags: Array.isArray(item.topics) ? item.topics.map(cleanStarPrimeText) : Array.isArray(item.categories) ? item.categories.map((c: any) => cleanStarPrimeText(c.title)) : [catName],
     body: [],
     stats: [],
     contentType: item.storyType || item.contentType || (item.featured ? "insight" : "story"),

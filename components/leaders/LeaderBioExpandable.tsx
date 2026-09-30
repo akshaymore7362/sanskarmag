@@ -2,18 +2,20 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Quote } from "lucide-react";
+import { cleanStarPrimeText } from "@/lib/textUtils";
 
 interface Props {
   bio: string;
 }
 
-export function LeaderBioExpandable({ bio }: Props) {
+export function LeaderBioExpandable({ bio: rawBio }: Props) {
   const [isExpanded, setIsExpanded] = useState(true);
 
+  const bio = cleanStarPrimeText(rawBio);
   if (!bio) return null;
 
   // Split long bio into paragraphs if double newlines exist or treat as block
-  const paragraphs = bio.split("\n\n").filter(Boolean);
+  const paragraphs = bio.split("\n\n").filter(Boolean).map(cleanStarPrimeText);
 
   return (
     <div

@@ -52,6 +52,11 @@ export const leaderService = {
         for (let idx = 0; idx < data.length; idx++) {
           const item = data[idx];
 
+          const rawCheckStr = `${item.title || ""} ${item.name || ""} ${item.slug || ""}`.toLowerCase();
+          if (rawCheckStr.includes("star prime") || rawCheckStr.includes("starprime") || rawCheckStr.includes("star-prime")) {
+            continue;
+          }
+
           let profileName = item.name ? cleanStarPrimeText(item.name) : "";
           if (!profileName && item.title) {
             const cleanTitle = cleanStarPrimeText(item.title);

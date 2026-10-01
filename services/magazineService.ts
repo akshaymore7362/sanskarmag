@@ -1,6 +1,7 @@
 import { fetchSanityQuery } from "@/lib/sanity.client";
 import type { MagazineIssue } from "@/types";
 import { magazineIssues } from "@/data/magazines";
+import { cleanStarPrimeText } from "@/lib/textUtils";
 
 export const magazineService = {
   fetchSanityMagazines: async (): Promise<MagazineIssue[]> => {
@@ -123,12 +124,12 @@ export const magazineService = {
               slug: itemSlug,
               date: dateStr,
               year: String(yearVal),
-              title: item.title || "The Success World",
-              subtitle: item.description || "Executive Edition",
+              title: cleanStarPrimeText(item.title || "The Success World"),
+              subtitle: cleanStarPrimeText(item.description || "Executive Edition"),
               cover: item.cover || "",
-              coverAlt: item.altText || item.title || "Magazine Cover",
-              contents: item.linkedArticle ? item.linkedArticle.map((art: any) => art.title) : [],
-              description: item.description || "",
+              coverAlt: cleanStarPrimeText(item.altText || item.title || "Magazine Cover"),
+              contents: item.linkedArticle ? item.linkedArticle.map((art: any) => cleanStarPrimeText(art.title)) : [],
+              description: cleanStarPrimeText(item.description || ""),
               pdfUrl: item.pdfUrl || "",
               stories: [],
             });

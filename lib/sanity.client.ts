@@ -1,5 +1,6 @@
 import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
+import { cleanDeepSanityData } from './textUtils';
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '0ju83vao';
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -24,7 +25,7 @@ export async function fetchSanityQuery<T = any>(query: string): Promise<T> {
   if (typeof window === 'undefined') {
     try {
       const data = await sanityClient.fetch(query);
-      return data;
+      return cleanDeepSanityData(data);
     } catch (e) {
       console.warn('Server Sanity query warning:', e);
     }
@@ -36,7 +37,7 @@ export async function fetchSanityQuery<T = any>(query: string): Promise<T> {
     const res = await fetch(`/api/sanity?query=${encodeURIComponent(query)}`);
     if (res.ok) {
       const json = await res.json();
-      return json;
+      return cleanDeepSanityData(json);
     }
   } catch (err) {
     console.warn('Client API Sanity proxy warning:', err);

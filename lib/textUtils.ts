@@ -12,3 +12,21 @@ export function cleanStarPrimeText(text: string): string {
     .replace(/star-prime/gi, "the-success-world")
     .replace(/star_prime/gi, "the_success_world");
 }
+
+export function cleanDeepSanityData(data: any): any {
+  if (!data) return data;
+  if (typeof data === "string") {
+    return cleanStarPrimeText(data);
+  }
+  if (Array.isArray(data)) {
+    return data.map((item) => cleanDeepSanityData(item));
+  }
+  if (typeof data === "object") {
+    const cleanedObj: Record<string, any> = {};
+    for (const key of Object.keys(data)) {
+      cleanedObj[key] = cleanDeepSanityData(data[key]);
+    }
+    return cleanedObj;
+  }
+  return data;
+}

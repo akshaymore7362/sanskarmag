@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { sanityClient } from '@/lib/sanity.client';
+import { cleanDeepSanityData } from '@/lib/textUtils';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -10,14 +11,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    const data = await sanityClient.fetch(query);
+    const rawData = await sanityClient.fetch(query);
+    const data = cleanDeepSanityData(rawData);
     return NextResponse.json(data, {
       headers: {
-        // Every component that needs the same content (articles, magazines,
-        // etc.) issues its own request with an identical query string —
-        // caching here lets the browser/CDN serve repeats of the same query
-        // instantly instead of re-hitting Sanity 15-20+ times per page load.
-        // Short enough that new/edited Sanity content still shows up fast.
         'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=120',
       },
     });

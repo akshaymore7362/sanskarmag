@@ -3,6 +3,57 @@ import type { Article } from "@/types";
 import { articles } from "@/data/articles";
 import { cleanStarPrimeText } from "@/lib/textUtils";
 
+export function isWebProfileOrStarPrimeArticle(item: any): boolean {
+  if (!item) return false;
+  const title = (typeof item === "string" ? item : item.title || "").toLowerCase();
+  const slug = (typeof item === "object" && item.slug ? (typeof item.slug === "string" ? item.slug : item.slug.current || "") : "").toLowerCase();
+
+  // Star Prime explicit check
+  if (title.includes("star prime") || title.includes("starprime") || title.includes("star-prime") || slug.includes("star-prime") || slug.includes("starprime")) {
+    return true;
+  }
+  // Web Profile explicit check
+  if (title.includes("web profile") || title.includes("webprofile") || slug.includes("web-profile") || slug.includes("webprofile")) {
+    return true;
+  }
+
+  // Cover story profile award title pattern checks
+  const webProfileKeywords = [
+    "most inspiring",
+    "most trusted",
+    "most admired",
+    "most powerful",
+    "most iconic",
+    "most disruptive",
+    "most courageous",
+    "most diligent",
+    "most visionary",
+    "most successful",
+    "most performing",
+    "solution providers",
+    "leaders to watch",
+    "entrepreneurs to watch",
+    "entrepreneurs shaping",
+    "women in sustainability",
+    "women business leaders",
+    "women in real estate",
+    "companies to watch",
+    "professionals to watch",
+    "providers to watch",
+  ];
+
+  if (webProfileKeywords.some((kw) => title.includes(kw))) {
+    return true;
+  }
+
+  // Matching "Name : Title" award headlines
+  if (/^[a-z\s\.\,\'\-]+\s*:\s*(the|most|top|5|10|20)/i.test(title)) {
+    return true;
+  }
+
+  return false;
+}
+
 const mapSanityDocToArticle = (item: any, idx: number): Article => {
   const catName = cleanStarPrimeText(item.industryCategory?.name || item.industryCategory?.title || item.primaryIndustry?.name || item.primaryIndustry?.title || item.industryName || item.categoryRef?.title || item.category || (item.categories && item.categories[0]?.title) || "Editorial");
   const catSlug = item.industryCategory?.slug || item.primaryIndustry?.slug || (item.industryName ? item.industryName.toLowerCase().replace(/\s+/g, '-') : null) || item.categoryRef?.slug || (item.categories && item.categories[0]?.slug) || (item.category ? item.category.toLowerCase().replace(/\s+/g, '-') : "technology");
@@ -94,14 +145,14 @@ export const articleService = {
       const data = await fetchSanityQuery(query);
       if (data) {
         const item = Array.isArray(data) ? data[0] : data;
-        if (item && (item._id || item.title)) {
+        if (item && (item._id || item.title) && !isWebProfileOrStarPrimeArticle(item)) {
           return mapSanityDocToArticle(item, 0);
         }
       }
     } catch (e) {
       console.warn(`Sanity article fetch warning for slug ${slug}:`, e);
     }
-    return articles.find((a) => a.slug === slug);
+    return articles.find((a) => a.slug === slug && !isWebProfileOrStarPrimeArticle(a));
   },
 
   // Fetch 100% pure live published post & industryPost documents from Sanity
@@ -135,12 +186,13 @@ export const articleService = {
       }`;
       const data = await fetchSanityQuery(query);
       if (data && data.length > 0) {
-        return dedupeArticles(data.map(mapSanityDocToArticle));
+        const filtered = data.filter((item: any) => !isWebProfileOrStarPrimeArticle(item));
+        return dedupeArticles(filtered.map(mapSanityDocToArticle));
       }
     } catch (e) {
       console.warn("Sanity article fetch warning:", e);
     }
-    return articles;
+    return articles.filter((a) => !isWebProfileOrStarPrimeArticle(a));
   },
 
   // Fetch posts strictly belonging to a specific Industry
@@ -184,15 +236,16 @@ export const articleService = {
       }`;
       const data = await fetchSanityQuery(query);
       if (data && data.length > 0) {
-        return dedupeArticles(data.map(mapSanityDocToArticle));
+        const filtered = data.filter((item: any) => !isWebProfileOrStarPrimeArticle(item));
+        return dedupeArticles(filtered.map(mapSanityDocToArticle));
       }
     } catch (e) {
       console.warn(`Sanity fetch warning for industry ${industrySlug}:`, e);
     }
     const matched = articles.filter(
-      (a) => a.industrySlug === industrySlug || (a.category && a.category.toLowerCase().includes(industrySlug.toLowerCase()))
+      (a) => !isWebProfileOrStarPrimeArticle(a) && (a.industrySlug === industrySlug || (a.category && a.category.toLowerCase().includes(industrySlug.toLowerCase())))
     );
-    return matched.length > 0 ? matched : articles.slice(0, 6);
+    return matched.length > 0 ? matched : articles.filter((a) => !isWebProfileOrStarPrimeArticle(a)).slice(0, 6);
   },
 
   // Fetch posts for Insights view
@@ -226,12 +279,13 @@ export const articleService = {
       }`;
       const data = await fetchSanityQuery(query);
       if (data && data.length > 0) {
-        return dedupeArticles(data.map(mapSanityDocToArticle));
+        const filtered = data.filter((item: any) => !isWebProfileOrStarPrimeArticle(item));
+        return dedupeArticles(filtered.map(mapSanityDocToArticle));
       }
     } catch (e) {
       console.warn("Sanity insights fetch warning:", e);
     }
-    return articles;
+    return articles.filter((a) => !isWebProfileOrStarPrimeArticle(a));
   },
 
   // Fetch articles for "The Intelligence Brief" section
@@ -271,12 +325,13 @@ export const articleService = {
       }`;
       const data = await fetchSanityQuery(query);
       if (data && data.length > 0) {
-        return dedupeArticles(data.map(mapSanityDocToArticle));
+        const filtered = data.filter((item: any) => !isWebProfileOrStarPrimeArticle(item));
+        return dedupeArticles(filtered.map(mapSanityDocToArticle));
       }
     } catch (e) {
       console.warn("Sanity intelligence brief fetch warning:", e);
     }
-    return articles.slice(0, 6);
+    return articles.filter((a) => !isWebProfileOrStarPrimeArticle(a)).slice(0, 6);
   },
 
   // Fetch articles for "Leadership Lens" section
@@ -316,11 +371,12 @@ export const articleService = {
       }`;
       const data = await fetchSanityQuery(query);
       if (data && data.length > 0) {
-        return dedupeArticles(data.map(mapSanityDocToArticle));
+        const filtered = data.filter((item: any) => !isWebProfileOrStarPrimeArticle(item));
+        return dedupeArticles(filtered.map(mapSanityDocToArticle));
       }
     } catch (e) {
       console.warn("Sanity leadership lens fetch warning:", e);
     }
-    return articles.slice(2, 8);
+    return articles.filter((a) => !isWebProfileOrStarPrimeArticle(a)).slice(2, 8);
   },
 };
